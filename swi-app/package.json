@@ -2,18 +2,18 @@
   "name": "swi-app",
   "description": "Standard Work Instruction App",
   "version": "0.1.1",
-  "main": "./dist/electron.js",
+  "main": "./build/dist/electron.js",
   "author": "BE Aerospace SAO Systems Dept",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "npm run ngbuild && electron ./dist/electron.js",
-    "ngbuild": "ng build",
-    "build": "electron-packager ./dist swi --out ./build/bin",
+    "start:electron": "electron ./build/dist/electron.js",
+    "ngbuild": "ng build --base-href .",
+    "build": "electron-packager ./build/dist swi --out ./build/bin",
     "test": "ng test",
     "e2e": "ng e2e",
     "postngbuild": "npm run ngbuild:copyfiles",
-    "ngbuild:copyfiles": "n-copy -s src/electron -d dist *",
+    "ngbuild:copyfiles": "n-copy -s src/electron -d build/dist *",
     "build:clean": "rimraf ./build/bin/*",
     "prebuild": "npm run ngbuild && npm run build:clean",
     "prepackage": "npm run package:patchversion && npm run build && npm run package:clean",
@@ -36,10 +36,7 @@
     "core-js": "^2.4.1",
     "electron": "^1.6.2",
     "font-awesome": "^4.7.0",
-<<<<<<< HEAD
-=======
     "fontawesome": "^4.7.2",
->>>>>>> aaef771e81c3f353a2a0a7d5c3161c3babc5872d
     "global": "^4.3.1",
     "jquery": "^3.2.1",
     "rxjs": "^5.1.0",
@@ -70,30 +67,5 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.1.0"
-  },
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [],
-        "linux": []
-      },
-      "electronPackagerConfig": {},
-      "electronWinstallerConfig": {
-        "name": "swi_app_forge"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "SAOSystems",
-        "name": "SWIApp"
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "swiappforge"
-      }
-    }
   }
 }
