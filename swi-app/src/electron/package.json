@@ -1,6 +1,6 @@
 {
   "name": "swi",
-  "version": "0.0.0",
+  "version": "1.0.3",
   "description": "Standard work instructions",
   "main": "electron.js",
   "keywords": [],
