@@ -1,14 +1,25 @@
 {
   "name": "swi-app",
+  "description": "Standard Work Instruction App",
   "version": "0.0.0",
+  "main": "./dist/electron.js",
+  "author": "BE Aerospace SAO Systems Dept",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run ngbuild && electron ./dist/electron.js",
+    "ngbuild": "ng build",
+    "build": "electron-packager ./dist swi --out ./build/bin",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postngbuild": "npm run ngbuild:copyfiles",
+    "ngbuild:copyfiles": "n-copy -s src/electron -d dist *",
+    "build:clean": "rimraf ./build/bin/*",
+    "prebuild": "npm run ngbuild && npm run build:clean",
+    "prepackage": "npm run package:patchversion && npm run build && npm run package:clean",
+    "package": "node ./electron-build.js",
+    "package:clean": "rimraf ./build/pkg/*",
+    "package:patchversion": "cd ./src/electron && npm version patch"
   },
   "private": true,
   "dependencies": {
@@ -20,8 +31,19 @@
     "@angular/platform-browser": ">=4.0.0-beta <5.0.0",
     "@angular/platform-browser-dynamic": ">=4.0.0-beta <5.0.0",
     "@angular/router": ">=4.0.0-beta <5.0.0",
+    "bootstrap": "next",
+    "bootstrap.native": "^2.0.6",
     "core-js": "^2.4.1",
+    "electron": "^1.6.2",
+    "font-awesome": "^4.7.0",
+<<<<<<< HEAD
+=======
+    "fontawesome": "^4.7.2",
+>>>>>>> aaef771e81c3f353a2a0a7d5c3161c3babc5872d
+    "global": "^4.3.1",
+    "jquery": "^3.2.1",
     "rxjs": "^5.1.0",
+    "tether": "^1.4.0",
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
@@ -29,18 +51,49 @@
     "@angular/compiler-cli": ">=4.0.0-beta <5.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-react": "^6.23.0",
     "codelyzer": "~2.0.0",
+    "electron-winstaller": "^2.5.2",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "npm-build-tools": "^2.2.5",
     "protractor": "~5.1.0",
+    "rimraf": "^2.6.1",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.1.0"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [],
+        "linux": []
+      },
+      "electronPackagerConfig": {},
+      "electronWinstallerConfig": {
+        "name": "swi_app_forge"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "SAOSystems",
+        "name": "SWIApp"
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "swiappforge"
+      }
+    }
   }
 }

@@ -1,0 +1,19 @@
+<div class="page">
+
+  <div class="page-header">
+    <span class="fa fa-arrow-left page-header-back" (click)="navBack()" *ngIf="backButton"></span>
+    <div class="page-header-title">
+      {{title}}
+    </div>
+    <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+      <ng-content select=".page-button"></ng-content>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="container-fluid">
+      <ng-content select=".page-body"></ng-content>
+    </div>
+  </div>
+
+</div>
