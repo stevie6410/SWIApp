@@ -1,7 +1,7 @@
 {
   "name": "swi-app",
   "description": "Standard Work Instruction App",
-  "version": "0.1.1",
+  "version": "0.0.0",
   "main": "./dist/electron.js",
   "author": "BE Aerospace SAO Systems Dept",
   "license": "MIT",
