@@ -1,5 +1,8 @@
 {
-  "name"    : "dev-manager",
-  "version" : "0.1.0",
-  "main"    : "electron.js"
+  "name": "swi",
+  "version": "1.0.3",
+  "description": "Standard work instructions",
+  "main": "electron.js",
+  "keywords": [],
+  "author": "SAO Business Systems Dept."
 }
