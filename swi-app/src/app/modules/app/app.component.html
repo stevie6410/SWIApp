@@ -9,7 +9,9 @@
   <li>Version: {{packageJson.version}}</li>
 </ul>
 
-<swi-builder-screen></swi-builder-screen>
+<ul>
+  <li><button routerLink="/">Home</button></li>
+  <li><button routerLink="/demo">Demo</button></li>
+</ul>
 
-<app-demo></app-demo>
-
+<router-outlet></router-outlet>
