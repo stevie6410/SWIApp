@@ -6,16 +6,22 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
 import { ElectronKioskService } from '../../services/electron-kiosk.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'ng2-toastr';
+import { DemoComponent } from './demo/demo.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    SwiBuilderModule
+    SwiBuilderModule,
+    BrowserAnimationsModule,
+    ToastModule.forRoot()
   ],
   providers: [
     ElectronKioskService

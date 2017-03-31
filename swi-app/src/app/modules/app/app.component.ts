@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { remote } from 'electron';
 import { } from '../../../package.json';
 import { ElectronKioskService } from '../../services/electron-kiosk.service';
 
@@ -13,11 +12,8 @@ export class AppComponent {
 
   title = 'Standard Work Instructions!!';
   packageJson: any;
-  autoUpdater: Electron.AutoUpdater;
 
-  constructor(
-    private kiosk: ElectronKioskService
-  ) {
+  constructor() {
     //Print app info to the console
     this.packageJson = require('../../../package.json');
     console.info("Name: ", this.packageJson.name);
@@ -25,14 +21,4 @@ export class AppComponent {
     console.info("Author: ", this.packageJson.author);
     console.info("Version: ", this.packageJson.version);
   }
-
-  toggleKioskMode() {
-    this.kiosk.toggleKiosk();
-  }
-
-  get isKioskMode(): boolean {
-    return this.kiosk.isKioskMode();
-  }
-
 }
-
