@@ -7,6 +7,11 @@
   <li>Description: {{packageJson.description}}</li>
   <li>Author: {{packageJson.author}}</li>
   <li>Version: {{packageJson.version}}</li>
+  <li>Kiosk Mode: {{isKioskMode}}</li>
 </ul>
 
 <swi-builder-screen></swi-builder-screen>
+
+
+<button type="button" (click)="toggleKioskMode()">Toggle Kiosk Mode</button>
+

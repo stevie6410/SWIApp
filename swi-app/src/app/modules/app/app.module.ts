@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
+import { ElectronKioskService } from '../../services/electron-kiosk.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
     HttpModule,
     SwiBuilderModule
   ],
-  providers: [],
+  providers: [
+    ElectronKioskService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
