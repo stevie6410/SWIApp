@@ -2,9 +2,9 @@
 
 # compiled output
 /dist
-/build
 /tmp
 /out-tsc
+/out
 
 # dependencies
 /node_modules
@@ -41,6 +41,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-swi-app-win32-x64
-installer

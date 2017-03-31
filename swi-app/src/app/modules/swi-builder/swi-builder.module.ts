@@ -1,24 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SwiService } from '../../shared/services/swi.service';
-import { SwiBuilderComponent } from './swi-builder.component';
-import { SwiCommonModule } from '../swi-common/swi-common.module';
-import { BrowserModule } from '@angular/platform-browser';
+import { SwiBuilderScreenComponent } from './components/swi-builder-screen/swi-builder-screen.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    SwiCommonModule,
-    BrowserModule
-  ],
-  declarations: [
-    SwiBuilderComponent
+    CommonModule
   ],
   exports: [
-    SwiBuilderComponent
+    SwiBuilderScreenComponent
   ],
-  providers: [
-    SwiService
+  declarations: [
+    SwiBuilderScreenComponent
   ]
 })
 export class SwiBuilderModule { }

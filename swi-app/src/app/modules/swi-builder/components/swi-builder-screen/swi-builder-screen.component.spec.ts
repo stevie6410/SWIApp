@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SwiBuilderComponent } from './swi-builder.component';
+import { SwiBuilderScreenComponent } from './swi-builder-screen.component';
 
-describe('SwiBuilderComponent', () => {
-  let component: SwiBuilderComponent;
-  let fixture: ComponentFixture<SwiBuilderComponent>;
+describe('SwiBuilderScreenComponent', () => {
+  let component: SwiBuilderScreenComponent;
+  let fixture: ComponentFixture<SwiBuilderScreenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SwiBuilderComponent ]
+      declarations: [ SwiBuilderScreenComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SwiBuilderComponent);
+    fixture = TestBed.createComponent(SwiBuilderScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

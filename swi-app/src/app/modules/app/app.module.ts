@@ -3,9 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SwiBuilderModule } from './modules/swi-builder/swi-builder.module';
+import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import { SwiBuilderModule } from './modules/swi-builder/swi-builder.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule,
     SwiBuilderModule
   ],
   providers: [],

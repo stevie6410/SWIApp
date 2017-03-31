@@ -1,30 +1,14 @@
 <!doctype html>
 <html>
-
 <head>
   <meta charset="utf-8">
-  <title>SwiApp</title>
+  <title>HelloElectron</title>
   <base href="./">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-
 <body>
   <app-root>Loading...</app-root>
-
-  <!--Added this code to enable electron and web loading of modules, source linked below-->
-  <!--http://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined-->
-  <!-- Insert this line above script imports  -->
-  <script>
-    if (typeof module === 'object') { window.module = module; module = undefined; }
-  </script>
-
-  <!-- Insert this line after script imports -->
-  <script>
-    if (window.module) module = window.module;
-  </script>
-
 </body>
-
 </html>
