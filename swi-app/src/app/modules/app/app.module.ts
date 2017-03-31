@@ -11,11 +11,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'ng2-toastr';
 import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
+import { SwiBuilderScreenComponent } from '../swi-builder/components/swi-builder-screen/swi-builder-screen.component';
+import { SharedControlsModule } from '../shared-controls/shared-controls.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch:'full' },
   { path: 'home', component: HomeComponent },
   { path: 'demo', component: DemoComponent },
+  { path: 'swibuilder', component: SwiBuilderScreenComponent }
 ];
 
 @NgModule({
@@ -31,7 +34,8 @@ const appRoutes: Routes = [
     HttpModule,
     SwiBuilderModule,
     BrowserAnimationsModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    SharedControlsModule
   ],
   providers: [
     ElectronKioskService

@@ -1,16 +1,24 @@
-<h2>Demo Component</h2>
+<app-page>
 
-<ul>
-  <li>Kiosk Mode: {{isKioskMode}}</li>
-</ul>
+  <button type="button" class="page-button" (click)="toggleKioskMode()">Toggle Kiosk Mode</button>
 
-<button type="button" (click)="toggleKioskMode()">Toggle Kiosk Mode</button>
+  <div class="page-body">
 
-<ul>
-  <li>Toast Test</li>
-  <li><button type="button" (click)="showSuccess()">Success</button>
-  <li><button type="button" (click)="showError()">Error</button>
-  <li><button type="button" (click)="showWarning()">Warning</button>
-  <li><button type="button" (click)="showInfo()">Info</button>
-  <li><button type="button" (click)="showCustom()">Custom</button>
-</ul>
+    <h2>Demo Component</h2>
+
+    <ul>
+      <li>Kiosk Mode: {{isKioskMode}}</li>
+    </ul>
+
+    <ul>
+      <li>Toast Test</li>
+      <li><button type="button" (click)="showSuccess()">Success</button>
+      <li><button type="button" (click)="showError()">Error</button>
+      <li><button type="button" (click)="showWarning()">Warning</button>
+      <li><button type="button" (click)="showInfo()">Info</button>
+      <li><button type="button" (click)="showCustom()">Custom</button>
+    </ul>
+
+  </div>
+
+</app-page>
