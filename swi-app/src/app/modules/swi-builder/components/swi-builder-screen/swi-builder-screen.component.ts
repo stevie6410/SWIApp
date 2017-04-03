@@ -2,12 +2,17 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ToastsManager } from 'ng2-toastr';
 
+import { SWIHeader } from '../../../../models/app.models';
+
 @Component({
   selector: 'swi-builder-screen',
   templateUrl: './swi-builder-screen.component.html',
   styleUrls: ['./swi-builder-screen.component.css']
 })
 export class SwiBuilderScreenComponent implements OnInit {
+
+  isLoading: boolean = false;
+  swi: SWIHeader;
 
   constructor(
     private swiService: SWIFileService,
@@ -18,6 +23,9 @@ export class SwiBuilderScreenComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //Check to see if we have an id
+
   }
 
   createFile(filename: string) {
@@ -32,8 +40,22 @@ export class SwiBuilderScreenComponent implements OnInit {
       });
   }
 
-  openLocalDocsDir(){
+  openLocalDocsDir() {
     this.swiService.openLocalDocumentsDirectory();
+  }
+
+  getFile(filename: string) {
+    this.isLoading = true;
+    this.swiService.getFile(filename)
+      .then(swi => {
+        this.swi = swi;
+        console.log(swi);
+        this.isLoading = false;
+      })
+      .catch(err => {
+        console.log('Error retreiving document: ', err);
+        this.isLoading = false;
+      });
   }
 
 }

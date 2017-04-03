@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { remote, shell } from 'electron';
 import * as fs from 'fs-promise';
 import * as path from 'path';
+import { SWIHeader } from '../models/app.models';
 
 @Injectable()
 export class SWIFileService {
@@ -29,6 +30,18 @@ export class SWIFileService {
                 .catch((err) => {
                     reject(Error(`File save error: ${err}`));
                 });
+        });
+    }
+
+    getFile(filename: string): Promise<SWIHeader> {
+        return new Promise<SWIHeader>((resolve, reject) => {
+            //check to see if the file exists
+
+            fs.readFile(path.join(this.appDataPath, 'documents', filename), 'utf8', (err, data) => {
+                if (err) reject(Error(err.message));
+                resolve(JSON.parse(data));
+            });
+
         });
     }
 
