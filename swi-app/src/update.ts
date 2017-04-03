@@ -94,17 +94,17 @@ export function configureAutoUpdate() {
     autoUpdater.setFeedURL(updateUrl);
 
     try {
-        console.log('process.argv: ', process.argv);
-        console.log('remote.process.argv', remote.process.argv);
+        //console.log('process.argv: ', process.argv);
+        //console.log('remote.process.argv', remote.process.argv);
 
         if (squirrelCommand == '--squirrel-install') {
             console.log('--squirrel-install has been detected, skipping the update process');
         } else {
-            console.log('Waiting for 5 seconds');
+            //console.log('Waiting for 5 seconds');
             setTimeout(() => {
                 console.log('Start checking for updates');
                 autoUpdater.checkForUpdates();
-            }, 5000)
+            }, 1000)
         }
     } catch (error) {
         console.error("check for updates failed", error);
