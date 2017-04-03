@@ -1,8 +1,0 @@
-{
-  "name": "swi",
-  "version": "1.0.3",
-  "description": "Standard work instructions",
-  "main": "electron.js",
-  "keywords": [],
-  "author": "SAO Business Systems Dept."
-}

@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class SwiAppPage {
+export class HelloElectronPage {
   navigateTo() {
     return browser.get('/');
   }

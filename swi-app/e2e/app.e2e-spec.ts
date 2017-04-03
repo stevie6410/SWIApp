@@ -1,10 +1,10 @@
-import { SwiAppPage } from './app.po';
+import { HelloElectronPage } from './app.po';
 
-describe('swi-app App', () => {
-  let page: SwiAppPage;
+describe('hello-electron App', () => {
+  let page: HelloElectronPage;
 
   beforeEach(() => {
-    page = new SwiAppPage();
+    page = new HelloElectronPage();
   });
 
   it('should display message saying app works', () => {

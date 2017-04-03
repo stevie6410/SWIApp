@@ -1,0 +1,7 @@
+{
+  "name": "swi",
+  "version": "0.1.101",
+  "description": "Standard Work Instruction",
+  "author": "B/E Aerospace Systems Department",
+  "main": "entry.js"
+}

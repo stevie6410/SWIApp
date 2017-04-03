@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/styles/toastr.css';
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+    overflow: hidden;
+}

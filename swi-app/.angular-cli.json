@@ -1,12 +1,13 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "swi-app"
+    "name": "hello-electron",
+    "ejected": true
   },
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "out/dist",
       "assets": [
         "assets",
         "favicon.ico"
@@ -19,17 +20,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.scss",
-        "../node_modules/font-awesome/css/font-awesome.min.css"
+        "styles.css"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-<<<<<<< HEAD
-        "../node_modules/tether/dist/js/tether.min.js",
-=======
-        "../node_modules/tether/dist/js/tether.js",
->>>>>>> aaef771e81c3f353a2a0a7d5c3161c3babc5872d
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -60,7 +53,8 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
-    "component": {}
+    "styleExt": "css",
+    "component": {
+    }
   }
 }
