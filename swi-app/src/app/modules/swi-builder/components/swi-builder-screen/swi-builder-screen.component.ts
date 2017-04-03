@@ -48,12 +48,18 @@ export class SwiBuilderScreenComponent implements OnInit {
     this.isLoading = true;
     this.swiService.getFile(filename)
       .then(swi => {
-        this.swi = swi;
-        console.log(swi);
+        this.swi = swi as SWIHeader;
+        if (this.swi.title && this.swi.revision) {
+          console.log(swi);
+          this.toast.success(`Loaded document ${this.swi.title}`, `SWI Loaded`);
+        } else {
+          this.toast.error(`Document is not a valid swi`, `Invalid File`);
+        }
         this.isLoading = false;
       })
       .catch(err => {
         console.log('Error retreiving document: ', err);
+        this.toast.error(`SWI was in a incorrect format`, `Error Loading SWI`);
         this.isLoading = false;
       });
   }

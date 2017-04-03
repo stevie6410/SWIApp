@@ -23,7 +23,11 @@ export class SWIFileService {
     saveFile(filename: string): Promise<string> {
         // console.log(`trying to save file ${filename}`)
         return new Promise<string>((resolve, reject) => {
-            fs.writeFile(path.join(this.appDataPath, "documents", filename), "{'test': 'Steve'}")
+            let fakeFile = {
+                "steve": "test",
+                "George": "test"
+            };
+            fs.writeFile(path.join(this.appDataPath, "documents", filename), JSON.stringify(fakeFile))
                 .then(() => {
                     resolve(filename);
                 })
@@ -33,10 +37,9 @@ export class SWIFileService {
         });
     }
 
-    getFile(filename: string): Promise<SWIHeader> {
+    getFile(filename: string): Promise<Object> {
         return new Promise<SWIHeader>((resolve, reject) => {
             //check to see if the file exists
-
             fs.readFile(path.join(this.appDataPath, 'documents', filename), 'utf8', (err, data) => {
                 if (err) reject(Error(err.message));
                 resolve(JSON.parse(data));
