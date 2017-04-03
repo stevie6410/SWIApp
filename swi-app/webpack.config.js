@@ -299,6 +299,10 @@ module.exports = {
       context: path.resolve(__dirname, "src"),
       from: "package.json"
     }]),
+    new CopyWebpackPlugin([{
+      context: path.resolve(__dirname, "src", "assets", "styles"),
+      from: "loading.css"
+    }]),
     new ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery',
