@@ -13,9 +13,10 @@ import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
 import { SwiBuilderScreenComponent } from '../swi-builder/components/swi-builder-screen/swi-builder-screen.component';
 import { SharedControlsModule } from '../shared-controls/shared-controls.module';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch:'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'demo', component: DemoComponent },
   { path: 'swibuilder', component: SwiBuilderScreenComponent }
@@ -26,9 +27,10 @@ const appRoutes: Routes = [
     AppComponent,
     DemoComponent,
     HomeComponent,
+    SidenavComponent,
   ],
   imports: [
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { useHash: true }),
     BrowserModule,
     FormsModule,
     HttpModule,

@@ -1,3 +1,14 @@
-<p>
-  home works!
-</p>
+<app-page [title]='title'>
+  <!--Add Page level buttons here with page-button class-->
+  <button type='button' class='page-button btn btn-primary'>Page Menu Button</button>
+  <div class='page-body'>
+
+    <ul>
+      <li>Name: {{packageJson.name}}</li>
+      <li>Description: {{packageJson.description}}</li>
+      <li>Author: {{packageJson.author}}</li>
+      <li>Version: {{packageJson.version}}</li>
+    </ul>
+
+  </div>
+</app-page>

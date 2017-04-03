@@ -1,18 +1,16 @@
-<h1>
-  {{title}}
-</h1>
+<div id="content-body">
+    <main>
+        <div id="sidebar-container">
+            <app-sidenav id="sidebar"></app-sidenav>
+        </div>
 
-<ul>
-  <li>Name: {{packageJson.name}}</li>
-  <li>Description: {{packageJson.description}}</li>
-  <li>Author: {{packageJson.author}}</li>
-  <li>Version: {{packageJson.version}}</li>
-</ul>
+        <div id="content">
+            <router-outlet></router-outlet>
+        </div>
 
-<ul>
-  <li><button routerLink="/">Home</button></li>
-  <li><button routerLink="/demo">Demo</button></li>
-  <li><button routerLink="/swibuilder">SWI Builder</button></li>
-</ul>
-
-<router-outlet></router-outlet>
+        <!--Added the breaks as a quickfix to allow all content to be visible on the overflow-->
+        <br>
+        <br>
+        <br>
+    </main>
+</div>

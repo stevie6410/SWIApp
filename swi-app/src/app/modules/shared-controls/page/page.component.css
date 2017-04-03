@@ -2,6 +2,7 @@
     height: 50px;
     background-color: #eceeef;
     border-bottom: #cac9c9 1px solid;
+    border-top: #cac9c9 1px solid;
     font-size: 20px;
     align-items: center;
     display: flex;
