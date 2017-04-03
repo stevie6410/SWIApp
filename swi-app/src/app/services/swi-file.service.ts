@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { remote } from 'electron';
+import { remote, shell } from 'electron';
 import * as fs from 'fs-promise';
 import * as path from 'path';
 
@@ -13,6 +13,10 @@ export class SWIFileService {
         this.appDataPath = path.join(remote.app.getPath('appData'), this.dirName);
         console.log('App Data Path: ', this.appDataPath);
         this.validateRepairAppDataDirectory();
+    }
+
+    openLocalDocumentsDirectory() {
+        shell.showItemInFolder(path.join(this.appDataPath, "documents"));
     }
 
     saveFile(filename: string): Promise<string> {

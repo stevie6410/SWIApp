@@ -29,7 +29,7 @@ export class DemoComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toast.success('You are awesome!', 'Success!');
+    this.toast.success('Awesome!', 'Success!');
   }
 
   showError() {

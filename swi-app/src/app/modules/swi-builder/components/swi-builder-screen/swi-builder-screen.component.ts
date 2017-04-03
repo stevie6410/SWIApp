@@ -32,4 +32,8 @@ export class SwiBuilderScreenComponent implements OnInit {
       });
   }
 
+  openLocalDocsDir(){
+    this.swiService.openLocalDocumentsDirectory();
+  }
+
 }
