@@ -14,6 +14,12 @@ export class SWIHeader {
     swiTools: SWITool[];
     swiStages: SWIStage[];
     swiTags: SWITag[];
+    swiImages: SWIImage[]
+}
+
+export class SWIImage {
+    key: string;
+    value: string;
 }
 
 export class SWIHSItem {

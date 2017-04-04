@@ -1,31 +1,62 @@
-<app-page [title]="'SWI Builder'">
+<app-page [title]="'SWI Builder - ' + swi?.title">
   <!--Add Page level buttons here with page-button class-->
   <button type='button' class='page-button btn btn-warning' (click)="openLocalDocsDir()">Open Folder</button>
-  <button type='button' class='page-button btn btn-success' (click)="createFile('Test123.swi')">Create File</button>
-  <button type='button' class='page-button btn btn-primary' (click)="getFile('Test123.swi')">Get Invalid File</button>
-  <button type='button' class='page-button btn btn-primary' (click)="getFile('test.swi')">Get Test Image File</button>
-  <button type='button' class='page-button btn btn-primary' (click)="getFile('test-noimg.swi')">Get Test No Image File</button>
   <div class='page-body'>
     <!--Page Content Here   -->
-    <p>
-      swi-builder-screen works!
-    </p>
 
     <h2 *ngIf="isLoading">Loading File...</h2>
 
     <div *ngIf="swi">
 
-      <ul>
-        <li>{{swi.title}}</li>
-        <li>{{swi.revision}}</li>
-        <li>{{swi.author}}</li>
-      </ul>
+      <div class="card">
+        <div class="card-header">Header</div>
+        <div class="card-block">
 
-      <ul>
-        <li *ngFor="let img of swi.swiImages">
-          <img [src]="'data:image/jpg;base64,' + img.value">
-        </li>
-      </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg">
+
+          <div class="card">
+            <div class="card-header">
+              Health & Safety
+              <button class="btn btn-success btn-sm float-right">Add</button>
+            </div>
+            <div class="card-block">
+
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              Tooling
+              <button class="btn btn-success btn-sm float-right">Add</button>
+            </div>
+            <div class="card-block">
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg">
+          <div class="card">
+            <div class="card-header">
+              Stages
+              <button class="btn btn-success btn-sm float-right">Add</button>
+            </div>
+            <ul class="list-unstyled list-group list-group-flush">
+              <li class="list-group-item media" *ngFor="let stage of swi.swiStages">
+                <img class="d-flex mr-3" width="85px" height="64px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)">
+                <div class="media-body">
+                  <h5 class="mt-0 mb-1">{{stage.sequence}}</h5>
+                  {{stage.text}}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
     </div>
 

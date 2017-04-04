@@ -2,6 +2,7 @@
 @import './assets/styles/toastr.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+/*@import './assets/styles/flatly.css';*/
 
 html {
     height: 100%;

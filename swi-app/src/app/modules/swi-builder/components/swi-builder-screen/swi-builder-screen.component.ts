@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ToastsManager } from 'ng2-toastr';
 
@@ -13,19 +14,32 @@ export class SwiBuilderScreenComponent implements OnInit {
 
   isLoading: boolean = false;
   swi: SWIHeader;
+  filename: string;
+  pageTitle: string = "SWI Builder";
 
   constructor(
     private swiService: SWIFileService,
     private vcr: ViewContainerRef,
-    private toast: ToastsManager
+    private toast: ToastsManager,
+    private route: ActivatedRoute
   ) {
     this.toast.setRootViewContainerRef(vcr);
+    this.route.params.subscribe((params: Params) => {
+      this.filename = params['filename'];
+      this.pageTitle = `SWI Builder - ${this.filename}`;
+      if (this.filename != undefined) {
+        this.getFile(this.filename);
+      } else {
+        this.swi = new SWIHeader();
+      }
+    })
   }
 
   ngOnInit() {
+  }
 
-    //Check to see if we have an id
-
+  getImageFromKey(key: string): string {
+    return this.swi.swiImages.filter(i => i.key == key)[0].value;
   }
 
   createFile(filename: string) {

@@ -19,7 +19,8 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'demo', component: DemoComponent },
-  { path: 'swibuilder', component: SwiBuilderScreenComponent }
+  { path: 'swibuilder', component: SwiBuilderScreenComponent },
+  { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent }
 ];
 
 @NgModule({

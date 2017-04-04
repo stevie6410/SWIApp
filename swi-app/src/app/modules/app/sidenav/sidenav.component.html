@@ -9,8 +9,14 @@
                 <li routerLink="/demo">
                     <a><i class="icon fa fa-desktop"></i>Demo</a><span class="label label-primary">10</span>
                 </li>
-                <li routerLink="/swibuilder">
-                    <a><i class="icon fa fa-users"></i>SWI Builder</a><span class="label label-primary">15</span>
+                <li [routerLink]="['/swibuilder']">
+                    <a><i class="icon fa fa-users"></i>SWI Builder New</a><span class="label label-primary">15</span>
+                </li>
+                <li [routerLink]="['/swibuilder', {filename: 'test.swi'}]">
+                    <a><i class="icon fa fa-users"></i>SWI Builder Test</a><span class="label label-primary">15</span>
+                </li>
+                <li [routerLink]="['/swibuilder', {filename: 'Test123.swi'}]">
+                    <a><i class="icon fa fa-users"></i>SWI Builder Invalid</a><span class="label label-primary">15</span>
                 </li>
             </ul>
             <hr />
