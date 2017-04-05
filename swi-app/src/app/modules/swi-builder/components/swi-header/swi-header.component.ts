@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { SWIHeader } from '../../../../models/app.models';
 
 @Component({
-  selector: 'app-swi-header',
+  selector: 'swi-header',
   templateUrl: './swi-header.component.html',
   styleUrls: ['./swi-header.component.css']
 })
 export class SwiHeaderComponent implements OnInit {
+
+  @Input() swi: SWIHeader;
 
   constructor() { }
 
