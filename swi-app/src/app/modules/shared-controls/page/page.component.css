@@ -6,6 +6,10 @@
     font-size: 20px;
     align-items: center;
     display: flex;
+    position: fixed;
+    z-index: 1030;
+    width: 100%;
+
 }
 
 .page-header-title{
@@ -24,6 +28,7 @@
 
 .page-body{
         padding:15px;
+            padding-top: 65px;
 }
 
 .btn-group{
