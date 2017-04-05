@@ -20,14 +20,9 @@ export class SWIFileService {
         shell.showItemInFolder(path.join(this.appDataPath, "documents"));
     }
 
-    saveFile(filename: string): Promise<string> {
-        // console.log(`trying to save file ${filename}`)
+    saveFile(filename: string, swi: SWIHeader): Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            let fakeFile = {
-                "steve": "test",
-                "George": "test"
-            };
-            fs.writeFile(path.join(this.appDataPath, "documents", filename), JSON.stringify(fakeFile))
+            fs.writeFile(path.join(this.appDataPath, "documents", filename), JSON.stringify(swi))
                 .then(() => {
                     resolve(filename);
                 })

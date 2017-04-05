@@ -11,9 +11,16 @@ export class SwiHeaderComponent implements OnInit {
 
   @Input() swi: SWIHeader;
 
+  @Output() onSave: EventEmitter<SWIHeader> = new EventEmitter<SWIHeader>();
+
+  title: string = "SWI Header";
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  save() {
+    this.onSave.emit(this.swi);
+  }
 }

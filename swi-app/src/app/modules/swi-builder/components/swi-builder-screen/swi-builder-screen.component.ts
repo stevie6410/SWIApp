@@ -43,7 +43,7 @@ export class SwiBuilderScreenComponent implements OnInit {
   }
 
   createFile(filename: string) {
-    this.swiService.saveFile(filename)
+    this.swiService.saveFile(filename, this.swi)
       .then((result) => {
         console.log(`${result} was created`, `File Saved!`);
         this.toast.success(`${result} was saved`, `File Saved!`);
@@ -56,6 +56,19 @@ export class SwiBuilderScreenComponent implements OnInit {
 
   openLocalDocsDir() {
     this.swiService.openLocalDocumentsDirectory();
+  }
+
+  saveFile(swi: SWIHeader) {
+    this.swiService.saveFile(this.filename, this.swi)
+      .then((result) => {
+        console.log(`${this.filename} was saved.`);
+        this.toast.success(`${result} was saved`, `File Saved!`);
+      }
+      )
+      .catch((err) => {
+        console.log("Error saving file: ", err);
+        this.toast.error(`${this.filename} could not be created`, "Error saving file!");
+      })
   }
 
   getFile(filename: string) {

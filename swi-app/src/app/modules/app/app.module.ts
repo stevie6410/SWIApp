@@ -8,12 +8,13 @@ import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
 import { ElectronKioskService } from '../../services/electron-kiosk.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastModule } from 'ng2-toastr';
 import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
 import { SwiBuilderScreenComponent } from '../swi-builder/components/swi-builder-screen/swi-builder-screen.component';
 import { SharedControlsModule } from '../shared-controls/shared-controls.module';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { ToastModule, ToastOptions } from 'ng2-toastr';
+import { CustomOptions } from './toastr.options';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     SharedControlsModule
   ],
   providers: [
-    ElectronKioskService
+    ElectronKioskService,
+    { provide: ToastOptions, useClass: CustomOptions }
   ],
   bootstrap: [AppComponent]
 })

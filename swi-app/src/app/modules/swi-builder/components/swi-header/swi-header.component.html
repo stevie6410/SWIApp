@@ -1,11 +1,28 @@
-<swi-card [title]="'SWI Header'">
-  
-  <button type="button" class="btn btn-primary card-btn">Btn1</button>
-  <button type="button" class="btn btn-primary card-btn">Btn2</button>
+<swi-card [title]="title">
+
+  <button type="button" class="btn btn-success card-btn" (click)="save()">Save</button>
 
   <div class="card-body">
-      This is some stuff about the SWI header
+
+    <form name="header-form">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" required name="title" [(ngModel)]="swi.title">
+      </div>
+      <div class="form-group">
+        <label for="title">Revision</label>
+        <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.revision">
+      </div>
+      <div class="form-group">
+        <label for="title">Is Released</label>
+        <input type="text" class="form-control" required name="isReleased" [(ngModel)]="swi.isReleased">
+      </div>
+      <div class="form-group">
+        <label for="title">Author</label>
+        <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.author">
+      </div>
+    </form>
+
   </div>
 
 </swi-card>
-
