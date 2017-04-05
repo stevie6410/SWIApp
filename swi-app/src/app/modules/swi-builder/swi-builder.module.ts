@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SwiBuilderScreenComponent } from './components/swi-builder-screen/swi-builder-screen.component';
 import { SharedControlsModule } from '../shared-controls/shared-controls.module';
 import { SWIFileService } from '../../services/swi-file.service';
+import { SwiHeaderComponent } from './components/swi-header/swi-header.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { SWIFileService } from '../../services/swi-file.service';
     SwiBuilderScreenComponent
   ],
   declarations: [
-    SwiBuilderScreenComponent
+    SwiBuilderScreenComponent,
+    SwiHeaderComponent
   ],
   providers: [
     SWIFileService
