@@ -1,26 +1,54 @@
 <swi-card [title]="title">
 
-  <button type="button" class="btn btn-success card-btn" (click)="save()">Save</button>
+  <!--<button type="button" class="btn btn-success card-btn" (click)="save()">Save</button>-->
 
   <div class="card-body">
 
     <form name="header-form">
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" class="form-control" required name="title" [(ngModel)]="swi.title">
+
+      <div class="row">
+        <!--Column 1-->
+        <div class="col-lg">
+          
+          <!--Title-->
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" required name="title" [(ngModel)]="swi.title">
+          </div>
+
+          <!--Author-->
+          <div class="form-group">
+            <label for="title">Author</label>
+            <input type="text" class="form-control" required name="author" [(ngModel)]="swi.author">
+          </div>
+        </div>
+
+        <!--Column 2-->
+        <div class="col-lg">
+
+          <!--Revision-->
+          <div class="form-group">
+            <label for="title">Revision</label>
+            <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.revision">
+          </div>
+
+          <!--Is Released (Checkbox)-->
+          <div class="row">
+            <div class="col">
+              <label>Is Released</label>
+            </div>
+            <div class="col">
+              <div class="switch float-right">
+                <input id="swi-header-isReleased" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isReleased" [(ngModel)]="swi.isReleased">
+                <label for="swi-header-isReleased"></label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="title">Revision</label>
-        <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.revision">
-      </div>
-      <div class="form-group">
-        <label for="title">Is Released</label>
-        <input type="text" class="form-control" required name="isReleased" [(ngModel)]="swi.isReleased">
-      </div>
-      <div class="form-group">
-        <label for="title">Author</label>
-        <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.author">
-      </div>
+
+
+
     </form>
 
   </div>
