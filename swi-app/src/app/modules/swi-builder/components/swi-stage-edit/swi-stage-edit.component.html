@@ -1,6 +1,66 @@
-<div *ngIf="stage">
-  {{stage.text}}
-</div>
-<div *ngIf="!stage">
-  No Stage!
-</div>
+<app-page [title]='title'>
+  <!--Add Page level buttons here with page-button class-->
+
+  <div class='page-body' *ngIf="stage">
+    <!--Page Content Here   -->
+
+    <swi-card [title]="'Stage Fields'">
+      <div class='card-block'>
+
+        <form name="header-form">
+
+          <div class="row">
+            <!--Column 1-->
+            <div class="col-lg">
+
+              <!--Sequence-->
+              <div class="form-group">
+                <label for="title">Sequence</label>
+                <input type="text" class="form-control" required name="sequence" [(ngModel)]="stage.sequence">
+              </div>
+
+              <!--Text-->
+              <div class="form-group">
+                <label for="title">Description</label>
+                <textarea class="form-control" rows="5" name="text" [(ngModel)]="stage.text"></textarea>
+              </div>
+            </div>
+
+            <!--Column 2-->
+            <div class="col-lg">
+
+              <!--Is Released (Checkbox)-->
+              <div class="row min-height-80">
+                <div class="col">
+                  <label>Is Critical Step</label>
+                </div>
+                <div class="col">
+                  <div class="switch float-right">
+                    <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="stage.isCritical">
+                    <label for="swi-header-isCritical"></label>
+                  </div>
+                </div>
+              </div>
+
+              <!--Care Point Text-->
+              <div class="form-group" *ngIf="stage.isCritical">
+                <label for="title">Care Point</label>
+                <textarea class="form-control" rows="5" name="carepoint" [(ngModel)]="stage.carepoint"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </swi-card>
+
+    <swi-card [title]="'Images'">
+      <button type='button' class='btn btn-success card-btn float-right' (click)='startCamera()'>Add Image</button>
+      <div class='card-block'>
+      </div>
+    </swi-card>
+
+    <button type="button" class="btn" (click)="saveFile()">Save</button>
+
+  </div>
+</app-page>

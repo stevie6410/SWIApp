@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ViewContainerRef, ViewChild } from '@angular/core';
-import { SWIStage } from '../../../../models/app.models';
-import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
+import { Router } from '@angular/router';
+import { SWIHeader, SWIStage } from '../../../../models/app.models';
+
 
 @Component({
   selector: 'swi-stages-list',
@@ -11,18 +10,14 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 })
 export class SwiStagesListComponent implements OnInit {
 
-  @Input() swi;
+  @Input() swi: SWIHeader;
+  @Input() filename: string;
   title: string = "Stages";
   stage: SWIStage;
 
-  @ViewChild('swiStageModal') public swiStageModal: ModalDirective;
-
   constructor(
-    overlay: Overlay,
-    vcRef: ViewContainerRef,
-    public modal: Modal
+    private router: Router
   ) {
-    overlay.defaultViewContainer = vcRef;
   }
 
   ngOnInit() {
@@ -35,5 +30,11 @@ export class SwiStagesListComponent implements OnInit {
   editStage(stage: SWIStage) {
     console.log("Edit Stage: ", stage);
     this.stage = stage;
+    this.router.navigate(['swibuilder', this.filename, 'stages', stage.sequence]);
   }
+
+  save() {
+
+  }
+
 }

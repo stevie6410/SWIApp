@@ -40,7 +40,8 @@ export class SWITool {
 export class SWIStage {
     id: number;
     sequence: number;
-    text: string;
+    summary: string;
+    description: string;
     imageCaption: string;
     image: any;
     criticalStep: boolean;

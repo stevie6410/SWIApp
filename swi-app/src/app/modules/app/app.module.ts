@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
 import { SwiBuilderScreenComponent } from '../swi-builder/components/swi-builder-screen/swi-builder-screen.component';
+import { SwiStageEditComponent } from '../swi-builder/components/swi-stage-edit/swi-stage-edit.component';
 import { SharedControlsModule } from '../shared-controls/shared-controls.module';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'demo', component: DemoComponent },
   { path: 'swibuilder', component: SwiBuilderScreenComponent },
-  { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent }
+  { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent },
+  { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent }
 ];
 
 @NgModule({
