@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, Input, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { SWIHeader, SWIStage } from '../../../../models/app.models';
+import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ToastsManager } from 'ng2-toastr';
@@ -18,12 +18,14 @@ export class SwiStageEditComponent implements OnInit {
   stage: SWIStage;
   filename: string;
   sequence: number;
+  isFetchingImage: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private swiService: SWIFileService,
     private toast: ToastsManager,
-    private vcr: ViewContainerRef
+    private vcr: ViewContainerRef,
+    private changeDetector: ChangeDetectorRef
   ) {
     toast.setRootViewContainerRef(vcr);
   }
@@ -44,8 +46,8 @@ export class SwiStageEditComponent implements OnInit {
     });
   }
 
-  startCamera() {
-    console.log('Start the camera');
+  addImage() {
+    this.isFetchingImage = true;
   }
 
   saveFile(swi: SWIHeader) {
@@ -61,4 +63,16 @@ export class SwiStageEditComponent implements OnInit {
       })
   }
 
+  imageSelected(image: string) {
+    console.log('Image Selected from edit component');
+    let newSwiImage: SWIImage = new SWIImage(image);
+    this.swi.swiImages.push(newSwiImage);
+    this.stage.image = newSwiImage.key;
+    this.isFetchingImage = false;
+    this.changeDetector.detectChanges();
+  }
+
+  getImageFromKey(key: string): string {
+    return this.swi.swiImages.filter(i => i.key == key)[0].value;
+  }
 }

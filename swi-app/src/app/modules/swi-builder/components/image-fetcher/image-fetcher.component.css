@@ -1,0 +1,17 @@
+img{
+  display: block;
+  max-width:800px;
+  max-height:600px;
+  width: auto;
+  height: auto;
+}
+
+.image-frame{
+  width: 840px;
+  height: 700px;
+  border: 2px dashed gray;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}

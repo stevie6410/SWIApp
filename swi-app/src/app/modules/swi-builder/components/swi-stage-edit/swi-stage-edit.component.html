@@ -13,16 +13,16 @@
             <!--Column 1-->
             <div class="col-lg">
 
-              <!--Sequence-->
+              <!--Summary-->
               <div class="form-group">
-                <label for="title">Sequence</label>
-                <input type="text" class="form-control" required name="sequence" [(ngModel)]="stage.sequence">
+                <label for="title">Summary</label>
+                <input type="text" class="form-control" required name="summary" [(ngModel)]="stage.summary">
               </div>
 
-              <!--Text-->
+              <!--Description-->
               <div class="form-group">
                 <label for="title">Description</label>
-                <textarea class="form-control" rows="5" name="text" [(ngModel)]="stage.text"></textarea>
+                <textarea class="form-control" rows="5" name="description" [(ngModel)]="stage.description"></textarea>
               </div>
             </div>
 
@@ -30,7 +30,7 @@
             <div class="col-lg">
 
               <!--Is Released (Checkbox)-->
-              <div class="row min-height-80">
+              <div class="row min-height-80 padding-top-20">
                 <div class="col">
                   <label>Is Critical Step</label>
                 </div>
@@ -45,7 +45,7 @@
               <!--Care Point Text-->
               <div class="form-group" *ngIf="stage.isCritical">
                 <label for="title">Care Point</label>
-                <textarea class="form-control" rows="5" name="carepoint" [(ngModel)]="stage.carepoint"></textarea>
+                <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carepoint"></textarea>
               </div>
             </div>
           </div>
@@ -55,12 +55,17 @@
     </swi-card>
 
     <swi-card [title]="'Images'">
-      <button type='button' class='btn btn-success card-btn float-right' (click)='startCamera()'>Add Image</button>
+      <button type='button' class='btn btn-success card-btn float-right' (click)='addImage()' *ngIf="!stage.image">Add Image</button>
+      <button type='button' class='btn btn-success card-btn float-right' (click)='addImage()' *ngIf="stage.image">Edit Image</button>
       <div class='card-block'>
+        <img width="800px" height="600px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)" *ngIf="!isFetchingImage">
+        <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(stage.image)"></image-fetcher>
       </div>
     </swi-card>
 
     <button type="button" class="btn" (click)="saveFile()">Save</button>
+
+
 
   </div>
 </app-page>

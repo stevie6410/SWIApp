@@ -1,3 +1,7 @@
 .badge-pill{
     margin-right: 15px;
 }
+
+.list-group-item:hover{
+    background-color: #f9f6f6;
+}

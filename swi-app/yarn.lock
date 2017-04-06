@@ -129,6 +129,10 @@
     magic-string "^0.19.0"
     source-map "^0.5.6"
 
+"@types/cropperjs@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@types/cropperjs/-/cropperjs-0.0.23.tgz#803a4e07b8e34efdec378d6aa9a4d8f45c51c36e"
+
 "@types/electron@^1.4.35":
   version "1.4.35"
   resolved "https://registry.yarnpkg.com/@types/electron/-/electron-1.4.35.tgz#48e5e6ef0b49f27b9f78b87d80f796e3f0a4f33c"
@@ -145,6 +149,10 @@
 "@types/jasmine@2.5.38":
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"
+
+"@types/jquery@^2.0.41":
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.41.tgz#b87ba051011f99edbe586d8f97282e7786e01a6d"
 
 "@types/mz@*":
   version "0.0.30"
@@ -1195,6 +1203,10 @@ create-hmac@^1.1.0, create-hmac@^1.1.2:
   dependencies:
     create-hash "^1.1.0"
     inherits "^2.0.1"
+
+cropperjs@^1.0.0-rc:
+  version "1.0.0-rc"
+  resolved "https://registry.yarnpkg.com/cropperjs/-/cropperjs-1.0.0-rc.tgz#ff37872d4f967940842da5dabf2954203c7f5a33"
 
 cross-spawn-async@^2.1.1:
   version "2.2.5"

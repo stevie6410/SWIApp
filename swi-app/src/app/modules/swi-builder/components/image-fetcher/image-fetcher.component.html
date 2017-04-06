@@ -1,0 +1,17 @@
+<button type="button" class="btn btn-primary" (click)="getImageFromFile()">Get Image From File</button>
+<button type="button" class="btn btn-primary" (click)="getImageFromCamera()">Get Image From Camera</button>
+<button type="button" class="btn btn-primary" (click)="toggleCroppingMode()" *ngIf="image && !isCroppingMode">Crop Image</button>
+<button type="button" class="btn btn-danger" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
+<button type="button" class="btn btn-success" (click)="imageComplete()" *ngIf="image && !isCroppingMode">Select Image</button>
+
+<div class="image-frame">
+
+  <div *ngIf="image && isCroppingMode === false">
+    <img class="image" [src]="'data:image/jpg;base64,' + image">
+  </div>
+
+  <div *ngIf="image && isCroppingMode">
+    <image-cropper [image]="image" (onCropped)="onCropped($event)"></image-cropper>
+  </div>
+
+</div>
