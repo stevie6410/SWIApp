@@ -15,6 +15,8 @@ import { SharedControlsModule } from '../shared-controls/shared-controls.module'
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { CustomOptions } from './toastr.options';
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -29,7 +31,7 @@ const appRoutes: Routes = [
     AppComponent,
     DemoComponent,
     HomeComponent,
-    SidenavComponent,
+    SidenavComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { useHash: true }),
@@ -39,7 +41,9 @@ const appRoutes: Routes = [
     SwiBuilderModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
-    SharedControlsModule
+    SharedControlsModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [
     ElectronKioskService,

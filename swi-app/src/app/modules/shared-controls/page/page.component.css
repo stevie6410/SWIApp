@@ -8,8 +8,7 @@
     display: flex;
     position: fixed;
     z-index: 1030;
-    width: 100%;
-
+    width: 100%;    
 }
 
 .page-header-title{
@@ -33,5 +32,6 @@
 
 .btn-group{
     margin-left: auto;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
+    z-index: 1031;
 }

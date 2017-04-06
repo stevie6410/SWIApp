@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { } from '../../../package.json';
 import { ElectronKioskService } from '../../services/electron-kiosk.service';
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
   selector: 'app-root',

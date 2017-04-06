@@ -39,6 +39,7 @@
     "@angular/platform-browser": "^4.0.1",
     "@angular/platform-browser-dynamic": "^4.0.1",
     "@angular/router": "^4.0.1",
+    "angular2-modal": "^2.0.3",
     "bootstrap": "4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "electron-gh-releases": "^2.0.4",
@@ -47,6 +48,7 @@
     "fs-promise": "^2.0.2",
     "minimist": "^1.2.0",
     "ng2-toastr": "^4.0.1",
+    "ngx-bootstrap": "^1.6.5",
     "rxjs": "^5.1.0",
     "web-animations-js": "^2.2.2",
     "zone.js": "^0.7.6"

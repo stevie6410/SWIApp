@@ -10,7 +10,6 @@ import { SWIHeader } from '../../../../models/app.models';
 export class SwiHeaderComponent implements OnInit {
 
   @Input() swi: SWIHeader;
-
   @Output() onSave: EventEmitter<SWIHeader> = new EventEmitter<SWIHeader>();
 
   title: string = "SWI Header";
@@ -23,4 +22,5 @@ export class SwiHeaderComponent implements OnInit {
   save() {
     this.onSave.emit(this.swi);
   }
+  
 }

@@ -1,0 +1,16 @@
+<swi-card [title]="title">
+  <button class="btn btn-success btn-sm float-right">Add</button>
+
+  <ul class="list-unstyled list-group list-group-flush card-list">
+    <li class="list-group-item media" *ngFor="let stage of swi.swiStages">
+      <img class="d-flex mr-3" width="85px" height="64px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)">
+      <div class="media-body">
+        <h5 class="mt-0 mb-1">{{stage.sequence}}</h5>
+        {{stage.text}}
+        <button type="button" class="btn btn-sm btn-primary float-right" (click)="editStage(stage)">Edit Stage</button>
+      </div>
+    </li>
+  </ul>
+
+</swi-card>
+

@@ -38,10 +38,6 @@ export class SwiBuilderScreenComponent implements OnInit {
   ngOnInit() {
   }
 
-  getImageFromKey(key: string): string {
-    return this.swi.swiImages.filter(i => i.key == key)[0].value;
-  }
-
   createFile(filename: string) {
     this.swiService.saveFile(filename, this.swi)
       .then((result) => {
@@ -90,5 +86,4 @@ export class SwiBuilderScreenComponent implements OnInit {
         this.isLoading = false;
       });
   }
-
 }

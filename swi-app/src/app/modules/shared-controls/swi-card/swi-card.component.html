@@ -1,11 +1,10 @@
 <div class="card">
   <div class="card-header">
     {{title}}
-    <div class="btn-group btn-group-sm float-right" role="group">
+    <div class="btn-group btn-group-sm" role="group">
       <ng-content select=".card-btn"></ng-content>
     </div>
   </div>
-  <div class="card-block">
-    <ng-content select=".card-body"></ng-content>
-  </div>
+    <ng-content select=".card-block"></ng-content>
+  <ng-content select=".card-list"></ng-content>
 </div>

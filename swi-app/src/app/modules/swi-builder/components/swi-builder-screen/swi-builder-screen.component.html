@@ -36,21 +36,7 @@
 
         </div>
         <div class="col-lg">
-          <div class="card">
-            <div class="card-header">
-              Stages
-              <button class="btn btn-success btn-sm float-right">Add</button>
-            </div>
-            <ul class="list-unstyled list-group list-group-flush">
-              <li class="list-group-item media" *ngFor="let stage of swi.swiStages">
-                <img class="d-flex mr-3" width="85px" height="64px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)">
-                <div class="media-body">
-                  <h5 class="mt-0 mb-1">{{stage.sequence}}</h5>
-                  {{stage.text}}
-                </div>
-              </li>
-            </ul>
-          </div>
+          <swi-stages-list [swi]="swi"></swi-stages-list>
         </div>
       </div>
 
