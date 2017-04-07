@@ -18,6 +18,7 @@ import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { CustomOptions } from './toastr.options';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import { ElectronUpdateService } from "../../services/electron-update.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     ElectronService,
-    { provide: ToastOptions, useClass: CustomOptions }
+    { provide: ToastOptions, useClass: CustomOptions },
+    ElectronUpdateService
   ],
   bootstrap: [AppComponent]
 })
