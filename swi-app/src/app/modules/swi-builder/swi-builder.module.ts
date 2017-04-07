@@ -10,6 +10,7 @@ import { SwiStageEditComponent } from './components/swi-stage-edit/swi-stage-edi
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ImageFetcherComponent } from './components/image-fetcher/image-fetcher.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
+import { ImageCaptureComponent } from './components/image-capture/image-capture.component';
 
 @NgModule({
   imports: [
@@ -27,10 +28,14 @@ import { ImageCropperComponent } from './components/image-cropper/image-cropper.
     SwiStagesListComponent,
     SwiStageEditComponent,
     ImageFetcherComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
+    ImageCaptureComponent
   ],
   providers: [
     SWIFileService
+  ],
+  entryComponents: [
+    ImageCaptureComponent
   ]
 })
 export class SwiBuilderModule { }

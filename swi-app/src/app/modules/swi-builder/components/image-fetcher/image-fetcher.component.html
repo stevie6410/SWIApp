@@ -6,12 +6,16 @@
 
 <div class="image-frame">
 
-  <div *ngIf="image && isCroppingMode === false">
+  <div *ngIf="image && isCroppingMode === false && isCaptureMode === false">
     <img class="image" [src]="'data:image/jpg;base64,' + image">
   </div>
 
   <div *ngIf="image && isCroppingMode">
     <image-cropper [image]="image" (onCropped)="onCropped($event)"></image-cropper>
+  </div>
+
+  <div *ngIf="isCaptureMode">
+    <image-capture (onCaptured)="imageCaptured($event)"></image-capture>
   </div>
 
 </div>

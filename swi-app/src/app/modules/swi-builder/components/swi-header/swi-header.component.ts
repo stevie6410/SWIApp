@@ -22,5 +22,5 @@ export class SwiHeaderComponent implements OnInit {
   save() {
     this.onSave.emit(this.swi);
   }
-  
+
 }

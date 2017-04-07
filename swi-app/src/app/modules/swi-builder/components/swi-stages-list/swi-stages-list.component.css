@@ -2,6 +2,11 @@
     margin-right: 15px;
 }
 
+.list-group-item{
+    cursor: pointer;
+}
+
 .list-group-item:hover{
     background-color: #f9f6f6;
 }
+
