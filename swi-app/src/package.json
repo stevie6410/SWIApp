@@ -1,6 +1,6 @@
 {
   "name": "swi",
-  "version": "0.1.123",
+  "version": "0.1.127",
   "description": "Standard Work Instruction",
   "author": "B/E Aerospace Systems Department",
   "main": "entry.js"

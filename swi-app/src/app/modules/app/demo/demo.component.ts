@@ -9,8 +9,10 @@ import { ToastsManager } from 'ng2-toastr';
 })
 export class DemoComponent implements OnInit {
 
+  zoomFactor: number = 1;
+
   constructor(
-    private kiosk: ElectronService,
+    private electron: ElectronService,
     private toast: ToastsManager,
     private vcr: ViewContainerRef
   ) {
@@ -20,12 +22,16 @@ export class DemoComponent implements OnInit {
   ngOnInit() {
   }
 
+  setZoom() {
+    this.electron.setZoomLevel(this.zoomFactor);
+  }
+
   toggleKioskMode() {
-    this.kiosk.toggleKiosk();
+    this.electron.toggleKiosk();
   }
 
   get isKioskMode(): boolean {
-    return this.kiosk.isKioskMode();
+    return this.electron.isKioskMode();
   }
 
   showSuccess() {

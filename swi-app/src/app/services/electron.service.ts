@@ -30,8 +30,13 @@ export class ElectronService {
         remote.getCurrentWindow().webContents.toggleDevTools();
     }
 
-    public quitApp(){
+    public quitApp() {
         remote.app.quit();
+    }
+
+
+    public setZoomLevel(zoomFactor: number) {
+        remote.getCurrentWindow().webContents.setZoomFactor(zoomFactor);
     }
 
 }

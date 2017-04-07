@@ -10,7 +10,7 @@ export class ElectronUpdateService {
     private _updateAvailable = new Subject<string>();
     private _isLatestVersion = new Subject<string>();
     updateAvailable = this._updateAvailable.asObservable();
-    isLatestVersion = this._updateAvailable.asObservable();
+    isLatestVersion = this._isLatestVersion.asObservable();
 
 
 

@@ -32,7 +32,7 @@ export class AppComponent {
     });
 
     this.updateService.isLatestVersion.subscribe(() => {
-      this.toast.success(`${this.packageJson.version} is the most recent verion`, `Verion check complete`);
+      this.toast.success(`v${this.packageJson.version} is the most recent version`, `Up to date`, { dismiss: "auto" });
     });
 
     this.updateService.configureAutoUpdate();

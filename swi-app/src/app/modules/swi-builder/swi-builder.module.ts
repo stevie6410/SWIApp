@@ -8,9 +8,6 @@ import { SwiHeaderComponent } from './components/swi-header/swi-header.component
 import { SwiStagesListComponent } from './components/swi-stages-list/swi-stages-list.component';
 import { SwiStageEditComponent } from './components/swi-stage-edit/swi-stage-edit.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ImageFetcherComponent } from './components/image-fetcher/image-fetcher.component';
-import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
-import { ImageCaptureComponent } from './components/image-capture/image-capture.component';
 
 @NgModule({
   imports: [
@@ -26,16 +23,10 @@ import { ImageCaptureComponent } from './components/image-capture/image-capture.
     SwiBuilderScreenComponent,
     SwiHeaderComponent,
     SwiStagesListComponent,
-    SwiStageEditComponent,
-    ImageFetcherComponent,
-    ImageCropperComponent,
-    ImageCaptureComponent
+    SwiStageEditComponent
   ],
   providers: [
     SWIFileService
-  ],
-  entryComponents: [
-    ImageCaptureComponent
   ]
 })
 export class SwiBuilderModule { }

@@ -51,13 +51,13 @@ export class ImageCaptureComponent implements OnInit, AfterViewInit {
         } else {
           //We have multiple cameras
           console.log('Multiple cameras detected');
-          var rearResults = this.devices.filter(d => d.label.toLowerCase().indexOf('rear') > 0);
+          var rearResults = this.devices.filter(d => d.label.toLowerCase().indexOf('rear') >= 0);
           console.log('Rear results: ', rearResults);
           if (rearResults[0]) {
             this.selectedDevice = rearResults[0];
             resolve();
           }
-          var backResults = this.devices.filter(d => d.label.toLowerCase().indexOf('back') > 0);
+          var backResults = this.devices.filter(d => d.label.toLowerCase().indexOf('back') >= 0);
           console.log('Back results: ', backResults);
           if (backResults[0]) {
             this.selectedDevice = backResults[0];
