@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { } from '../../../package.json';
-import { ElectronKioskService } from '../../services/electron-kiosk.service';
+import { ElectronService } from '../../services/electron.service';
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
 

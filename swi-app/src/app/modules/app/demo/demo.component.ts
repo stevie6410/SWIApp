@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ElectronKioskService } from '../../../services/electron-kiosk.service';
+import { ElectronService } from '../../../services/electron.service';
 import { ToastsManager } from 'ng2-toastr';
 
 @Component({
@@ -10,7 +10,7 @@ import { ToastsManager } from 'ng2-toastr';
 export class DemoComponent implements OnInit {
 
   constructor(
-    private kiosk: ElectronKioskService,
+    private kiosk: ElectronService,
     private toast: ToastsManager,
     private vcr: ViewContainerRef
   ) {

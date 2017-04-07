@@ -22,8 +22,14 @@
             <hr />
             <p class="sidebar-menu-title">Options</p>
             <ul>
-                <li routerLink="/">
+                <li>
                     <a (click)="toggleKioskMode()"><i class="icon fa fa-arrows-alt"></i>Kiosk Mode</a>
+                </li>
+                <li>
+                    <a (click)="toggleDevTools()"><i class="icon fa fa-code"></i>Developer Tools</a>
+                </li>
+                <li>
+                    <a (click)="quitApp()"><i class="icon fa fa-times"></i>Close</a>
                 </li>
             </ul>
         </div>

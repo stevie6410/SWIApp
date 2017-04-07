@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BrowserWindow, remote } from 'electron';
 
 @Injectable()
-export class ElectronKioskService {
+export class ElectronService {
 
     constructor() {
     }
@@ -25,4 +25,13 @@ export class ElectronKioskService {
             console.log("Error retreving current window to toggle the kiosk mode");
         }
     }
+
+    public toggleDeveloperTools() {
+        remote.getCurrentWindow().webContents.toggleDevTools();
+    }
+
+    public quitApp(){
+        remote.app.quit();
+    }
+
 }

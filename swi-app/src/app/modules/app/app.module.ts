@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
-import { ElectronKioskService } from '../../services/electron-kiosk.service';
+import { ElectronService } from '../../services/electron.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
@@ -48,7 +48,7 @@ const appRoutes: Routes = [
     BootstrapModalModule
   ],
   providers: [
-    ElectronKioskService,
+    ElectronService,
     { provide: ToastOptions, useClass: CustomOptions }
   ],
   bootstrap: [AppComponent]

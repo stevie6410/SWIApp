@@ -20,7 +20,7 @@ function createWindow() {
 
     // Open the DevTools when in dev mode.
     // if(process.env.NODE_ENV=='development')
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 
     win.setMenuBarVisibility(false);
   

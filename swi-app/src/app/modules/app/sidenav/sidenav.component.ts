@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ElectronKioskService } from '../../../services/electron-kiosk.service';
+import { ElectronService } from '../../../services/electron.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,14 +9,22 @@ import { ElectronKioskService } from '../../../services/electron-kiosk.service';
 export class SidenavComponent implements OnInit {
 
   constructor(
-    private kioskService: ElectronKioskService
+    private electron: ElectronService
   ) { }
 
   ngOnInit() {
   }
 
   toggleKioskMode() {
-    this.kioskService.toggleKiosk();
+    this.electron.toggleKiosk();
+  }
+
+  quitApp() {
+    this.electron.quitApp();
+  }
+
+  toggleDevTools() {
+    this.electron.toggleDeveloperTools();
   }
 
 }
