@@ -4,6 +4,12 @@
   <div class='page-body' *ngIf="stage">
     <!--Page Content Here   -->
 
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-success btn-lg float-right" (click)="saveFile()">Save</button>
+      </div>
+    </div>
+
     <swi-card [title]="'Stage Fields'">
       <div class='card-block'>
 
@@ -63,7 +69,6 @@
       </div>
     </swi-card>
 
-    <button type="button" class="btn" (click)="saveFile()">Save</button>
 
 
 

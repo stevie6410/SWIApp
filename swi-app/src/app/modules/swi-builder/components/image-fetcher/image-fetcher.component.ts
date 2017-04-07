@@ -74,6 +74,11 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
     this.image = image;
   }
 
+  cancelImageCapture(){
+    this.isCaptureMode = false;
+    this.isCroppingMode = false;
+  }
+
   toggleCroppingMode() {
     this.isCroppingMode = !this.isCroppingMode;
     this.changeDetector.detectChanges();
