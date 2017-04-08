@@ -1,0 +1,24 @@
+<app-page [title]='title'>
+  <!--Add Page level buttons here with page-button class-->
+  <button type='button' class='page-button btn btn-primary'>Page Menu Button</button>
+  <div class='page-body'>
+
+    <!--Page Content Here   -->
+
+
+    <div class="card-gallery flex-container">
+      <div class="card" *ngFor="let swi of localSWIs" [routerLink]="['/swibuilder', {filename: swi.filename}]">
+        <img class="card-img-top" width="235" height="180" [src]="'data:image/jpg;base64,' + getImageFromKey(swi, swi.coverImage)">
+        <div class="card-block">
+          <h4 class="card-title">{{swi.title}}</h4>
+          <p class="card-text">{{swi.description}}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</app-page>

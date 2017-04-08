@@ -2,8 +2,11 @@ import { SwiUser, SwiCompany } from './security.models';
 
 export class SWIHeader {
     id: number;
+    filename: string;
     sequence: number;
     title: string;
+    description: string;
+    coverImage: string;
     revision: string;
     released: boolean;
     author: SwiUser;

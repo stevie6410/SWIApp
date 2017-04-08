@@ -12,8 +12,6 @@ export class ElectronUpdateService {
     updateAvailable = this._updateAvailable.asObservable();
     isLatestVersion = this._isLatestVersion.asObservable();
 
-
-
     public configureAutoUpdate() {
 
         let updateUrl = "http://sao.beav.com/pubs/swiapp/installer/";

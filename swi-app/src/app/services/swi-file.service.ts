@@ -43,6 +43,24 @@ export class SWIFileService {
         });
     }
 
+    getAllFiles(): Promise<Object> {
+        return new Promise<SWIHeader[]>((resolve, reject) => {
+            let results: Array<SWIHeader> = new Array<SWIHeader>();
+            fs.readdir(path.join(this.appDataPath, 'documents'), (err, files) => {
+                files.forEach(file => {
+                    console.log(file);
+                    fs.readFile(path.join(this.appDataPath, 'documents', file), 'utf8', (err, data) => {
+                        let json: SWIHeader = JSON.parse(data);
+                        json.filename = file;
+                        console.log(json.title);
+                        results.push(json);
+                    });
+                });
+                resolve(results);
+            });
+        });
+    }
+
     private validateRepairAppDataDirectory() {
         //Must have dir 'swi-data'
         //Must have dir 'swi-data/templates'

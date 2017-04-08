@@ -8,7 +8,7 @@ let win
 
 function createWindow() {
   setTimeout(() => {
-    // Create the browser window.
+    // Create the browser window
     win = new BrowserWindow({ width: 1200, height: 800 })
 
     // and load the index.html of the app.
@@ -20,7 +20,7 @@ function createWindow() {
 
     // Open the DevTools when in dev mode.
     // if(process.env.NODE_ENV=='development')
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     win.setMenuBarVisibility(false);
   

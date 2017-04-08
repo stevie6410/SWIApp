@@ -6,7 +6,7 @@
     font-size: 20px;
     align-items: center;
     display: flex;
-    position: fixed;
+    /*position: fixed;*/
     z-index: 1030;
     width: 100%;    
 }

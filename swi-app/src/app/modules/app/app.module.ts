@@ -19,6 +19,8 @@ import { CustomOptions } from './toastr.options';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ElectronUpdateService } from "../../services/electron-update.service";
+import { SwiBrowserModule } from "../swi-browser/swi-browser.module";
+import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser-screen/swi-browser-screen.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
   { path: 'demo', component: DemoComponent },
   { path: 'swibuilder', component: SwiBuilderScreenComponent },
   { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent },
-  { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent }
+  { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent },
+  { path: 'swibrowser', component: SwiBrowserScreenComponent }
 ];
 
 @NgModule({
@@ -46,7 +49,8 @@ const appRoutes: Routes = [
     ToastModule.forRoot(),
     SharedControlsModule,
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    SwiBrowserModule
   ],
   providers: [
     ElectronService,

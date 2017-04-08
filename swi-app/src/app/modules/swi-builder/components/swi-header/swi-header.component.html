@@ -6,10 +6,12 @@
 
     <form name="header-form">
 
+      <img class="cover-image" [src]="'data:image/jpg;base64,' + getImageFromKey(swi.coverImage)">
+
       <div class="row">
         <!--Column 1-->
         <div class="col-lg">
-          
+
           <!--Title-->
           <div class="form-group">
             <label for="title">Title</label>
@@ -23,29 +25,36 @@
           </div>
         </div>
 
-        <!--Column 2-->
-        <div class="col-lg">
+        <!--Description-->
+        <div class="form-group">
+          <label for="title">Description</label>
+          <input type="text" class="form-control" required name="description" [(ngModel)]="swi.description">
+        </div>
+      </div>
 
-          <!--Revision-->
-          <div class="form-group">
-            <label for="title">Revision</label>
-            <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.revision">
+      <!--Column 2-->
+      <div class="col-lg">
+
+        <!--Revision-->
+        <div class="form-group">
+          <label for="title">Revision</label>
+          <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.revision">
+        </div>
+
+        <!--Is Released (Checkbox)-->
+        <div class="row padding-top-20">
+          <div class="col">
+            <label>Is Released</label>
           </div>
-
-          <!--Is Released (Checkbox)-->
-          <div class="row padding-top-20">
-            <div class="col">
-              <label>Is Released</label>
-            </div>
-            <div class="col">
-              <div class="switch float-right">
-                <input id="swi-header-isReleased" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isReleased" [(ngModel)]="swi.isReleased">
-                <label for="swi-header-isReleased"></label>
-              </div>
+          <div class="col">
+            <div class="switch float-right">
+              <input id="swi-header-isReleased" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isReleased" [(ngModel)]="swi.isReleased">
+              <label for="swi-header-isReleased"></label>
             </div>
           </div>
         </div>
       </div>
+
 
 
 

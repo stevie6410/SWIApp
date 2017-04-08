@@ -5,10 +5,12 @@ import { SwiCardComponent } from './swi-card/swi-card.component';
 import { ImageFetcherComponent } from './image-fetcher/image-fetcher.component';
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { ImageCaptureComponent } from './image-capture/image-capture.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     PageComponent,

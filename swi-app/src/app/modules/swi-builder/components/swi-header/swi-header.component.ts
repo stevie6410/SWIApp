@@ -23,4 +23,8 @@ export class SwiHeaderComponent implements OnInit {
     this.onSave.emit(this.swi);
   }
 
+  getImageFromKey(key: string): string {
+    let result = this.swi.swiImages.filter(i => i.key == key)[0];
+    if (result) return result.value;
+  }
 }
