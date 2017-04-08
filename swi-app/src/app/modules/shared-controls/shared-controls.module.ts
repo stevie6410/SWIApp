@@ -6,6 +6,7 @@ import { ImageFetcherComponent } from './image-fetcher/image-fetcher.component';
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { ImageCaptureComponent } from './image-capture/image-capture.component';
 import { FormsModule } from "@angular/forms";
+import { OrderBy } from "./order-by-pipe/order-by.pipe";
 
 @NgModule({
   imports: [
@@ -17,14 +18,16 @@ import { FormsModule } from "@angular/forms";
     SwiCardComponent,
     ImageCaptureComponent,
     ImageFetcherComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
+    OrderBy
   ],
   declarations: [
     PageComponent,
     SwiCardComponent,
     ImageFetcherComponent,
     ImageCaptureComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
+    OrderBy
   ],
   entryComponents:[
     ImageCaptureComponent

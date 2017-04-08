@@ -1,76 +1,61 @@
 <app-page [title]='title'>
   <!--Add Page level buttons here with page-button class-->
+  <button type="button" class="btn btn-success btn-lg float-right page-button" (click)="saveFile()">Save</button>
 
   <div class='page-body' *ngIf="stage">
     <!--Page Content Here   -->
 
-    <div class="row">
-      <div class="col">
-        <button type="button" class="btn btn-success btn-lg float-right" (click)="saveFile()">Save</button>
-      </div>
-    </div>
+    <form name="header-form">
 
-    <swi-card [title]="'Stage Fields'">
-      <div class='card-block'>
+      <div class="row">
+        <!--Column 1-->
+        <div class="col-lg">
 
-        <form name="header-form">
+          <!--Summary-->
+          <div class="form-group">
+            <label for="title">Summary</label>
+            <input type="text" class="form-control" required name="summary" [(ngModel)]="stage.summary">
+          </div>
 
-          <div class="row">
-            <!--Column 1-->
-            <div class="col-lg">
+          <!--Description-->
+          <div class="form-group">
+            <label for="title">Description</label>
+            <textarea class="form-control" rows="5" name="description" [(ngModel)]="stage.description"></textarea>
+          </div>
 
-              <!--Summary-->
-              <div class="form-group">
-                <label for="title">Summary</label>
-                <input type="text" class="form-control" required name="summary" [(ngModel)]="stage.summary">
-              </div>
-
-              <!--Description-->
-              <div class="form-group">
-                <label for="title">Description</label>
-                <textarea class="form-control" rows="5" name="description" [(ngModel)]="stage.description"></textarea>
-              </div>
+          <!--Is Released (Checkbox)-->
+          <div class="row min-height-80 padding-top-20">
+            <div class="col">
+              <label>Is Critical Step</label>
             </div>
-
-            <!--Column 2-->
-            <div class="col-lg">
-
-              <!--Is Released (Checkbox)-->
-              <div class="row min-height-80 padding-top-20">
-                <div class="col">
-                  <label>Is Critical Step</label>
-                </div>
-                <div class="col">
-                  <div class="switch float-right">
-                    <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="stage.isCritical">
-                    <label for="swi-header-isCritical"></label>
-                  </div>
-                </div>
-              </div>
-
-              <!--Care Point Text-->
-              <div class="form-group" *ngIf="stage.isCritical">
-                <label for="title">Care Point</label>
-                <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carepoint"></textarea>
+            <div class="col">
+              <div class="switch float-right">
+                <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="stage.isCritical">
+                <label for="swi-header-isCritical"></label>
               </div>
             </div>
           </div>
 
-        </form>
+          <!--Care Point Text-->
+          <div class="form-group" *ngIf="stage.isCritical">
+            <label for="title">Care Point</label>
+            <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carepoint"></textarea>
+          </div>
+
+        </div>
+
+        <!--Column 2-->
+        <div class="col-lg">
+          <label for="stageImage">Stage Image</label>
+          <div id="stageImage" class='card-block'>
+            <img width="800px" height="600px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)" *ngIf="!isFetchingImage"
+              (click)="addImage()">
+            <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(stage.image)"></image-fetcher>
+          </div>
+        </div>
       </div>
-    </swi-card>
 
-    <swi-card [title]="'Images'">
-      <button type='button' class='btn btn-success card-btn float-right' (click)='addImage()' *ngIf="!stage.image">Add Image</button>
-      <button type='button' class='btn btn-success card-btn float-right' (click)='addImage()' *ngIf="stage.image">Edit Image</button>
-      <div class='card-block'>
-        <img width="800px" height="600px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)" *ngIf="!isFetchingImage">
-        <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(stage.image)"></image-fetcher>
-      </div>
-    </swi-card>
-
-
-
+    </form>
 
   </div>
 </app-page>

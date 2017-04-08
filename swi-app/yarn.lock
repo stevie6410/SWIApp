@@ -243,6 +243,12 @@ angular2-modal@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/angular2-modal/-/angular2-modal-2.0.3.tgz#d5e19a799f517c51d729f4960057506176563e8f"
 
+angular2-moment@^1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/angular2-moment/-/angular2-moment-1.3.3.tgz#569c433bbfa2448d5424f0e10dce6f8c8c9533eb"
+  dependencies:
+    moment "^2.16.0"
+
 ansi-align@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-1.1.0.tgz#2f0c1658829739add5ebb15e6b0c6e3423f016ba"
@@ -3466,7 +3472,7 @@ mksnapshot@^0.3.0:
     fs-extra "0.26.7"
     request "^2.79.0"
 
-moment@2.18.1:
+moment@2.18.1, moment@^2.16.0:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 

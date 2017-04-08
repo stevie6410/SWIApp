@@ -27,7 +27,8 @@
 
 .page-body{
         padding:15px;
-            padding-top: 65px;
+            padding-top: 15px;
+            overflow: hidden;
 }
 
 .btn-group{

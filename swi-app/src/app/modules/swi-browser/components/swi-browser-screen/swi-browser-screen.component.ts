@@ -18,13 +18,15 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   ngOnInit() {
     this.swiService.getAllFiles().then((results: SWIHeader[]) => {
-      this.localSWIs = results;
+      this.localSWIs = results.sort(function (a, b) { return b.updatedOn.getTime() - a.updatedOn.getTime() });
     })
   }
 
   getImageFromKey(swi: SWIHeader, key: string): string {
     let result = swi.swiImages.filter(i => i.key == key)[0];
+   
     if (result) return result.value;
   }
+  
 
 }

@@ -21,6 +21,7 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ElectronUpdateService } from "../../services/electron-update.service";
 import { SwiBrowserModule } from "../swi-browser/swi-browser.module";
 import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser-screen/swi-browser-screen.component";
+import { MomentModule } from "angular2-moment";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     SharedControlsModule,
     ModalModule.forRoot(),
     BootstrapModalModule,
-    SwiBrowserModule
+    SwiBrowserModule,
+    MomentModule
   ],
   providers: [
     ElectronService,

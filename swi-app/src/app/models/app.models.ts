@@ -9,6 +9,8 @@ export class SWIHeader {
     coverImage: string;
     revision: string;
     released: boolean;
+    updatedOn: Date;
+    createdOn: Date;
     author: SwiUser;
     expert: SwiUser;
     approver: SwiUser;

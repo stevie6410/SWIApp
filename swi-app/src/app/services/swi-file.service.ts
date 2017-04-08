@@ -22,6 +22,8 @@ export class SWIFileService {
 
     saveFile(filename: string, swi: SWIHeader): Promise<string> {
         return new Promise<string>((resolve, reject) => {
+            swi.updatedOn = new Date();
+            if (!swi.createdOn) swi.createdOn = new Date();
             fs.writeFile(path.join(this.appDataPath, "documents", filename), JSON.stringify(swi))
                 .then(() => {
                     resolve(filename);
@@ -48,11 +50,11 @@ export class SWIFileService {
             let results: Array<SWIHeader> = new Array<SWIHeader>();
             fs.readdir(path.join(this.appDataPath, 'documents'), (err, files) => {
                 files.forEach(file => {
-                    console.log(file);
+                    // console.log(file);
                     fs.readFile(path.join(this.appDataPath, 'documents', file), 'utf8', (err, data) => {
                         let json: SWIHeader = JSON.parse(data);
                         json.filename = file;
-                        console.log(json.title);
+                        // console.log(json.title);
                         results.push(json);
                     });
                 });
