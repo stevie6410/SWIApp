@@ -6,6 +6,8 @@
 
     <div *ngIf="swi">
 
+      {{filename}}
+
       <swi-header [swi]="swi" (onSave)="saveFile($event)"></swi-header>
       <div class="row">
         <div class="col-lg">

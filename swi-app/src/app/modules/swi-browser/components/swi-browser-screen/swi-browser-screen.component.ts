@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { SWIHeader } from "../../../../models/app.models";
+import { ElectronService } from "../../../../services/electron.service";
 
 @Component({
   selector: 'swi-browser-screen',
@@ -24,9 +25,11 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   getImageFromKey(swi: SWIHeader, key: string): string {
     let result = swi.swiImages.filter(i => i.key == key)[0];
-   
+
     if (result) return result.value;
   }
-  
 
+  createNewSWI() {
+
+  }
 }

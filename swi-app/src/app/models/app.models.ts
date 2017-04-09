@@ -10,7 +10,7 @@ export class SWIHeader {
     revision: string;
     released: boolean;
     updatedOn: Date;
-    createdOn: Date;
+    createdOn: Date; 
     author: SwiUser;
     expert: SwiUser;
     approver: SwiUser;

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { SWIFileService } from '../../../../services/swi-file.service';
 import { ToastsManager } from 'ng2-toastr';
 
+import { SWIFileService } from '../../../../services/swi-file.service';
 import { SWIHeader } from '../../../../models/app.models';
 
 @Component({
