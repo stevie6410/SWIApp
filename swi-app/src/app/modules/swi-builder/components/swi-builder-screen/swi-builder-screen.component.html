@@ -6,11 +6,12 @@
 
     <div *ngIf="swi">
 
-      Filename: {{filename}}
+      <!--Filename: {{filename}}-->
 
-      <swi-header [swi]="swi" (onSave)="saveFile()"></swi-header>
       <div class="row">
         <div class="col-lg">
+
+          <swi-header [swi]="swi" (onSave)="saveFile()"></swi-header>
 
           <div class="card">
             <div class="card-header">

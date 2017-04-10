@@ -80,6 +80,7 @@ export class SWIStage {
 
     constructor() {
         this.observations = [];
+        this.criticalStep = false;
     }
 }
 
