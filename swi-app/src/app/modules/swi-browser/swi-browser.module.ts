@@ -13,7 +13,8 @@ import { MomentModule } from "angular2-moment";
     ToastModule.forRoot(),
     SharedControlsModule,
     RouterModule,
-    MomentModule
+    MomentModule,
+    FormsModule
   ],
   exports: [
     SwiBrowserScreenComponent

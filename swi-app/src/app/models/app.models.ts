@@ -1,7 +1,7 @@
 import { SwiUser, SwiCompany } from './security.models';
 
 export class SWIHeader {
-    id: number;
+    id: string;
     filename: string;
     sequence: number;
     title: string;
@@ -10,7 +10,7 @@ export class SWIHeader {
     revision: string;
     released: boolean;
     updatedOn: Date;
-    createdOn: Date; 
+    createdOn: Date;
     author: SwiUser;
     expert: SwiUser;
     approver: SwiUser;
@@ -20,6 +20,22 @@ export class SWIHeader {
     swiStages: SWIStage[];
     swiTags: SWITag[];
     swiImages: SWIImage[]
+
+    constructor(title: string) {
+        this.title = title;
+        this.revision = "A";
+        this.swiImages = [];
+        this.swiStages = [];
+        this.swiTags = [];
+        this.swiTools = [];
+        this.swihsItems = [];
+        this.createdOn = new Date();
+        this.updatedOn = new Date();
+        this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 }
 
 export class SWIImage {
@@ -61,6 +77,10 @@ export class SWIStage {
     hyperlink: string;
     relatedSwi: SWIHeader;
     observations: SWIObservation[];
+
+    constructor() {
+        this.observations = [];
+    }
 }
 
 export class SWIObservation {

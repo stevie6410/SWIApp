@@ -4,9 +4,9 @@
 }
 
 .card{
-    width: 239px;
-    min-width: 239px;
-    max-width: 239px;
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
     margin: 10px;
     /*border-radius: 0;*/
     border: 2px solid #acacac;
@@ -25,3 +25,7 @@
   transform: scale(1.05);
 }
 
+.card-img-top{
+    width: 256px; 
+    height: 205px;
+}

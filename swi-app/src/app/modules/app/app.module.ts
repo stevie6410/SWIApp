@@ -22,12 +22,13 @@ import { ElectronUpdateService } from "../../services/electron-update.service";
 import { SwiBrowserModule } from "../swi-browser/swi-browser.module";
 import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser-screen/swi-browser-screen.component";
 import { MomentModule } from "angular2-moment";
+import { SwiNewComponent } from "../swi-builder/components/swi-new/swi-new.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'demo', component: DemoComponent },
-  { path: 'swibuilder', component: SwiBuilderScreenComponent },
+  { path: 'swibuilder', component: SwiNewComponent },
   { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent },
   { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent },
   { path: 'swibrowser', component: SwiBrowserScreenComponent }

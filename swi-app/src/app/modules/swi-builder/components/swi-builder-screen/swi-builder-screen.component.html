@@ -1,4 +1,4 @@
-<app-page [title]="'SWI Builder - ' + swi?.title">
+<app-page [title]="pageTitle">
   <!--Add Page level buttons here with page-button class-->
   <button type='button' class='page-button btn btn-warning' (click)="openLocalDocsDir()">Open Folder</button>
   <button type='button' class='page-button btn btn-success' (click)="saveFile()">Save</button>
@@ -6,9 +6,9 @@
 
     <div *ngIf="swi">
 
-      {{filename}}
+      Filename: {{filename}}
 
-      <swi-header [swi]="swi" (onSave)="saveFile($event)"></swi-header>
+      <swi-header [swi]="swi" (onSave)="saveFile()"></swi-header>
       <div class="row">
         <div class="col-lg">
 
@@ -34,7 +34,7 @@
 
         </div>
         <div class="col-lg">
-          <swi-stages-list [swi]="swi" [filename]="filename"></swi-stages-list>
+          <swi-stages-list [swi]="swi" (onSave)="saveFile()"></swi-stages-list>
         </div>
       </div>
 

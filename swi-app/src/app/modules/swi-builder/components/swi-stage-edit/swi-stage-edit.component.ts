@@ -4,6 +4,7 @@ import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ToastsManager } from 'ng2-toastr';
+import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 
 
 @Component({
@@ -73,6 +74,11 @@ export class SwiStageEditComponent implements OnInit {
   }
 
   getImageFromKey(key: string): string {
-    return this.swi.swiImages.filter(i => i.key == key)[0].value;
+    try {
+      if (!key) return ImagePlaceholder;
+      return this.swi.swiImages.filter(i => i.key == key)[0].value;
+    } catch (error) {
+      return ImagePlaceholder;
+    }
   }
 }

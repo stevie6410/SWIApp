@@ -1,5 +1,5 @@
 <swi-card [title]="title">
-  <button class="btn btn-success btn-sm float-right">Add</button>
+  <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage()">Add</button>
 
   <ul class="list-unstyled list-group list-group-flush card-list">
     <li class="list-group-item media" *ngFor="let stage of swi.swiStages" (click)="editStage(stage)">
