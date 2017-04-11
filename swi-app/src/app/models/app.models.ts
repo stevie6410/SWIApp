@@ -51,18 +51,26 @@ export class SWIImage {
 }
 
 export class SWIHSItem {
-    Id: number;
-    Name: string;
-    Image: any;
-    PrintMessage: string;
-    Company: SwiCompany;
+    id: string;
+    name: string;
+    imageType: string;
+    image: string;
+    printMessage: string;
+    company: SwiCompany;
+
+    constructor() {
+        this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 }
 
 export class SWITool {
-    Id: number;
-    Name: string;
-    Caption: string;
-    Image: any;
+    id: number;
+    name: string;
+    caption: string;
+    image: string;
 }
 
 export class SWIStage {
@@ -85,18 +93,18 @@ export class SWIStage {
 }
 
 export class SWIObservation {
-    Id: number;
-    SwiStage: SWIStage;
-    Text: string;
-    Image: any;
-    JobNumber: string;
-    CreatedBy: SwiUser;
-    CreatedOn: Date;
-    ModifiedBy: SwiUser;
-    ModifiedOn: Date;
+    id: number;
+    swiStage: SWIStage;
+    text: string;
+    image: any;
+    jobNumber: string;
+    createdBy: SwiUser;
+    createdOn: Date;
+    modifiedBy: SwiUser;
+    modifiedOn: Date;
 }
 
 export class SWITag {
-    Id: number;
-    Name: string;
+    id: number;
+    name: string;
 }

@@ -6,35 +6,16 @@
 
     <div *ngIf="swi">
 
-      <!--Filename: {{filename}}-->
-
       <div class="row">
-        <div class="col-lg">
+        <div class="col-lg col-lg-7">
 
           <swi-header [swi]="swi" (onSave)="saveFile()"></swi-header>
 
-          <div class="card">
-            <div class="card-header">
-              Health & Safety
-              <button class="btn btn-success btn-sm float-right">Add</button>
-            </div>
-            <div class="card-block">
+          <swi-hs-list [swi]="swi" (onSave)="saveFile()"></swi-hs-list>
 
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              Tooling
-              <button class="btn btn-success btn-sm float-right">Add</button>
-            </div>
-            <div class="card-block">
-
-            </div>
-          </div>
-
+          
         </div>
-        <div class="col-lg">
+        <div class="col-lg col-lg-5">
           <swi-stages-list [swi]="swi" (onSave)="saveFile()"></swi-stages-list>
         </div>
       </div>

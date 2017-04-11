@@ -9,7 +9,7 @@
 
       <div class="row">
         <!--Column 1-->
-        <div class="col-lg col-7">
+        <div class="col-lg col-lg-7">
 
           <!--Title-->
           <div class="form-group">
@@ -47,10 +47,9 @@
               </div>
             </div>
           </div>
-
         </div>
 
-        <div class="col-lg col-5">
+        <div class="col-lg col-lg-5">
           <!--Cover Image-->
           <label for="cover-image">Cover Image</label>
           <img id="cover-image" class="cover-image" *ngIf="!isFetchingImage" [src]="'data:image/jpg;base64,' + getImageFromKey(swi.coverImage)"

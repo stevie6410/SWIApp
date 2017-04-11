@@ -9,6 +9,10 @@ import { SwiStagesListComponent } from './components/swi-stages-list/swi-stages-
 import { SwiStageEditComponent } from './components/swi-stage-edit/swi-stage-edit.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SwiNewComponent } from './components/swi-new/swi-new.component';
+import { SwiHsListComponent } from './components/swi-hs-list/swi-hs-list.component';
+import { SWIHSItemService } from "./services/swi-hs.service";
+import { SwiHsPickerComponent } from './components/swi-hs-picker/swi-hs-picker.component';
+
 
 @NgModule({
   imports: [
@@ -26,10 +30,13 @@ import { SwiNewComponent } from './components/swi-new/swi-new.component';
     SwiHeaderComponent,
     SwiStagesListComponent,
     SwiStageEditComponent,
-    SwiNewComponent
+    SwiNewComponent,
+    SwiHsListComponent,
+    SwiHsPickerComponent
   ],
   providers: [
-    SWIFileService
+    SWIFileService,
+    SWIHSItemService
   ]
 })
 export class SwiBuilderModule { }
