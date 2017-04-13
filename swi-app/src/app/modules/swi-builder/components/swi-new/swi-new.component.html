@@ -4,14 +4,16 @@
   <div class='page-body'>
     <!--Page Content Here   -->
     <div class="row">
-      <div class="col">
-        
+      <div class="col-8">
+
         <!--Name-->
         <label for="newSWIName">SWI Name</label>
         <input type="text" class="form-control" name="swiName" [(ngModel)]="swiName" placeholder="Enter swi name...">
-        
+        <br>
+        <swi-category-picker [(ngModel)]="category"></swi-category-picker>
+
       </div>
-      <div class="col"></div>
+      <div class="col-4"></div>
     </div>
   </div>
 </app-page>

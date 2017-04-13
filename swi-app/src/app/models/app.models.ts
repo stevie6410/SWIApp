@@ -1,4 +1,4 @@
-import { SwiUser, SwiCompany } from './security.models';
+import { SWIUser, SWICompany } from './security.models';
 
 export class SWIHeader {
     id: string;
@@ -11,15 +11,16 @@ export class SWIHeader {
     released: boolean;
     updatedOn: Date;
     createdOn: Date;
-    author: SwiUser;
-    expert: SwiUser;
-    approver: SwiUser;
-    company: SwiCompany;
+    author: SWIUser;
+    expert: SWIUser;
+    approver: SWIUser;
+    company: SWICompany;
     swihsItems: SWIHSItem[];
     swiTools: SWITool[];
     swiStages: SWIStage[];
     swiTags: SWITag[];
     swiImages: SWIImage[]
+    category: string;
 
     constructor(title: string) {
         this.title = title;
@@ -56,7 +57,7 @@ export class SWIHSItem {
     imageType: string;
     image: string;
     printMessage: string;
-    company: SwiCompany;
+    company: SWICompany;
 
     constructor() {
         this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -98,13 +99,23 @@ export class SWIObservation {
     text: string;
     image: any;
     jobNumber: string;
-    createdBy: SwiUser;
+    createdBy: SWIUser;
     createdOn: Date;
-    modifiedBy: SwiUser;
+    modifiedBy: SWIUser;
     modifiedOn: Date;
 }
 
 export class SWITag {
     id: number;
     name: string;
+}
+
+export class GUID {
+    value: string;
+    constructor() {
+        this.value = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 }

@@ -24,6 +24,7 @@ import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser
 import { MomentModule } from "angular2-moment";
 import { SwiNewComponent } from "../swi-builder/components/swi-new/swi-new.component";
 import { SwiHsPickerComponent } from "../swi-builder/components/swi-hs-picker/swi-hs-picker.component";
+import { AppConfigService } from "../../services/repo-config.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
   providers: [
     ElectronService,
     { provide: ToastOptions, useClass: CustomOptions },
-    ElectronUpdateService
+    ElectronUpdateService,
+    AppConfigService
   ],
   bootstrap: [AppComponent]
 })

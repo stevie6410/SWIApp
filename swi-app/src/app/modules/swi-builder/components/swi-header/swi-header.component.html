@@ -29,6 +29,9 @@
             <input type="text" class="form-control" required name="description" [(ngModel)]="swi.description">
           </div>
 
+          <!--Category-->
+          <swi-category-picker name="swiCategory" [(ngModel)]="swi.category"></swi-category-picker>
+
           <!--Revision-->
           <div class="form-group">
             <label for="title">Revision</label>
@@ -42,7 +45,7 @@
             </div>
             <div class="col">
               <div class="switch float-right">
-                <input id="swi-header-isReleased" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isReleased" [(ngModel)]="swi.isReleased">
+                <input id="swi-header-isReleased" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isReleased" [(ngModel)]="swi.released">
                 <label for="swi-header-isReleased"></label>
               </div>
             </div>

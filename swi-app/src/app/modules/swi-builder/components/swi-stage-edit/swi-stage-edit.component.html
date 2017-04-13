@@ -30,16 +30,16 @@
             </div>
             <div class="col">
               <div class="switch float-right">
-                <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="stage.isCritical">
+                <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="stage.criticalStep">
                 <label for="swi-header-isCritical"></label>
               </div>
             </div>
           </div>
 
           <!--Care Point Text-->
-          <div class="form-group" *ngIf="stage.isCritical">
+          <div class="form-group" *ngIf="stage.criticalStep">
             <label for="title">Care Point</label>
-            <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carepoint"></textarea>
+            <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carePoint"></textarea>
           </div>
 
         </div>

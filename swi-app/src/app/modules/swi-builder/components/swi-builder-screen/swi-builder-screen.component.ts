@@ -15,7 +15,6 @@ export class SwiBuilderScreenComponent implements OnInit {
   isLoading: boolean = false;
   swi: SWIHeader;
   filename: string;
-  title: string;
   pageTitle: string = "SWI Builder";
 
   constructor(
@@ -27,10 +26,8 @@ export class SwiBuilderScreenComponent implements OnInit {
     this.toast.setRootViewContainerRef(vcr);
     this.route.params.subscribe((params: Params) => {
       this.filename = this.checkExtention(params['filename']);
-      this.title = this.filename.replace('.swi', '');
       console.log(`paramfilename: ${params['filename']}`);
-      console.log(`filename: ${this.filename}`);
-      console.log(`title: ${this.title}`)
+      console.log(`filename: ${this.filename}`);     
 
       this.getFile(this.filename);
     })
@@ -46,22 +43,7 @@ export class SwiBuilderScreenComponent implements OnInit {
       return filename;
     }
   }
-
-  createFile(filename: string) {
-    console.log('Creating a new SWI file');
-    this.swi = new SWIHeader(this.title);
-    this.swi.filename = filename;
-    this.swiService.saveFile(this.swi.filename, this.swi)
-      .then((result) => {
-        console.log(`${result} was created`, `File Saved!`);
-        this.toast.success(`${result} was saved`, `File Saved!`);
-      })
-      .catch((err) => {
-        console.log("Error saving file: ", err);
-        this.toast.error(`${filename} could not be created`, "Error saving file!");
-      });
-  }
-
+  
   getFile(filename: string) {
     console.log(`getFile: ${filename}`);
     this.isLoading = true;
@@ -79,7 +61,7 @@ export class SwiBuilderScreenComponent implements OnInit {
       })
       .catch(err => {
         console.log(`Could not get file ${filename}`);
-        this.createFile(filename);
+        //this.createFile(filename);
         // console.log('Error retreiving document: ', err);
         // this.toast.error(`SWI was in a incorrect format`, `Error Loading SWI`);
         this.isLoading = false;
