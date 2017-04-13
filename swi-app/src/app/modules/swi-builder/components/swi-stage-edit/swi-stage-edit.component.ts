@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -12,7 +12,7 @@ import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
   templateUrl: './swi-stage-edit.component.html',
   styleUrls: ['./swi-stage-edit.component.css']
 })
-export class SwiStageEditComponent implements OnInit {
+export class SwiStageEditComponent implements OnInit, OnDestroy {
 
   title: string = "Edit Stage";
   swi: SWIHeader;
@@ -47,11 +47,15 @@ export class SwiStageEditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.saveFile();
+  }
+
   addImage() {
     this.isFetchingImage = true;
   }
 
-  saveFile(swi: SWIHeader) {
+  saveFile() {
     this.swiService.saveFile(this.filename, this.swi)
       .then((result) => {
         console.log(`${this.filename} was saved.`);

@@ -3,7 +3,7 @@
 
   <ul class="list-unstyled list-group list-group-flush card-list">
     <li class="list-group-item media" *ngFor="let stage of swi.swiStages" (click)="editStage(stage)">
-      <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.isCritical}">{{stage.sequence}}</span></h4>
+      <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
       <img class="d-flex mr-3" width="85px" height="64px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)">
       <div class="media-body">
         <h5 class="mt-0 mb-1">{{stage.summary}}</h5>

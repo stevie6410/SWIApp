@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { remote, shell } from "electron";
-import { SWICategory } from "app/models/app.models";
 import { SWIAppConfig } from "app/models/app.config.models";
 import * as fs from 'fs-promise';
 import * as path from 'path';

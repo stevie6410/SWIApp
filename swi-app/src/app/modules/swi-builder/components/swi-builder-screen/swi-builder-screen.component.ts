@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 
@@ -10,7 +10,7 @@ import { SWIHeader } from '../../../../models/app.models';
   templateUrl: './swi-builder-screen.component.html',
   styleUrls: ['./swi-builder-screen.component.css']
 })
-export class SwiBuilderScreenComponent implements OnInit {
+export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
   swi: SWIHeader;
@@ -34,6 +34,10 @@ export class SwiBuilderScreenComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(){
+    this.saveFile();
   }
 
   checkExtention(filename: string) {
