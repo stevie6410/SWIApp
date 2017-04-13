@@ -13,7 +13,7 @@ import { SwiHsListComponent } from './components/swi-hs-list/swi-hs-list.compone
 import { SWIHSItemService } from "./services/swi-hs.service";
 import { SwiHsPickerComponent } from './components/swi-hs-picker/swi-hs-picker.component';
 import { SwiToolsListComponent } from './components/swi-tools-list/swi-tools-list.component';
-
+import { SWIResolve } from "./components/swi.resolver";
 
 @NgModule({
   imports: [
@@ -38,7 +38,8 @@ import { SwiToolsListComponent } from './components/swi-tools-list/swi-tools-lis
   ],
   providers: [
     SWIFileService,
-    SWIHSItemService
+    SWIHSItemService,
+    SWIResolve
   ]
 })
 export class SwiBuilderModule { }

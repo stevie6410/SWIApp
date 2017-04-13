@@ -36,14 +36,9 @@ export class SwiStageEditComponent implements OnInit, OnDestroy {
       if (params['filename'] && params['sequence']) {
         this.filename = params['filename'];
         this.sequence = +params['sequence'];
-        this.swiService.getFile(this.filename)
-          .then((swi: SWIHeader) => {
-            console.log("Got SWI from service");
-            this.swi = swi;
-            this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
-            console.log(this.stage);
-            this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
-          })
+        this.swi = this.route.snapshot.data['swi'];
+        this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
+        this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
       }
     });
   }

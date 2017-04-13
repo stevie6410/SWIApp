@@ -16,6 +16,7 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
   swi: SWIHeader;
   filename: string;
   pageTitle: string = "SWI Builder";
+  initalSWIState: number;
 
   constructor(
     private swiService: SWIFileService,
@@ -26,9 +27,6 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
     this.toast.setRootViewContainerRef(vcr);
     this.route.params.subscribe((params: Params) => {
       this.filename = this.checkExtention(params['filename']);
-      console.log(`paramfilename: ${params['filename']}`);
-      console.log(`filename: ${this.filename}`);     
-
       this.getFile(this.filename);
     })
   }
@@ -36,7 +34,7 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.saveFile();
   }
 
@@ -47,45 +45,50 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
       return filename;
     }
   }
-  
+
   getFile(filename: string) {
     console.log(`getFile: ${filename}`);
     this.isLoading = true;
-    this.swiService.getFile(filename)
-      .then(swi => {
-        console.log(`got file ${swi}`)
-        this.swi = swi as SWIHeader;
-        if (this.swi) {
-          console.log(swi);
-          this.toast.success(`Loaded document ${this.swi.title}`, `SWI Loaded`);
-        } else {
-          this.toast.error(`Document is not a valid swi`, `Invalid File`);
-        }
-        this.isLoading = false;
-      })
-      .catch(err => {
-        console.log(`Could not get file ${filename}`);
-        //this.createFile(filename);
-        // console.log('Error retreiving document: ', err);
-        // this.toast.error(`SWI was in a incorrect format`, `Error Loading SWI`);
-        this.isLoading = false;
-      });
+    this.swi = this.route.snapshot.data['swi'];
+    this.initalSWIState = this.generateHash(JSON.stringify(this.swi));
+
+    console.log(`got file ${this.swi}`);
+    if (this.swi) {
+      this.toast.success(`Loaded document ${this.swi.title}`, `SWI Loaded`);
+    } else {
+      this.toast.error(`Document is not a valid swi`, `Invalid File`);
+    }
+    this.isLoading = false;
   }
 
   saveFile() {
-    this.swiService.saveFile(this.filename, this.swi)
-      .then((result) => {
-        console.log(`${this.filename} was saved.`);
-        this.toast.success(`${result} was saved`, `File Saved!`);
-      }
-      )
-      .catch((err) => {
-        console.log("Error saving file: ", err);
-        this.toast.error(`${this.filename} could not be created`, "Error saving file!");
-      })
+    if (this.generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
+      console.log("No changes");
+    } else {
+      console.log("Saving as there were changes");
+      this.swiService.saveFile(this.filename, this.swi)
+        .then((result) => {
+          this.toast.success(`${result} was saved`, `File Saved!`);
+        })
+        .catch((err) => {
+          console.log("Error saving file: ", err);
+          this.toast.error(`${this.filename} could not be created`, "Error saving file!");
+        })
+    }
   }
-  
+
   openLocalDocsDir() {
     this.swiService.openLocalDocumentsDirectory();
+  }
+
+  generateHash(obj: any) {
+    var hash = 0, i, chr;
+    if (obj.length === 0) return hash;
+    for (i = 0; i < obj.length; i++) {
+      chr = obj.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
   }
 }

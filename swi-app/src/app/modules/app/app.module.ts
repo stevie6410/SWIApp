@@ -25,14 +25,15 @@ import { MomentModule } from "angular2-moment";
 import { SwiNewComponent } from "../swi-builder/components/swi-new/swi-new.component";
 import { SwiHsPickerComponent } from "../swi-builder/components/swi-hs-picker/swi-hs-picker.component";
 import { AppConfigService } from "../../services/repo-config.service";
+import { SWIResolve } from "../swi-builder/components/swi.resolver";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'demo', component: DemoComponent },
   { path: 'swibuilder', component: SwiNewComponent },
-  { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent },
-  { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent },
+  { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
+  { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
   { path: 'swibuilder/:filename/hsitems', component: SwiHsPickerComponent },
   { path: 'swibrowser', component: SwiBrowserScreenComponent }
 ];
