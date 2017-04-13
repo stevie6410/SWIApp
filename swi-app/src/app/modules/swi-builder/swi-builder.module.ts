@@ -12,6 +12,7 @@ import { SwiNewComponent } from './components/swi-new/swi-new.component';
 import { SwiHsListComponent } from './components/swi-hs-list/swi-hs-list.component';
 import { SWIHSItemService } from "./services/swi-hs.service";
 import { SwiHsPickerComponent } from './components/swi-hs-picker/swi-hs-picker.component';
+import { SwiToolsListComponent } from './components/swi-tools-list/swi-tools-list.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SwiHsPickerComponent } from './components/swi-hs-picker/swi-hs-picker.c
     SwiStageEditComponent,
     SwiNewComponent,
     SwiHsListComponent,
-    SwiHsPickerComponent
+    SwiHsPickerComponent,
+    SwiToolsListComponent
   ],
   providers: [
     SWIFileService,

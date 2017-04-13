@@ -68,10 +68,14 @@ export class SWIHSItem {
 }
 
 export class SWITool {
-    id: number;
+    id: string;
     name: string;
-    caption: string;
     image: string;
+
+    constructor(name: string) {
+        this.name = name;
+        this.id = new GUID().value;
+    }
 }
 
 export class SWIStage {

@@ -21,7 +21,7 @@ export class PageComponent implements OnInit {
 
   navBack() {
     this.onBackButtonClick.emit();
-    this.location.back();
+    this.location.back();  
   }
 
 }
