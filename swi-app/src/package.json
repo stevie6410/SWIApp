@@ -2,6 +2,6 @@
   "name": "swi",
   "version": "0.1.131",
   "description": "Standard Work Instruction",
-  "author": "B/E Aerospace Systems Department",
+  "author": "Rockwell Collins Systems Department",
   "main": "entry.js"
 }

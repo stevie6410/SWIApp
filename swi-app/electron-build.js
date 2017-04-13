@@ -4,7 +4,7 @@ resultPromise = electronInstaller.createWindowsInstaller({
     appDirectory: './out/bin/swi-win32-x64',
     outputDirectory: './out/installer',
     title: 'Standard Work Instructions',
-    authors: "B/E Aerospace SAO Systems Department",
+    authors: "Rockwell Collins SAO Systems Department",
     description: "Standard Work Instruction App",
     noMsi: true,
     certificateFile: "certs/swi.pfx",
