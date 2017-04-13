@@ -29,9 +29,9 @@ export class ImageCropperComponent implements OnInit, AfterViewInit {
   initCropper() {
     var imageCropper = <HTMLImageElement>document.getElementById('imageCropper');
     this.cropperControl = new Cropper(imageCropper, {
-      aspectRatio: 4 / 3,
+      aspectRatio: 1 / 1,
       minContainerHeight: 600,
-      minContainerWidth: 800
+      minContainerWidth: 600
     });
   }
 

@@ -48,7 +48,7 @@
         <div class="col-lg">
           <label for="stageImage">Stage Image</label>
           <div id="stageImage" class='card-block'>
-            <img width="800px" height="600px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)" *ngIf="!isFetchingImage"
+            <img width="400px" height="400px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)" *ngIf="!isFetchingImage"
               (click)="addImage()">
             <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(stage.image)"></image-fetcher>
           </div>

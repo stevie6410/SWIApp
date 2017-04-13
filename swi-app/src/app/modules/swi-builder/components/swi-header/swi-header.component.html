@@ -56,7 +56,8 @@
           <label for="cover-image">Cover Image</label>
           <img id="cover-image" class="cover-image" *ngIf="!isFetchingImage" [src]="'data:image/jpg;base64,' + getImageFromKey(swi.coverImage)"
             (click)="toggleFetchingImage()">
-          <image-fetcher (imageSelected)="coverImageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(swi.coverImage)"></image-fetcher>
+          <image-fetcher (imageSelected)="coverImageSelected($event)" (canceled)="isFetchingImage = false" *ngIf="isFetchingImage"
+            [image]="getImageFromKey(swi.coverImage)"></image-fetcher>
         </div>
       </div>
 

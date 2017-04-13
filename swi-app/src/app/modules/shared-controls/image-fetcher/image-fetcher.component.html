@@ -1,21 +1,28 @@
-<button type="button" class="btn btn-primary" (click)="getImageFromFile()">Get Image From File</button>
-<button type="button" class="btn btn-primary" (click)="getImageFromCamera()">Get Image From Camera</button>
-<button type="button" class="btn btn-primary" (click)="toggleCroppingMode()" *ngIf="image && !isCroppingMode">Crop Image</button>
-<button type="button" class="btn btn-danger" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
-<button type="button" class="btn btn-success" (click)="imageComplete()" *ngIf="image && !isCroppingMode">Select Image</button>
+<div class="modal-frame">
 
-<div class="image-frame">
+  <div class="btn-group btn-group-lg img-menu">
 
-  <div *ngIf="image && isCroppingMode === false && isCaptureMode === false">
-    <img class="image" [src]="'data:image/jpg;base64,' + image">
+    <button type="button" class="btn btn-primary" (click)="getImageFromFile()" *ngIf="!isCroppingMode"><i class="fa fa-folder-open"></i> From File</button>
+    <button type="button" class="btn btn-primary" (click)="getImageFromCamera()" *ngIf="!isCroppingMode"><i class="fa fa-camera"></i> From Camera</button>
+    <button type="button" class="btn btn-primary" (click)="toggleCroppingMode()" *ngIf="image && !isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
+    <button type="button" class="btn btn-danger" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
+    <button type="button" class="btn btn-success" (click)="imageComplete()" *ngIf="image && !isCroppingMode"><i class="fa fa-check"></i> Select Image</button>
+    <button type="button" class="btn btn-danger" (click)="cancelImageCapture()" *ngIf="image && !isCroppingMode"><i class="fa fa-ban"></i> Cancel</button>
+
   </div>
 
-  <div *ngIf="image && isCroppingMode">
-    <image-cropper [image]="image" (onCropped)="onCropped($event)"></image-cropper>
-  </div>
+  <div class="image-frame">
 
-  <div *ngIf="isCaptureMode">
-    <image-capture (onCaptured)="imageCaptured($event)" (onCancel)="cancelImageCapture()"></image-capture>
+    <img class="image" [src]="'data:image/jpg;base64,' + image" *ngIf="image && isCroppingMode === false && isCaptureMode === false">
+
+    <div *ngIf="image && isCroppingMode">
+      <image-cropper [image]="image" (onCropped)="onCropped($event)"></image-cropper>
+    </div>
+
+    <div *ngIf="isCaptureMode">
+      <image-capture (onCaptured)="imageCaptured($event)" (onCancel)="cancelImageCapture()"></image-capture>
+    </div>
+
   </div>
 
 </div>

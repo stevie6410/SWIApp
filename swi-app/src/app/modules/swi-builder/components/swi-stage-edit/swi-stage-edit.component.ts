@@ -38,6 +38,7 @@ export class SwiStageEditComponent implements OnInit, OnDestroy {
         this.sequence = +params['sequence'];
         this.swiService.getFile(this.filename)
           .then((swi: SWIHeader) => {
+            console.log("Got SWI from service");
             this.swi = swi;
             this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
             console.log(this.stage);

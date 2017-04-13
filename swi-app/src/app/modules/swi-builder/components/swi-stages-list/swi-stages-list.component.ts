@@ -36,7 +36,6 @@ export class SwiStagesListComponent implements OnInit {
 
   editStage(stage: SWIStage) {
     if (!this.editMode) {
-      console.log("Edit Stage: ", stage);
       this.stage = stage;
       this.router.navigate(['swibuilder', this.swi.filename, 'stages', stage.sequence]);
     }

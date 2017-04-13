@@ -93,10 +93,10 @@ export class ImageCaptureComponent implements OnInit, AfterViewInit {
   getImage() {
     let _canvas = <HTMLCanvasElement>this.canvas.nativeElement;
     let _video = <HTMLVideoElement>this.video.nativeElement;
-    _canvas.width = 800;
+    _canvas.width = 600;
     _canvas.height = 600;
     _video.style.display = "none";
-    _canvas.getContext("2d").drawImage(_video, 0, 0, 800, 600, 0, 0, 800, 600);
+    _canvas.getContext("2d").drawImage(_video, 0, 0, 600, 600, 0, 0, 600, 600);
 
     let result: string = _canvas.toDataURL("image/png");
 

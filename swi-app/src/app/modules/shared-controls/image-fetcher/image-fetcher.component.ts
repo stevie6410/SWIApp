@@ -22,6 +22,7 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
   isCroppingMode: boolean = false;
   isCaptureMode: boolean = false;
   @Output() imageSelected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() canceled = new EventEmitter<void>();
   @Input() image: string;
 
   constructor(
@@ -74,9 +75,10 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
     this.image = image;
   }
 
-  cancelImageCapture(){
+  cancelImageCapture() {
     this.isCaptureMode = false;
     this.isCroppingMode = false;
+    this.canceled.emit();
   }
 
   toggleCroppingMode() {
