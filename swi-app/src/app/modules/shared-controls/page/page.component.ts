@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -10,6 +10,7 @@ export class PageComponent implements OnInit {
 
   @Input() title: string;
   @Input() backButton: boolean = true;
+  @Output() onBackButtonClick = new EventEmitter<void>();
 
   constructor(
     private location: Location
@@ -19,6 +20,7 @@ export class PageComponent implements OnInit {
   }
 
   navBack() {
+    this.onBackButtonClick.emit();
     this.location.back();
   }
 

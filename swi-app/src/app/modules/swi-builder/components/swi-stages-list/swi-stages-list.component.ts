@@ -16,6 +16,7 @@ export class SwiStagesListComponent implements OnInit {
   filename: string;
   title: string = "Stages";
   stage: SWIStage;
+  editMode: boolean = false;
 
   constructor(
     private router: Router
@@ -34,9 +35,15 @@ export class SwiStagesListComponent implements OnInit {
   }
 
   editStage(stage: SWIStage) {
-    console.log("Edit Stage: ", stage);
-    this.stage = stage;
-    this.router.navigate(['swibuilder', this.swi.filename, 'stages', stage.sequence]);
+    if (!this.editMode) {
+      console.log("Edit Stage: ", stage);
+      this.stage = stage;
+      this.router.navigate(['swibuilder', this.swi.filename, 'stages', stage.sequence]);
+    }
+  }
+
+  editStages() {
+    this.editMode = !this.editMode;
   }
 
   addStage() {
@@ -46,6 +53,20 @@ export class SwiStagesListComponent implements OnInit {
     this.swi.swiStages.push(this.stage);
     this.save();
     this.editStage(this.stage);
+  }
+
+  moveUp(stage: SWIStage) {
+    let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
+    let above = this.swi.swiStages.filter(s => s.sequence == (stage.sequence - 1))[0];
+    current.sequence = stage.sequence - 1;
+    above.sequence = current.sequence + 1;
+  }
+
+  moveDown(stage: SWIStage) {
+    let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
+    let below = this.swi.swiStages.filter(s => s.sequence == (stage.sequence + 1))[0];
+    current.sequence = stage.sequence + 1;
+    below.sequence = current.sequence - 1;
   }
 
   save() {

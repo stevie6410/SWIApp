@@ -1,15 +1,21 @@
 <swi-card [title]="title">
+  <button class="btn btn-warning btn-sm float-right card-btn" (click)="editStages()">Edit Stages</button>
   <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage()">Add</button>
 
   <ul class="list-unstyled list-group list-group-flush card-list">
-    <li class="list-group-item media" *ngFor="let stage of swi.swiStages" (click)="editStage(stage)">
+    <li class="list-group-item media" *ngFor="let stage of swi.swiStages | orderBy: ['sequence']" (click)="editStage(stage)">
       <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
       <img class="d-flex mr-3" width="85px" height="64px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)">
       <div class="media-body">
         <h5 class="mt-0 mb-1">{{stage.summary}}</h5>
         {{stage.description}}
-        <!--<button type="button" class="btn btn-sm btn-primary float-right" (click)="editStage(stage)">Edit Stage</button>-->
       </div>
+
+      <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
+        <button type="button" class="btn btn-warning" (click)="moveUp(stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
+        <button type="button" class="btn btn-warning" (click)="moveDown(stage)" *ngIf="stage.sequence != swi.swiStages.length"><i class="fa fa-arrow-down"></i></button>
+      </div>
+
     </li>
   </ul>
 
