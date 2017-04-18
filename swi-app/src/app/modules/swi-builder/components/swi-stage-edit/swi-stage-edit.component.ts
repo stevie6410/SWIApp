@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Router } from "@angular/router";
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -12,7 +13,7 @@ import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
   templateUrl: './swi-stage-edit.component.html',
   styleUrls: ['./swi-stage-edit.component.css']
 })
-export class SwiStageEditComponent implements OnInit, OnDestroy {
+export class SwiStageEditComponent implements OnInit {
 
   title: string = "Edit Stage";
   swi: SWIHeader;
@@ -26,7 +27,8 @@ export class SwiStageEditComponent implements OnInit, OnDestroy {
     private swiService: SWIFileService,
     private toast: ToastsManager,
     private vcr: ViewContainerRef,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private router: Router
   ) {
     toast.setRootViewContainerRef(vcr);
   }
@@ -44,20 +46,20 @@ export class SwiStageEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.saveFile();
   }
 
   addImage() {
     this.isFetchingImage = true;
   }
 
-  saveFile() {
+  backButtonClick() {
+    //Save the file and navigate back to the SWI Builder screen
     this.swiService.saveFile(this.filename, this.swi)
       .then((result) => {
         console.log(`${this.filename} was saved.`);
-        this.toast.success(`${result} was saved`, `File Saved!`);
-      }
-      )
+        //this.toast.success(`${result} was saved`, `File Saved!`);
+        this.router.navigate(['swibuilder', this.filename]);
+      })
       .catch((err) => {
         console.log("Error saving file: ", err);
         this.toast.error(`${this.filename} could not be created`, "Error saving file!");

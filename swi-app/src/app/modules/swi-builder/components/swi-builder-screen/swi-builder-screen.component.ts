@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 
 import { SWIFileService } from '../../../../services/swi-file.service';
@@ -22,7 +22,8 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
     private swiService: SWIFileService,
     private vcr: ViewContainerRef,
     private toast: ToastsManager,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.toast.setRootViewContainerRef(vcr);
     this.route.params.subscribe((params: Params) => {
@@ -35,7 +36,11 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.saveFile();
+    this.saveFile(false);
+  }
+
+  onBackButton() {
+    this.saveFile(true);
   }
 
   checkExtention(filename: string) {
@@ -52,7 +57,7 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
     this.swi = this.route.snapshot.data['swi'];
     this.initalSWIState = this.generateHash(JSON.stringify(this.swi));
 
-    console.log(`got file ${this.swi}`);
+    console.log(`got file: `, this.swi);
     if (this.swi) {
       this.toast.success(`Loaded document ${this.swi.title}`, `SWI Loaded`);
     } else {
@@ -61,14 +66,19 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-  saveFile() {
+  saveFile(navBack: boolean) {
     if (this.generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
       console.log("No changes");
+      if (navBack) this.router.navigate(['swibrowser']);
     } else {
       console.log("Saving as there were changes");
       this.swiService.saveFile(this.filename, this.swi)
         .then((result) => {
-          this.toast.success(`${result} was saved`, `File Saved!`);
+          if (navBack) {
+            this.router.navigate(['swibrowser']);
+          } else {
+            this.toast.success(`${result} was saved`, `File Saved!`);
+          }
         })
         .catch((err) => {
           console.log("Error saving file: ", err);

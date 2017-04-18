@@ -10,6 +10,7 @@ export class PageComponent implements OnInit {
 
   @Input() title: string;
   @Input() backButton: boolean = true;
+  @Input() overrideBackButton: boolean = false;
   @Output() onBackButtonClick = new EventEmitter<void>();
 
   constructor(
@@ -21,7 +22,7 @@ export class PageComponent implements OnInit {
 
   navBack() {
     this.onBackButtonClick.emit();
-    this.location.back();  
+    if (!this.overrideBackButton) this.location.back();
   }
 
 }

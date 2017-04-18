@@ -1,4 +1,4 @@
-<app-page [title]="pageTitle" (onBackButtonClick)="saveFile()">
+<app-page [title]="pageTitle" (onBackButtonClick)="onBackButton()" [overrideBackButton]="true">
   <!--Add Page level buttons here with page-button class-->
   <button type='button' class='page-button btn btn-warning' (click)="openLocalDocsDir()">Open Folder</button>
   <button type='button' class='page-button btn btn-success' (click)="saveFile()">Save</button>

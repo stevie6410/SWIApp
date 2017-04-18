@@ -1,4 +1,4 @@
-<app-page [title]='title'>
+<app-page [title]='title' (onBackButtonClick)="backButtonClick()" [overrideBackButton]="true">
   <!--Add Page level buttons here with page-button class-->
   <!--<button type="button" class="btn btn-success btn-lg float-right page-button" (click)="saveFile()">Save</button>-->
 

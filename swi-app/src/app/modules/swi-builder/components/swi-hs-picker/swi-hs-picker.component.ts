@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SWIHSItem, SWIHeader } from "../../../../../app/models/app.models";
 import { SWIHSItemService } from "../../services/swi-hs.service";
@@ -9,7 +9,7 @@ import { SWIFileService } from "../../../../services/swi-file.service";
   templateUrl: './swi-hs-picker.component.html',
   styleUrls: ['./swi-hs-picker.component.css']
 })
-export class SwiHsPickerComponent implements OnInit, OnDestroy {
+export class SwiHsPickerComponent implements OnInit {
 
   title: string = "Health & Safety Items - Picker";
   filename: string;
@@ -41,7 +41,7 @@ export class SwiHsPickerComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  onBackButton() {
     this.selectionComplete();
   }
 
