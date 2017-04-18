@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 
@@ -10,7 +10,7 @@ import { SWIHeader } from '../../../../models/app.models';
   templateUrl: './swi-builder-screen.component.html',
   styleUrls: ['./swi-builder-screen.component.css']
 })
-export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
+export class SwiBuilderScreenComponent implements OnInit {
 
   isLoading: boolean = false;
   swi: SWIHeader;
@@ -35,10 +35,6 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  ngOnDestroy() {
-    this.saveFile(false);
-  }
-
   onBackButton() {
     this.saveFile(true);
   }
@@ -59,11 +55,20 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
 
     console.log(`got file: `, this.swi);
     if (this.swi) {
+      this.validateStageOrder();
       this.toast.success(`Loaded document ${this.swi.title}`, `SWI Loaded`);
     } else {
       this.toast.error(`Document is not a valid swi`, `Invalid File`);
     }
     this.isLoading = false;
+  }
+
+  validateStageOrder() {
+    let i = 1;
+    this.swi.swiStages.forEach(stage => {
+      if (stage.sequence != i) stage.sequence = i;
+      i++;
+    });
   }
 
   saveFile(navBack: boolean) {

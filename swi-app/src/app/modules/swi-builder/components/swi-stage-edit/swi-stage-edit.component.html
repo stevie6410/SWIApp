@@ -1,6 +1,7 @@
 <app-page [title]='title' (onBackButtonClick)="backButtonClick()" [overrideBackButton]="true">
   <!--Add Page level buttons here with page-button class-->
   <!--<button type="button" class="btn btn-success btn-lg float-right page-button" (click)="saveFile()">Save</button>-->
+  <button type="button" class="btn btn-danger page-button" (click)="deleteStage()"> <i class="fa fa-trash"></i> Delete Stage</button>
 
   <div class='page-body' *ngIf="stage">
     <!--Page Content Here   -->
@@ -56,6 +57,10 @@
       </div>
 
     </form>
+
+
+    <br>
+    <br>
 
   </div>
 </app-page>

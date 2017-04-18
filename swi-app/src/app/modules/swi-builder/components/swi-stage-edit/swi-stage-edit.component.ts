@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from "@angular/router";
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
-import { ActivatedRoute, Params } from '@angular/router';
-import { SWIFileService } from '../../../../services/swi-file.service';
 import { ToastsManager } from 'ng2-toastr';
+import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
+import { SWIFileService } from '../../../../services/swi-file.service';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
-
 
 @Component({
   selector: 'app-swi-stage-edit',
@@ -45,19 +44,25 @@ export class SwiStageEditComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-  }
-
   addImage() {
     this.isFetchingImage = true;
   }
 
   backButtonClick() {
+    this.save(true);
+  }
+
+  deleteStage() {
+    this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != this.stage.sequence);
+    this.save(true);
+  }
+
+  save(navBack: Boolean) {
     //Save the file and navigate back to the SWI Builder screen
     this.swiService.saveFile(this.filename, this.swi)
       .then((result) => {
         console.log(`${this.filename} was saved.`);
-        this.router.navigate(['swibuilder', this.filename]);
+        if (navBack) this.router.navigate(['swibuilder', this.filename]);
       })
       .catch((err) => {
         console.log("Error saving file: ", err);
