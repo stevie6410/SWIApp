@@ -2,6 +2,10 @@
 
   <!--<button type="button" class="btn btn-success card-btn" (click)="save()">Save</button>-->
 
+  <span class="badge badge-primary card-badge">SWI Revision: A</span>
+  <span class="badge badge-success card-badge" *ngIf="swi.released">Released</span>
+  <span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>
+
   <div class="card-block">
 
     <form name="header-form">
@@ -31,24 +35,6 @@
           <!--Category-->
           <swi-category-picker name="swiCategory" [(ngModel)]="swi.category"></swi-category-picker>
 
-          <!--Revision-->
-          <div class="form-group">
-            <label for="title">Revision</label>
-            <input type="text" class="form-control" required name="revision" [(ngModel)]="swi.revision">
-          </div>
-
-          <!--Is Released (Checkbox)-->
-          <div class="row padding-top-20">
-            <div class="col">
-              <label>Is Released</label>
-            </div>
-            <div class="col">
-              <div class="switch float-right">
-                <input id="swi-header-isReleased" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isReleased" [(ngModel)]="swi.released">
-                <label for="swi-header-isReleased"></label>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="col-lg col-lg-5">

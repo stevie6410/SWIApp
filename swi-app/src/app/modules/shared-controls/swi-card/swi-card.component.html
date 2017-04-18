@@ -4,7 +4,12 @@
     <div class="btn-group btn-group-sm float-right" role="group">
       <ng-content select=".card-btn"></ng-content>
     </div>
+
+    <div class="float-right card-badge-container">
+      <ng-content select=".card-badge"></ng-content>
+    </div>
+
   </div>
-    <ng-content select=".card-block"></ng-content>
+  <ng-content select=".card-block"></ng-content>
   <ng-content select=".card-list"></ng-content>
 </div>
