@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SWIHeader, SWITool } from "../../../../../app/models/app.models";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'swi-tools-list',
@@ -10,9 +11,12 @@ import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 export class SwiToolsListComponent implements OnInit {
 
   @Input() swi: SWIHeader;
+  @Output() onSave = new EventEmitter<void>();
   title: string = "Tooling";
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -24,6 +28,18 @@ export class SwiToolsListComponent implements OnInit {
     } catch (error) {
       return ImagePlaceholder;
     }
+  }
+
+  addTool() {
+    this.router.navigate(['swibuilder', this.swi.filename, 'tools', 'new']);
+  }
+
+  editTool(tool: SWITool) {
+    this.router.navigate(['swibuilder', this.swi.filename, 'tools', tool.id]);
+  }
+
+  save() {
+    this.onSave.emit();
   }
 
 }

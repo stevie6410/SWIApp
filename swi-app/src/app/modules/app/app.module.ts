@@ -25,6 +25,7 @@ import { SwiNewComponent } from "../swi-builder/components/swi-new/swi-new.compo
 import { SwiHsPickerComponent } from "../swi-builder/components/swi-hs-picker/swi-hs-picker.component";
 import { AppConfigService } from "../../services/repo-config.service";
 import { SWIResolve } from "../swi-builder/components/swi.resolver";
+import { SwiToolEditComponent } from "../swi-builder/components/swi-tool-edit/swi-tool-edit.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/swibuilder', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
   { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
   { path: 'swibuilder/:filename/hsitems', component: SwiHsPickerComponent },
+  { path: 'swibuilder/:filename/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
   { path: 'swibrowser', component: SwiBrowserScreenComponent }
 ];
 
