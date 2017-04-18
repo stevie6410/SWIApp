@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
 import { ElectronService } from '../../services/electron.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DemoComponent } from './demo/demo.component';
 import { HomeComponent } from './home/home.component';
 import { SwiBuilderScreenComponent } from '../swi-builder/components/swi-builder-screen/swi-builder-screen.component';
 import { SwiStageEditComponent } from '../swi-builder/components/swi-stage-edit/swi-stage-edit.component';
@@ -28,9 +27,8 @@ import { AppConfigService } from "../../services/repo-config.service";
 import { SWIResolve } from "../swi-builder/components/swi.resolver";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/swibuilder', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'demo', component: DemoComponent },
   { path: 'swibuilder', component: SwiNewComponent },
   { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
   { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
@@ -41,7 +39,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent,
     HomeComponent,
     SidenavComponent
   ],
