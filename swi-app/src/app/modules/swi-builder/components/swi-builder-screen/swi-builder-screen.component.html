@@ -10,6 +10,8 @@
 
           <swi-header [swi]="swi" (onSave)="saveFile()"></swi-header>
 
+          <swi-erp-parts [swi]="swi" *ngIf="swi.category == 'Production Part'"></swi-erp-parts>
+
           <swi-hs-list [swi]="swi" (onSave)="saveFile()"></swi-hs-list>
           
           <swi-tools-list [swi]="swi"></swi-tools-list>

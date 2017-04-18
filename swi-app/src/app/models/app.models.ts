@@ -19,7 +19,8 @@ export class SWIHeader {
     swiTools: SWITool[];
     swiStages: SWIStage[];
     swiTags: SWITag[];
-    swiImages: SWIImage[]
+    swiImages: SWIImage[];
+    swiLinkedERPParts: SWIERPPart[];
     category: string;
 
     constructor(title: string) {
@@ -30,6 +31,7 @@ export class SWIHeader {
         this.swiTags = [];
         this.swiTools = [];
         this.swihsItems = [];
+        this.swiLinkedERPParts = [];
         this.createdOn = new Date();
         this.updatedOn = new Date();
         this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -37,6 +39,13 @@ export class SWIHeader {
             return v.toString(16);
         });
     }
+}
+
+export class SWIERPPart {
+    partNumber: string;
+    itemNumber: number;
+    partRevision: string;
+    erpSystem: string;
 }
 
 export class SWIImage {

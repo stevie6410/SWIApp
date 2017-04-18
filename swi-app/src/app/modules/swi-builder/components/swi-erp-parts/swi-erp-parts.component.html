@@ -1,0 +1,39 @@
+<swi-card [title]='title'>
+  <button type='button' class='btn btn-success card-btn' (click)='addPart()' *ngIf="!isAddMode">Add ERP Part</button>
+  <button type='button' class='btn btn-warning card-btn' (click)='cancelPart()' *ngIf="isAddMode">Cancel</button>
+
+  <table class="table table-sm card-table" *ngIf="swi">
+    <thead>
+      <tr>
+        <th>Part Number</th>
+        <th>Part Revision</th>
+        <th>ERP System</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let part of swi?.swiLinkedERPParts">
+        <td>{{part.partNumber}}</td>
+        <td>{{part.partRevision}}</td>
+        <td>{{part.erpSystem}}</td>
+        <td><button type="button" class="btn btn-sm btn-danger" (click)="deletePart(part)"> <i class="fa fa-trash"></i> </button></td>
+      </tr>
+
+      <tr *ngIf="isAddMode">
+        <td>
+          <input type="text" class="form-control form-control-sm" name="partNumber" [(ngModel)]="partNumber">
+        </td>
+        <td>
+          <input type="text" class="form-control form-control-sm" name="partRevision" [(ngModel)]="partRevision">
+        </td>
+        <td>
+          <input type="text" class="form-control form-control-sm" name="erpSystem" [(ngModel)]="erpSystem">
+        </td>
+        <td>
+          <button type="button" class="btn btn-sm btn-success" (click)="createPart()">Add</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</swi-card>
