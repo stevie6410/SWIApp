@@ -35,8 +35,8 @@ export class SwiNewComponent implements OnInit {
     console.log(`Going to create this swi: `, this.swi);
     this.swiService.saveFile(this.swi.filename, this.swi)
       .then((result) => {
-        console.log(`${result} was created`, `File Saved!`);
-        this.toast.success(`${result} was saved`, `File Saved!`);
+        console.log(`${this.swiName} was created`, `File Saved!`);
+        this.toast.success(`${this.swiName} was saved`, `File Saved!`);
         this.router.navigate(['swibuilder', this.swi.filename]);
       })
       .catch((err) => {

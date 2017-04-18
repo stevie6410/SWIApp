@@ -57,7 +57,6 @@ export class SwiStageEditComponent implements OnInit {
     this.swiService.saveFile(this.filename, this.swi)
       .then((result) => {
         console.log(`${this.filename} was saved.`);
-        //this.toast.success(`${result} was saved`, `File Saved!`);
         this.router.navigate(['swibuilder', this.filename]);
       })
       .catch((err) => {

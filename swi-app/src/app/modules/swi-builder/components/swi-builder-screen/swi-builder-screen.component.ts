@@ -77,7 +77,7 @@ export class SwiBuilderScreenComponent implements OnInit, OnDestroy {
           if (navBack) {
             this.router.navigate(['swibrowser']);
           } else {
-            this.toast.success(`${result} was saved`, `File Saved!`);
+            this.toast.success(`${this.swi.title} was saved`, `File Saved!`);
           }
         })
         .catch((err) => {
