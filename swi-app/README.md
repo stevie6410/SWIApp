@@ -2,18 +2,18 @@
 
 ## Getting Started
 
-1. Clone the source code
+### 1. Clone the source code
 ```
 git clone http://github.beav.com/SAOSystems/SWIApp
 ```
 
-2. Install dependencies
+### 2. Install dependencies
 ```
 cd SWIApp
 npm install
 ```
 
-3. Start the dvdelopment server and electron app
+### 3. Start the development server and electron app
 ```
 npm run startdevserver
 npm run startelectron
