@@ -20,6 +20,7 @@ export class SwiStageEditComponent implements OnInit {
   filename: string;
   sequence: number;
   isFetchingImage: boolean = false;
+  initalSWIState: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class SwiStageEditComponent implements OnInit {
         this.filename = params['filename'];
         this.sequence = +params['sequence'];
         this.swi = this.route.snapshot.data['swi'];
+        this.initalSWIState = this.generateHash(JSON.stringify(this.swi));
         this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
         this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
       }
@@ -58,16 +60,21 @@ export class SwiStageEditComponent implements OnInit {
   }
 
   save(navBack: Boolean) {
-    //Save the file and navigate back to the SWI Builder screen
-    this.swiService.saveFile(this.filename, this.swi)
-      .then((result) => {
-        console.log(`${this.filename} was saved.`);
-        if (navBack) this.router.navigate(['swibuilder', this.filename]);
-      })
-      .catch((err) => {
-        console.log("Error saving file: ", err);
-        this.toast.error(`${this.filename} could not be created`, "Error saving file!");
-      })
+    if (this.generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
+      console.log("No changes");
+      if (navBack) this.router.navigate(['swibuilder', this.filename]);
+    } else {
+      //Save the file and navigate back to the SWI Builder screen
+      this.swiService.saveFile(this.filename, this.swi)
+        .then((result) => {
+          console.log(`${this.filename} was saved.`);
+          if (navBack) this.router.navigate(['swibuilder', this.filename]);
+        })
+        .catch((err) => {
+          console.log("Error saving file: ", err);
+          this.toast.error(`${this.filename} could not be created`, "Error saving file!");
+        })
+    }
   }
 
   imageSelected(image: string) {
@@ -86,5 +93,16 @@ export class SwiStageEditComponent implements OnInit {
     } catch (error) {
       return ImagePlaceholder;
     }
+  }
+
+  generateHash(obj: any) {
+    var hash = 0, i, chr;
+    if (obj.length === 0) return hash;
+    for (i = 0; i < obj.length; i++) {
+      chr = obj.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
   }
 }

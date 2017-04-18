@@ -12,6 +12,9 @@
           <h5 class="card-title">{{swi.title}}</h5>
           <p class="card-text">{{swi.description}}</p>
           <h6><span class="badge badge-primary">{{swi?.category}}</span></h6>
+          <h6><span class="badge badge-primary card-badge">SWI Revision: A</span></h6>
+          <h6><span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span></h6>
+          <h6><span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span></h6>
         </div>
         <div class="card-footer">
           <small class="text-muted">Last updated: {{swi.updatedOn | amTimeAgo}}</small>
