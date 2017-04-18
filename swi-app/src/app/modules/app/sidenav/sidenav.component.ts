@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectronService } from '../../../services/electron.service';
+import { SWIFileService } from "../../../services/swi-file.service";
 
 @Component({
   selector: 'app-sidenav',
@@ -9,7 +10,8 @@ import { ElectronService } from '../../../services/electron.service';
 export class SidenavComponent implements OnInit {
 
   constructor(
-    private electron: ElectronService
+    private electron: ElectronService,
+    private swiFileService: SWIFileService
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,10 @@ export class SidenavComponent implements OnInit {
 
   toggleDevTools() {
     this.electron.toggleDeveloperTools();
+  }
+
+  openAppData() {
+    this.swiFileService.openLocalDocumentsDirectory();
   }
 
 }
