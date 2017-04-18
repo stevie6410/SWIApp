@@ -1,11 +1,9 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input, Output, EventEmitter, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { remote, app, dialog } from 'electron';
 import { } from "angular";
 import * as Electron from 'electron';
 import * as fs from 'fs-promise';
 import * as path from 'path';
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
 import { ImageCaptureComponent } from "../image-capture/image-capture.component";
 
 @Component({
@@ -26,13 +24,8 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
   @Input() image: string;
 
   constructor(
-    private changeDetector: ChangeDetectorRef,
-    public modal: Modal,
-    private overlay: Overlay,
-    private vcr: ViewContainerRef
-  ) {
-    overlay.defaultViewContainer = vcr;
-  }
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
   }
@@ -64,7 +57,6 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
   }
 
   getImageFromCamera() {
-    // this.modal.open(ImageCaptureComponent);
     this.isCaptureMode = !this.isCaptureMode;
   }
 

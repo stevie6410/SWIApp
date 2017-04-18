@@ -96,38 +96,30 @@ export class SWIFileService {
     }
 
     private validateRepairAppDataDirectory() {
-        //Must have dir 'swi-data'
-        //Must have dir 'swi-data/templates'
-        //Must have dir 'swi-data/documents'
-        //Must have dir 'swi-data/image-store'
-
-        let validRoot: boolean = false;
-        let validTemplates: boolean = false;
-        let validDocumetns: boolean = false;
-        let validImageStore: boolean = false;
-
-        fs.exists(this.appDataPath, (exists) => {
+        console.log("Validating App Data Dir");
+        fs.exists(this.appDataPath, (err, exists) => {
             if (!exists) {
                 fs.mkdir(this.appDataPath, (err) => {
                     if (!err) {
                         //Go ahed and start creating the first level folders
-                        this.checkExistsOrCreateDir(path.join(this.appDataPath, "templates"));
                         this.checkExistsOrCreateDir(path.join(this.appDataPath, "documents"));
-                        this.checkExistsOrCreateDir(path.join(this.appDataPath, "image-store"));
+                        this.checkExistsOrCreateDir(path.join(this.appDataPath, "trash"));
+                    } else {
+                        console.log(`Error checking app data ${err.message}`)
                     }
                 });
             } else {
                 //Go ahed and start creating the first level folders
-                this.checkExistsOrCreateDir(path.join(this.appDataPath, "templates"));
                 this.checkExistsOrCreateDir(path.join(this.appDataPath, "documents"));
-                this.checkExistsOrCreateDir(path.join(this.appDataPath, "image-store"));
+                this.checkExistsOrCreateDir(path.join(this.appDataPath, "trash"));
             }
         });
     }
 
     private checkExistsOrCreateDir(path: string) {
-        fs.exists(path, (exists) => {
+        fs.exists(path, (err, exists) => {
             if (!exists) {
+                console.log(`Path ${path} does not exist`);
                 fs.mkdir(path, (err) => this.handleCretaedDir);
             } else {
                 console.log(`${path} exists`);

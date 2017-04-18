@@ -7,7 +7,6 @@ import { SWIFileService } from '../../services/swi-file.service';
 import { SwiHeaderComponent } from './components/swi-header/swi-header.component';
 import { SwiStagesListComponent } from './components/swi-stages-list/swi-stages-list.component';
 import { SwiStageEditComponent } from './components/swi-stage-edit/swi-stage-edit.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { SwiNewComponent } from './components/swi-new/swi-new.component';
 import { SwiHsListComponent } from './components/swi-hs-list/swi-hs-list.component';
 import { SWIHSItemService } from "./services/swi-hs.service";
@@ -21,8 +20,7 @@ import { SwiErpPartsComponent } from './components/swi-erp-parts/swi-erp-parts.c
   imports: [
     CommonModule,
     SharedControlsModule,
-    FormsModule,
-    ModalModule.forRoot()
+    FormsModule
   ],
   exports: [
     SwiBuilderScreenComponent,

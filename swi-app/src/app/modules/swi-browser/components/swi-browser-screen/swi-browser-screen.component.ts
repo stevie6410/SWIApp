@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { Overlay } from "angular2-modal";
-import { Modal } from "angular2-modal/plugins/bootstrap";
 import { SWIHeader } from "../../../../models/app.models";
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ElectronService } from "../../../../services/electron.service";
@@ -20,13 +18,8 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   constructor(
     private swiService: SWIFileService,
-    private vcr: ViewContainerRef,
-    private overlay: Overlay,
-    public modal: Modal,
     private router: Router
-  ) {
-    this.overlay.defaultViewContainer = vcr;
-  }
+  ) { }
 
   ngOnInit() {
     this.swiService.getAllFiles().then((results: SWIHeader[]) => {

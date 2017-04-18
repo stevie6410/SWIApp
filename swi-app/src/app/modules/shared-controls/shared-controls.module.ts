@@ -8,13 +8,11 @@ import { ImageCaptureComponent } from './image-capture/image-capture.component';
 import { FormsModule } from "@angular/forms";
 import { OrderBy } from "./order-by-pipe/order-by.pipe";
 import { SwiCategoryPickerComponent } from './swi-category-picker/swi-category-picker.component';
-import { DropdownModule } from "primeng/primeng";
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    DropdownModule
+    FormsModule
   ],
   exports: [
     PageComponent,

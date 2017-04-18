@@ -15,8 +15,6 @@ import { SharedControlsModule } from '../shared-controls/shared-controls.module'
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { CustomOptions } from './toastr.options';
-import { ModalModule } from 'angular2-modal';
-import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { ElectronUpdateService } from "../../services/electron-update.service";
 import { SwiBrowserModule } from "../swi-browser/swi-browser.module";
 import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser-screen/swi-browser-screen.component";
@@ -28,7 +26,7 @@ import { SWIResolve } from "../swi-builder/components/swi.resolver";
 import { SwiToolEditComponent } from "../swi-builder/components/swi-tool-edit/swi-tool-edit.component";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/swibuilder', pathMatch: 'full' },
+  { path: '', redirectTo: '/swibrowser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'swibuilder', component: SwiNewComponent },
   { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
@@ -53,8 +51,6 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     ToastModule.forRoot(),
     SharedControlsModule,
-    ModalModule.forRoot(),
-    BootstrapModalModule,
     SwiBrowserModule,
     MomentModule
   ],

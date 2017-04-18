@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from "@angular/router";
-import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastsManager } from 'ng2-toastr';
 import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
 import { SWIFileService } from '../../../../services/swi-file.service';
