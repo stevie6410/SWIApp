@@ -7,8 +7,8 @@
       <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
       <img class="d-flex mr-3" width="65px" height="65px" [src]="'data:image/jpg;base64,' + getImageFromKey(stage.image)">
       <div class="media-body">
-        <h5 class="mt-0 mb-1">{{stage.summary}}</h5>
-        {{stage.description}}
+        <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
+        <!--{{stage.description}}-->
       </div>
 
       <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
