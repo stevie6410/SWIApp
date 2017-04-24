@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Location, LocationStrategy } from "@angular/common";
 import { PageComponent } from './page.component';
 
 describe('PageComponent', () => {
@@ -8,9 +8,10 @@ describe('PageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageComponent ]
+      declarations: [PageComponent],
+      providers: [Location, LocationStrategy]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

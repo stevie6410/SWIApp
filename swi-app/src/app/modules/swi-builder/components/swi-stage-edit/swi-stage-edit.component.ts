@@ -16,7 +16,6 @@ export class SwiStageEditComponent implements OnInit {
   title: string = "Edit Stage";
   swi: SWIHeader;
   stage: SWIStage;
-  filename: string;
   sequence: number;
   isFetchingImage: boolean = false;
   initalSWIState: number;
@@ -34,14 +33,11 @@ export class SwiStageEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      if (params['filename'] && params['sequence']) {
-        this.filename = params['filename'];
-        this.sequence = +params['sequence'];
-        this.swi = this.route.snapshot.data['swi'];
-        this.initalSWIState = this.generateHash(JSON.stringify(this.swi));
-        this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
-        this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
-      }
+      this.sequence = +params['sequence'];
+      this.swi = this.route.snapshot.data['swi'];
+      this.initalSWIState = this.generateHash(JSON.stringify(this.swi));
+      this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
+      this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
     });
   }
 
@@ -61,17 +57,17 @@ export class SwiStageEditComponent implements OnInit {
   save(navBack: Boolean) {
     if (this.generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
       console.log("No changes");
-      if (navBack) this.router.navigate(['swibuilder', this.filename]);
+      if (navBack) this.router.navigate(['swibuilder', this.swi.id]);
     } else {
       //Save the file and navigate back to the SWI Builder screen
-      this.swiService.saveFile(this.filename, this.swi)
+      this.swiService.saveFile(this.swi)
         .then((result) => {
-          console.log(`${this.filename} was saved.`);
-          if (navBack) this.router.navigate(['swibuilder', this.filename]);
+          console.log(`${this.swi.id} was saved.`);
+          if (navBack) this.router.navigate(['swibuilder', this.swi.id]);
         })
         .catch((err) => {
           console.log("Error saving file: ", err);
-          this.toast.error(`${this.filename} could not be created`, "Error saving file!");
+          this.toast.error(`${this.swi.title} could not be created`, "Error saving file!");
         })
     }
   }

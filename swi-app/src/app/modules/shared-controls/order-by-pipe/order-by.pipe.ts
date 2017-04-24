@@ -8,7 +8,11 @@ export class OrderBy implements PipeTransform {
 
     static _orderByComparator(a: any, b: any) {
 
-        if ((isNaN(parseFloat(a)) || !isFinite(a)) || (isNaN(parseFloat(b)) || !isFinite(b))) {
+        if (a instanceof Date || b instanceof Date){
+            if(a < b) return -1;
+            if(a > b) return 1;
+        }
+        else if ((isNaN(parseFloat(a)) || !isFinite(a)) || (isNaN(parseFloat(b)) || !isFinite(b))) {
             //Isn't a number so lowercase the string to property compare
             if (a.toLowerCase() < b.toLowerCase()) return -1;
             if (a.toLowerCase() > b.toLowerCase()) return 1;

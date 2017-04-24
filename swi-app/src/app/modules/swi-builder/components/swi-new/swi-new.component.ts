@@ -27,21 +27,18 @@ export class SwiNewComponent implements OnInit {
   }
 
   createSWI() {
-    let filename = new GUID().value + '.swi';
-    console.log(`Creating a new SWI file ${filename}`);
     this.swi = new SWIHeader(this.swiName);
-    this.swi.filename = filename;
     this.swi.category = this.category;
     console.log(`Going to create this swi: `, this.swi);
-    this.swiService.saveFile(this.swi.filename, this.swi)
+    this.swiService.createSWI(this.swi)
       .then((result) => {
         console.log(`${this.swiName} was created`, `File Saved!`);
         this.toast.success(`${this.swiName} was saved`, `File Saved!`);
-        this.router.navigate(['swibuilder', this.swi.filename]);
+        this.router.navigate(['swibuilder', this.swi.id]);
       })
       .catch((err) => {
         console.log("Error saving file: ", err);
-        this.toast.error(`${filename} could not be created`, "Error saving file!");
+        this.toast.error(`${this.swi.id} could not be created`, "Error saving file!");
       });
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ElectronService } from '../../../services/electron.service';
 import { SWIFileService } from "../../../services/swi-file.service";
 
 @Component({
@@ -10,7 +9,6 @@ import { SWIFileService } from "../../../services/swi-file.service";
 export class SidenavComponent implements OnInit {
 
   constructor(
-    private electron: ElectronService,
     private swiFileService: SWIFileService
   ) { }
 
@@ -18,19 +16,19 @@ export class SidenavComponent implements OnInit {
   }
 
   toggleKioskMode() {
-    this.electron.toggleKiosk();
+    // this.electron.toggleKiosk();
   }
 
   quitApp() {
-    this.electron.quitApp();
+    // this.electron.quitApp();
   }
 
   toggleDevTools() {
-    this.electron.toggleDeveloperTools();
+    // this.electron.toggleDeveloperTools();
   }
 
   openAppData() {
-    this.swiFileService.openLocalDocumentsDirectory();
+    // this.swiFileService.openLocalDocumentsDirectory();
   }
 
 }

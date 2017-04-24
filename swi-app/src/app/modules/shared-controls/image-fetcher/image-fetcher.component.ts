@@ -1,9 +1,4 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
-import { remote, app, dialog } from 'electron';
-import { } from "angular";
-import * as Electron from 'electron';
-import * as fs from 'fs-promise';
-import * as path from 'path';
 import { ImageCaptureComponent } from "../image-capture/image-capture.component";
 
 @Component({
@@ -19,13 +14,15 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
   errorMessage: string;
   isCroppingMode: boolean = false;
   isCaptureMode: boolean = false;
+  isFileMode: boolean = false;
+
   @Output() imageSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() canceled = new EventEmitter<void>();
   @Input() image: string;
 
   constructor(
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
   }
@@ -35,35 +32,22 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
   }
 
   getImageFromFile() {
-    remote.dialog.showOpenDialog(remote.getCurrentWindow(), {
-      title: "Open image file...",
-      properties: ['openFile']
-    }, ((fileNames: string[]) => {
-      if (fileNames[0]) {
-        this.filename = fileNames[0];
-        fs.readFile(this.filename, (err, data) => {
-          if (err) {
-            this.hasError = true;
-            this.errorMessage = err.message;
-            return;
-          }
-          this.image = data.toString('base64');
-          this.changeDetector.detectChanges();
-        });
-      } else {
-        this.hasError = false;
-      }
-    }));
+    this.isFileMode = true;
+    this.isCaptureMode = false;
+    this.isCroppingMode = false;
   }
 
   getImageFromCamera() {
     this.isCaptureMode = !this.isCaptureMode;
+    this.isFileMode = false;
+    this.isCroppingMode = false;
   }
 
   imageCaptured(image: string) {
     console.log("Image Captured");
     this.isCaptureMode = false;
     this.isCroppingMode = false;
+    this.isFileMode = false;
     this.image = image;
   }
 
@@ -88,5 +72,5 @@ export class ImageFetcherComponent implements OnInit, AfterViewInit {
 
   imageComplete() {
     this.imageSelected.emit(this.image);
-  }
+  }  
 }

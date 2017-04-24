@@ -13,7 +13,9 @@
 
   <div class="image-frame">
 
-    <img class="image" [src]="'data:image/jpg;base64,' + image" *ngIf="image && isCroppingMode === false && isCaptureMode === false">
+    <img class="image" [src]="image" *ngIf="image && isCroppingMode === false && isCaptureMode === false && isFileMode == false">
+
+    <image-file *ngIf="isFileMode" (imageSelected)="imageCaptured($event)"></image-file>
 
     <div *ngIf="image && isCroppingMode">
       <image-cropper [image]="image" (onCropped)="onCropped($event)"></image-cropper>

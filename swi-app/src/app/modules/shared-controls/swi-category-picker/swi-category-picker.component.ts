@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from "@angular/forms";
 import { AppConfigService } from "../../../services/repo-config.service";
-import { SelectItem } from "primeng/primeng";
 
 @Component({
   selector: 'swi-category-picker',
@@ -29,7 +28,7 @@ export class SwiCategoryPickerComponent implements OnInit, ControlValueAccessor 
   ) { }
 
   ngOnInit() {
-    this.appConfigService.getConfig().then(config => {
+    this.appConfigService.getAppConfig().then(config => {
       this.categories = <string[]>config.swiCategories;
     });
   }

@@ -37,9 +37,6 @@ export class ImageCropperComponent implements OnInit, AfterViewInit {
 
   crop() {
     let result = this.cropperControl.getCroppedCanvas().toDataURL();
-    if (result.startsWith('data:image/png;base64,')) {
-      result = result.replace('data:image/png;base64,', '');
-    }
     this.croppedImage = result;
     this.destroyCropper();
     this.onCropped.emit(this.croppedImage);

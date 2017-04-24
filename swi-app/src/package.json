@@ -1,7 +1,0 @@
-{
-  "name": "swi",
-  "version": "0.2.1",
-  "description": "Standard Work Instruction",
-  "author": "Rockwell Collins Systems Department",
-  "main": "entry.js"
-}

@@ -11,7 +11,7 @@ export class SWIResolve implements Resolve<SWIHeader> {
     ) { }
 
     resolve(route: ActivatedRouteSnapshot) {
-        return this.swiFileService.getFile(route.paramMap.get('filename'));
+        return this.swiFileService.getFile(route.paramMap.get('id'));
     }
 }
 
