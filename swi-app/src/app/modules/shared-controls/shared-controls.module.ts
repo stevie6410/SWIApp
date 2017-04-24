@@ -8,6 +8,7 @@ import { ImageCaptureComponent } from './image-capture/image-capture.component';
 import { FormsModule } from "@angular/forms";
 import { OrderBy } from "./order-by-pipe/order-by.pipe";
 import { SwiCategoryPickerComponent } from './swi-category-picker/swi-category-picker.component';
+import { ImageFileComponent } from './image-file/image-file.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { SwiCategoryPickerComponent } from './swi-category-picker/swi-category-p
     ImageCaptureComponent,
     ImageCropperComponent,
     OrderBy,
-    SwiCategoryPickerComponent
+    SwiCategoryPickerComponent,
+    ImageFileComponent
   ],
   entryComponents:[
     ImageCaptureComponent

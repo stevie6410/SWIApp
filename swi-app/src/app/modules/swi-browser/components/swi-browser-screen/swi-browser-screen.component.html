@@ -1,26 +1,35 @@
-<app-page [title]='title' [backButton]="false">
+<app-page [title]='title' [backButton]="false" [faIcon]="'fa-cubes'">
   <!--Add Page level buttons here with page-button class-->
-  <button type='button' class='page-button btn btn-primary' routerLink="/swibuilder">Create New SWI</button>
+  <button type='button' class='page-button btn btn-success' routerLink="/swibuilder">Create New SWI</button>
   <div class='page-body'>
 
     <!--Page Content Here   -->
 
-    <div class="card-gallery flex-container">
-      <div class="card" *ngFor="let swi of localSWIs | orderBy: ['-updatedOn']" (click)="openSWI(swi)">
-        <img class="card-img-top" [src]="'data:image/jpg;base64,' + getImageFromKey(swi, swi.coverImage)">
-        <div class="card-block">
-          <h5 class="card-title">{{swi.title}}</h5>
-          <p class="card-text">{{swi.description}}</p>
-          <h6><span class="badge badge-primary">{{swi?.category}}</span></h6>
-          <h6><span class="badge badge-primary card-badge">SWI Revision: A</span></h6>
-          <h6><span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span></h6>
-          <h6><span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span></h6>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated: {{swi.updatedOn | amTimeAgo}}</small>
+    <div class="row">
+
+      <div class="col">
+        <div class="card-gallery flex-container">
+          <div class="card" *ngFor="let swi of localSWIs | orderBy: ['-updatedOn']" (click)="openSWI(swi)" [ngClass]="{'card-selected': isSelected(swi)}">
+            <img class="card-img-top" [src]="swi.getImageFromStore(swi.coverImage)">
+            <div class="card-block">
+              <h5 class="card-title">{{swi.title}}</h5>
+              <p class="card-text">{{swi.description}}</p>
+              <h6><span class="badge badge-primary">{{swi?.category}}</span></h6>
+              <h6><span class="badge badge-primary card-badge">SWI Revision: A</span></h6>
+              <h6><span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span></h6>
+              <h6><span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span></h6>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated: {{swi.updatedOn | amTimeAgo}}</small>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
+      <div class="col" *ngIf="this.selectedSWI != null" [@fadeInOut]>
+        <swi-properties-panel (onClose)="this.selectedSWI = null"></swi-properties-panel>
+      </div>
+    </div>
   </div>
+
 </app-page>

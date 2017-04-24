@@ -100,10 +100,6 @@ export class ImageCaptureComponent implements OnInit, AfterViewInit {
 
     let result: string = _canvas.toDataURL("image/png");
 
-    if (result.startsWith('data:image/png;base64,')) {
-      result = result.replace('data:image/png;base64,', '');
-    }
-
     this.onCaptured.emit(result);
     this.reset();
   }

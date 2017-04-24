@@ -1,38 +1,42 @@
 import { Injectable } from '@angular/core';
-import { remote, shell } from "electron";
 import { SWIAppConfig } from "app/models/app.config.models";
-import * as fs from 'fs-promise';
-import * as path from 'path';
-const appConfig = require('../../assets/appConfig.json');
+import { Http, Response, Headers, RequestOptions } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+import { SWIDBService } from "../modules/core/swi-db.service";
+import { SWIHSItem } from "app/models/app.models";
+import Dexie from 'dexie';
 
 @Injectable()
 export class AppConfigService {
 
-    private _appConfigPath: string;
+    appConfigTable: Dexie.Table<SWIAppConfig, number>;
 
-    constructor() {
-        //First try and get the app cache from the app data folder
-        this._appConfigPath = path.join(remote.app.getPath('appData'), 'swi-data', 'config.json');
-        console.log("_appConfigPath: ", this._appConfigPath);
+    constructor(
+        private http: Http,
+        private db: SWIDBService
+    ) {
+        this.appConfigTable = this.db.table('appConfig');
+        this.setAppConfigFromFile();
     }
 
-    private initCache() {
-        //Get the latest cache from repo or source
-        console.log(require('../../assets/appConfig.json'));
+    private setAppConfigFromFile() {
+        this.http.get("./assets/appConfig.json").subscribe(
+            config => {
+                this.appConfigTable.toArray().then(value => {
+                    if (value.length == 0) {
+                        this.appConfigTable.add(config.json());
+                    }
+                });
+            }
+        );
     }
 
-    private updateAppConfig(): Promise<void> {
-        console.log("Update App Config");
-
-        let config: SWIAppConfig = require('../../assets/appConfig.json');
-        console.log("required from appConfig.json");
-        console.log(config);
-        return fs.writeFile(this._appConfigPath, JSON.stringify(config));
-    }
-
-    public getConfig(): Promise<SWIAppConfig> {
+    getAppConfig(): Promise<SWIAppConfig> {
         return new Promise<SWIAppConfig>((resolve, reject) => {
-            resolve(appConfig);
+            this.appConfigTable.toArray().then((data) => {
+                console.log("data: ", data[0]);
+                resolve(data[0]);
+            });
         });
     }
 }

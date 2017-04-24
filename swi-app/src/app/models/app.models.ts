@@ -1,4 +1,5 @@
 import { SWIUser, SWICompany } from './security.models';
+import { ImagePlaceholder } from "../../assets/image-placeholder";
 
 export class SWIHeader {
     id: string;
@@ -38,7 +39,34 @@ export class SWIHeader {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
+        this.filename = this.id + '.swi';
     }
+
+    public getImageFromStore(key: string): string {
+        if (!key) return ImagePlaceholder;
+        try {
+            let result = this.swiImages.filter(i => i.key == key)[0];
+            if (result) {
+                if (!result.value.startsWith('data:image')) {
+                    result.value = 'data:image/png; base64,' + result;
+                }
+                return result.value;
+            }
+        } catch (error) {
+            return ImagePlaceholder;
+        }
+    }
+}
+
+export function generateHash(obj: any) {
+    var hash = 0, i, chr;
+    if (obj.length === 0) return hash;
+    for (i = 0; i < obj.length; i++) {
+        chr = obj.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
 }
 
 export class SWIERPPart {

@@ -15,7 +15,8 @@ export class SWIHSItemService {
     }
 
     updateCatalogeItems() {
-        this._catalogItems = require('../../../../assets/swi-hs-items.json');
+        //TODO: Create a service to provide catalog items Ref: SWI-74
+        // this._catalogItems = require('../../../../assets/swi-hs-items.json');
     }
 
     public getCatalogItems(): SWIHSItem[] {

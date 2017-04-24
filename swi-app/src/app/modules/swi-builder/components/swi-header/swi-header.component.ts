@@ -28,7 +28,6 @@ export class SwiHeaderComponent implements OnInit {
 
   getImageFromKey(key: string): string {
     try {
-      // console.log(key);
       if (!key) return ImagePlaceholder;
       let result = this.swi.swiImages.filter(i => i.key == key)[0];
       if (result) return result.value;

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Location } from "@angular/common";
 import { HomeComponent } from './home.component';
+import { SharedControlsModule } from "../../shared-controls/shared-controls.module";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,9 +9,11 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [HomeComponent],
+      imports: [SharedControlsModule],
+      providers: [Location]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -31,11 +31,11 @@ export class SwiToolsListComponent implements OnInit {
   }
 
   addTool() {
-    this.router.navigate(['swibuilder', this.swi.filename, 'tools', 'new']);
+    this.router.navigate(['swibuilder', this.swi.id, 'tools', 'new']);
   }
 
   editTool(tool: SWITool) {
-    this.router.navigate(['swibuilder', this.swi.filename, 'tools', tool.id]);
+    this.router.navigate(['swibuilder', this.swi.id, 'tools', tool.id]);
   }
 
   save() {

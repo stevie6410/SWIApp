@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
-import { ElectronService } from '../../services/electron.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { SwiBuilderScreenComponent } from '../swi-builder/components/swi-builder-screen/swi-builder-screen.component';
@@ -15,7 +14,6 @@ import { SharedControlsModule } from '../shared-controls/shared-controls.module'
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
 import { CustomOptions } from './toastr.options';
-import { ElectronUpdateService } from "../../services/electron-update.service";
 import { SwiBrowserModule } from "../swi-browser/swi-browser.module";
 import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser-screen/swi-browser-screen.component";
 import { MomentModule } from "angular2-moment";
@@ -24,16 +22,22 @@ import { SwiHsPickerComponent } from "../swi-builder/components/swi-hs-picker/sw
 import { AppConfigService } from "../../services/repo-config.service";
 import { SWIResolve } from "../swi-builder/components/swi.resolver";
 import { SwiToolEditComponent } from "../swi-builder/components/swi-tool-edit/swi-tool-edit.component";
+import { CoreModule } from "../core/core.module";
+import { HSItemsResolver } from "../../../app/modules/swi-builder/components/hs-items.resolver";
+import { SwiImporterModule } from "../swi-importer/swi-importer.module";
+import { SwiImporterScreenComponent } from "../swi-importer/components/swi-importer-screen/swi-importer-screen.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/swibrowser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'swibuilder', component: SwiNewComponent },
-  { path: 'swibuilder/:filename', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
-  { path: 'swibuilder/:filename/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
-  { path: 'swibuilder/:filename/hsitems', component: SwiHsPickerComponent },
-  { path: 'swibuilder/:filename/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
-  { path: 'swibrowser', component: SwiBrowserScreenComponent }
+  { path: 'swibuilder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
+  { path: 'swibuilder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
+  { path: 'swibuilder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolve } },
+  { path: 'swibuilder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
+  { path: 'swibrowser', component: SwiBrowserScreenComponent },
+  { path: 'swiimporter', component: SwiImporterScreenComponent }
+
 ];
 
 @NgModule({
@@ -43,8 +47,9 @@ const appRoutes: Routes = [
     SidenavComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { useHash: true }),
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
+    CoreModule,
     FormsModule,
     HttpModule,
     SwiBuilderModule,
@@ -52,13 +57,13 @@ const appRoutes: Routes = [
     ToastModule.forRoot(),
     SharedControlsModule,
     SwiBrowserModule,
-    MomentModule
+    MomentModule,
+    SwiImporterModule
   ],
   providers: [
-    ElectronService,
     { provide: ToastOptions, useClass: CustomOptions },
-    ElectronUpdateService,
-    AppConfigService
+    AppConfigService,
+    HSItemsResolver
   ],
   bootstrap: [AppComponent]
 })

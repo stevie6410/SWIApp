@@ -1,67 +1,37 @@
 import { Injectable } from '@angular/core';
-import { remote, shell } from 'electron';
-import * as fs from 'fs-promise';
-import * as path from 'path';
 import { SWIHeader } from '../models/app.models';
+import Dexie from 'dexie';
+import { SWIDBService } from "../modules/core/swi-db.service";
 
+//TODO: Rewite this service using IndexedDB for storage. Ref: SWI-67
 @Injectable()
 export class SWIFileService {
 
-    readonly dirName: string = "swi-data";
-    private appDataPath: string;
+    table: Dexie.Table<SWIHeader, string>;
 
-    constructor() {
-        this.appDataPath = path.join(remote.app.getPath('appData'), this.dirName);
-        console.log('App Data Path: ', this.appDataPath);
-        this.validateRepairAppDataDirectory();
+    constructor(private db: SWIDBService) {
+        this.table = this.db.table('swis');
     }
 
-    openLocalDocumentsDirectory() {
-        shell.showItemInFolder(path.join(this.appDataPath, "documents"));
+    getAll() {
+        return this.table.toArray();
     }
 
-    saveFile(filename: string, swi: SWIHeader): Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            swi = this.cleanupSWI(swi);
-            swi.updatedOn = new Date();
-            if (!swi.createdOn) swi.createdOn = new Date();
-            fs.writeFile(path.join(this.appDataPath, "documents", filename), JSON.stringify(swi))
-                .then(() => {
-                    resolve(filename);
-                })
-                .catch((err) => {
-                    reject(Error(`File save error: ${err}`));
-                });
-        });
+    createSWI(swi: SWIHeader): Promise<SWIHeader> {
+        return this.table.add(swi);
     }
 
-    getFile(filename: string): Promise<Object> {
-        return new Promise<SWIHeader>((resolve, reject) => {
-            //check to see if the file exists
-            fs.readFile(path.join(this.appDataPath, 'documents', filename), 'utf8', (err, data) => {
-                if (err) reject(Error(err.message));
-                resolve(JSON.parse(data));
-            });
-
-        });
+    saveFile(swi: SWIHeader): Promise<number> {
+        swi.updatedOn = new Date();
+        return this.table.update(swi.id, swi);
     }
 
-    getAllFiles(): Promise<Object> {
-        return new Promise<SWIHeader[]>((resolve, reject) => {
-            let results: Array<SWIHeader> = new Array<SWIHeader>();
-            fs.readdir(path.join(this.appDataPath, 'documents'), (err, files) => {
-                files.forEach(file => {
-                    // console.log(file);
-                    fs.readFile(path.join(this.appDataPath, 'documents', file), 'utf8', (err, data) => {
-                        let json: SWIHeader = JSON.parse(data);
-                        json.filename = file;
-                        // console.log(json.title);
-                        results.push(json);
-                    });
-                });
-                resolve(results);
-            });
-        });
+    getFile(id: string): Promise<SWIHeader> {
+        return this.table.get(id);
+    }
+
+    getAllFiles(): Promise<SWIHeader[]> {
+        return this.table.toArray();
     }
 
     cleanupSWI(swi: SWIHeader): SWIHeader {
@@ -93,46 +63,6 @@ export class SWIFileService {
         }
 
         return swi;
-    }
-
-    private validateRepairAppDataDirectory() {
-        console.log("Validating App Data Dir");
-        fs.exists(this.appDataPath, (err, exists) => {
-            if (!exists) {
-                fs.mkdir(this.appDataPath, (err) => {
-                    if (!err) {
-                        //Go ahed and start creating the first level folders
-                        this.checkExistsOrCreateDir(path.join(this.appDataPath, "documents"));
-                        this.checkExistsOrCreateDir(path.join(this.appDataPath, "trash"));
-                    } else {
-                        console.log(`Error checking app data ${err.message}`)
-                    }
-                });
-            } else {
-                //Go ahed and start creating the first level folders
-                this.checkExistsOrCreateDir(path.join(this.appDataPath, "documents"));
-                this.checkExistsOrCreateDir(path.join(this.appDataPath, "trash"));
-            }
-        });
-    }
-
-    private checkExistsOrCreateDir(path: string) {
-        fs.exists(path, (err, exists) => {
-            if (!exists) {
-                console.log(`Path ${path} does not exist`);
-                fs.mkdir(path, (err) => this.handleCretaedDir);
-            } else {
-                console.log(`${path} exists`);
-            }
-        });
-    }
-
-    private handleCretaedDir(err) {
-        if (err) {
-            console.log("Error, could not create folder", err);
-        } else {
-            console.log("Folder was created succesfully");
-        }
     }
 
 }

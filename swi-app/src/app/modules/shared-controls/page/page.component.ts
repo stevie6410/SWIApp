@@ -11,6 +11,7 @@ export class PageComponent implements OnInit {
   @Input() title: string;
   @Input() backButton: boolean = true;
   @Input() overrideBackButton: boolean = false;
+  @Input() faIcon: string;
   @Output() onBackButtonClick = new EventEmitter<void>();
 
   constructor(
