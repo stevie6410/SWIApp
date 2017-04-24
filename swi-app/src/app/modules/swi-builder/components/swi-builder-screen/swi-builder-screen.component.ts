@@ -16,7 +16,7 @@ export class SwiBuilderScreenComponent implements OnInit {
   initalSWIState: number;
 
   constructor(
-    private swiService: SWIFileService,
+    public swiService: SWIFileService,
     private vcr: ViewContainerRef,
     private toast: ToastsManager,
     private route: ActivatedRoute,

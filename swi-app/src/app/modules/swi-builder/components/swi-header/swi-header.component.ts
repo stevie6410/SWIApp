@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-
 import { SWIHeader, SWIImage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
+import { SWIFileService } from "../../../../../app/services/swi-file.service";
+
 @Component({
   selector: 'swi-header',
   templateUrl: './swi-header.component.html',
@@ -16,7 +17,8 @@ export class SwiHeaderComponent implements OnInit {
   isFetchingImage: boolean = false;
 
   constructor(
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    public swiService: SWIFileService
   ) { }
 
   ngOnInit() {

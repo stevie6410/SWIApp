@@ -22,9 +22,9 @@
         <div class="col-lg">
           <label for="toolImage">Tool Image</label>
           <div id="toolImage" class='card-block'>
-            <img width="400px" height="400px" [src]="getImageFromKey(tool.image)" *ngIf="!isFetchingImage"
+            <img width="400px" height="400px" [src]="swiService.getImageFromStore(swi, tool.image)" *ngIf="!isFetchingImage"
               (click)="addImage()">
-            <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(tool.image)"></image-fetcher>
+            <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="swiService.getImageFromStore(swi, tool.image)"></image-fetcher>
           </div>
         </div>
       </div>

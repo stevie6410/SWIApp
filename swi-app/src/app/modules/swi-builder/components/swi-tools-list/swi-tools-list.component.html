@@ -5,7 +5,7 @@
     <div class="tools-container">
 
       <div class="card" *ngFor="let tool of swi.swiTools" (click)="editTool(tool)">
-        <img class="card-img-top" [src]="getImageFromKey(tool.image)" alt="Card image cap">
+        <img class="card-img-top" [src]="swiService.getImageFromStore(swi, tool.image)" alt="Card image cap">
         <div class="card-block">
           <p class="card-text">{{tool.name}}</p>
         </div>

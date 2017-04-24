@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { SWITool, SWIHeader, SWIImage } from "../../../../../app/models/app.models";
+import { SWITool, SWIHeader, SWIImage, generateHash } from "../../../../../app/models/app.models";
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
@@ -24,7 +24,7 @@ export class SwiToolEditComponent implements OnInit {
     private vcr: ViewContainerRef,
     private toast: ToastsManager,
     private router: Router,
-    private swiService: SWIFileService,
+    public swiService: SWIFileService,
     private changeDetector: ChangeDetectorRef
   ) {
     toast.setRootViewContainerRef(vcr);
@@ -33,7 +33,7 @@ export class SwiToolEditComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.swi = this.route.snapshot.data['swi'];
-      this.initialState = this.generateHash(JSON.stringify(this.swi));
+      this.initialState = generateHash(JSON.stringify(this.swi));
 
       this.toolId = params['toolid'];
       if (this.toolId == 'new') {
@@ -74,7 +74,7 @@ export class SwiToolEditComponent implements OnInit {
   }
 
   save(navBack: Boolean) {
-    if (this.generateHash(JSON.stringify(this.swi)) == this.initialState) {
+    if (generateHash(JSON.stringify(this.swi)) == this.initialState) {
       console.log("No changes");
       if (navBack) this.router.navigate(['swibuilder', this.swi.id]);
     } else {
@@ -90,25 +90,4 @@ export class SwiToolEditComponent implements OnInit {
         })
     }
   }
-
-  getImageFromKey(key: string): string {
-    try {
-      if (!key) return ImagePlaceholder;
-      return this.swi.swiImages.filter(i => i.key == key)[0].value;
-    } catch (error) {
-      return ImagePlaceholder;
-    }
-  }
-
-  generateHash(obj: any) {
-    var hash = 0, i, chr;
-    if (obj.length === 0) return hash;
-    for (i = 0; i < obj.length; i++) {
-      chr = obj.charCodeAt(i);
-      hash = ((hash << 5) - hash) + chr;
-      hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-  }
-
 }

@@ -43,8 +43,8 @@
         <div class="col-lg">
           <label for="stageImage">Stage Image</label>
           <div id="stageImage" class='card-block'>
-            <img width="400px" height="400px" [src]="getImageFromKey(stage.image)" *ngIf="!isFetchingImage" (click)="addImage()">
-            <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="getImageFromKey(stage.image)"></image-fetcher>
+            <img width="400px" height="400px" [src]="swiService.getImageFromStore(swi, stage.image)" *ngIf="!isFetchingImage" (click)="addImage()">
+            <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="swiService.getImageFromStore(swi, stage.image)"></image-fetcher>
           </div>
         </div>
       </div>

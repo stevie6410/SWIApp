@@ -34,7 +34,7 @@ export class AppConfigService {
     getAppConfig(): Promise<SWIAppConfig> {
         return new Promise<SWIAppConfig>((resolve, reject) => {
             this.appConfigTable.toArray().then((data) => {
-                console.log("data: ", data[0]);
+                // console.log("data: ", data[0]);
                 resolve(data[0]);
             });
         });

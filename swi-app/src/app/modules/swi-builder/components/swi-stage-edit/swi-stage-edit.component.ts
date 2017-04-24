@@ -22,7 +22,7 @@ export class SwiStageEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private swiService: SWIFileService,
+    public swiService: SWIFileService,
     private toast: ToastsManager,
     private vcr: ViewContainerRef,
     private changeDetector: ChangeDetectorRef,

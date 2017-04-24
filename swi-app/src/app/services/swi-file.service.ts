@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { SWIHeader } from '../models/app.models';
 import Dexie from 'dexie';
 import { SWIDBService } from "../modules/core/swi-db.service";
+import { ImagePlaceholder } from "../../assets/image-placeholder";
 
-//TODO: Rewite this service using IndexedDB for storage. Ref: SWI-67
 @Injectable()
 export class SWIFileService {
 
@@ -37,6 +37,23 @@ export class SWIFileService {
     cleanupSWI(swi: SWIHeader): SWIHeader {
         swi = this.cleanupSWIImages(swi);
         return swi;
+    }
+
+    public getImageFromStore(swi: SWIHeader, key: string): string {
+        if (!key) return ImagePlaceholder;
+        try {
+            let result = swi.swiImages.filter(i => i.key == key)[0];
+            if (result) {
+                if (!result.value.startsWith('data:image')) {
+                    // console.log("Image with no data:image prefix. Key is: ", result.key);
+                    result.value = 'data:image/jpg;base64,' + result.value;
+                }
+                // console.log("result.value", result);
+                return result.value;
+            }
+        } catch (error) {
+            return ImagePlaceholder;
+        }
     }
 
     private cleanupSWIImages(swi: SWIHeader): SWIHeader {

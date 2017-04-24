@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SWIHeader, SWITool } from "../../../../../app/models/app.models";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { Router } from "@angular/router";
+import { SWIFileService } from "../../../../services/swi-file.service";
 
 @Component({
   selector: 'swi-tools-list',
@@ -15,19 +16,11 @@ export class SwiToolsListComponent implements OnInit {
   title: string = "Tooling";
 
   constructor(
-    private router: Router
+    private router: Router,
+    public swiService: SWIFileService
   ) { }
 
   ngOnInit() {
-  }
-
-  getImageFromKey(key: string): string {
-    try {
-      if (!key) return ImagePlaceholder;
-      return this.swi.swiImages.filter(i => i.key == key)[0].value;
-    } catch (error) {
-      return ImagePlaceholder;
-    }
   }
 
   addTool() {

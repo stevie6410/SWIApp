@@ -41,21 +41,6 @@ export class SWIHeader {
         });
         this.filename = this.id + '.swi';
     }
-
-    public getImageFromStore(key: string): string {
-        if (!key) return ImagePlaceholder;
-        try {
-            let result = this.swiImages.filter(i => i.key == key)[0];
-            if (result) {
-                if (!result.value.startsWith('data:image')) {
-                    result.value = 'data:image/png; base64,' + result;
-                }
-                return result.value;
-            }
-        } catch (error) {
-            return ImagePlaceholder;
-        }
-    }
 }
 
 export function generateHash(obj: any) {

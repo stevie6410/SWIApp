@@ -29,7 +29,7 @@ export class SwiBrowserScreenComponent implements OnInit {
   selectedSWI: SWIHeader;
 
   constructor(
-    private swiService: SWIFileService,
+    public swiService: SWIFileService,
     private router: Router
   ) { }
 
@@ -42,16 +42,6 @@ export class SwiBrowserScreenComponent implements OnInit {
         console.log("Error sorting the list. Here is the swis: ", this.localSWIs);
       }
     });
-  }
-
-  getImageFromKey(swi: SWIHeader, key: string): string {
-    if (!key) return ImagePlaceholder;
-    try {
-      let result = swi.swiImages.filter(i => i.key == key)[0];
-      if (result) return result.value;
-    } catch (error) {
-      return ImagePlaceholder;
-    }
   }
 
   openSWI(swi: SWIHeader) {

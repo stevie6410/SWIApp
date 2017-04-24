@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ViewC
 import { Router } from '@angular/router';
 import { SWIHeader, SWIStage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
+import { SWIFileService } from "../../../../../app/services/swi-file.service";
 
 
 @Component({
@@ -19,7 +20,8 @@ export class SwiStagesListComponent implements OnInit {
   editMode: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    public swiService: SWIFileService
   ) { }
 
   ngOnInit() {
