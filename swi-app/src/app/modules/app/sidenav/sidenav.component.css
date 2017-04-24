@@ -72,3 +72,16 @@
         width: 90%;
         margin: 8px;
     }
+
+    .brand-logo{
+        width: 180px;
+        padding: 10px;
+    }
+
+    .flex-spacer{
+        height: 100%;
+    }
+
+    #sidebar{
+        height: 100%;
+    }

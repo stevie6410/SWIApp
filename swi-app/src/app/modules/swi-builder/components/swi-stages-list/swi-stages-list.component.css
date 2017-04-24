@@ -1,0 +1,15 @@
+.badge-pill{
+    margin-right: 15px;
+}
+
+.list-group-item{
+    cursor: pointer;
+}
+
+.list-group-item:hover{
+    background-color: #f9f6f6;
+}
+
+.swi-stage-reorder-btn{   
+  border-color: #d07c06;
+}

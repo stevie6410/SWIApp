@@ -1,0 +1,18 @@
+<swi-card [title]='title'>
+  <button type='button' class='btn btn-success card-btn' (click)="addTool()">Add</button>
+  <div class='card-block'>
+
+    <div class="tools-container">
+
+      <div class="card" *ngFor="let tool of swi.swiTools" (click)="editTool(tool)">
+        <img class="card-img-top" [src]="swiService.getImageFromStore(swi, tool.image)" alt="Card image cap">
+        <div class="card-block">
+          <p class="card-text">{{tool.name}}</p>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+</swi-card>

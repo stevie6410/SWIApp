@@ -1,11 +1,28 @@
-<app-page [title]="'SWI Builder'">
+<app-page [title]="pageTitle" (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-cube'">
   <!--Add Page level buttons here with page-button class-->
-  <button type='button' class='page-button btn btn-primary'>Page Menu Button</button>
+  <button type='button' class='page-button btn btn-success' (click)="saveFile(false)">Save</button>
   <div class='page-body'>
-    <!--Page Content Here   -->
-    <p>
-      swi-builder-screen works!
-    </p>
+
+    <div *ngIf="swi">
+
+      <div class="row">
+        <div class="col-lg col-lg-7">
+
+          <swi-header [swi]="swi" (onSave)="saveFile(false)"></swi-header>
+
+          <swi-erp-parts [swi]="swi" *ngIf="swi.category == 'Production Part'"></swi-erp-parts>
+
+          <swi-hs-list [swi]="swi" (onSave)="saveFile(false)"></swi-hs-list>
+          
+          <swi-tools-list [swi]="swi"></swi-tools-list>
+
+        </div>
+        <div class="col-lg col-lg-5">
+          <swi-stages-list [swi]="swi" (onSave)="saveFile(false)"></swi-stages-list>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 </app-page>
