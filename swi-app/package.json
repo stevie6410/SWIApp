@@ -1,11 +1,12 @@
 {
   "name": "swiweb-app",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "prebuild-prod": "npm version patch",
     "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
