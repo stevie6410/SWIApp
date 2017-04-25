@@ -1,6 +1,6 @@
 {
-    "name": "swi",
-    "description": "Standard Work Instructions",
-    "version": "0.3.0",
-    "license": ""
+  "name": "swi",
+  "description": "Standard Work Instructions",
+  "version": "0.3.1",
+  "license": ""
 }
