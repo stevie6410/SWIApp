@@ -1,6 +1,6 @@
 {
   "name": "swiweb-app",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -13,7 +13,6 @@
     "sw": "sw-precache --root=dist --config=sw-precache-config.js",
     "static-serve": "cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html",
     "tc-build-bump": "teamcity-build-number",
-    "pretc-set-params": "npm version patch",
     "tc-set-params": "teamcity-package-params"
   },
   "private": true,
