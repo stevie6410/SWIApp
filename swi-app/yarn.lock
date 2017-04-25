@@ -4838,6 +4838,16 @@ teamcity-build-number-cli@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/teamcity-build-number-cli/-/teamcity-build-number-cli-0.0.3.tgz#1cb0b3d8e1776cb602b02ae1365a0621063f8fc2"
 
+teamcity-package-params@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/teamcity-package-params/-/teamcity-package-params-3.2.0.tgz#400d891ed358dd9f4240b56635b57106919a35fc"
+  dependencies:
+    teamcity-service-messages "^0.1.8"
+
+teamcity-service-messages@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/teamcity-service-messages/-/teamcity-service-messages-0.1.8.tgz#1b0d1c929d3de6c88cdb4482998d2c1143f0efb3"
+
 temp@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/temp/-/temp-0.8.3.tgz#e0c6bc4d26b903124410e4fed81103014dfc1f59"

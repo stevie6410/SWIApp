@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "sw": "sw-precache --root=dist --config=sw-precache-config.js",
     "static-serve": "cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html",
-    "tc-build-bump": "teamcity-build-number"
+    "tc-build-bump": "teamcity-build-number",
+    "tc-set-params": "teamcity-package-params"
   },
   "private": true,
   "dependencies": {
@@ -60,6 +61,7 @@
     "protractor": "~5.1.0",
     "sw-precache": "^5.1.0",
     "teamcity-build-number-cli": "^0.0.3",
+    "teamcity-package-params": "^3.2.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0"
