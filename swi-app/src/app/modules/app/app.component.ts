@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, ViewContainerRef } from '@angular/core';
+import { ToastsManager } from "ng2-toastr";
 @Component({
   selector: 'swi-root',
   templateUrl: './app.component.html',
@@ -10,6 +10,10 @@ export class AppComponent {
 
   title = 'Standard Work Instructions';
 
-  constructor() {
+  constructor(
+    private toast: ToastsManager,
+    vcr: ViewContainerRef
+  ) {
+    toast.setRootViewContainerRef(vcr);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from '../../../../services/swi-file.service';
@@ -17,12 +17,10 @@ export class SwiBuilderScreenComponent implements OnInit {
 
   constructor(
     public swiService: SWIFileService,
-    private vcr: ViewContainerRef,
     private toast: ToastsManager,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.toast.setRootViewContainerRef(vcr);
     this.swi = this.route.snapshot.data['swi'];
     this.initalSWIState = generateHash(JSON.stringify(this.swi));
     this.validateStageOrder();
