@@ -1,14 +1,14 @@
-import { HelloElectronPage } from './app.po';
+import { SWIWebAppPage } from './app.po';
 
-describe('hello-electron App', () => {
-  let page: HelloElectronPage;
+describe('swiweb-app App', () => {
+  let page: SWIWebAppPage;
 
   beforeEach(() => {
-    page = new HelloElectronPage();
+    page = new SWIWebAppPage();
   });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('swi works!');
   });
 });

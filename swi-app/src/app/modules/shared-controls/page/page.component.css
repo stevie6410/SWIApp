@@ -1,32 +1,46 @@
 .page-header{
     height: 50px;
-    background-color: #eceeef;
-    border-bottom: #cac9c9 1px solid;
-    border-top: #cac9c9 1px solid;
+    background-color: #E4551F;
+    border-bottom: #D93A2A 1px solid;
+    border-top: #D93A2A 1px solid;
     font-size: 20px;
     align-items: center;
     display: flex;
+    z-index: 1030;
+    width: 100%;    
 }
 
 .page-header-title{
         padding-left: 10px;
         font-weight: bold;
+        font-weight: 400;
+        color: #fff;
 }
 
 .page-header-back{
         padding: 15px 20px;
-        background-color: #cecccc;
+        background-color: #E4551F;
+        color: #fff;
+        border-right: 2px solid #D93A2A;
 }
 
 .page-header-back:hover{
-        background-color: #8e8e8e;
+        background-color: #D93A2A;
 }
 
 .page-body{
         padding:15px;
+            padding-top: 15px;
+            overflow: hidden;
 }
 
 .btn-group{
     margin-left: auto;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
+    z-index: 1031;
+    margin-right: 30px;
+}
+
+.page{
+        margin-right:15px;
 }
