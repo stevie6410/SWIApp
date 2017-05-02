@@ -18,7 +18,7 @@ export class SWIFileService {
     }
 
     createSWI(swi: SWIHeader): Promise<SWIHeader> {
-        return this.table.add(swi);
+        return this.table.add(swi).then();
     }
 
     saveFile(swi: SWIHeader): Promise<number> {
