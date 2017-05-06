@@ -6,10 +6,6 @@
 |------------------|--------------|-------------------|
 | ![](http://sao.beav.com:8082/app/rest/builds/aggregated/strob:(buildType:(id:SWI_Web_ClientBuild))/statusIcon.png) | ![](http://sao.beav.com:8082/app/rest/builds/aggregated/strob:(buildType:(id:SWI_ServerBuild))/statusIcon.png) | ![](http://sao.beav.com:8082/app/rest/builds/aggregated/strob:(buildType:(id:SWI_StoreFrontBuild))/statusIcon.png) |
 
-## Screenshot
-
-![a](http://g.recordit.co/npW2Ievkbw.gif)
-
 ## Documentation
 
 The SWIApp Wiki contains the development documentation and notes. 
@@ -21,3 +17,7 @@ The SWIApp Wiki contains the development documentation and notes.
 * Functional Specification - [Link](http://github.beav.com/SAOSystems/SWIApp/wiki/Functional-Specification)
 * Offline Functionality - [Link](http://github.beav.com/SAOSystems/SWIApp/wiki/Offline-Functionality)
 * Project Structure - [Link](http://github.beav.com/SAOSystems/SWIApp/wiki/Project-Structure)
+
+## Screenshot
+
+![a](http://github.beav.com/SAOSystems/SWIApp/blob/master/wiki/images/AppDemo.gif)
