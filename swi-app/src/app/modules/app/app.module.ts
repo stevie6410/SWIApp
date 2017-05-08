@@ -26,6 +26,7 @@ import { CoreModule } from "../core/core.module";
 import { HSItemsResolver } from "../../../app/modules/swi-builder/components/hs-items.resolver";
 import { SwiImporterModule } from "../swi-importer/swi-importer.module";
 import { SwiImporterScreenComponent } from "../swi-importer/components/swi-importer-screen/swi-importer-screen.component";
+import { TooltipModule } from "ngx-tooltip";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/swibrowser', pathMatch: 'full' },
@@ -58,7 +59,8 @@ const appRoutes: Routes = [
     SharedControlsModule,
     SwiBrowserModule,
     MomentModule,
-    SwiImporterModule
+    SwiImporterModule,
+    TooltipModule
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },
