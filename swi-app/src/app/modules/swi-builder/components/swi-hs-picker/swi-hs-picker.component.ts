@@ -48,7 +48,7 @@ export class SwiHsPickerComponent implements OnInit {
   selectionComplete() {
     this.swi.swihsItems = this.selectedOptions;
     this.swiService.saveFile(this.swi).then(() => {
-      this.router.navigate(['swibuilder', this.swi.id]);
+      this.router.navigate(['builder', this.swi.id]);
     });
   }
 }

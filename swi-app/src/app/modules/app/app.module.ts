@@ -27,18 +27,20 @@ import { HSItemsResolver } from "../../../app/modules/swi-builder/components/hs-
 import { SwiImporterModule } from "../swi-importer/swi-importer.module";
 import { SwiImporterScreenComponent } from "../swi-importer/components/swi-importer-screen/swi-importer-screen.component";
 import { TooltipModule } from "ngx-tooltip";
+import { SwiViewerModule } from "../swi-viewer/swi-viewer.module";
+import { SwiViewerScreenComponent } from "../swi-viewer/components/swi-viewer-screen/swi-viewer-screen.component";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/swibrowser', pathMatch: 'full' },
+  { path: '', redirectTo: '/browser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'swibuilder', component: SwiNewComponent },
-  { path: 'swibuilder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
-  { path: 'swibuilder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
-  { path: 'swibuilder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolve } },
-  { path: 'swibuilder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
-  { path: 'swibrowser', component: SwiBrowserScreenComponent },
-  { path: 'swiimporter', component: SwiImporterScreenComponent }
-
+  { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve }},
+  { path: 'builder', component: SwiNewComponent },
+  { path: 'builder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
+  { path: 'builder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
+  { path: 'builder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolve } },
+  { path: 'builder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
+  { path: 'browser', component: SwiBrowserScreenComponent },
+  { path: 'importer', component: SwiImporterScreenComponent }
 ];
 
 @NgModule({
@@ -60,7 +62,8 @@ const appRoutes: Routes = [
     SwiBrowserModule,
     MomentModule,
     SwiImporterModule,
-    TooltipModule
+    TooltipModule,
+    SwiViewerModule
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },

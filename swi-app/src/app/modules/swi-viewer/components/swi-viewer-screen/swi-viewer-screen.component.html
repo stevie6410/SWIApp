@@ -1,0 +1,13 @@
+<app-page [title]='title' (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-desktop'">
+  <!--Add Page level buttons here with page-button class-->
+  <button type='button' class='page-button btn btn-primary'>Page Menu Button</button>
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+    <div *ngIf="swi">
+
+      <h2>{{swi.title}}</h2>
+
+    </div>
+  </div>
+</app-page>

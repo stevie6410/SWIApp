@@ -46,7 +46,7 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   openSWI(swi: SWIHeader) {
     console.log(`open swi: ${swi.id}`);
-    this.router.navigate(['swibuilder', swi.id]);
+    this.router.navigate(['viewer', swi.id]);
   }
 
   selectSWI(swi: SWIHeader) {
