@@ -2,19 +2,19 @@
     <div class="sb-items">
         <div class="sb-menu">
 
-            <p class="sb-menu-title">MAIN</p>
+            <!--<p class="sb-menu-title">MAIN</p>-->
             <ul>
-                <li routerLink="/home">
+                <li routerLink="/home" routerLinkActive="sb-selected">
                     <a tooltip="Home" [tooltipDisabled]="true" tooltipPlacement="right">
                         <i class="sb-icon fa fa-dashboard"></i><span class="sb-label">Home</span>
                     </a>
                 </li>
-                <li [routerLink]="['/browser']">
+                <li [routerLink]="['/browser']" routerLinkActive="sb-selected">
                     <a tooltip="SWI Broswer" [tooltipDisabled]="true" tooltipPlacement="right">
                         <i class="sb-icon fa fa-cubes"></i><span class="sb-label">SWI Browser</span>
                     </a>
                 </li>
-                <li [routerLink]="['/importer']">
+                <li [routerLink]="['/importer']" routerLinkActive="sb-selected">
                     <a tooltip="SWI Importer" [tooltipDisabled]="true" tooltipPlacement="right">
                         <i class="sb-icon fa fa-download"></i><span class="sb-label">SWI Importer</span>
                     </a>
@@ -23,9 +23,10 @@
             <!--<hr />-->
         </div>
         <div class="flex-spacer"></div>
+        <img class="brand-logo" [src]='brandImage' />
         <div class="sb-menu">
             <ul>
-                <li (click)="toggleSidebar()">
+                <li class="sb-toggle-item" (click)="toggleSidebar()">
                     <a>
                         <span *ngIf="!isCollapsed"><i class="sb-icon fa fa-arrow-left"></i><span class="sb-label">Collapse Sidebar</span></span>
                         <span *ngIf="isCollapsed"><i class="sb-icon fa fa-arrow-right"></i><span class="sb-label">Expand Sidebar</span></span>
@@ -33,6 +34,5 @@
                 </li>
             </ul>
         </div>
-        <img class="brand-logo" [src]='brandImage' />
     </div>
 </div>

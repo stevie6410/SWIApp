@@ -1,10 +1,12 @@
+li:focus{outline: 0;}
+
 .sb {
     background-color: #3D464D;
     width: 200px;
     height: 100%;
     min-width: 200px;
     color: #fff;
-    padding-top: 10px;
+    padding-top: 50px;
     position: relative;
     -webkit-transform: translateX(0);
     transform: translateX(0);
@@ -31,11 +33,17 @@
 }
 .sb .sb-menu ul li {
     position: relative;
-    display: block;
+    display: flex;
     list-style: none;
     font-size: 13px;
     font-weight: normal;
+    align-items: center;
 }
+
+.sb-selected {
+    background-color: #1e2327;
+}
+
 .sb .sb-menu a {
     display: block;
     padding: 10px;
@@ -45,6 +53,11 @@
 }
 
 .sb .sb-menu ul li:hover {
+    background-color: #31383E;
+}
+
+.sb-toggle-item{
+    height: 100px;
     background-color: #31383E;
 }
 
@@ -72,7 +85,6 @@
     padding: 4px 8px 4px 8px;
     margin: 0;
     font-size: 10px;
-    /*border: solid 1px black;*/
 }
 .sb .sb-footer {
     font-size: 11px;
