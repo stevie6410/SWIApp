@@ -60,23 +60,23 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
     }
 }
 
-.stages-items{
+.stages{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
-    .stages-item{
+    .stage{
         display: flex;
         margin: 5px;
     }
 
-    .stages-image{
+    .stage-image{
         height: 150px;
         width: 150px; 
         border: 1px solid $border-color;
     }
     
-    .stages-sequence{
+    .stage-sequence{
         font-size: 17px;
         font-weight: bold;
         text-align: center;
@@ -86,7 +86,7 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
         height: 30px; 
     }
 
-    .stages-sequence.carepoint{
+    .stage-sequence.carepoint{
         background-color: rgba(255, 0, 0, 0.5);
     }
 
@@ -94,8 +94,8 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 
         display: flex;
         flex-direction: column;
-        width: 200px;
-        font-size: 13px;
+        width: 160px;
+        font-size: 11px;
         font-weight: 600;
         
         .stage-summary{
@@ -113,9 +113,6 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
     }
 }
 
-
-
-
 @media screen{
     .page-body{
         padding: 5px !important;
@@ -126,13 +123,29 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 
 @media print {
 
+    html{
+        height: inherit;
+    }
+
+    body{
+        height: inherit;
+    }
+
+    .stages{
+    display: table;
+    }
+
+    .stage-wrapper{
+        display: inline-block;
+        page-break-inside: avoid;
+    }
+
     .sb, .page-header{
         display: none !important;
     }
 
     .page{
         margin-right: 0px !important;
-        margin-top: 35px;
     }
 
     .page-body{
@@ -141,11 +154,13 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 
     }
 
-    .fixed-header{
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
+    // .fixed-header{
+    //     position: fixed;
+    //     top: 0;
+    //     width: 100%;
+    //     margin: 0;
+    //     margin-bottom: 100px;
+    // }
 
     @page{
         margin-left: 15px;
@@ -154,4 +169,9 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
         margin-bottom: 10px;
     }
  
+
+    header, nav, footer {
+       overflow:visible;
+    }
+
 }
