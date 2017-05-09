@@ -1,118 +1,121 @@
-<app-page [title]='title' (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-desktop'">
-  <!--Add Page level buttons here with page-button class-->
-  <button type='button' class='page-button btn btn-primary'>Print PDF</button>
-  <div class='page-body' *ngIf="swi">
-    <!--Page Content Here   -->
+<div class="swi-viewer">
+  <app-page [title]='title' (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-desktop'">
+    <!--Add Page level buttons here with page-button class-->
+    <button type='button' class='page-button btn btn-primary'>Print PDF</button>
+    <div class='page-body' *ngIf="swi">
+      <!--Page Content Here   -->
 
-    <!--Title Row -->
-    <header>
-
-      <div class="row fixed-header">
-        <div class="col-9 title-col">
-          <span class="page-title"> Standard Work Instructions</span>
+      <!--Title Row -->
+      <header>
+        <div class="row fixed-header">
+          <div class="col-9 title-col">
+            <span class="page-title"> Standard Work Instructions</span>
+          </div>
+          <div class="col-3">
+            <img [src]="brandImage" class="brand-image">
+          </div>
         </div>
-        <div class="col-3">
-          <img [src]="brandImage" class="brand-image">
+      </header>
+
+      <!--Row 1 - Header-->
+      <div class="row">
+        <div class="col">
+          <span><strong>Title: </strong></span>
+          <span>{{swi.title}}</span>
+        </div>
+        <div class="col">
+          <span><strong>Created: </strong></span>
+          <span>{{swi.createdOn | amDateFormat:'LL'}}</span>
+        </div>
+        <div class="col">
+          <span><strong>Author: </strong></span>
+          <span>{{swi.author}}</span>
         </div>
       </div>
-    </header>
+      <div class="row">
+        <div class="col">
+          <span><strong>Description: </strong></span>
+          <span>{{swi.description}}</span>
+        </div>
+        <div class="col">
+          <span><strong>Revision: </strong></span>
+          <span>{{swi.revision}}</span>
+        </div>
+        <div class="col">
+          <span><strong>Approver: </strong></span>
+          <span>{{swi.approver}}</span>
+        </div>
+      </div>
 
-    <!--Row 1 - Header-->
-    <div class="row">
-      <div class="col">
-        <span><strong>Title: </strong></span>
-        <span>{{swi.title}}</span>
-      </div>
-      <div class="col">
-        <span><strong>Created: </strong></span>
-        <span>{{swi.createdOn | amDateFormat:'LL'}}</span>
-      </div>
-      <div class="col">
-        <span><strong>Author: </strong></span>
-        <span>{{swi.author}}</span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <span><strong>Description: </strong></span>
-        <span>{{swi.description}}</span>
-      </div>
-      <div class="col">
-        <span><strong>Revision: </strong></span>
-        <span>{{swi.revision}}</span>
-      </div>
-      <div class="col">
-        <span><strong>Approver: </strong></span>
-        <span>{{swi.approver}}</span>
-      </div>
-    </div>
+      <!--Row 2 - H&S-->
+      <div class="row">
+        <div class="col">
+          <span><strong>Health & Safety:</strong></span>
+          <br>
+          <div class="items hs-items">
+            <div *ngFor="let item of swi.swihsItems">
 
-    <!--Row 2 - H&S-->
-    <div class="row">
-      <div class="col">
-        <span><strong>Health & Safety:</strong></span>
-        <br>
-        <div class="items hs-items">
-          <div *ngFor="let item of swi.swihsItems">
-
-            <div class="item">
-              <img class="item-image" [src]="item.image">
-              <span class="item-caption">{{item.caption}}</span>
+              <div class="item">
+                <img class="item-image" [src]="item.image">
+                <span class="item-caption">{{item.caption}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--Row 3 - Tooling-->
-    <div class="row">
-      <div class="col">
-        <span><strong>Tooling:</strong></span>
-        <br>
-        <div class="items tool-items">
-          <div *ngFor="let tool of swi.swiTools">
-            <div class="item">
-              <img [src]="swiFileService.getImageFromStore(swi, tool.image)" class="item-image">
-              <span class="item-caption">{{tool.name}}</span>
+      <!--Row 3 - Tooling-->
+      <div class="row">
+        <div class="col">
+          <span><strong>Tooling:</strong></span>
+          <br>
+          <div class="items tool-items">
+            <div *ngFor="let tool of swi.swiTools">
+              <div class="item">
+                <img [src]="swiFileService.getImageFromStore(swi, tool.image)" class="item-image">
+                <span class="item-caption">{{tool.name}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--Row 4 - Stages-->
-    <div class="row">
-      <div class="col">
-        <!--<span><strong>Stages:</strong></span>-->
+      <!--Row 4 - Stages-->
+      <div class="row">
+        <div class="col">
+          <!--<span><strong>Stages:</strong></span>-->
 
-        <div class="stages">
+          <div class="stages">
 
-          <div *ngFor="let stage of swi.swiStages" class="stage-wrapper">
+            <div *ngFor="let stage of swi.swiStages" class="stage-wrapper">
 
-            <div class="stage">
+              <div class="stage">
 
-              <div>
-                <div class="stage-sequence" [ngClass]="{'carepoint': stage.criticalStep}">{{stage.sequence}}</div>
+                <div>
+                  <div class="stage-sequence" [ngClass]="{'carepoint': stage.criticalStep}">{{stage.sequence}}</div>
+                </div>
+                <div>
+                  <img class="stage-image" [src]="swiFileService.getImageFromStore(swi, stage.image)">
+                </div>
+                <div class="stage-text-container">
+                  <div class="stage-summary">{{stage.summary}}</div>
+                  <div class="stage-carepoint" *ngIf="stage.criticalStep">{{stage?.carePoint }}</div>
+                </div>
+
               </div>
-              <div>
-                <img class="stage-image" [src]="swiFileService.getImageFromStore(swi, stage.image)">
-              </div>
-              <div class="stage-text-container">
-                <div class="stage-summary">{{stage.summary}}</div>
-                <div class="stage-carepoint" *ngIf="stage.criticalStep">{{stage?.carePoint }}</div>
-              </div>
+
 
             </div>
 
-
           </div>
 
+          <br>
         </div>
-
-        <br>
       </div>
+
+
     </div>
 
 
-  </div>
-</app-page>
+  </app-page>
+</div>
