@@ -1,8 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
+
 @import './assets/styles/toastr.css';
 @import './assets/styles/loading.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+// @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import '../node_modules/cropperjs/dist/cropper.min.css';
 @import '../node_modules/animate.css/animate.min.css';
 

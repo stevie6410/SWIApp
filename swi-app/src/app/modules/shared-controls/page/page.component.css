@@ -30,13 +30,11 @@
 
 .page-body{
         padding:15px;
-            padding-top: 15px;
             overflow: hidden;
 }
 
 .btn-group{
     margin-left: auto;
-    /*padding-right: 10px;*/
     z-index: 1031;
     margin-right: 30px;
 }

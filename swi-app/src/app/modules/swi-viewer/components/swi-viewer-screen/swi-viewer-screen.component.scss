@@ -1,0 +1,157 @@
+$border-color: #929191;
+$backgound-color: #b7b7b7;
+$carepoint-color: rgba(255, 0, 0,  0.5);
+
+.col, .col-2, .col-3,.col-9, .col-10{
+    border: solid 2px $border-color;
+    padding: 5px;
+}
+
+.title-col{
+    display: flex;
+    flex-direction: row;
+}
+
+.page-title{
+    font-weight: bold;
+    font-size: 20px;
+    align-self: center;
+}
+
+.brand-image{
+    width: 150px;
+    height: 39px;
+    padding: 5px;
+    align-self: flex-end;
+}
+
+.items{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5px;
+   
+    .item{
+        border: 1px solid lightgray;
+        display: flex;
+        flex-direction: row;
+        width: 230px;
+        margin: 1px;;
+    }
+
+    .item-image{
+        height: 50px;
+        width: 50px;
+        margin: 1px;;
+    }
+
+    .item-caption{
+        padding:2px;
+        align-self: center;
+        font-weight: bold;
+        font-size: 10px;
+    }
+}
+
+.items.tool-items{
+    .item-image{
+        height: 100px;
+        width: 100px;
+    }
+}
+
+.stages-items{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .stages-item{
+        display: flex;
+        margin: 5px;
+    }
+
+    .stages-image{
+        height: 150px;
+        width: 150px; 
+        border: 1px solid $border-color;
+    }
+    
+    .stages-sequence{
+        font-size: 17px;
+        font-weight: bold;
+        text-align: center;
+        border: 2px solid $border-color;
+        background-color: $backgound-color;
+        width: 30px; 
+        height: 30px; 
+    }
+
+    .stages-sequence.carepoint{
+        background-color: rgba(255, 0, 0, 0.5);
+    }
+
+    .stage-text-container{
+
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        font-size: 13px;
+        font-weight: 600;
+        
+        .stage-summary{
+            padding: 5px;
+            height: 100%;
+            border: 1px solid $border-color;
+        }
+
+        .stage-carepoint{
+            padding: 5px;
+            background-color: $carepoint-color;
+            height: 100%;
+            border: 1px solid $border-color;
+        }
+    }
+}
+
+
+
+
+@media screen{
+    .page-body{
+        padding: 5px !important;
+        padding-top: 0px !important;
+        margin: 10px !important;
+    }
+}
+
+@media print {
+
+    .sb, .page-header{
+        display: none !important;
+    }
+
+    .page{
+        margin-right: 0px !important;
+        margin-top: 35px;
+    }
+
+    .page-body{
+        margin: none !important;
+        padding: none !important;
+
+    }
+
+    .fixed-header{
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+
+    @page{
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+ 
+}
