@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SwiPropertiesPanelComponent } from './swi-properties-panel.component';
+import { SwiManagerScreenComponent } from './swi-manager-screen.component';
 
-describe('SwiPropertiesPanelComponent', () => {
-  let component: SwiPropertiesPanelComponent;
-  let fixture: ComponentFixture<SwiPropertiesPanelComponent>;
+describe('SwiManagerScreenComponent', () => {
+  let component: SwiManagerScreenComponent;
+  let fixture: ComponentFixture<SwiManagerScreenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SwiPropertiesPanelComponent ]
+      declarations: [ SwiManagerScreenComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SwiPropertiesPanelComponent);
+    fixture = TestBed.createComponent(SwiManagerScreenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -29,11 +29,14 @@ import { SwiImporterScreenComponent } from "../swi-importer/components/swi-impor
 import { TooltipModule } from "ngx-tooltip";
 import { SwiViewerModule } from "../swi-viewer/swi-viewer.module";
 import { SwiViewerScreenComponent } from "../swi-viewer/components/swi-viewer-screen/swi-viewer-screen.component";
+import { SwiManagerModule } from "../swi-manager/swi-manager.module";
+import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager-screen/swi-manager-screen.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve }},
+  { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'builder', component: SwiNewComponent },
   { path: 'builder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
   { path: 'builder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
@@ -63,7 +66,8 @@ const appRoutes: Routes = [
     MomentModule,
     SwiImporterModule,
     TooltipModule,
-    SwiViewerModule
+    SwiViewerModule,
+    SwiManagerModule
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },
