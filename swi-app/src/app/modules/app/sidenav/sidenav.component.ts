@@ -12,8 +12,8 @@ export class SidenavComponent implements OnInit {
 
   brandImage: string = BrandImage;
   isCollapsed: boolean = true;
-  versionTag: string;
-  buildNumber: string;
+  versionTag: string = "Loading...";
+  buildNumber: string = "Loading...";
 
   constructor(
     private swiFileService: SWIFileService,
@@ -21,11 +21,13 @@ export class SidenavComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.versionTag = this.packageService.getVersionTag();
-    this.buildNumber = this.packageService.getBuildNumber();
+    this.packageService.getVersionTag().then(res => {
+      this.versionTag = res
+      this.packageService.getEnvironmentProp('buildNumber').then(res => this.buildNumber = res);
+    });
   }
-  
-  toggleSidebar(){
+
+  toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }
 }

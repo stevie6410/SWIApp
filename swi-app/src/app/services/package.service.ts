@@ -1,32 +1,54 @@
 import { Injectable } from '@angular/core';
-const packageJson: any = require('../../../package.json');
-const environmentJson: any = require('../../assets/environment.json');
+import { Http } from "@angular/http";
+import { Observable } from "rxjs/Rx";
+import "rxjs/Rx";
 
 @Injectable()
 export class PackageService {
 
-    constructor() {
-        console.log(packageJson);
+    private env: any;
+
+    constructor(
+        private http: Http
+    ) { }
+
+    private getEnvFile(): Observable<any> {
+        console.log("Fetching the environment file from disk");
+        return this.http.request('./assets/environment.json').map(res => res.json());
     }
 
-    getAppVersion(): string {
-        return packageJson.version;
+    getEnvironmentProp(propName: string): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            if (this.env != undefined) {
+                resolve(this.env[propName]);
+            } else {
+                this.getEnvFile().subscribe((env => {
+                    this.env = env;
+                    resolve(this.env[propName]);
+                }));
+            }
+        });
     }
 
-    getAppEnvironemnt() {
-        return packageJson.environment;
+    getVersionTag(): Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            if (this.env != undefined) {
+                resolve(this.compileVersionTag(this.env));
+            } else {
+                this.getEnvFile().subscribe((env => {
+                    this.env = env;
+                    resolve(this.compileVersionTag(this.env));
+                }));
+            }
+        });
+
     }
 
-    getBuildNumber(){
-        return environmentJson.buildNumber;
-    }
-
-    getVersionTag(): string {
-        if (packageJson.environment == "Production") {
-            return "v" + packageJson.version;
+    private compileVersionTag(env: any): string {
+        if (env.environment == "Production") {
+            return "v" + env.version;
         } else {
-            return environmentJson.environment + " v" + packageJson.version;
+            return env.environment + " v" + env.version;
         }
     }
-
 }
