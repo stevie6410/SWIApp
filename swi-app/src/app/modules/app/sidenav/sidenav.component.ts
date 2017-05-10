@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SWIFileService } from "../../../services/swi-file.service";
+import { BrandImage } from "../../../../assets/image-placeholder";
+import { PackageService } from "../../../services/package.service";
 
 @Component({
   selector: 'app-sidenav',
@@ -8,27 +10,20 @@ import { SWIFileService } from "../../../services/swi-file.service";
 })
 export class SidenavComponent implements OnInit {
 
+  brandImage: string = BrandImage;
+  isCollapsed: boolean = true;
+  versionTag: string;
+
   constructor(
-    private swiFileService: SWIFileService
+    private swiFileService: SWIFileService,
+    private packageService: PackageService
   ) { }
 
   ngOnInit() {
+    this.versionTag = this.packageService.getVersionTag();
   }
-
-  toggleKioskMode() {
-    // this.electron.toggleKiosk();
+  
+  toggleSidebar(){
+    this.isCollapsed = !this.isCollapsed;
   }
-
-  quitApp() {
-    // this.electron.quitApp();
-  }
-
-  toggleDevTools() {
-    // this.electron.toggleDeveloperTools();
-  }
-
-  openAppData() {
-    // this.swiFileService.openLocalDocumentsDirectory();
-  }
-
 }

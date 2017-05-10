@@ -76,13 +76,13 @@ export class SwiToolEditComponent implements OnInit {
   save(navBack: Boolean) {
     if (generateHash(JSON.stringify(this.swi)) == this.initialState) {
       console.log("No changes");
-      if (navBack) this.router.navigate(['swibuilder', this.swi.id]);
+      if (navBack) this.router.navigate(['builder', this.swi.id]);
     } else {
       //Save the file and navigate back to the SWI Builder screen
       this.swiService.saveFile(this.swi)
         .then((result) => {
           console.log(`${this.swi.id} was saved.`);
-          if (navBack) this.router.navigate(['swibuilder', this.swi.id]);
+          if (navBack) this.router.navigate(['builder', this.swi.id]);
         })
         .catch((err) => {
           console.log("Error saving file: ", err);
