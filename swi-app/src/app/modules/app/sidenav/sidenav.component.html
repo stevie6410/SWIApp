@@ -1,7 +1,6 @@
 <div class="sb" [ngClass]="{'sb-collapsed': isCollapsed}" (dblclick)="toggleSidebar()">
     <div class="sb-items">
         <div class="sb-menu">
-
             <ul>
                 <li routerLink="/home" routerLinkActive="sb-selected">
                     <a tooltip="Home" [tooltipDisabled]="true" tooltipPlacement="right">
@@ -46,4 +45,8 @@
             </ul>
         </div>
     </div>
+</div>
+
+<div class="env-banner" *ngIf="!isProduction">
+    {{versionTag}} Build# {{buildNumber}}
 </div>

@@ -120,3 +120,19 @@ li:focus{outline: 0;}
 .version-tag{
     font-size: 12px;
 }
+
+.env-banner{
+    position: fixed;
+    top: 0;
+    /*margin-top: -9px;*/
+    right: 50%;
+    margin-right: -100px;
+    width: 200px;
+    background: #f0ad4e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    z-index: 9999;
+    box-shadow: 0px 1px 10px #2b2b2b;
+}

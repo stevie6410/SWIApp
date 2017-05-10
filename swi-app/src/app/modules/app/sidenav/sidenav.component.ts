@@ -12,6 +12,7 @@ export class SidenavComponent implements OnInit {
 
   brandImage: string = BrandImage;
   isCollapsed: boolean = true;
+  isProduction: boolean = false;
   versionTag: string = "Loading...";
   buildNumber: string = "Loading...";
 
@@ -23,6 +24,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     this.packageService.getVersionTag().then(res => {
       this.versionTag = res
+      this.isProduction = this.versionTag.startsWith("Production");
       this.packageService.getEnvironmentProp('buildNumber').then(res => this.buildNumber = res);
     });
   }
