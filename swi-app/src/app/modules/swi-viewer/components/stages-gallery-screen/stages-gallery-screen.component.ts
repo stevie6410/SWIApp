@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SWIHeader } from "../../../../models/app.models";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SWIFileService } from "../../../../services/swi-file.service";
-import { ImageInterface } from "ng2-image-gallery/dist/src/ng2-image-gallery.component";
+import { ImageInterface } from "../stages-gallery-control/stages-gallery-control.component";
 
 @Component({
   selector: 'swi-stages-gallery-screen',
