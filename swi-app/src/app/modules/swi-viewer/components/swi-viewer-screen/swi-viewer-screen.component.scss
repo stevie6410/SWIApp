@@ -119,7 +119,7 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 @media screen{
     .page-body{
         padding: 5px !important;
-        padding-top: 0px !important;
+        padding-top: 25px !important;
         margin: 10px !important;
     }
 }
@@ -147,6 +147,10 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 
     .page{
         margin-right: 0px !important;
+    }
+
+    .env-banner{
+        display: none !important;
     }
 
     .page-body{

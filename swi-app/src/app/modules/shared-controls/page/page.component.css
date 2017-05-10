@@ -8,6 +8,8 @@
     display: flex;
     z-index: 1030;
     width: 100%;   
+    position: fixed;
+    top: 0;
 }
 
 .page-header-title{
@@ -31,10 +33,15 @@
 .page-body{
         padding:10px;
         overflow: hidden;
+        /*margin-top: 70px;*/
+            margin-top: 40px;
 }
 
 .btn-group{
-    margin-left: auto;
+    /*margin-left: auto;*/
     z-index: 1031;
     margin-right: 30px;
+    position: fixed;
+    right: 0;
+    
 }
