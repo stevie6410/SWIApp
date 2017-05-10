@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { SWIHeader } from "../../../../../app/models/app.models";
+import { SWIHeader } from "../../../../models/app.models";
+import { SWIFileService } from "../../../../services/swi-file.service";
+import { ToastsManager } from "ng2-toastr";
 
 @Component({
   selector: 'swi-swi-manager-screen',
@@ -13,7 +15,9 @@ export class SwiManagerScreenComponent implements OnInit {
   title: string;
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private swiFileService: SWIFileService,
+    private toast: ToastsManager
   ) {
     this.swi = this.route.snapshot.data['swi'];
     this.title = "SWI Manager - " + this.swi.title;
@@ -22,16 +26,25 @@ export class SwiManagerScreenComponent implements OnInit {
   ngOnInit() {
   }
 
-  navBack(){
+  navBack() {
     this.router.navigate(['browser']);
   }
 
-  editSWI(){
+  editSWI() {
     this.router.navigate(['builder', this.swi.id]);
   }
 
-  viewSWI(){
+  viewSWI() {
     this.router.navigate(['viewer', this.swi.id]);
+  }
+
+  deleteSWI() {
+    this.swiFileService.deleteSWI(this.swi.id).then(((delSwi: SWIHeader) => {
+      this.toast.warning(this.swi.title + ' was deleted!', "Successfully Deleted");
+      this.navBack();
+    })).catch((err) => {
+      this.toast.error("Could not delete the SWI", "Delete failed");
+    });
   }
 
 }

@@ -21,6 +21,10 @@ export class SWIFileService {
         return this.table.add(swi).then();
     }
 
+    deleteSWI(id: string): Promise<SWIHeader> {
+        return this.table.delete(id);
+    } 
+
     saveFile(swi: SWIHeader): Promise<number> {
         swi.updatedOn = new Date();
         return this.table.update(swi.id, swi);
