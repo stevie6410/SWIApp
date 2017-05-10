@@ -127,10 +127,10 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 @media print {
 
     @page{
-        margin-left: 15px;
-        margin-right: 15px;
-        margin-top: 15px;
-        margin-bottom: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 
     html{
@@ -150,9 +150,8 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
     }
 
     .page-body{
-        margin: none !important;
+        margin: 5px !important;
         padding: none !important;
-
     }
     
     .swi-viewer{

@@ -32,4 +32,8 @@ export class SwiViewerScreenComponent implements OnInit {
   onBackButton() {
     this.router.navigate(['manager', this.swi.id]);
   }
+
+  openPrintPreview(){
+    window.print();
+  }
 }
