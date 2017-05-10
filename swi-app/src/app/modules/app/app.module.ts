@@ -31,6 +31,7 @@ import { SwiViewerModule } from "../swi-viewer/swi-viewer.module";
 import { SwiViewerScreenComponent } from "../swi-viewer/components/swi-viewer-screen/swi-viewer-screen.component";
 import { SwiManagerModule } from "../swi-manager/swi-manager.module";
 import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager-screen/swi-manager-screen.component";
+import { PackageService } from "../../services/package.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
@@ -72,7 +73,8 @@ const appRoutes: Routes = [
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },
     AppConfigService,
-    HSItemsResolver
+    HSItemsResolver,
+    PackageService
   ],
   bootstrap: [AppComponent]
 })

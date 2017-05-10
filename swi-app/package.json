@@ -1,6 +1,7 @@
 {
   "name": "swiweb-app",
   "version": "0.4.0",
+  "environment": "Local Development",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -49,7 +50,7 @@
     "@types/cropperjs": "^0.0.23",
     "@types/jasmine": "2.5.38",
     "@types/jquery": "^2.0.43",
-    "@types/node": "~6.0.60",
+    "@types/node": "^6.0.73",
     "codelyzer": "~2.0.0",
     "concurrently": "^3.4.0",
     "jasmine-core": "~2.5.2",

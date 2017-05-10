@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SWIFileService } from "../../../services/swi-file.service";
 import { BrandImage } from "../../../../assets/image-placeholder";
+import { PackageService } from "../../../services/package.service";
 
 @Component({
   selector: 'app-sidenav',
@@ -11,16 +12,18 @@ export class SidenavComponent implements OnInit {
 
   brandImage: string = BrandImage;
   isCollapsed: boolean = true;
+  versionTag: string;
 
   constructor(
-    private swiFileService: SWIFileService
+    private swiFileService: SWIFileService,
+    private packageService: PackageService
   ) { }
 
   ngOnInit() {
+    this.versionTag = this.packageService.getVersionTag();
   }
   
   toggleSidebar(){
     this.isCollapsed = !this.isCollapsed;
   }
-
 }
