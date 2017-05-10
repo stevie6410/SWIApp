@@ -12,12 +12,24 @@
 
 html {
     height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 body {
     height: 100%;
     margin: 0px;
     /*overflow: hidden;*/
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
 
 .padding-top-20{
