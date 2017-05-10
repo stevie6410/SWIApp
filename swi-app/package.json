@@ -1,7 +1,6 @@
 {
   "name": "swiweb-app",
   "version": "0.6.0",
-  "environment": "Local Development",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

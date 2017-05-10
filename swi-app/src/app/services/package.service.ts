@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 const packageJson: any = require('../../../package.json');
+const environmentJson: any = require('../../assets/environment.json');
 
 @Injectable()
 export class PackageService {
@@ -16,11 +17,15 @@ export class PackageService {
         return packageJson.environment;
     }
 
+    getBuildNumber(){
+        return environmentJson.buildNumber;
+    }
+
     getVersionTag(): string {
         if (packageJson.environment == "Production") {
             return "v" + packageJson.version;
         } else {
-            return packageJson.environment + " v" + packageJson.version;
+            return environmentJson.environment + " v" + packageJson.version;
         }
     }
 
