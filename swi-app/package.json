@@ -1,6 +1,6 @@
 {
   "name": "swiweb-app",
-  "version": "0.6.1",
+  "version": "0.6.3",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
