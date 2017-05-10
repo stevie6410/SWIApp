@@ -36,4 +36,8 @@ export class SwiViewerScreenComponent implements OnInit {
   openPrintPreview(){
     window.print();
   }
+
+  openStagesGallery(){
+    this.router.navigate(['viewer', this.swi.id, 'stagesgallery']);
+  }
 }

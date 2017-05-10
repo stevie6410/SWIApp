@@ -1,6 +1,7 @@
 <div class="swi-viewer">
   <app-page [title]='title' (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-desktop'">
     <!--Add Page level buttons here with page-button class-->
+    <button type='button' class='page-button btn btn-primary' (click)="openStagesGallery()"> View Stages</button>
     <button type='button' class='page-button btn btn-primary' (click)="openPrintPreview()"> Print PDF</button>
     <div class='page-body' *ngIf="swi">
       <!--Page Content Here   -->

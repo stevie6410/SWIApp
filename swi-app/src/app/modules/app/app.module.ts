@@ -32,12 +32,14 @@ import { SwiViewerScreenComponent } from "../swi-viewer/components/swi-viewer-sc
 import { SwiManagerModule } from "../swi-manager/swi-manager.module";
 import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager-screen/swi-manager-screen.component";
 import { PackageService } from "../../services/package.service";
+import { StagesGalleryScreenComponent } from "../swi-viewer/components/stages-gallery-screen/stages-gallery-screen.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'browser', component: SwiBrowserScreenComponent },
   { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve }},
+  { path: 'viewer/:id/stagesgallery', component: StagesGalleryScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'builder', component: SwiNewComponent },
   { path: 'builder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
