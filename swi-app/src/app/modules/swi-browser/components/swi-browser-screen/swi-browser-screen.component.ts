@@ -3,30 +3,16 @@ import { Router } from "@angular/router";
 import { SWIHeader } from "../../../../models/app.models";
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
-import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'swi-browser-screen',
   templateUrl: './swi-browser-screen.component.html',
-  styleUrls: ['./swi-browser-screen.component.css'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [   // :enter is alias to 'void => *'
-        style({ opacity: 0 }),
-        animate(300, style({ opacity: 1 }))
-      ]),
-      transition(':leave', [   // :leave is alias to '* => void'
-        animate(300, style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./swi-browser-screen.component.css']
 })
 export class SwiBrowserScreenComponent implements OnInit {
 
   title: string = "SWI Browser"
   localSWIs: SWIHeader[];
-  newSWIName: string = "Enter new SWI name";
-  selectedSWI: SWIHeader;
 
   constructor(
     public swiService: SWIFileService,
@@ -46,18 +32,6 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   openSWI(swi: SWIHeader) {
     console.log(`open swi: ${swi.id}`);
-    this.router.navigate(['swibuilder', swi.id]);
-  }
-
-  selectSWI(swi: SWIHeader) {
-    this.selectedSWI = swi;
-  }
-
-  isSelected(swi: SWIHeader) {
-    if (!swi || !this.selectedSWI) {
-      return false;
-    } else {
-      return (swi.filename == this.selectedSWI.filename);
-    }
+    this.router.navigate(['manager', swi.id]);
   }
 }

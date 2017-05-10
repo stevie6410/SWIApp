@@ -137,9 +137,9 @@
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"
 
-"@types/jquery@^2.0.41":
-  version "2.0.41"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.41.tgz#b87ba051011f99edbe586d8f97282e7786e01a6d"
+"@types/jquery@^2.0.43":
+  version "2.0.43"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.43.tgz#e30d971d56dce22bf0d62e02bd4b28a7ffdba076"
 
 "@types/node@^6.0.46", "@types/node@~6.0.60":
   version "6.0.70"
@@ -3210,6 +3210,10 @@ ngx-bootstrap@^1.6.5:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-1.6.6.tgz#0057141cfbdd7e8a50e81bda735fad8e95acb0dd"
   dependencies:
     moment "2.18.1"
+
+ngx-tooltip@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/ngx-tooltip/-/ngx-tooltip-0.0.9.tgz#9821693e7d91c57dae8189c5d6a810526890b6f6"
 
 no-case@^2.2.0:
   version "2.3.1"

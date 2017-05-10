@@ -23,21 +23,3 @@
 textarea.form-control {
     height: 100%;
 }
-
-#sidebar-container {
-    background-color: #3D464D;
-    width: 200px;
-    height: 100%;
-    min-width: 200px;
-    /*box-shadow: inset -30px 10px 10px -27px #222;*/
-    color: #fff;
-    /*text-shadow: 1px 1px 1px #444;*/
-    /*font-family: 'Montserrat',sans-serif;*/
-    padding-top: 10px;
-
-    position: relative;
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
-}

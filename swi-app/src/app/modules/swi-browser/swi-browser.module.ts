@@ -6,7 +6,6 @@ import { SwiBrowserScreenComponent } from './components/swi-browser-screen/swi-b
 import { SharedControlsModule } from "../shared-controls/shared-controls.module";
 import { ToastModule } from "ng2-toastr";
 import { MomentModule } from "angular2-moment";
-import { SwiPropertiesPanelComponent } from './components/swi-properties-panel/swi-properties-panel.component';
 
 @NgModule({
   imports: [
@@ -21,8 +20,7 @@ import { SwiPropertiesPanelComponent } from './components/swi-properties-panel/s
     SwiBrowserScreenComponent
   ],
   declarations: [
-    SwiBrowserScreenComponent,
-    SwiPropertiesPanelComponent
+    SwiBrowserScreenComponent
   ]
 })
 export class SwiBrowserModule { }
