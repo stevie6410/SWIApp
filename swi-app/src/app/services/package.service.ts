@@ -14,7 +14,7 @@ export class PackageService {
 
     private getEnvFile(): Observable<any> {
         console.log("Fetching the environment file from disk");
-        return this.http.request('./assets/environment.json').map(res => res.json());
+        return this.http.request('./environment.json').map(res => res.json());
     }
 
     getEnvironmentProp(propName: string): Promise<string> {
