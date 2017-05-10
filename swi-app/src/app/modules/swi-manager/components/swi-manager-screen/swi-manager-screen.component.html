@@ -1,3 +1,26 @@
-<p>
-  swi-manager-screen works!
-</p>
+<app-page [title]='title' [backButton]="true" [overrideBackButton]="true" [faIcon]="'fa-cubes'" (onBackButtonClick)="navBack()">
+  <!--Add Page level buttons here with page-button class-->
+  <button type='button' class='page-button btn btn-primary'>Page Menu Button</button>
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+    <swi-card [title]="'SWI Master Properties'">
+      <div class='card-block'>
+      </div>
+    </swi-card>
+
+    <swi-card [title]="'SWI Revision Properties'">
+      <div class='card-block'>
+      </div>
+    </swi-card>
+
+
+    <div class="btn-container">
+      <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View SWI</button>
+      <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning"><i class="fa fa-cubes"></i> Edit SWI</button>
+      <button type="button" (click)="navBack()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> Back</button>
+    </div>
+
+
+  </div>
+</app-page>

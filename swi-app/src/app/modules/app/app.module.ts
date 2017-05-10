@@ -35,6 +35,7 @@ import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'browser', component: SwiBrowserScreenComponent },
   { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'builder', component: SwiNewComponent },
@@ -42,7 +43,6 @@ const appRoutes: Routes = [
   { path: 'builder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
   { path: 'builder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolve } },
   { path: 'builder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
-  { path: 'browser', component: SwiBrowserScreenComponent },
   { path: 'importer', component: SwiImporterScreenComponent }
 ];
 

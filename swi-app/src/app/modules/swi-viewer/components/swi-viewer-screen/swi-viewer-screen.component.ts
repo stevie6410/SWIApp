@@ -30,6 +30,6 @@ export class SwiViewerScreenComponent implements OnInit {
   }
 
   onBackButton() {
-    this.router.navigate(['browser']);
+    this.router.navigate(['manager', this.swi.id]);
   }
 }

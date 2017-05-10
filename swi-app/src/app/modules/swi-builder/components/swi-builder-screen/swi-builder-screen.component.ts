@@ -45,13 +45,13 @@ export class SwiBuilderScreenComponent implements OnInit {
   saveFile(navBack: boolean) {
     if (generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
       this.toast.success(this.swi.title, `File Saved!`);
-      if (navBack) this.router.navigate(['browser']);
+      if (navBack) this.naviagetBackToManager();
     } else {
       console.log("Saving as there were changes");
       this.swiService.saveFile(this.swi)
         .then((result) => {
           if (navBack) {
-            this.router.navigate(['browser']);
+            this.naviagetBackToManager();
           } else {
             this.toast.success(`${this.swi.title} was saved`, `File Saved!`);
           }
@@ -62,4 +62,9 @@ export class SwiBuilderScreenComponent implements OnInit {
         })
     }
   }
+
+  naviagetBackToManager() {
+    this.router.navigate(['manager', this.swi.id]);
+  }
+
 }
