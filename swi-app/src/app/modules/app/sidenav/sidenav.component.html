@@ -2,7 +2,6 @@
     <div class="sb-items">
         <div class="sb-menu">
 
-            <!--<p class="sb-menu-title">MAIN</p>-->
             <ul>
                 <li routerLink="/home" routerLinkActive="sb-selected">
                     <a tooltip="Home" [tooltipDisabled]="true" tooltipPlacement="right">
@@ -23,7 +22,17 @@
             <!--<hr />-->
         </div>
         <div class="flex-spacer"></div>
+
+        <div class="sb-menu">
+            <ul>
+                <li *ngIf="!isCollapsed" class="version-tag-container">
+                    <span class="badge badge-default version-tag">Development v0.6.1</span>
+                </li>
+            </ul>
+        </div>
+
         <img class="brand-logo" [src]='brandImage' />
+
         <div class="sb-menu">
             <ul>
                 <li class="sb-toggle-item" (click)="toggleSidebar()">

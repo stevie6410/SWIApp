@@ -10,8 +10,8 @@ li:focus{outline: 0;}
     position: relative;
     -webkit-transform: translateX(0);
     transform: translateX(0);
-    -webkit-transition: .3s ease all;
-    transition: .3s ease all;
+    -webkit-transition: .4s ease all;
+    transition: .4s ease all;
 }
 .sb.sb-collapsed {
     width: 50px;
@@ -99,6 +99,8 @@ li:focus{outline: 0;}
 .brand-logo {
     width: 180px;
     padding: 10px;
+    margin: 10px 0px;
+    align-self: center;
 }
 
 .sb.sb-collapsed .brand-logo{
@@ -107,4 +109,14 @@ li:focus{outline: 0;}
 
 .flex-spacer {
     height: 100%;
+}
+
+.version-tag-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.version-tag{
+    font-size: 14px;
 }
