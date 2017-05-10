@@ -13,6 +13,7 @@ export class SidenavComponent implements OnInit {
   brandImage: string = BrandImage;
   isCollapsed: boolean = true;
   versionTag: string;
+  buildNumber: string;
 
   constructor(
     private swiFileService: SWIFileService,
@@ -21,6 +22,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
     this.versionTag = this.packageService.getVersionTag();
+    this.buildNumber = this.packageService.getBuildNumber();
   }
   
   toggleSidebar(){
