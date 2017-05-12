@@ -98,9 +98,9 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.0.2.tgz#8c61b9ff52748c5dcb52b57046829d34d66662ec"
 
-"@angular/material@2.0.0-beta.2":
-  version "2.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.2.tgz#65ee8733990347b7518b7f42113e02e069dc109b"
+"@angular/material@^2.0.0-beta.3":
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-beta.3.tgz#ec31dee61d7300ece28fee476852db236ded1e13"
 
 "@angular/platform-browser-dynamic@^4.0.0":
   version "4.0.2"
@@ -223,6 +223,10 @@ alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angular2-modal@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/angular2-modal/-/angular2-modal-2.0.3.tgz#d5e19a799f517c51d729f4960057506176563e8f"
 
 angular2-moment@^1.3.3:
   version "1.3.3"
@@ -3237,18 +3241,11 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-ng2-dragula@^1.2.2, ng2-dragula@^1.3.1:
+ng2-dragula@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/ng2-dragula/-/ng2-dragula-1.3.1.tgz#10384c2400290433a6fb45e91c7466e688e3ad37"
   dependencies:
     dragula "^3.7.2"
-
-ng2-image-gallery@^0.3.15:
-  version "0.3.15"
-  resolved "https://registry.yarnpkg.com/ng2-image-gallery/-/ng2-image-gallery-0.3.15.tgz#4ee4c131fca15cd7b9728f987f78f4c37080ee2e"
-  dependencies:
-    "@angular/material" "2.0.0-beta.2"
-    ng2-dragula "^1.2.2"
 
 ng2-toastr@^4.0.1:
   version "4.0.1"

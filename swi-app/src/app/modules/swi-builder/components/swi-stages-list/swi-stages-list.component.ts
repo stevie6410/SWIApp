@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { SWIHeader, SWIStage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../../app/services/swi-file.service";
-
+import { Overlay } from "angular2-modal";
+import { Modal } from "angular2-modal/plugins/bootstrap";
 
 @Component({
   selector: 'swi-stages-list',
@@ -17,12 +18,18 @@ export class SwiStagesListComponent implements OnInit {
   filename: string;
   title: string = "Stages";
   stage: SWIStage;
+  selectedSequence: number = 1;
   editMode: boolean = false;
 
   constructor(
     private router: Router,
-    public swiService: SWIFileService
-  ) { }
+    public swiService: SWIFileService,
+    public overlay: Overlay,
+    public vcr: ViewContainerRef,
+    public modal: Modal
+  ) {
+    overlay.defaultViewContainer = vcr;
+  }
 
   ngOnInit() {
   }
@@ -57,8 +64,24 @@ export class SwiStagesListComponent implements OnInit {
   }
 
   deleteStage(stage: SWIStage) {
-    this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != stage.sequence);
-    this.recalculateSequences();
+    this.modal.confirm()
+      .size('lg')
+      .isBlocking(true)
+      .showClose(false)
+      .keyboard(27)
+      .titleHtml('<h5>Confirm Delete Stage</h5>')
+      .body(`Are you sure you want to delete stage ${stage.sequence}?`)
+      .okBtn('Delete Stage')
+      .okBtnClass('btn btn-danger')
+      .cancelBtn('Cancel')
+      .cancelBtnClass('btn btn-secondary')
+      .open()
+      .then(dialogRef => dialogRef.result)
+      .then(result => {
+        this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != stage.sequence);
+        this.recalculateSequences();
+      })
+      .catch(err => console.log("Canceled stage delete"));
   }
 
   recalculateSequences() {

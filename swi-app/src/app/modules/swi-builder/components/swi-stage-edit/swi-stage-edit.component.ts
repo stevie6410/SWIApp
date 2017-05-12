@@ -5,6 +5,8 @@ import { ToastsManager } from 'ng2-toastr';
 import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
+import { Overlay } from "angular2-modal";
+import { Modal } from "angular2-modal/plugins/bootstrap";
 
 @Component({
   selector: 'app-swi-stage-edit',
@@ -26,9 +28,12 @@ export class SwiStageEditComponent implements OnInit {
     private toast: ToastsManager,
     private vcr: ViewContainerRef,
     private changeDetector: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public overlay: Overlay,
+    public modal: Modal
   ) {
     toast.setRootViewContainerRef(vcr);
+    overlay.defaultViewContainer = vcr;
   }
 
   ngOnInit() {
@@ -50,8 +55,24 @@ export class SwiStageEditComponent implements OnInit {
   }
 
   deleteStage() {
-    this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != this.stage.sequence);
-    this.save(true);
+    this.modal.confirm()
+      .size('lg')
+      .isBlocking(true)
+      .showClose(false)
+      .keyboard(27)
+      .titleHtml('<h5>Confirm Delete Stage</h5>')
+      .body(`Are you sure you want to delete stage ${this.stage.sequence}?`)
+      .okBtn('Delete Stage')
+      .okBtnClass('btn btn-danger')
+      .cancelBtn('Cancel')
+      .cancelBtnClass('btn btn-secondary')
+      .open()
+      .then(dialogRef => dialogRef.result)
+      .then(result => {
+        this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != this.stage.sequence);
+        this.save(true);
+      })
+      .catch(err => console.log('Canceled'));
   }
 
   save(navBack: Boolean) {

@@ -33,6 +33,8 @@ import { SwiManagerModule } from "../swi-manager/swi-manager.module";
 import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager-screen/swi-manager-screen.component";
 import { PackageService } from "../../services/package.service";
 import { StagesGalleryScreenComponent } from "../swi-viewer/components/stages-gallery-screen/stages-gallery-screen.component";
+import { ModalModule } from "angular2-modal";
+import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
@@ -70,7 +72,9 @@ const appRoutes: Routes = [
     SwiImporterModule,
     TooltipModule,
     SwiViewerModule,
-    SwiManagerModule
+    SwiManagerModule,
+    ModalModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },
