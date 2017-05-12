@@ -15,12 +15,14 @@ import { SwiToolsListComponent } from './components/swi-tools-list/swi-tools-lis
 import { SWIResolve } from "./components/swi.resolver";
 import { SwiToolEditComponent } from './components/swi-tool-edit/swi-tool-edit.component';
 import { SwiErpPartsComponent } from './components/swi-erp-parts/swi-erp-parts.component';
+import { DragulaModule } from "ng2-dragula";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedControlsModule,
-    FormsModule
+    FormsModule,
+    DragulaModule
   ],
   exports: [
     SwiBuilderScreenComponent,

@@ -5,6 +5,7 @@ import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../../app/services/swi-file.service";
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
+import { DragulaService } from "ng2-dragula";
 
 @Component({
   selector: 'swi-stages-list',
@@ -26,11 +27,22 @@ export class SwiStagesListComponent implements OnInit {
     public swiService: SWIFileService,
     public overlay: Overlay,
     public vcr: ViewContainerRef,
-    public modal: Modal
+    public modal: Modal,
+    private dragulaService: DragulaService
   ) {
     overlay.defaultViewContainer = vcr;
-  }
 
+    const bag: any = this.dragulaService.find('stages-bag');
+    if (bag !== undefined) this.dragulaService.destroy('stages-bag');
+    dragulaService.setOptions('stages-bag', {
+      moves: (el, source, handle, sibling) => el.classList.contains('draggable')
+    });
+
+    dragulaService.dropModel.subscribe((value, err, complete) => {
+      this.recalculateSequences();
+    })
+
+  }
   ngOnInit() {
   }
 
@@ -85,9 +97,11 @@ export class SwiStagesListComponent implements OnInit {
   }
 
   recalculateSequences() {
-    this.swi.swiStages.forEach(s => {
-      s.sequence = this.swi.swiStages.findIndex(ss => ss.sequence == s.sequence) + 1;
-    });
+    for (var i = 0; i < this.swi.swiStages.length; i++) {
+      var element = this.swi.swiStages[i];
+      element.sequence = i + 1;
+    }
+    this.save();
   }
 
   moveUp(stage: SWIStage) {
@@ -95,6 +109,8 @@ export class SwiStagesListComponent implements OnInit {
     let above = this.swi.swiStages.filter(s => s.sequence == (stage.sequence - 1))[0];
     current.sequence = stage.sequence - 1;
     above.sequence = current.sequence + 1;
+    this.swi.swiStages.sort((a, b) => a.sequence - b.sequence);
+    this.recalculateSequences();
   }
 
   moveDown(stage: SWIStage) {
@@ -102,6 +118,8 @@ export class SwiStagesListComponent implements OnInit {
     let below = this.swi.swiStages.filter(s => s.sequence == (stage.sequence + 1))[0];
     current.sequence = stage.sequence + 1;
     below.sequence = current.sequence - 1;
+    this.swi.swiStages.sort((a, b) => a.sequence - b.sequence);
+    this.recalculateSequences();
   }
 
   save() {
