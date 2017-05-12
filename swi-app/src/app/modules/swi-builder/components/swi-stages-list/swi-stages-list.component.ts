@@ -56,6 +56,17 @@ export class SwiStagesListComponent implements OnInit {
     this.editStage(this.stage);
   }
 
+  deleteStage(stage: SWIStage) {
+    this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != stage.sequence);
+    this.recalculateSequences();
+  }
+
+  recalculateSequences() {
+    this.swi.swiStages.forEach(s => {
+      s.sequence = this.swi.swiStages.findIndex(ss => ss.sequence == s.sequence) + 1;
+    });
+  }
+
   moveUp(stage: SWIStage) {
     let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
     let above = this.swi.swiStages.filter(s => s.sequence == (stage.sequence - 1))[0];
