@@ -33,8 +33,13 @@
 .page-body{
         padding:10px;
         overflow: hidden;
-        /*margin-top: 70px;*/
-            margin-top: 40px;
+        margin-top: 50px;
+}
+
+.page-camera{
+        padding:10px;
+        overflow: hidden;
+        margin-top: 50px;
 }
 
 .btn-group{

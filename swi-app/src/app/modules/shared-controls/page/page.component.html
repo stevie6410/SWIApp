@@ -13,8 +13,12 @@
         </div>
     </div>
 
-    <div class="page-body">
+    <div class="page-body" *ngIf="!isCameraMode">
         <ng-content select=".page-body"></ng-content>
+    </div>
+
+    <div class="page-camera" *ngIf="isCameraMode">
+        <swi-camera [captureImage]="this.captureImage" (onCaptured)="onCaptured()"></swi-camera>
     </div>
 
 </div>

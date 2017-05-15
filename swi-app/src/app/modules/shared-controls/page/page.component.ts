@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
+import { CameraService } from "../../camera/services/camera.service";
+import { CaptureImage } from "app/modules/camera/models/capture-image";
 
 @Component({
   selector: 'app-page',
@@ -13,10 +15,20 @@ export class PageComponent implements OnInit {
   @Input() overrideBackButton: boolean = false;
   @Input() faIcon: string;
   @Output() onBackButtonClick = new EventEmitter<void>();
+  
+  isCameraMode: boolean = false;
+  captureImage: CaptureImage;
 
   constructor(
-    private location: Location
-  ) { }
+    private location: Location,
+    private cameraService: CameraService
+  ) {
+    //New Capture Requests
+    this.cameraService.cameraRequestedEvents.subscribe((captureImage: CaptureImage) => {
+      this.isCameraMode = true;
+      this.captureImage = captureImage;
+    });
+  }
 
   ngOnInit() {
   }
@@ -26,4 +38,7 @@ export class PageComponent implements OnInit {
     if (!this.overrideBackButton) this.location.back();
   }
 
+  onCaptured() {
+    this.isCameraMode = false;
+  }
 }

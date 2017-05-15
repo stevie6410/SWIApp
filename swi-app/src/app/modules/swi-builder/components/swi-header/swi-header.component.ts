@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } fro
 import { SWIHeader, SWIImage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../../app/services/swi-file.service";
+import { CameraService } from "../../../camera/services/camera.service";
 
 @Component({
   selector: 'swi-header',
@@ -18,7 +19,8 @@ export class SwiHeaderComponent implements OnInit {
 
   constructor(
     private changeDetector: ChangeDetectorRef,
-    public swiService: SWIFileService
+    public swiService: SWIFileService,
+    private cameraService: CameraService
   ) { }
 
   ngOnInit() {
@@ -28,26 +30,11 @@ export class SwiHeaderComponent implements OnInit {
     this.onSave.emit(this.swi);
   }
 
-  getImageFromKey(key: string): string {
-    try {
-      if (!key) return ImagePlaceholder;
-      let result = this.swi.swiImages.filter(i => i.key == key)[0];
-      if (result) return result.value;
-    } catch (error) {
-      return ImagePlaceholder;
-    }
-  }
-
-  toggleFetchingImage() {
-    this.isFetchingImage = !this.isFetchingImage;
-  }
-
-  coverImageSelected(image: string) {
-    let newSwiImage: SWIImage = new SWIImage(image);
-    if (!this.swi.swiImages) this.swi.swiImages = new Array<SWIImage>();
-    this.swi.swiImages.push(newSwiImage);
-    this.swi.coverImage = newSwiImage.key;
-    this.isFetchingImage = false;
-    this.changeDetector.detectChanges();
+  getCoverImage() {
+    let currentImage: string = this.swiService.getImageFromStore(this.swi, this.swi.coverImage);
+    this.cameraService.requestCameraImage(currentImage).subscribe((captureImage) => {
+      this.swi.coverImage = this.swiService.addImage(this.swi, captureImage.image);
+      this.changeDetector.detectChanges();
+    });
   }
 }

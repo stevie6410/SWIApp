@@ -9,11 +9,13 @@ import { FormsModule } from "@angular/forms";
 import { OrderBy } from "./order-by-pipe/order-by.pipe";
 import { SwiCategoryPickerComponent } from './swi-category-picker/swi-category-picker.component';
 import { ImageFileComponent } from './image-file/image-file.component';
+import { CameraModule } from "../../modules/camera/camera.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    CameraModule
   ],
   exports: [
     PageComponent,

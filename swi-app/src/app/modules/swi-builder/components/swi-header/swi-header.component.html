@@ -40,10 +40,7 @@
         <div class="col-lg col-lg-5">
           <!--Cover Image-->
           <label for="cover-image">Cover Image</label>
-          <img id="cover-image" class="cover-image" *ngIf="!isFetchingImage" [src]="swiService.getImageFromStore(swi, swi.coverImage)"
-            (click)="toggleFetchingImage()">
-          <image-fetcher (imageSelected)="coverImageSelected($event)" (canceled)="isFetchingImage = false" *ngIf="isFetchingImage"
-            [image]="swiService.getImageFromStore(swi, swi.coverImage)"></image-fetcher>
+          <img id="cover-image" class="cover-image" [src]="swiService.getImageFromStore(swi, swi.coverImage)" (click)="this.getCoverImage()">
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SWIHeader } from '../models/app.models';
+import { SWIHeader, SWIImage } from '../models/app.models';
 import Dexie from 'dexie';
 import { SWIDBService } from "../modules/core/swi-db.service";
 import { ImagePlaceholder } from "../../assets/image-placeholder";
@@ -23,7 +23,7 @@ export class SWIFileService {
 
     deleteSWI(id: string): Promise<SWIHeader> {
         return this.table.delete(id);
-    } 
+    }
 
     saveFile(swi: SWIHeader): Promise<number> {
         swi.updatedOn = new Date();
@@ -41,6 +41,13 @@ export class SWIFileService {
     cleanupSWI(swi: SWIHeader): SWIHeader {
         swi = this.cleanupSWIImages(swi);
         return swi;
+    }
+
+    public addImage(swi: SWIHeader, image: string): string {
+        let newSwiImage: SWIImage = new SWIImage(image);
+        if (!swi.swiImages) swi.swiImages = [];
+        swi.swiImages.push(newSwiImage);
+        return newSwiImage.key;
     }
 
     public getImageFromStore(swi: SWIHeader, key: string): string {
