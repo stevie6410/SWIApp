@@ -36,6 +36,7 @@
     "cropperjs": "^1.0.0-rc",
     "dexie": "next",
     "font-awesome": "^4.7.0",
+    "hammerjs": "^2.0.8",
     "idb": "^2.0.1",
     "idb-keyval": "^2.3.0",
     "ng2-dragula": "^1.3.1",
