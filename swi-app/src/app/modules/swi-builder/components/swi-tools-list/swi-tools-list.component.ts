@@ -6,7 +6,7 @@ import { SWIFileService } from "../../../../services/swi-file.service";
 
 @Component({
   selector: 'swi-tools-list',
-  templateUrl: './swi-tools-list.component.html',
+  template: './swi-tools-list.component.html',
   styleUrls: ['./swi-tools-list.component.css']
 })
 export class SwiToolsListComponent implements OnInit {

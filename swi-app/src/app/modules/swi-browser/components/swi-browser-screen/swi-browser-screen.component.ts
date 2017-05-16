@@ -13,6 +13,7 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   title: string = "SWI Browser"
   localSWIs: SWIHeader[];
+  isLoading: boolean = true;
 
   constructor(
     public swiService: SWIFileService,
@@ -26,6 +27,8 @@ export class SwiBrowserScreenComponent implements OnInit {
       } catch (error) {
         this.localSWIs = results;
         console.log("Error sorting the list. Here is the swis: ", this.localSWIs);
+      } finally {
+        this.isLoading = false;
       }
     });
   }

@@ -6,7 +6,7 @@ import { CaptureImage } from "app/modules/camera/models/capture-image";
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.css']
+  styleUrls: ['./page.component.scss', './page-spinner.css']
 })
 export class PageComponent implements OnInit {
 
@@ -14,6 +14,8 @@ export class PageComponent implements OnInit {
   @Input() backButton: boolean = true;
   @Input() overrideBackButton: boolean = false;
   @Input() faIcon: string;
+  @Input() isLoading: boolean = false;
+  @Input() loadingMessage: string;
   @Output() onBackButtonClick = new EventEmitter<void>();
   
   isCameraMode: boolean = false;
