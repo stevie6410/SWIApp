@@ -1,9 +1,14 @@
 .cover-image{
     width: 100%;
-    /*max-height: 300px;*/
+    border: dashed 2px gray;
+    padding: 5px;
 }
 
 .card-badge{
     margin-right: 5px;
     font-size:14px;
+}
+
+label{
+    font-weight: bold;
 }
