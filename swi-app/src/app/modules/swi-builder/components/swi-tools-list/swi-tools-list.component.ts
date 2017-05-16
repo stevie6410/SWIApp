@@ -24,10 +24,12 @@ export class SwiToolsListComponent implements OnInit {
   }
 
   addTool() {
+    this.save();
     this.router.navigate(['builder', this.swi.id, 'tools', 'new']);
   }
 
   editTool(tool: SWITool) {
+    this.save();
     this.router.navigate(['builder', this.swi.id, 'tools', tool.id]);
   }
 

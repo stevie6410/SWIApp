@@ -27,6 +27,7 @@ export class SwiHsListComponent implements OnInit {
   }
   
   editHSItems() {
+    this.onSave.emit();
     this.router.navigate(['builder', this.swi.id, 'hsitems']);
   }
 
