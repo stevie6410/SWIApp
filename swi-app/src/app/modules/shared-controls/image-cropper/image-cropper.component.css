@@ -1,7 +1,0 @@
-/* Limit image width to avoid overflow the container */
-img {
-  max-width: 100%; /* This rule is very important, please do not ignore this! */
-  /*height: 100%;*/
-  /*min-width: 800px;
-  max-width: 600px;*/
-}

@@ -15,16 +15,13 @@
             <label for="title">Tool Name</label>
             <input type="text" class="form-control" required name="name" [(ngModel)]="tool.name">
           </div>
-
         </div>
 
         <!--Column 2-->
         <div class="col-lg">
           <label for="toolImage">Tool Image</label>
           <div id="toolImage" class='card-block'>
-            <img width="400px" height="400px" [src]="swiService.getImageFromStore(swi, tool.image)" *ngIf="!isFetchingImage"
-              (click)="addImage()">
-            <image-fetcher (imageSelected)="imageSelected($event)" *ngIf="isFetchingImage" [image]="swiService.getImageFromStore(swi, tool.image)"></image-fetcher>
+            <img width="400px" height="400px" [src]="swiService.getImageFromStore(swi, tool.image)" *ngIf="!isFetchingImage" (click)="getImage()">
           </div>
         </div>
       </div>

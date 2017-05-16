@@ -4,6 +4,7 @@ import { SWITool, SWIHeader, SWIImage, generateHash } from "../../../../../app/m
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
+import { CameraService } from "../../../../modules/camera/services/camera.service";
 
 @Component({
   selector: 'swi-tool-edit',
@@ -17,7 +18,6 @@ export class SwiToolEditComponent implements OnInit {
   swi: SWIHeader;
   initialState: number;
   title: string = "SWI Builder";
-  isFetchingImage: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +25,8 @@ export class SwiToolEditComponent implements OnInit {
     private toast: ToastsManager,
     private router: Router,
     public swiService: SWIFileService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private cameraService: CameraService
   ) {
     toast.setRootViewContainerRef(vcr);
   }
@@ -55,17 +56,12 @@ export class SwiToolEditComponent implements OnInit {
     this.save(true);
   }
 
-  addImage() {
-    this.isFetchingImage = true;
-  }
-
-  imageSelected(image: string) {
-    console.log('Image Selected from edit component');
-    let newSwiImage: SWIImage = new SWIImage(image);
-    this.swi.swiImages.push(newSwiImage);
-    this.tool.image = newSwiImage.key;
-    this.isFetchingImage = false;
-    this.changeDetector.detectChanges();
+  getImage() {
+    let currentImage = this.swiService.getImageFromStore(this.swi, this.tool.image);
+    this.cameraService.requestCameraImage(currentImage).subscribe((image) => {
+      this.tool.image = this.swiService.addImage(this.swi, image.image);
+      this.changeDetector.detectChanges();
+    });
   }
 
   deleteTool() {
