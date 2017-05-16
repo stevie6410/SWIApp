@@ -79,6 +79,7 @@ li:focus{outline: 0;}
 
 .sb.sb-collapsed .sb-menu a {
     text-align: center;
+    width: 100%;
 }
 
 .sb .sb-menu-title {

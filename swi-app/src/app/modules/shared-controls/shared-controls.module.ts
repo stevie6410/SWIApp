@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { OrderBy } from "./order-by-pipe/order-by.pipe";
 import { SwiCategoryPickerComponent } from './swi-category-picker/swi-category-picker.component';
 import { CameraModule } from "../../modules/camera/camera.module";
+import { ToggleFullscreenDirective } from './toggle-fullscreen/toggle-fullscreen.directive';
 
 @NgModule({
   imports: [
@@ -17,13 +18,15 @@ import { CameraModule } from "../../modules/camera/camera.module";
     PageComponent,
     SwiCardComponent,
     OrderBy,
-    SwiCategoryPickerComponent
+    SwiCategoryPickerComponent,
+    ToggleFullscreenDirective
   ],
   declarations: [
     PageComponent,
     SwiCardComponent,
     OrderBy,
-    SwiCategoryPickerComponent
+    SwiCategoryPickerComponent,
+    ToggleFullscreenDirective
   ],
   entryComponents: [
   ]

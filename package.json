@@ -2,5 +2,8 @@
   "name": "swi",
   "description": "Standard Work Instructions",
   "version": "0.7.0",
-  "license": ""
+  "license": "",
+  "dependencies": {
+    "screenfull": "^3.2.0"
+  }
 }
