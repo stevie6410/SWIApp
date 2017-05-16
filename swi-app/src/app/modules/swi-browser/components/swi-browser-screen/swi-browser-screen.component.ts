@@ -7,7 +7,7 @@ import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 @Component({
   selector: 'swi-browser-screen',
   templateUrl: './swi-browser-screen.component.html',
-  styleUrls: ['./swi-browser-screen.component.css']
+  styleUrls: ['./swi-browser-screen.component.scss']
 })
 export class SwiBrowserScreenComponent implements OnInit {
 

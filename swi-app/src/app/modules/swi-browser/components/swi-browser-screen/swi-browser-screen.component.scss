@@ -1,17 +1,22 @@
+$card-width: 200px;
+
 .card-gallery{
     display: flex;
     flex-wrap: wrap;
 }
 
 .card{
-    width: 260px;
-    min-width: 260px;
-    max-width: 260px;
-    margin: 10px;
+    width: $card-width + 4px;
+    margin: 5px;
     border: 2px solid #acacac;
     cursor: pointer;
     animation: zoomIn 0.5s;
     transition: all 0.5s;
+
+    .card-block{
+        padding: 0.75rem;
+    }
+
 }
 
 .card:hover{
@@ -20,8 +25,8 @@
 }
 
 .card-img-top{
-    width: 256px; 
-    height: 256px;
+    width: $card-width; 
+    height: $card-width;
 }
 
 .card-selected{
@@ -29,3 +34,11 @@
     border:2px solid green;
 }
 
+.card-badge{
+    font-size: 10px;
+}
+
+.card-title{
+    font-size: 12px;
+    font-weight: bold;
+}

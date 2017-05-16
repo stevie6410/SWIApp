@@ -11,12 +11,14 @@
           <div class="card" *ngFor="let swi of localSWIs | orderBy: ['-updatedOn']" (click)="openSWI(swi)">
             <img class="card-img-top" [src]="swiService.getImageFromStore(swi, swi.coverImage)">
             <div class="card-block">
-              <h5 class="card-title">{{swi.title}}</h5>
-              <p class="card-text">{{swi.description}}</p>
-              <h6><span class="badge badge-primary">{{swi?.category}}</span></h6>
-              <h6><span class="badge badge-primary card-badge">SWI Revision: A</span></h6>
-              <h6><span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span></h6>
-              <h6><span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span></h6>
+              <span class="card-title">{{swi.title}}</span>
+              <!--<p class="card-text">{{swi.description}}</p>-->
+              <div class="badge-container">
+                <span class="badge badge-primary card-badge">{{swi?.category}}</span>
+                <span class="badge badge-primary card-badge">SWI Revision: A</span>
+                <span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span>
+                <span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>
+              </div>
             </div>
             <div class="card-footer">
               <small class="text-muted">Last updated: {{swi.updatedOn | amTimeAgo}}</small>
