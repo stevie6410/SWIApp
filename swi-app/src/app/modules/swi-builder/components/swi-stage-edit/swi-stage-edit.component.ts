@@ -7,6 +7,7 @@ import { SWIFileService } from '../../../../services/swi-file.service';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
+import { CameraService } from "../../../camera/services/camera.service";
 
 @Component({
   selector: 'app-swi-stage-edit',
@@ -19,7 +20,6 @@ export class SwiStageEditComponent implements OnInit {
   swi: SWIHeader;
   stage: SWIStage;
   sequence: number;
-  isFetchingImage: boolean = false;
   initalSWIState: number;
 
   constructor(
@@ -30,7 +30,8 @@ export class SwiStageEditComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private router: Router,
     public overlay: Overlay,
-    public modal: Modal
+    public modal: Modal,
+    private cameraService: CameraService
   ) {
     toast.setRootViewContainerRef(vcr);
     overlay.defaultViewContainer = vcr;
@@ -47,7 +48,11 @@ export class SwiStageEditComponent implements OnInit {
   }
 
   addImage() {
-    this.isFetchingImage = true;
+    let currentImage: string = this.swiService.getImageFromStore(this.swi, this.stage.image);
+    this.cameraService.requestCameraImage(currentImage).subscribe((captureImage) => {
+      this.stage.image = this.swiService.addImage(this.swi, captureImage.image);
+      this.changeDetector.detectChanges();
+    });
   }
 
   backButtonClick() {
@@ -91,15 +96,6 @@ export class SwiStageEditComponent implements OnInit {
           this.toast.error(`${this.swi.title} could not be created`, "Error saving file!");
         })
     }
-  }
-
-  imageSelected(image: string) {
-    console.log('Image Selected from edit component');
-    let newSwiImage: SWIImage = new SWIImage(image);
-    this.swi.swiImages.push(newSwiImage);
-    this.stage.image = newSwiImage.key;
-    this.isFetchingImage = false;
-    this.changeDetector.detectChanges();
   }
 
   getImageFromKey(key: string): string {
