@@ -2,7 +2,6 @@
 
 @import 'variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
-
 @import './assets/styles/toastr.css';
 @import './assets/styles/loading.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
@@ -20,6 +19,10 @@ body {
     height: 100%;
     margin: 0px;
     /*overflow: hidden;*/
+}
+
+label{
+    font-weight: bold;
 }
 
 ::-webkit-scrollbar {

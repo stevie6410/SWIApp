@@ -43,7 +43,7 @@
         <div class="col-lg">
           <label for="stageImage">Stage Image</label>
           <div id="stageImage" class='card-block'>
-            <img width="400px" height="400px" [src]="swiService.getImageFromStore(swi, stage.image)" (click)="addImage()">
+            <img class="stage-image" width="400px" height="400px" [src]="swiService.getImageFromStore(swi, stage.image)" (click)="addImage()">
           </div>
         </div>
       </div>

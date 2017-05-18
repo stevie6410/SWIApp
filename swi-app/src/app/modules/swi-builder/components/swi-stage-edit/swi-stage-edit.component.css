@@ -5,3 +5,8 @@
 .care-point-input{
     background-color: #ffd6d6;
 }
+
+.stage-image{
+    border: dashed 2px grey;
+    padding: 5px;
+}
