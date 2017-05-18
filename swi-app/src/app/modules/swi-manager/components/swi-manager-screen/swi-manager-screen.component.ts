@@ -22,7 +22,7 @@ export class SwiManagerScreenComponent implements OnInit {
     public modal: Modal,
     private route: ActivatedRoute,
     private router: Router,
-    private swiFileService: SWIFileService,
+    public swiFileService: SWIFileService,
     private toast: ToastsManager
   ) {
     this.swi = this.route.snapshot.data['swi'];

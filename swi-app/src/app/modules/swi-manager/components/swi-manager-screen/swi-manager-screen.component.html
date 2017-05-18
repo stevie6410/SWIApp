@@ -4,23 +4,50 @@
   <div class='page-body'>
     <!--Page Content Here   -->
 
-    <swi-card [title]="'SWI Master Properties'">
-      <div class='card-block'>
+    <div class="row">
+
+      <div class="col-md-8">
+
+        <swi-card [title]="'Commands'">
+          <div class="card-block">
+            <!--<div class="btn-container">-->
+              <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View SWI</button>
+              <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning"><i class="fa fa-cubes"></i> Edit SWI</button>
+              <swi-export-button [swi]="this.swi"></swi-export-button>
+              <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete SWI</button>
+            <!--</div>-->
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Master Properties'">
+          <div class='card-block'>
+            *** This panel will contain header level information from the SWI Repository ***
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Revision Properties'">
+          <div class='card-block'>
+            *** This panel will contain document revision level information from the SWI Repository ***
+          </div>
+        </swi-card>
+
       </div>
-    </swi-card>
 
-    <swi-card [title]="'SWI Revision Properties'">
-      <div class='card-block'>
+      <div class="col-md-4">
+
+        <swi-card [title]="'SWI Overview'">
+          <div class="card-block">
+              <img [src]="this.swiFileService.getImageFromStore(swi, this.swi.coverImage)" width="100%" class="cover-image">
+          </div>
+        </swi-card>
+
       </div>
-    </swi-card>
 
-
-    <div class="btn-container">
-      <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View SWI</button>
-      <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning"><i class="fa fa-cubes"></i> Edit SWI</button>
-      <swi-export-button [swi]="this.swi"></swi-export-button>
-      <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete SWI</button>
     </div>
+
+
+
+
 
 
   </div>
