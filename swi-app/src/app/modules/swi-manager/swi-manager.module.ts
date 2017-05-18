@@ -3,20 +3,21 @@ import { CommonModule } from '@angular/common';
 import { SwiManagerScreenComponent } from './components/swi-manager-screen/swi-manager-screen.component';
 import { SharedControlsModule } from "../../modules/shared-controls/shared-controls.module";
 import { RouterModule } from "@angular/router";
-import { SwiExporterModule } from "../../modules/swi-exporter/swi-exporter.module";
+import { SWIExportButton } from "./directives/swi-export.directive";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedControlsModule,
-    RouterModule,
-    SwiExporterModule
+    RouterModule
   ],
   exports: [
-    SwiManagerScreenComponent
+    SwiManagerScreenComponent,
+    SWIExportButton
   ],
   declarations: [
-    SwiManagerScreenComponent
+    SwiManagerScreenComponent,
+    SWIExportButton
   ]
 })
 export class SwiManagerModule { }

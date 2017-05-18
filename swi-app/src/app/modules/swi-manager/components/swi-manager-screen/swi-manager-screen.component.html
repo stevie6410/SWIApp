@@ -11,10 +11,10 @@
         <swi-card [title]="'Commands'">
           <div class="card-block">
             <!--<div class="btn-container">-->
-              <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View SWI</button>
-              <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning"><i class="fa fa-cubes"></i> Edit SWI</button>
-              <swi-export-button [swi]="this.swi"></swi-export-button>
-              <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete SWI</button>
+            <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View SWI</button>
+            <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning"><i class="fa fa-cubes"></i> Edit SWI</button>
+            <button type="button"  class="btn btn-lg btn-primary" swiExportButton [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export SWI</button>
+            <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete SWI</button>
             <!--</div>-->
           </div>
         </swi-card>
@@ -37,7 +37,7 @@
 
         <swi-card [title]="'SWI Overview'">
           <div class="card-block">
-              <img [src]="this.swiFileService.getImageFromStore(swi, this.swi.coverImage)" width="100%" class="cover-image">
+            <img [src]="this.swiFileService.getImageFromStore(swi, this.swi.coverImage)" width="100%" class="cover-image">
           </div>
         </swi-card>
 

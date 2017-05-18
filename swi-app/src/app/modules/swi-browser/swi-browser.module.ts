@@ -6,6 +6,7 @@ import { SwiBrowserScreenComponent } from './components/swi-browser-screen/swi-b
 import { SharedControlsModule } from "../shared-controls/shared-controls.module";
 import { ToastModule } from "ng2-toastr";
 import { MomentModule } from "angular2-moment";
+import { ImportDropZoneDirective } from "./directives/import-dnd.directive";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { MomentModule } from "angular2-moment";
     SwiBrowserScreenComponent
   ],
   declarations: [
-    SwiBrowserScreenComponent
+    SwiBrowserScreenComponent,
+    ImportDropZoneDirective
   ]
 })
 export class SwiBrowserModule { }

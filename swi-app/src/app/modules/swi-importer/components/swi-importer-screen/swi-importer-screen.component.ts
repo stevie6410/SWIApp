@@ -29,6 +29,7 @@ export class SwiImporterScreenComponent implements OnInit, AfterViewInit {
       let files: FileList = srcEl.files;
       if (files) {
         console.log("Files Selected: ", files);
+        
         var reader: FileReader = new FileReader();
         reader.onloadend = () => {
           let rawSWI: any = reader.result;

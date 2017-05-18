@@ -1,7 +1,7 @@
 import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 export class CustomOptions extends ToastOptions {
-  toastLife = 2000;
+  toastLife = 5000;
   animate = 'flyRight';
   dismiss = 'auto';
   showCloseButton = true;
