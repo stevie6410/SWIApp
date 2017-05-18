@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { SWIHeader } from "../../../../models/app.models";
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
@@ -19,14 +19,15 @@ export class SwiBrowserScreenComponent implements OnInit {
   constructor(
     public swiService: SWIFileService,
     private router: Router,
+    private route: ActivatedRoute,
     private toast: ToastsManager
   ) { }
 
   ngOnInit() {
-    this.loadList();
+    this.localSWIs = this.route.snapshot.data['swis'];
   }
 
-  loadList() {
+  reloadList() {
     console.log("Loading List");
     this.isLoading = true;
     this.swiService.getAllFiles().then((results: SWIHeader[]) => {
@@ -41,7 +42,7 @@ export class SwiBrowserScreenComponent implements OnInit {
     });
   }
 
-  importStarted(){
+  importStarted() {
     this.toast.warning("Started importing document");
   }
 

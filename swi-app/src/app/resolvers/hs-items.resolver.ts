@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { AppConfigService } from '../../../../app/services/repo-config.service';
-import { SWIHeader, SWIHSItem } from "../../../../app/models/app.models";
+import { AppConfigService } from '../services/repo-config.service';
+import { SWIHeader, SWIHSItem } from "../models/app.models";
 
 @Injectable()
 export class HSItemsResolver implements Resolve<SWIHSItem[]> {
@@ -17,7 +17,6 @@ export class HSItemsResolver implements Resolve<SWIHSItem[]> {
                 resolve(value.swiHSItems);
             });
         });
-        // return this.appConfigService.getHSItems();
     }
 }
 

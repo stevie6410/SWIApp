@@ -1,7 +1,7 @@
 <app-page [title]='title' [backButton]="false" [faIcon]="'fa-cubes'" [isLoading]="isLoading" [loadingMessage]="'Loading SWIs'">
   <!--Add Page level buttons here with page-button class-->
   <button type='button' class='page-button btn btn-success' routerLink="/builder">Create New SWI</button>
-  <div class='page-body' importDropZone (onImported)="loadList()">
+  <div class='page-body' importDropZone (onImported)="reloadList()">
 
     <!--Page Content Here   -->
     <div class="row">

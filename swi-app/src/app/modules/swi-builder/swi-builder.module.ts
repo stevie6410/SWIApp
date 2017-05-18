@@ -12,7 +12,6 @@ import { SwiHsListComponent } from './components/swi-hs-list/swi-hs-list.compone
 import { SWIHSItemService } from "./services/swi-hs.service";
 import { SwiHsPickerComponent } from './components/swi-hs-picker/swi-hs-picker.component';
 import { SwiToolsListComponent } from './components/swi-tools-list/swi-tools-list.component';
-import { SWIResolve } from "./components/swi.resolver";
 import { SwiToolEditComponent } from './components/swi-tool-edit/swi-tool-edit.component';
 import { SwiErpPartsComponent } from './components/swi-erp-parts/swi-erp-parts.component';
 import { DragulaModule } from "ng2-dragula";
@@ -42,8 +41,7 @@ import { DragulaModule } from "ng2-dragula";
   ],
   providers: [
     SWIFileService,
-    SWIHSItemService,
-    SWIResolve
+    SWIHSItemService
   ]
 })
 export class SwiBuilderModule { }

@@ -20,10 +20,11 @@ import { MomentModule } from "angular2-moment";
 import { SwiNewComponent } from "../swi-builder/components/swi-new/swi-new.component";
 import { SwiHsPickerComponent } from "../swi-builder/components/swi-hs-picker/swi-hs-picker.component";
 import { AppConfigService } from "../../services/repo-config.service";
-import { SWIResolve } from "../swi-builder/components/swi.resolver";
+import { SWIResolve } from "../../resolvers/swi.resolver";
+import { SWIsResolve } from "../../resolvers/swis.resolver";
+import { HSItemsResolver } from "../../resolvers/hs-items.resolver";
 import { SwiToolEditComponent } from "../swi-builder/components/swi-tool-edit/swi-tool-edit.component";
 import { CoreModule } from "../core/core.module";
-import { HSItemsResolver } from "../../../app/modules/swi-builder/components/hs-items.resolver";
 import { SwiImporterModule } from "../swi-importer/swi-importer.module";
 import { SwiImporterScreenComponent } from "../swi-importer/components/swi-importer-screen/swi-importer-screen.component";
 import { TooltipModule } from "ngx-tooltip";
@@ -39,7 +40,7 @@ import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'browser', component: SwiBrowserScreenComponent },
+  { path: 'browser', component: SwiBrowserScreenComponent, resolve: {swis: SWIsResolve} },
   { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'viewer/:id/stagesgallery', component: StagesGalleryScreenComponent, resolve: { swi: SWIResolve }},
   { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve }},
@@ -80,7 +81,10 @@ const appRoutes: Routes = [
     { provide: ToastOptions, useClass: CustomOptions },
     AppConfigService,
     HSItemsResolver,
-    PackageService
+    PackageService,
+    SWIResolve,
+    SWIsResolve,
+    HSItemsResolver
   ],
   bootstrap: [AppComponent]
 })
