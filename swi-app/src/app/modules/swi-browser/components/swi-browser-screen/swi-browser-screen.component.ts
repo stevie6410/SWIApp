@@ -24,7 +24,15 @@ export class SwiBrowserScreenComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.localSWIs = this.route.snapshot.data['swis'];
+    let tempSwis: SWIHeader[] = this.route.snapshot.data['swis'];
+    try {
+      tempSwis = tempSwis.sort((a, b) => { return b.updatedOn.getTime() - a.updatedOn.getTime() });
+    } catch (error) {
+      console.log("Error sorting the list. Here is the swis: ", this.localSWIs);
+    } finally {
+      this.localSWIs = tempSwis;
+      this.isLoading = false;
+    }
   }
 
   reloadList() {

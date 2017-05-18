@@ -61,11 +61,11 @@ export class PageComponent implements OnInit {
 
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
-      console.log("Navigation Started");
+      // console.log("Navigation Started");
       this.isLoading = true;
     }
     if (event instanceof NavigationEnd) {
-      console.log("Navigation Ended");
+      // console.log("Navigation Ended");
       this.isLoading = false;
     }
     // Set loading state to false in both of the below events to hide the spinner in case a request fails
