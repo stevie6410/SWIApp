@@ -1,7 +1,7 @@
-<app-page [title]='title' (onBackButtonClick)="backButtonClick()" [overrideBackButton]="true" [faIcon]="'fa-pencil-square-o'">
+<app-page [title]='title' (onBackButtonClick)="cancelChanges()" [overrideBackButton]="true" [faIcon]="'fa-pencil-square-o'">
   <!--Add Page level buttons here with page-button class-->
   <!--<button type="button" class="btn btn-success btn-lg float-right page-button" (click)="saveFile()">Save</button>-->
-  <button type="button" class="btn btn-danger page-button" (click)="deleteStage()"> <i class="fa fa-trash"></i> Delete Stage</button>
+  <!--<button type="button" class="btn btn-danger page-button" (click)="deleteStage()"> <i class="fa fa-trash"></i> Delete Stage</button>-->
 
   <div class='page-body' *ngIf="stage">
     <!--Page Content Here   -->
@@ -45,10 +45,15 @@
           <div id="stageImage" class='card-block'>
             <img class="stage-image" width="400px" height="400px" [src]="swiService.getImageFromStore(swi, stage.image)" (click)="addImage()">
           </div>
+
+
         </div>
       </div>
-      
+
     </form>
+
+    <button type="button" class="btn btn-lg btn-block btn-success" (click)="save(true)">Ok</button>
+    <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="cancelChanges()">Cancel</button>
 
 
     <br>

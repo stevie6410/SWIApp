@@ -43,6 +43,16 @@ export class SWIHeader {
     }
 }
 
+export function hasChanges(swi: SWIHeader, initalState: number): boolean {
+    if (generateHash(JSON.stringify(swi)) == initalState) {
+        console.log("SWI up to date");
+        return false;
+    } else {
+        console.log("SWI Changed");
+        return true;
+    }
+}
+
 export function generateHash(obj: any) {
     var hash = 0, i, chr;
     if (obj.length === 0) return hash;
