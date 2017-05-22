@@ -1,4 +1,4 @@
-<app-page [title]='title' [backButton]="true" [overrideBackButton]="true" [faIcon]="'fa-cubes'" (onBackButtonClick)="navBack()">
+<app-page [title]="'SWI Manager - ' + swi.title" [backButton]="true" [overrideBackButton]="true" [faIcon]="'fa-cubes'" (onBackButtonClick)="navBack()">
   <!--Add Page level buttons here with page-button class-->
   <!--<button type='button' class='page-button btn btn-primary'>Page Menu Button</button>-->
   <div class='page-body'>
@@ -11,11 +11,13 @@
         <swi-card [title]="'Commands'">
           <div class="card-block">
             <!--<div class="btn-container">-->
-            <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View SWI</button>
-            <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning"><i class="fa fa-cubes"></i> Edit SWI</button>
-            <button type="button"  class="btn btn-lg btn-primary" swiExportButton [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export SWI</button>
-            <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete SWI</button>
+            <button type="button" (click)="viewSWI()" class="btn btn-lg btn-block btn-success"><i class="fa fa-desktop"></i> View</button>
+            <button type="button" (click)="editSWI()" class="btn btn-lg btn-block btn-warning"><i class="fa fa-cubes"></i> Edit</button>
+            <button type="button" (click)="duplicateSWI()" class="btn btn-lg btn-block btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
+            <button type="button" class="btn btn-lg btn-block btn-primary" swiExportButton [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
+            <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-block btn-danger"><i class="fa fa-trash"></i> Delete</button>
             <!--</div>-->
+      
           </div>
         </swi-card>
 
