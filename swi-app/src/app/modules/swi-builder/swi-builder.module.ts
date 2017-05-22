@@ -15,6 +15,8 @@ import { SwiToolsListComponent } from './components/swi-tools-list/swi-tools-lis
 import { SwiToolEditComponent } from './components/swi-tool-edit/swi-tool-edit.component';
 import { SwiErpPartsComponent } from './components/swi-erp-parts/swi-erp-parts.component';
 import { DragulaModule } from "ng2-dragula";
+import { SaveChangesDirective } from './directives/save-changes/save-changes.directive';
+import { DiscardChangesDirective } from './directives/discard-changes/discard-changes.directive';
 
 @NgModule({
   imports: [
@@ -37,7 +39,9 @@ import { DragulaModule } from "ng2-dragula";
     SwiHsPickerComponent,
     SwiToolsListComponent,
     SwiToolEditComponent,
-    SwiErpPartsComponent
+    SwiErpPartsComponent,
+    SaveChangesDirective,
+    DiscardChangesDirective
   ],
   providers: [
     SWIFileService,
