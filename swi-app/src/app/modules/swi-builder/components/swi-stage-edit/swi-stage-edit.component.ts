@@ -23,9 +23,6 @@ export class SwiStageEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public swiService: SWIFileService,
-    private toast: ToastsManager,
-    private vcr: ViewContainerRef,
-    private changeDetector: ChangeDetectorRef,
     private router: Router,
     private cameraService: CameraService
   ) {
@@ -45,7 +42,7 @@ export class SwiStageEditComponent implements OnInit {
     let currentImage: string = this.swiService.getImageFromStore(this.swi, this.stage.image);
     this.cameraService.requestCameraImage(currentImage).subscribe((captureImage) => {
       this.stage.image = this.swiService.addImage(this.swi, captureImage.image);
-      this.changeDetector.detectChanges();
+      // this.changeDetector.detectChanges();
     });
   }
 
