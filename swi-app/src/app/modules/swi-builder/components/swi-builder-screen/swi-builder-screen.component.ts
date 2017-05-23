@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from '../../../../services/swi-file.service';
-import { SWIHeader, generateHash } from '../../../../models/app.models';
+import { SWIHeader, generateHash, hasChanges } from '../../../../models/app.models';
 
 @Component({
   selector: 'swi-builder-screen',
@@ -43,9 +43,9 @@ export class SwiBuilderScreenComponent implements OnInit {
   }
 
   saveFile(navBack: boolean) {
-    if (generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
-      this.toast.success(this.swi.title, `File Saved!`);
+    if (!hasChanges(this.swi, this.initalSWIState)) {
       if (navBack) this.naviagetBackToManager();
+      console.log("There were no changes");
     } else {
       console.log("Saving as there were changes");
       this.swiService.saveFile(this.swi)

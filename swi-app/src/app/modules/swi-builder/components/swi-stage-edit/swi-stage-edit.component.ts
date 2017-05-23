@@ -2,15 +2,13 @@ import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRe
 import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr';
-import { SWIHeader, SWIStage, SWIImage } from '../../../../models/app.models';
+import { SWIHeader, SWIStage, SWIImage, generateHash, hasChanges } from '../../../../models/app.models';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
-import { Overlay } from "angular2-modal";
-import { Modal } from "angular2-modal/plugins/bootstrap";
 import { CameraService } from "../../../camera/services/camera.service";
 
 @Component({
-  selector: 'app-swi-stage-edit',
+  selector: 'swi-stage-edit',
   templateUrl: './swi-stage-edit.component.html',
   styleUrls: ['./swi-stage-edit.component.css']
 })
@@ -20,28 +18,21 @@ export class SwiStageEditComponent implements OnInit {
   swi: SWIHeader;
   stage: SWIStage;
   sequence: number;
-  initalSWIState: number;
+  initialState: number;
 
   constructor(
     private route: ActivatedRoute,
     public swiService: SWIFileService,
-    private toast: ToastsManager,
-    private vcr: ViewContainerRef,
-    private changeDetector: ChangeDetectorRef,
     private router: Router,
-    public overlay: Overlay,
-    public modal: Modal,
     private cameraService: CameraService
   ) {
-    toast.setRootViewContainerRef(vcr);
-    overlay.defaultViewContainer = vcr;
   }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.sequence = +params['sequence'];
       this.swi = this.route.snapshot.data['swi'];
-      this.initalSWIState = this.generateHash(JSON.stringify(this.swi));
+      this.initialState = generateHash(JSON.stringify(this.swi));
       this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
       this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
     });
@@ -51,51 +42,8 @@ export class SwiStageEditComponent implements OnInit {
     let currentImage: string = this.swiService.getImageFromStore(this.swi, this.stage.image);
     this.cameraService.requestCameraImage(currentImage).subscribe((captureImage) => {
       this.stage.image = this.swiService.addImage(this.swi, captureImage.image);
-      this.changeDetector.detectChanges();
+      // this.changeDetector.detectChanges();
     });
-  }
-
-  backButtonClick() {
-    this.save(true);
-  }
-
-  deleteStage() {
-    this.modal.confirm()
-      .size('lg')
-      .isBlocking(true)
-      .showClose(false)
-      .keyboard(27)
-      .titleHtml('<h5>Confirm Delete Stage</h5>')
-      .body(`Are you sure you want to delete stage ${this.stage.sequence}?`)
-      .okBtn('Delete Stage')
-      .okBtnClass('btn btn-danger')
-      .cancelBtn('Cancel')
-      .cancelBtnClass('btn btn-secondary')
-      .open()
-      .then(dialogRef => dialogRef.result)
-      .then(result => {
-        this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != this.stage.sequence);
-        this.save(true);
-      })
-      .catch(err => console.log('Canceled'));
-  }
-
-  save(navBack: Boolean) {
-    if (this.generateHash(JSON.stringify(this.swi)) == this.initalSWIState) {
-      console.log("No changes");
-      if (navBack) this.router.navigate(['builder', this.swi.id]);
-    } else {
-      //Save the file and navigate back to the SWI Builder screen
-      this.swiService.saveFile(this.swi)
-        .then((result) => {
-          console.log(`${this.swi.id} was saved.`);
-          if (navBack) this.router.navigate(['builder', this.swi.id]);
-        })
-        .catch((err) => {
-          console.log("Error saving file: ", err);
-          this.toast.error(`${this.swi.title} could not be created`, "Error saving file!");
-        })
-    }
   }
 
   getImageFromKey(key: string): string {
@@ -105,16 +53,5 @@ export class SwiStageEditComponent implements OnInit {
     } catch (error) {
       return ImagePlaceholder;
     }
-  }
-
-  generateHash(obj: any) {
-    var hash = 0, i, chr;
-    if (obj.length === 0) return hash;
-    for (i = 0; i < obj.length; i++) {
-      chr = obj.charCodeAt(i);
-      hash = ((hash << 5) - hash) + chr;
-      hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
   }
 }

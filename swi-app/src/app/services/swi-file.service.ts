@@ -27,7 +27,7 @@ export class SWIFileService {
 
     saveFile(swi: SWIHeader): Promise<number> {
         swi.updatedOn = new Date();
-        return this.table.update(swi.id, swi);
+        return this.table.update(swi.id, swi).then();
     }
 
     getFile(id: string): Promise<SWIHeader> {
