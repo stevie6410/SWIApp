@@ -23,7 +23,7 @@ export class PageComponent implements OnInit {
   @Input() backButton: boolean = true;
   @Input() overrideBackButton: boolean = false;
   @Input() faIcon: string;
-  @Input() isLoading: boolean = false;
+  @Input() isLoading: boolean = true;
   @Input() loadingMessage: string;
   @Output() onBackButtonClick = new EventEmitter<void>();
 
