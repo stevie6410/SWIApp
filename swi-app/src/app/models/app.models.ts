@@ -16,6 +16,7 @@ export class SWIHeader {
     expert: SWIUser;
     approver: SWIUser;
     company: SWICompany;
+    stageGroups: SWIStageGroup[];
     swihsItems: SWIHSItem[];
     swiTools: SWITool[];
     swiStages: SWIStage[];
@@ -26,42 +27,34 @@ export class SWIHeader {
 
     constructor(title: string) {
         this.title = title;
-        this.revision = "A";
+        this.revision = "1";
         this.swiImages = [];
         this.swiStages = [];
         this.swiTags = [];
         this.swiTools = [];
         this.swihsItems = [];
         this.swiLinkedERPParts = [];
+        this.stageGroups = [];
+        this.stageGroups.push(new SWIStageGroup("Default Stage Group"));
         this.createdOn = new Date();
         this.updatedOn = new Date();
-        this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+        this.id = new GUID().value;
         this.filename = this.id + '.swi';
     }
 }
 
-export function hasChanges(swi: SWIHeader, initalState: number): boolean {
-    if (generateHash(JSON.stringify(swi)) == initalState) {
-        console.log("SWI up to date");
-        return false;
-    } else {
-        console.log("SWI Changed");
-        return true;
+export class SWIStageGroup {
+    id: string;
+    name: string;
+    sequence: number;
+    tools: SWITool[];
+    stages: SWIStage[];
+    constructor(name: string) {
+        this.id = new GUID().value;
+        this.name = name;
+        this.tools = [];
+        this.stages = [];
     }
-}
-
-export function generateHash(obj: any) {
-    var hash = 0, i, chr;
-    if (obj.length === 0) return hash;
-    for (i = 0; i < obj.length; i++) {
-        chr = obj.charCodeAt(i);
-        hash = ((hash << 5) - hash) + chr;
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
 }
 
 export class SWIERPPart {
@@ -73,10 +66,7 @@ export class SWIERPPart {
 
 export class SWIImage {
     constructor(value: string) {
-        this.key = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+        this.key = new GUID().value;
         this.value = value;
     }
     key: string;
@@ -92,10 +82,7 @@ export class SWIHSItem {
     company: SWICompany;
 
     constructor() {
-        this.id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+        this.id = new GUID().value;
     }
 }
 
@@ -154,4 +141,25 @@ export class GUID {
             return v.toString(16);
         });
     }
+}
+
+export function hasChanges(swi: SWIHeader, initalState: number): boolean {
+    if (generateHash(JSON.stringify(swi)) == initalState) {
+        console.log("SWI up to date");
+        return false;
+    } else {
+        console.log("SWI Changed");
+        return true;
+    }
+}
+
+export function generateHash(obj: any) {
+    var hash = 0, i, chr;
+    if (obj.length === 0) return hash;
+    for (i = 0; i < obj.length; i++) {
+        chr = obj.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
 }

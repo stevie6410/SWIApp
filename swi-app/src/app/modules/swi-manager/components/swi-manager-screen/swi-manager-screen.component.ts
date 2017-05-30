@@ -109,12 +109,12 @@ export class SwiManagerScreenComponent implements OnInit {
       .then(dialogRef => dialogRef.result)
       .then(result => {
         //Delete logic goes here
-        this.swiFileService.deleteSWI(this.swi.id).then(((delSwi: SWIHeader) => {
+        this.swiFileService.deleteSWI(this.swi.id).then((() => {
           this.toast.warning(this.swi.title + ' was deleted!', "Successfully Deleted");
           this.navBack();
         })).catch((err) => {
           this.toast.error("Could not delete the SWI", "Delete failed");
-        });
+        }); 
       })
       .catch(err => console.log('Canceled'));
   }

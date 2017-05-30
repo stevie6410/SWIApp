@@ -4,7 +4,7 @@ import { SWIFileService } from '../services/swi-file.service';
 import { SWIHeader } from "../models/app.models";
 
 @Injectable()
-export class SWIsResolve implements Resolve<SWIHeader> {
+export class SWIsResolve implements Resolve<Array<SWIHeader>> {
 
     constructor(
         private swiFileService: SWIFileService

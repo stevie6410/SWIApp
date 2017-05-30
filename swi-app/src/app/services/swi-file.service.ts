@@ -18,16 +18,20 @@ export class SWIFileService {
     }
 
     createSWI(swi: SWIHeader): Promise<SWIHeader> {
-        return this.table.add(swi).then();
+        return new Promise<SWIHeader>((resolve, reject) => {
+            this.table.add(swi)
+                .then(result => resolve(swi))
+                .catch(err => reject(err));
+        });
     }
 
-    deleteSWI(id: string): Promise<SWIHeader> {
+    deleteSWI(id: string): Promise<void> {
         return this.table.delete(id);
     }
 
     saveFile(swi: SWIHeader): Promise<number> {
         swi.updatedOn = new Date();
-        return this.table.update(swi.id, swi).then();
+        return this.table.update(swi.id, swi);
     }
 
     getFile(id: string): Promise<SWIHeader> {
