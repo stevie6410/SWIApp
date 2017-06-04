@@ -11,6 +11,7 @@ import {
 
 import { CameraService } from "../../../camera/services/camera.service";
 import { CaptureImage } from "app/modules/camera/models/capture-image";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-page',
@@ -35,6 +36,8 @@ export class PageComponent implements OnInit {
     private cameraService: CameraService,
     private router: Router
   ) {
+    $('#content').animate({ scrollTop: 0 }, 200);
+
     //Router Events to set the isLoading flag
     router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);

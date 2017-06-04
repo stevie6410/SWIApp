@@ -9,7 +9,8 @@
       <div class="col">
 
         <div class="card-gallery flex-container">
-          <div class="card" *ngFor="let swi of localSWIs | orderBy: ['-updatedOn']" (click)="openSWI(swi)">
+          <!--<div class="card" *ngFor="let swi of localSWIs | orderBy: ['-updatedOn']" (click)="openSWI(swi)">-->
+          <div class="card" *ngFor="let swi of localSWIs" (click)="openSWI(swi)">
             <swi-img class="card-img-top" [imageKey]="swi.coverImage"></swi-img>
               <div class="card-block">
                 <span class="card-title">{{swi.title}}</span>

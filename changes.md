@@ -32,6 +32,7 @@
 - Need to make the export swi "recombine" the images
 - Need to add a cleanup for the image store
 - Need to fix the bu where the loading wheel shows when there is no image
+- Need to fix the H&S Icons image control. Showing image placeholder
 
 
 

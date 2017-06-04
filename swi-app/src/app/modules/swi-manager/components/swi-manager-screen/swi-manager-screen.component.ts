@@ -27,6 +27,7 @@ export class SwiManagerScreenComponent implements OnInit {
     public imageStore: ImageStoreService,
     private toast: ToastsManager
   ) {
+
     this.swi = this.route.snapshot.data['swi'];
     overlay.defaultViewContainer = vcr;
     this.route.params.subscribe((params) => {

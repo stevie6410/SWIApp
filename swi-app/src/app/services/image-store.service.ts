@@ -95,7 +95,7 @@ export class ImageStoreService {
         return new Promise<string>((resolve, reject) => {
             if (!key) resolve(ImagePlaceholder);
             try {
-                console.log(key);
+                // console.log(key);
                 this.imageStore.get(key)
                     .then(storeImg => {
                         if (!storeImg) {

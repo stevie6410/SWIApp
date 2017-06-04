@@ -29,14 +29,9 @@ export class SwiBrowserScreenComponent implements OnInit {
 
   ngOnInit() {
     let tempSwis: SWIHeader[] = this.route.snapshot.data['swis'];
-    try {
-      tempSwis = tempSwis.sort((a, b) => { return b.updatedOn.getTime() - a.updatedOn.getTime() });
-    } catch (error) {
-      console.log("Error sorting the list. Here is the swis: ", this.localSWIs);
-    } finally {
-      this.localSWIs = tempSwis;
-      this.isLoading = false;
-    }
+    //tempSwis = tempSwis.sort((a, b) => { return b.updatedOn.getTime() - a.updatedOn.getTime() });
+    this.localSWIs = tempSwis;
+    this.isLoading = false;
   }
 
   reloadList() {
@@ -44,11 +39,19 @@ export class SwiBrowserScreenComponent implements OnInit {
     this.isLoading = true;
     this.loadingMessage = "Loading SWIs";
     this.swiService.getAllFiles().then((results: SWIHeader[]) => {
+      console.log(results);
       try {
-        this.localSWIs = results.sort(function (a, b) { return b.updatedOn.getTime() - a.updatedOn.getTime() });
+        console.log("Sorting by date");
+        this.localSWIs = results.sort(function (a, b) {
+          if (new Date(b.updatedOn).getTime() < new Date(a.updatedOn).getTime()) return -1;
+          if (new Date(b.updatedOn).getTime() > new Date(a.updatedOn).getTime()) return 1;
+          return 0;
+        });
       } catch (error) {
-        this.localSWIs = results;
-        console.log("Error sorting the list. Here is the swis: ", this.localSWIs);
+        console.log("Sorting alphabetiaclly");
+        this.localSWIs = results.sort(function (a, b) { return a.title.localeCompare(b.title) });
+        console.log("Error sorting the list: ", error);
+        console.log(this.localSWIs);
       } finally {
         this.isLoading = false;
       }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { showIndexedDbSize } from "../../core/swi-db.service";
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,15 @@ export class HomeComponent implements OnInit {
 
   title = 'Standard Work Instructions!!';
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+  }
+
+  debugDBSize() {
+    showIndexedDbSize();
   }
 
 }
