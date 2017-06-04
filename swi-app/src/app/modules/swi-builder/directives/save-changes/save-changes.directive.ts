@@ -30,17 +30,18 @@ export class SaveChangesDirective {
       console.log("No changes");
       if (navBack) this.navigateBack();
     } else {
+      console.log("Changes in directive");
       //Save the file and navigate back to the SWI Builder screen
       this.swiService.saveFile(this.swi)
         .then((result) => {
-          this.toast.success(`${this.swi.title} was saved`, `File Saved!`);
           console.log(`${this.swi.id} was saved.`);
+          this.toast.success(`${this.swi.title} was saved`, `File Saved!`);
           if (navBack) this.navigateBack();
         })
         .catch((err) => {
           console.log("Error saving file: ", err);
           this.toast.error(`${this.swi.title} could not be created`, "Error saving file!");
-        })
+        });
     }
   }
 

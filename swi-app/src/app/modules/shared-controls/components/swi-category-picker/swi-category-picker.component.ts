@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from "@angular/forms";
-import { AppConfigService } from "../../../services/repo-config.service";
+import { AppConfigService } from "../../../../services/repo-config.service";
 
 @Component({
   selector: 'swi-category-picker',

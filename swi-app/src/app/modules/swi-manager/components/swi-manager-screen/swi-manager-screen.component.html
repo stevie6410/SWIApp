@@ -10,14 +10,11 @@
 
         <swi-card [title]="'Commands'">
           <div class="card-block">
-            <!--<div class="btn-container">-->
             <button type="button" (click)="viewSWI()" class="btn btn-lg btn-block btn-success"><i class="fa fa-desktop"></i> View</button>
             <button type="button" (click)="editSWI()" class="btn btn-lg btn-block btn-warning"><i class="fa fa-cubes"></i> Edit</button>
             <button type="button" (click)="duplicateSWI()" class="btn btn-lg btn-block btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
             <button type="button" class="btn btn-lg btn-block btn-primary" swiExportButton [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
             <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-block btn-danger"><i class="fa fa-trash"></i> Delete</button>
-            <!--</div>-->
-      
           </div>
         </swi-card>
 
@@ -39,18 +36,10 @@
 
         <swi-card [title]="'SWI Overview'">
           <div class="card-block">
-            <img [src]="this.swiFileService.getImageFromStore(swi, this.swi.coverImage)" width="100%" class="cover-image">
+            <swi-img [imageKey]="swi.coverImage" width="100%" class="cover-image"></swi-img>
           </div>
         </swi-card>
-
       </div>
-
     </div>
-
-
-
-
-
-
   </div>
 </app-page>

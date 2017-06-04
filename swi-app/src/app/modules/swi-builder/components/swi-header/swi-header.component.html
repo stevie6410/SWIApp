@@ -40,11 +40,14 @@
         <div class="col-lg col-lg-5">
           <!--Cover Image-->
           <label for="cover-image">Cover Image</label>
-          <img id="cover-image" class="cover-image" [src]="swiService.getImageFromStore(swi, swi.coverImage)" (click)="this.getCoverImage()">
+          <swi-img id="cover-image" class="cover-image" [imageKey]="swi.coverImage" (click)="this.getCoverImage()"></swi-img>
+          <!--<swi-img id="cover-image" class="cover-image" [imageKey]="imageStore.get(swi, true)" (click)="this.getCoverImage()"></swi-img>-->
         </div>
       </div>
 
     </form>
+
+    <button class="btn btn-lg" (click)="fakeAddImage()">Fake Add Image</button>
 
   </div>
 

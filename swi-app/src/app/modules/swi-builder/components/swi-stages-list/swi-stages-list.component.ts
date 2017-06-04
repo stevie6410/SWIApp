@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SWIHeader, SWIStage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../../app/services/swi-file.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { DragulaService } from "ng2-dragula";
@@ -25,6 +26,7 @@ export class SwiStagesListComponent implements OnInit {
   constructor(
     private router: Router,
     public swiService: SWIFileService,
+    public imageStore: ImageStoreService,
     public overlay: Overlay,
     public vcr: ViewContainerRef,
     public modal: Modal,
@@ -45,16 +47,7 @@ export class SwiStagesListComponent implements OnInit {
   }
   ngOnInit() {
   }
-
-  getImageFromKey(key: string): string {
-    try {
-      if (!key) return ImagePlaceholder;
-      return this.swi.swiImages.filter(i => i.key == key)[0].value;
-    } catch (error) {
-      return ImagePlaceholder;
-    }
-  }
-
+  
   editStage(stage: SWIStage) {
     if (!this.editMode) {
       this.save();

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { SWIHeader } from "../../../../../app/models/app.models";
 import { BrandImage } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../services/swi-file.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
 
 @Component({
   selector: 'swi-swi-viewer-screen',
@@ -19,7 +20,8 @@ export class SwiViewerScreenComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public swiFileService: SWIFileService
+    public swiFileService: SWIFileService,
+    public imageStore: ImageStoreService
   ) {
     this.swi = this.route.snapshot.data['swi'];
     this.title = this.swi.title;

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { SWIHeader, GUID } from "../../../../models/app.models";
 import { SWIFileService } from "../../../../services/swi-file.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
 import { ToastsManager } from "ng2-toastr";
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
@@ -23,6 +24,7 @@ export class SwiManagerScreenComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public swiFileService: SWIFileService,
+    public imageStore: ImageStoreService,
     private toast: ToastsManager
   ) {
     this.swi = this.route.snapshot.data['swi'];
@@ -114,7 +116,7 @@ export class SwiManagerScreenComponent implements OnInit {
           this.navBack();
         })).catch((err) => {
           this.toast.error("Could not delete the SWI", "Delete failed");
-        }); 
+        });
       })
       .catch(err => console.log('Canceled'));
   }

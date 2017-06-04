@@ -9,7 +9,7 @@ import {
   NavigationError
 } from "@angular/router";
 
-import { CameraService } from "../../camera/services/camera.service";
+import { CameraService } from "../../../camera/services/camera.service";
 import { CaptureImage } from "app/modules/camera/models/capture-image";
 
 @Component({

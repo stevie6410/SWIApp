@@ -27,6 +27,7 @@ export class ImportDropZoneDirective {
         this.background = '#fff'
     }
     @HostListener('drop', ['$event']) public onDrop(evt) {
+        this.onImportStarted.emit();
         this.toast.warning("Started importing SWI file");
         this.background = '#fff'
         evt.preventDefault();
@@ -34,7 +35,7 @@ export class ImportDropZoneDirective {
         let files = evt.dataTransfer.files;
         if (files.length > 0) {
             console.log("Files Selected: ", files);
-            
+
             var reader: FileReader = new FileReader();
             reader.onloadend = () => {
                 let rawSWI: any = reader.result;

@@ -5,7 +5,8 @@ export class SWIDBService extends Dexie {
         super('swidb');
         this.version(1).stores({
             swis: 'id',
-            appConfig: 'id++'
+            appConfig: 'id++',
+            imageStore: 'key'
         });
     }
 }

@@ -43,6 +43,21 @@ export class SWIHeader {
     }
 }
 
+export class SWIImage {
+    constructor(rawImage: string) {
+        this.key = new GUID().value;
+        this.value = rawImage;
+        this.image = rawImage;
+    }
+    key: string;
+    value: string;
+    image: string;
+    thumbnail: string;
+}
+
+export class SWIStoreImage extends SWIImage {
+    swiKey: string;
+}
 export class SWIStageGroup {
     id: string;
     name: string;
@@ -64,14 +79,6 @@ export class SWIERPPart {
     erpSystem: string;
 }
 
-export class SWIImage {
-    constructor(value: string) {
-        this.key = new GUID().value;
-        this.value = value;
-    }
-    key: string;
-    value: string;
-}
 
 export class SWIHSItem {
     id: string;

@@ -1,13 +1,14 @@
-<swi-card [title]="group.name" *ngFor="let group of swi.stageGroups">
+<swi-card [title]="title">
   <button class="btn btn-warning btn-sm float-right card-btn" (click)="editStages()">Edit Stages</button>
   <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage()">Add</button>
 
   <ul class="list-unstyled list-group list-group-flush card-list" [dragula]='"stages-bag"' [dragulaModel]='swi.swiStages'>
-    <li class="list-group-item media" *ngFor="let stage of group.stages" (click)="editStage(stage)" [ngClass]="{'draggable': editMode}">
+    <li class="list-group-item media" *ngFor="let stage of swi.swiStages" (click)="editStage(stage)" [ngClass]="{'draggable': editMode}">
       <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
-      <img class="d-flex mr-3" width="65px" height="65px" [src]="swiService.getImageFromStore(swi, stage.image)">
+      <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
       <div class="media-body">
         <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
+        <!--{{stage.description}}-->
       </div>
 
       <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
@@ -18,33 +19,5 @@
 
     </li>
   </ul>
+
 </swi-card>
-
-<!--<div class="card">
-  <div class="card-header sticky-top">
-    Stages
-    <div class="btn-group btn-group-sm float-right" role="group">
-      <button class="btn btn-warning btn-sm float-right card-btn" (click)="editStages()">Edit Stages</button>
-      <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage()">Add</button>
-    </div>
-  </div>
-
-
-  <ul class="list-unstyled list-group list-group-flush card-list">
-    <li class="list-group-item media" *ngFor="let group of swi.stageGroups">
-      <h4><span class="badge badge-pill badge-primary">{{group.sequence}}</span></h4>
-      <div class="media-body">
-        <h6 class="mt-0 mb-1">{{group.name}}</h6>
-      </div>
-
-      <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
-        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveUp(stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
-        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveDown(stage)" *ngIf="stage.sequence != swi.swiStages.length"><i class="fa fa-arrow-down"></i></button>
-        <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(stage)"><i class="fa fa-trash"></i></button>
-      </div>
-
-    </li>
-  </ul>
-
-
-</div>-->

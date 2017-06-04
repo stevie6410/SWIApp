@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from '../../../../services/swi-file.service';
@@ -7,7 +7,8 @@ import { SWIHeader, generateHash, hasChanges } from '../../../../models/app.mode
 @Component({
   selector: 'swi-builder-screen',
   templateUrl: './swi-builder-screen.component.html',
-  styleUrls: ['./swi-builder-screen.component.css']
+  styleUrls: ['./swi-builder-screen.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SwiBuilderScreenComponent implements OnInit {
 

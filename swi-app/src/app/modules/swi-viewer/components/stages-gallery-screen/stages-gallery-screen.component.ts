@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SWIHeader } from "../../../../models/app.models";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SWIFileService } from "../../../../services/swi-file.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
 import { ImageInterface } from "../stages-gallery-control/stages-gallery-control.component";
 
 @Component({
@@ -21,7 +22,8 @@ export class StagesGalleryScreenComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private swiFileService: SWIFileService
+    private swiFileService: SWIFileService,
+    public imageStore: ImageStoreService
   ) { }
 
   ngOnInit() {
@@ -29,20 +31,17 @@ export class StagesGalleryScreenComponent implements OnInit {
     this.setImagesArray();
   }
 
-  setImagesArray(){
+  setImagesArray() {
     this.swi.swiStages.forEach(stage => {
-        let newImg: ImageInterface = {};
-        newImg.image = this.swiFileService.getImageFromStore(this.swi, stage.image);
-        newImg.text = stage.summary;
-        newImg.thumbnail = newImg.image;
-        this.images.push(newImg);
+      let newImg: ImageInterface = {};
+      newImg.image = this.imageStore.get(stage.image);
+      newImg.text = stage.summary;
+      newImg.thumbnail = newImg.image;
+      this.images.push(newImg);
     });
-  } 
-
-  navBack(){
-    this.router.navigate(['viewer', this.swi.id]);
   }
 
+  navBack() {
+    this.router.navigate(['viewer', this.swi.id]);
+  }
 }
-
-

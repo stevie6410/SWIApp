@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { SWIHeader, SWIImage } from '../models/app.models';
 import Dexie from 'dexie';
 import { SWIDBService } from "../modules/core/swi-db.service";
+import { ImageService } from "./image.service";
+import { ImageStoreService } from "./image-store.service";
 import { ImagePlaceholder } from "../../assets/image-placeholder";
 
 @Injectable()
@@ -9,7 +11,11 @@ export class SWIFileService {
 
     table: Dexie.Table<SWIHeader, string>;
 
-    constructor(private db: SWIDBService) {
+    constructor(
+        private db: SWIDBService,
+        private imageService: ImageService,
+        private imageStore: ImageStoreService
+    ) {
         this.table = this.db.table('swis');
     }
 
@@ -19,9 +25,11 @@ export class SWIFileService {
 
     createSWI(swi: SWIHeader): Promise<SWIHeader> {
         return new Promise<SWIHeader>((resolve, reject) => {
-            this.table.add(swi)
-                .then(result => resolve(swi))
-                .catch(err => reject(err));
+            this.imageStore.sync(swi).then(syncSWI => {
+                this.table.add(swi)
+                    .then(result => resolve(swi))
+                    .catch(err => reject(err));
+            });
         });
     }
 
@@ -29,9 +37,13 @@ export class SWIFileService {
         return this.table.delete(id);
     }
 
-    saveFile(swi: SWIHeader): Promise<number> {
-        swi.updatedOn = new Date();
-        return this.table.update(swi.id, swi);
+    saveFile(swi: SWIHeader): Promise<SWIHeader> {
+        return new Promise<SWIHeader>((resolve, reject) => {
+            swi.updatedOn = new Date();
+            this.imageStore.sync(swi).then(syncSWI => {
+                this.table.update(syncSWI.id, syncSWI);
+            });
+        });
     }
 
     getFile(id: string): Promise<SWIHeader> {
@@ -43,58 +55,7 @@ export class SWIFileService {
     }
 
     cleanupSWI(swi: SWIHeader): SWIHeader {
-        swi = this.cleanupSWIImages(swi);
+        swi = this.imageStore.clean(swi);
         return swi;
     }
-
-    public addImage(swi: SWIHeader, image: string): string {
-        let newSwiImage: SWIImage = new SWIImage(image);
-        if (!swi.swiImages) swi.swiImages = [];
-        swi.swiImages.push(newSwiImage);
-        return newSwiImage.key;
-    }
-
-    public getImageFromStore(swi: SWIHeader, key: string): string {
-        if (!key) return ImagePlaceholder;
-        try {
-            let result = swi.swiImages.filter(i => i.key == key)[0];
-            if (result) {
-                if (!result.value.startsWith('data:image')) {
-                    // console.log("Image with no data:image prefix. Key is: ", result.key);
-                    result.value = 'data:image/jpg;base64,' + result.value;
-                }
-                // console.log("result.value", result);
-                return result.value;
-            }
-        } catch (error) {
-            return ImagePlaceholder;
-        }
-    }
-
-    private cleanupSWIImages(swi: SWIHeader): SWIHeader {
-
-        let imgCount: number = swi.swiImages.length;
-
-        //Get a list of all image keys used in the swi 
-        let keys: string[] = [];
-        if (swi.coverImage) keys.push(swi.coverImage);
-        swi.swiStages.forEach(stage => {
-            if (stage.image) keys.push(stage.image);
-        });
-        swi.swiTools.forEach(tool => {
-            if (tool.image) keys.push(tool.image);
-        });
-        swi.swiImages.forEach(image => {
-            if (!(keys.indexOf(image.key) > -1)) {
-                swi.swiImages = swi.swiImages.filter(img => img.key != image.key);
-            }
-        });
-
-        if (swi.swiImages.length < imgCount) {
-            console.log(`Cleanup removed ${imgCount - swi.swiImages.length} images`)
-        }
-
-        return swi;
-    }
-
 }

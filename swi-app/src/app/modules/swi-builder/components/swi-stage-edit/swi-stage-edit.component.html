@@ -1,7 +1,4 @@
 <app-page [title]='title' [backButton]="false" [faIcon]="'fa-pencil-square-o'">
-  <!--Add Page level buttons here with page-button class-->
-  <!--<button type="button" class="btn btn-success btn-lg float-right page-button" (click)="saveFile()">Save</button>-->
-  <!--<button type="button" class="btn btn-danger page-button" (click)="deleteStage()"> <i class="fa fa-trash"></i> Delete Stage</button>-->
 
   <div class='page-body' *ngIf="stage">
     <!--Page Content Here   -->
@@ -13,8 +10,7 @@
         <div class="col-lg-5">
 
           <div class="img-container">
-            <!--<label for="stageImage">Stage Image</label>-->
-            <img class="stage-image" width="400px" height="400px" [src]="swiService.getImageFromStore(swi, stage.image)" (click)="addImage()">
+            <swi-img class="stage-image" width="400px" height="400px" [imageKey]="stage.image" (click)="addImage()"></swi-img>
           </div>
 
         </div>
@@ -47,8 +43,8 @@
             <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carePoint"></textarea>
           </div>
 
-          <button type="button" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState">Ok</button>
-          <button type="button" class="btn btn-lg btn-block btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState">Cancel</button>
+          <button type="button" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Ok</button>
+          <button type="button" class="btn btn-lg btn-block btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Cancel</button>
 
         </div>
 
