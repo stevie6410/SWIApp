@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
-import { } from '../../../package.json';
-import { ElectronKioskService } from '../../services/electron-kiosk.service';
+import { Component, ViewContainerRef } from '@angular/core';
+import { ToastsManager } from "ng2-toastr";
+import { AppConfigService } from "../../services/repo-config.service";
 
 @Component({
-  selector: 'app-root',
+  selector: 'swi-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 
 export class AppComponent {
 
-  title = 'Standard Work Instructions!!';
-  packageJson: any;
+  title = 'Standard Work Instructions';
 
-  constructor() {
-    //Print app info to the console
-    this.packageJson = require('../../../package.json');
-    console.info("Name: ", this.packageJson.name);
-    console.info("Description: ", this.packageJson.description);
-    console.info("Author: ", this.packageJson.author);
-    console.info("Version: ", this.packageJson.version);
+  constructor(
+    private toast: ToastsManager,
+    vcr: ViewContainerRef,
+    private appConfigService: AppConfigService
+  ) {
+    toast.setRootViewContainerRef(vcr);
+
+    //Make a call to the app config service to be sure that it is loaded and ready for the app
+    this.appConfigService.getAppConfig().then(config => console.log("Loaded app config"));
   }
 }

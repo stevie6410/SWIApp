@@ -1,29 +1,29 @@
-export class SwiUser{
-    Id: number;
-    FirstName: string;
-    LastName: string;
-    Username: string;
-    DefaultCompany: SwiCompany;
-    Role: SwiRole;
+export class SWIUser{
+    id: string;
+    firstName: string;
+    lastName: string;
+    username: string;
+    defaultCompany: SWICompany;
+    role: SWIRole;
 }
 
-export class SwiRole{
-    Id: number;
-    RoleName: string;               // e.g. Basic User, Author, Approver, Manager
-    Permissions: SwiPermission[];   //List of permissions given to each role
+export class SWIRole{
+    id: string;
+    name: string;               // e.g. Basic User, Author, Approver, Manager
+    permissions: SWIPermission[];   //List of permissions given to each role
 }
 
-export class SwiPermission{
-    Id: number;
-    Name: string;                   // e.g. CanEditSWI
-    Description: string;            // e.g. Allows the user to edit SWIs
+export class SWIPermission{
+    id: string;
+    name: string;                   // e.g. CanEditSWI
+    description: string;            // e.g. Allows the user to edit SWIs
 }
 
-export class SwiCompany{
-    Id: number;
-    Name: string;                   // e.g. SAO Leighton Buzzard
-    ErpName: string;                // e.g. 00250
-    Description: string;            // e.g. Leighton Buzzard Aftermarket
+export class SWICompany{
+    id: string;
+    name: string;                   // e.g. SAO Leighton Buzzard
+    erpName: string;                // e.g. 00250
+    description: string;            // e.g. Leighton Buzzard Aftermarket
 }
 
 export class ClientSecurityToken{

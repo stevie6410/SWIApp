@@ -1,0 +1,33 @@
+<app-page [title]='title' (onBackButtonClick)="backButtonClick()" [overrideBackButton]="true" [faIcon]="'fa-pencil-square-o'">
+
+  <button type="button" class="btn btn-danger page-button" (click)="deleteTool()"> <i class="fa fa-trash"></i> Delete Tool</button>
+
+  <div class="page-body" *ngIf="tool">
+
+    <form name="tool-form">
+
+      <div class="row">
+        <!--Column 1-->
+        <div class="col-lg">
+
+          <!--Tool Name-->
+          <div class="form-group">
+            <label for="title">Tool Name</label>
+            <input type="text" class="form-control" required name="name" [(ngModel)]="tool.name">
+          </div>
+        </div>
+
+        <!--Column 2-->
+        <div class="col-lg">
+          <label for="toolImage">Tool Image</label>
+          <div id="toolImage" class='card-block'>
+            <swi-img class="tool-image" width="400px" height="400px" [imageKey]="tool.image" *ngIf="!isFetchingImage" (click)="getImage()"></swi-img>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</app-page>

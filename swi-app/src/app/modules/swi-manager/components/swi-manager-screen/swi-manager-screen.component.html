@@ -1,0 +1,45 @@
+<app-page [title]="'SWI Manager - ' + swi.title" [backButton]="true" [overrideBackButton]="true" [faIcon]="'fa-cubes'" (onBackButtonClick)="navBack()">
+  <!--Add Page level buttons here with page-button class-->
+  <!--<button type='button' class='page-button btn btn-primary'>Page Menu Button</button>-->
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+    <div class="row">
+
+      <div class="col-md-8">
+
+        <swi-card [title]="'Commands'">
+          <div class="card-block">
+            <button type="button" (click)="viewSWI()" class="btn btn-lg btn-block btn-success"><i class="fa fa-desktop"></i> View</button>
+            <button type="button" (click)="editSWI()" class="btn btn-lg btn-block btn-warning"><i class="fa fa-cubes"></i> Edit</button>
+            <button type="button" (click)="duplicateSWI()" class="btn btn-lg btn-block btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
+            <button type="button" class="btn btn-lg btn-block btn-primary" swiExportButton [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
+            <button type="button" (click)="deleteSWI()" class="btn btn-lg btn-block btn-danger"><i class="fa fa-trash"></i> Delete</button>
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Master Properties'">
+          <div class='card-block'>
+            *** This panel will contain header level information from the SWI Repository ***
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Revision Properties'">
+          <div class='card-block'>
+            *** This panel will contain document revision level information from the SWI Repository ***
+          </div>
+        </swi-card>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <swi-card [title]="'SWI Overview'">
+          <div class="card-block">
+            <swi-img [imageKey]="swi.coverImage" width="100%" class="cover-image"></swi-img>
+          </div>
+        </swi-card>
+      </div>
+    </div>
+  </div>
+</app-page>

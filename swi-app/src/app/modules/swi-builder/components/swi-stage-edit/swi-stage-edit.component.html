@@ -1,0 +1,56 @@
+<app-page [title]='title' [backButton]="false" [faIcon]="'fa-pencil-square-o'">
+
+  <div class='page-body' *ngIf="stage">
+    <!--Page Content Here   -->
+
+    <form name="header-form">
+
+      <div class="row">
+        <!--Column 1-->
+        <div class="col-lg-5">
+
+          <div class="img-container">
+            <swi-img class="stage-image" width="400px" height="400px" [imageKey]="stage.image" (click)="addImage()"></swi-img>
+          </div>
+
+        </div>
+
+        <!--Column 2-->
+        <div class="col-lg-7">
+
+          <!--Summary-->
+          <div class="form-group">
+            <label for="title">Summary</label>
+            <input type="text" class="form-control" required name="summary" [(ngModel)]="stage.summary">
+          </div>
+
+          <!--Is Released (Checkbox)-->
+          <div class="row min-height-80 padding-top-20">
+            <div class="col">
+              <label>Is Critical Step</label>
+            </div>
+            <div class="col">
+              <div class="switch float-right">
+                <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="stage.criticalStep">
+                <label for="swi-header-isCritical"></label>
+              </div>
+            </div>
+          </div>
+
+          <!--Care Point Text-->
+          <div class="form-group" *ngIf="stage.criticalStep">
+            <label for="title">Care Point</label>
+            <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carePoint"></textarea>
+          </div>
+
+          <button type="button" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Ok</button>
+          <button type="button" class="btn btn-lg btn-block btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Cancel</button>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+</app-page>

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col">
+        <button type="button" class="btn btn-block btn-lg btn-success" (click)="getImage()">Take Picture</button>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-block btn-lg btn-danger" (click)="cancel()">Cancel</button>
+    </div>
+</div>
+
+<div *ngIf="!isCameraConnected">Cammera not connected!</div>
+<video #video width="600" height="600" autoplay *ngIf="isCapturing"></video>
+<canvas #canvas width="0" height="0"></canvas>
+<div class="row" *ngIf="devices?.length > 1">
+    <div class="col">
+        <select class="form-control" [(ngModel)]="selectedDevice" (ngModelChange)="onDeviceChange($event)">>
+            <option *ngFor="let device of devices" [ngValue]="device">{{device.label}}</option>
+        </select>
+    </div>
+</div>
+
+<div class="capture-button" (click)="getImage()"></div>

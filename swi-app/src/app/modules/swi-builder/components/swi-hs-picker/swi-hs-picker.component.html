@@ -1,0 +1,23 @@
+<app-page [title]='title' (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-pencil-square-o'">
+  <!--Add Page level buttons here with page-button class-->
+  <!--<button type='button' class='page-button btn btn-primary' (click)="selectionComplete()">Confirm Selection</button>-->
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+
+    <div class="hs-options-container">
+
+      <span class="hs-option" *ngFor="let option of options" (click)="this.toggleSelection(option)" [ngClass]="{'hs-option-selected': this.isSelected(option)}">
+        <swi-img [imageKey]="option.image"></swi-img>
+        <span class="hs-option-caption">{{option.caption}}</span>
+      <span class="hs-option-selected-icon fa-stack fa-lg" style="display: none" [ngClass]="{'hs-option-selected-icon': this.isSelected(option)}">
+          <i class=" fa fa-circle fa-stack-2x"></i>
+          <i class=" fa fa-check fa-stack-1x fa-inverse"></i>
+        </span>
+      </span>
+
+    </div>
+
+
+  </div>
+</app-page>

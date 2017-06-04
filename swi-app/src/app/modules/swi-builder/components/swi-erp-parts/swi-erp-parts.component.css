@@ -1,0 +1,15 @@
+.erpparts-list{
+    display: flex;
+}
+
+.part-rev{
+    align-self: flex-end;
+}
+
+td{
+    vertical-align: middle;
+}
+
+table{
+    margin-bottom: 0;
+}
