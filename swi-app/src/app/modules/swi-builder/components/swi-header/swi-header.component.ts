@@ -39,10 +39,4 @@ export class SwiHeaderComponent implements OnInit {
         this.swi.coverImage = imageKey;
       });
   }
-
-  fakeAddImage() {
-    this.imageStore.add(this.swi.id, ImagePlaceholder)
-      .then(result => console.log("Added fake image: ", result))
-      .catch(err => console.log("Failed to add fake image: ", err));
-  }
 }

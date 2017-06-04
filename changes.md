@@ -29,6 +29,9 @@
 	-   We may consider hosting a seperate environment for a number of weeks at v0.9 so that the testers have a chance to recreate any pre-production documents they wish to.
 
 
+- Need to make the export swi "recombine" the images
+- Need to add a cleanup for the image store
+- Need to fix the bu where the loading wheel shows when there is no image
 
 
 

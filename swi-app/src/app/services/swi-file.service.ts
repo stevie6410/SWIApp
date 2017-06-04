@@ -38,11 +38,16 @@ export class SWIFileService {
     }
 
     saveFile(swi: SWIHeader): Promise<SWIHeader> {
+        console.log("Saving file");
         return new Promise<SWIHeader>((resolve, reject) => {
             swi.updatedOn = new Date();
-            this.imageStore.sync(swi).then(syncSWI => {
-                this.table.update(syncSWI.id, syncSWI);
-            });
+            this.imageStore.sync(swi)
+                .then(syncSWI => {
+                    console.log("File synced with image store, result: ", syncSWI)
+                    this.table.update(syncSWI.id, syncSWI).then(value => {
+                        resolve(syncSWI);
+                    }).catch(err => console.log("Error updating database", err));
+                }).catch(err => { console.log("Error syncing file with image store", err) });
         });
     }
 
