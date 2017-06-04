@@ -23,15 +23,21 @@ export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.img = ImageLoading;
+    this.checkLoadImage();
   }
 
   ngAfterViewInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.checkLoadImage();
+  }
+
+  checkLoadImage() {
+    this.img = ImageLoading;
     if (!this.imageKey) {
       this.img = ImagePlaceholder;
+      this.isLoading = false;
       return;
     }
     this.imageStore.get(this.imageKey, this.thumbnail)
