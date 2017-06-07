@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
+import { SWIFileService } from "../../services/swi-file.service";
+import { ImageStoreService } from "../../services/image-store.service";
 import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,10 +42,10 @@ import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'browser', component: SwiBrowserScreenComponent, resolve: {swis: SWIsResolve} },
-  { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve }},
-  { path: 'viewer/:id/stagesgallery', component: StagesGalleryScreenComponent, resolve: { swi: SWIResolve }},
-  { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve }},
+  { path: 'browser', component: SwiBrowserScreenComponent, resolve: { swis: SWIsResolve } },
+  { path: 'viewer/:id', component: SwiViewerScreenComponent, resolve: { swi: SWIResolve } },
+  { path: 'viewer/:id/stagesgallery', component: StagesGalleryScreenComponent, resolve: { swi: SWIResolve } },
+  { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve } },
   { path: 'builder', component: SwiNewComponent },
   { path: 'builder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
   { path: 'builder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
@@ -84,7 +86,9 @@ const appRoutes: Routes = [
     PackageService,
     SWIResolve,
     SWIsResolve,
-    HSItemsResolver
+    HSItemsResolver,
+    SWIFileService,
+    ImageStoreService
   ],
   bootstrap: [AppComponent]
 })

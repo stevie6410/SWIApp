@@ -18,6 +18,8 @@ export class SwiBrowserScreenComponent implements OnInit {
   localSWIs: SWIHeader[];
   isLoading: boolean = true;
   loadingMessage = "Loading SWIs";
+  isCleaning: boolean = false;
+  cleanProgress: number = 0;
 
   constructor(
     public swiService: SWIFileService,
@@ -67,5 +69,16 @@ export class SwiBrowserScreenComponent implements OnInit {
   openSWI(swi: SWIHeader) {
     console.log(`open swi: ${swi.id}`);
     this.router.navigate(['manager', swi.id]);
+  }
+
+  cleanImageStore() {
+    this.isCleaning = true;
+    this.imageStore.clean()
+      .subscribe(update => {
+        this.cleanProgress = update;
+        console.log(update);
+      },
+      () => console.log("Error cleaning image store"),
+      () => this.isCleaning = false);
   }
 }

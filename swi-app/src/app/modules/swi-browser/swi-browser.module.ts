@@ -7,6 +7,7 @@ import { SharedControlsModule } from "../shared-controls/shared-controls.module"
 import { ToastModule } from "ng2-toastr";
 import { MomentModule } from "angular2-moment";
 import { ImportDropZoneDirective } from "./directives/import-dnd.directive";
+import { ProgressbarModule } from "ngx-bootstrap";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ImportDropZoneDirective } from "./directives/import-dnd.directive";
     SharedControlsModule,
     RouterModule,
     MomentModule,
-    FormsModule
+    FormsModule,
+    ProgressbarModule
   ],
   exports: [
     SwiBrowserScreenComponent

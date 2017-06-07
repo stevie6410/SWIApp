@@ -7,6 +7,9 @@ import { SWIDBService } from "../modules/core/swi-db.service";
 import { ImageService } from "./image.service";
 import { CameraService } from "../modules/camera/services/camera.service";
 import { CaptureImage } from "app/modules/camera/models/capture-image";
+import { Observable } from "rxjs/Rx";
+import { Subject } from "rxjs/Subject";
+// import { SWIFileService } from "./swi-file.service";
 
 @Injectable()
 export class ImageStoreService {
@@ -17,7 +20,8 @@ export class ImageStoreService {
         private db: SWIDBService,
         private pica: Ng2PicaService,
         private imageService: ImageService,
-        private cameraService: CameraService
+        private cameraService: CameraService,
+        // public fileService: SWIFileService
     ) {
         this.imageStore = this.db.table('imageStore');
         console.log("Init image store");
@@ -117,30 +121,31 @@ export class ImageStoreService {
 
     //Cleanup an SWI document's images (Removes unused images from the store)
     //Cleanup images which do not have a link to an swi
-    public clean(swi: SWIHeader): SWIHeader {
+    public clean(): Observable<number> {
+        let s = new Subject<number>();
 
-        let imgCount: number = swi.swiImages.length;
-
-        //Get a list of all image keys used in the swi 
-        let keys: string[] = [];
-        if (swi.coverImage) keys.push(swi.coverImage);
-        swi.swiStages.forEach(stage => {
-            if (stage.image) keys.push(stage.image);
+        this.imageStore.count().then(count => {
+            let i = 0;
+            this.imageStore.each((img) => {
+                console.log(img.key);
+                i++;
+                // this.fileService.getFile(img.swiKey).then(swi => {
+                //     let del: boolean = false;
+                //     del = ((!swi) || (JSON.stringify(swi).indexOf(img.key) > -1));
+                //     if (del) {
+                //         this.imageStore.delete(img.key).then(() => {
+                //             console.log("Deleted ", img.key);
+                //             let progress: number = Math.trunc((i / count) * 100);
+                //             s.next(progress);
+                //         });
+                //     } else {
+                //         let progress: number = Math.trunc((i / count) * 100);
+                //         s.next(progress);
+                //     }
+                // });
+            });
         });
-        swi.swiTools.forEach(tool => {
-            if (tool.image) keys.push(tool.image);
-        });
-        swi.swiImages.forEach(image => {
-            if (!(keys.indexOf(image.key) > -1)) {
-                swi.swiImages = swi.swiImages.filter(img => img.key != image.key);
-            }
-        });
-
-        if (swi.swiImages.length < imgCount) {
-            console.log(`Cleanup removed ${imgCount - swi.swiImages.length} images`)
-        }
-
-        return swi;
+        return s.asObservable();
     }
 
     //Will take an SWIHeader and check for any swis in the document and
