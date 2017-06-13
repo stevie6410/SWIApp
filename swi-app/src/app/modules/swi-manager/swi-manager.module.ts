@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 import { SWIExportButton } from "./directives/swi-export.directive";
 import { SWIDuplicateButton } from "./directives/swi-duplicate.directive";
 import { SWIDeleteButton } from "./directives/swi-delete.directive";
+import { SWICreateMasterButton } from "./directives/swi-create-master.directive";
 import { MomentModule } from "angular2-moment";
 
 @NgModule({
@@ -21,13 +22,15 @@ import { MomentModule } from "angular2-moment";
     SwiManagerScreenComponent,
     SWIExportButton,
     SWIDuplicateButton,
-    SWIDeleteButton
+    SWIDeleteButton,
+    SWICreateMasterButton
   ],
   declarations: [
     SwiManagerScreenComponent,
     SWIExportButton,
     SWIDuplicateButton,
-    SWIDeleteButton
+    SWIDeleteButton,
+    SWICreateMasterButton
   ]
 })
 export class SwiManagerModule { }
