@@ -6,13 +6,3 @@
     background-color: #ffd6d6;
 }
 
-.img-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.stage-image{
-    border: dashed 2px grey;
-    padding: 5px;
-}

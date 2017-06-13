@@ -1,4 +1,4 @@
-<app-page [title]='title' (onBackButtonClick)="backButtonClick()" [overrideBackButton]="true" [faIcon]="'fa-pencil-square-o'">
+<app-page [title]='title' [backButton]="false" [faIcon]="'fa-pencil-square-o'">
 
   <button type="button" class="btn btn-danger page-button" (click)="deleteTool()"> <i class="fa fa-trash"></i> Delete Tool</button>
 
@@ -8,22 +8,44 @@
 
       <div class="row">
         <!--Column 1-->
-        <div class="col-lg">
-
-          <!--Tool Name-->
-          <div class="form-group">
-            <label for="title">Tool Name</label>
-            <input type="text" class="form-control" required name="name" [(ngModel)]="tool.name">
-          </div>
+        <div class="col-lg-5">
+            <swi-img class="tool-image" [imageKey]="tool.image" [border]="true" (click)="getImage()"></swi-img>
         </div>
 
         <!--Column 2-->
-        <div class="col-lg">
-          <label for="toolImage">Tool Image</label>
-          <div id="toolImage" class='card-block'>
-            <swi-img class="tool-image" width="400px" height="400px" [imageKey]="tool.image" *ngIf="!isFetchingImage" (click)="getImage()"></swi-img>
+        <div class="col-lg-7">
+
+          <!--Summary-->
+          <div class="form-group">
+            <label for="title">Summary</label>
+            <input type="text" class="form-control" required name="summary" [(ngModel)]="tool.name">
           </div>
+
+          <!--Is Released (Checkbox)-->
+          <div class="row min-height-80 padding-top-20">
+            <div class="col">
+              <label>Care Point</label>
+            </div>
+            <div class="col">
+              <div class="switch float-right">
+                <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="tool.hasCarePoint">
+                <label for="swi-header-isCritical"></label>
+              </div>
+            </div>
+          </div>
+
+          <!--Care Point Text-->
+          <div class="form-group" *ngIf="tool.hasCarePoint">
+            <!--<label for="title">Care Point</label>-->
+            <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="tool.carePoint"></textarea>
+          </div>
+
+          <button type="button" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Ok</button>
+          <button type="button" class="btn btn-lg btn-block btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState"
+            [navBack]="true">Cancel</button>
+
         </div>
+
       </div>
 
     </form>

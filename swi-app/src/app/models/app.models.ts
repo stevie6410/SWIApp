@@ -101,10 +101,13 @@ export class SWITool {
     id: string;
     name: string;
     image: string;
+    hasCarePoint: boolean;
+    carePoint: string;
 
     constructor(name: string) {
         this.name = name;
         this.id = new GUID().value;
+        this.hasCarePoint = false;
     }
 }
 

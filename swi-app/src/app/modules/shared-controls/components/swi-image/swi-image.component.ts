@@ -5,7 +5,9 @@ import { ImagePlaceholder, ImageLoading } from "../../../../../assets/image-plac
 @Component({
   selector: 'swi-img',
   template: `
-    <img [src]="img">
+    <div class="img-container">
+      <img [src]="img" [ngClass]="{'img-border': border}">
+    </div>
   `,
   styleUrls: ['./swi-image.component.scss']
 })
@@ -15,6 +17,7 @@ export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() src: string;
   @Input() size: number;
   @Input() thumbnail: boolean = false;
+  @Input() border: boolean = false;
   public img: string;
   public isLoading: boolean = true;
 
