@@ -1,11 +1,11 @@
-<div class="row">
+<!--<div class="row">
     <div class="col">
         <button type="button" class="btn btn-block btn-lg btn-success" (click)="getImage()">Take Picture</button>
     </div>
     <div class="col">
         <button type="button" class="btn btn-block btn-lg btn-danger" (click)="cancel()">Cancel</button>
     </div>
-</div>
+</div>-->
 
 <div *ngIf="!isCameraConnected">Cammera not connected!</div>
 <video #video width="600" height="600" autoplay *ngIf="isCapturing"></video>

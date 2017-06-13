@@ -2,7 +2,7 @@
 
     <div class="page-header">
 
-        <span class="fa fa-arrow-left page-header-back" (click)="navBack()" *ngIf="backButton"></span>
+        <span class="fa fa-arrow-left page-header-back" (click)="navBack()" *ngIf="backButton && !isCameraMode"></span>
 
         <div class="page-header-title">
             <i class="fa" [ngClass]="faIcon"></i> {{title}}

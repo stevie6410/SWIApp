@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { CameraService } from "../../services/camera.service";
 import { CaptureImage } from "../../models/capture-image";
+import { ImageCropperComponent } from "../camera-cropper/image-cropper.component";
 
 @Component({
   selector: 'swi-camera',
@@ -12,6 +13,7 @@ export class CameraControlComponent implements OnInit {
   @Input() captureImage: CaptureImage;
   @Output() onCaptured = new EventEmitter<void>();
   @Output() onCanceled = new EventEmitter<void>();
+  @ViewChild("cropper") cropper: ImageCropperComponent;
 
   isCroppingMode: boolean = false;
   isCaptureMode: boolean = false;
@@ -48,21 +50,21 @@ export class CameraControlComponent implements OnInit {
 
   //#####################################
 
-  setImage(image: string, crop: boolean){
+  setImage(image: string, crop: boolean) {
     this.image = image;
     this.isCaptureMode = false;
     this.isCroppingMode = crop;
-    this.isFileMode = false;  
-    this.changeDetector.detectChanges();  
+    this.isFileMode = false;
+    this.changeDetector.detectChanges();
   }
 
-  getImageFromFile() {
+  toggleFileMode() {
     this.isFileMode = true;
     this.isCaptureMode = false;
     this.isCroppingMode = false;
   }
 
-  getImageFromCamera() {
+  toggleCaptureMode() {
     this.isCaptureMode = !this.isCaptureMode;
     this.isFileMode = false;
     this.isCroppingMode = false;
@@ -71,6 +73,5 @@ export class CameraControlComponent implements OnInit {
   toggleCroppingMode() {
     this.isCroppingMode = !this.isCroppingMode;
     this.changeDetector.detectChanges();
-    console.log('Cropping Mode: ', this.isCroppingMode);
   }
 }
