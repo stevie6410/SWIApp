@@ -27,20 +27,39 @@ export class SwiStageEditComponent implements OnInit {
     public imageStore: ImageStoreService,
     private router: Router,
     private cameraService: CameraService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      this.sequence = +params['sequence'];
       this.swi = this.route.snapshot.data['swi'];
       this.initialState = generateHash(JSON.stringify(this.swi));
-      this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
+      this.sequence = params['sequence'];
+
+      console.log("swi", this.swi);
+      console.log("sequence", this.sequence);
+
+      if (this.sequence == 0) {
+        console.log("Creating new SWIStage");
+        //New SWIStage is required
+        this.stage = new SWIStage();
+        this.stage.sequence = this.swi.swiStages.length + 1;
+        this.sequence = this.stage.sequence;
+        this.swi.swiStages.push(this.stage);
+      } else {
+        console.log("Fetching SWIStage " + this.sequence.toString());
+        //Fetch the existing stage from the SWI 
+        this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
+      }
       this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
     });
   }
 
   addImage() {
-     this.imageStore.callCamera(this.stage.image, this.swi.id).then(imageKey => this.stage.image = imageKey);
+    this.imageStore.callCamera(this.stage.image, this.swi.id).then(imageKey => this.stage.image = imageKey);
   }
+
+  public get canSave(): boolean {
+    return (this.stage.summary != null);
+  }
+
 }

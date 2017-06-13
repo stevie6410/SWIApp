@@ -47,7 +47,7 @@ export class SwiStagesListComponent implements OnInit {
   }
   ngOnInit() {
   }
-  
+
   editStage(stage: SWIStage) {
     if (!this.editMode) {
       this.save();
@@ -61,12 +61,14 @@ export class SwiStagesListComponent implements OnInit {
   }
 
   addStage() {
-    this.stage = new SWIStage();
-    this.stage.sequence = this.swi.swiStages.length + 1;
-    console.log(`New stage created: ${this.stage}`);
-    this.swi.swiStages.push(this.stage);
+    // this.stage = new SWIStage();
+    // this.stage.sequence = this.swi.swiStages.length + 1;
+    // console.log(`New stage created: ${this.stage}`);
+    // this.swi.swiStages.push(this.stage);
+    // this.save();
+    // this.editStage(this.stage);
     this.save();
-    this.editStage(this.stage);
+    this.router.navigate(['builder', this.swi.id, 'stages', 0]);
   }
 
   deleteStage(stage: SWIStage) {

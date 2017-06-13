@@ -39,7 +39,7 @@
             <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carePoint"></textarea>
           </div>
 
-          <button type="button" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Ok</button>
+          <button type="button" [disabled]="!this.canSave" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Ok</button>
           <button type="button" class="btn btn-lg btn-block btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState" [navBack]="true">Cancel</button>
 
         </div>
