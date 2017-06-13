@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SWIFileService } from "../../services/swi-file.service";
+import { RepoDocsService } from "../../services/repo-docs.service";
 import { ImageStoreService } from "../../services/image-store.service";
 import { AppComponent } from './app.component';
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
@@ -38,6 +39,7 @@ import { PackageService } from "../../services/package.service";
 import { StagesGalleryScreenComponent } from "../swi-viewer/components/stages-gallery-screen/stages-gallery-screen.component";
 import { ModalModule } from "angular2-modal";
 import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
+import { SyncRepoService } from "../../services/sync-repo.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
@@ -88,7 +90,9 @@ const appRoutes: Routes = [
     SWIsResolve,
     HSItemsResolver,
     SWIFileService,
-    ImageStoreService
+    ImageStoreService,
+    RepoDocsService,
+    SyncRepoService
   ],
   bootstrap: [AppComponent]
 })

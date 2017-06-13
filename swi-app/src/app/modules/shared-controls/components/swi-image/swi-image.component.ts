@@ -12,6 +12,7 @@ import { ImagePlaceholder, ImageLoading } from "../../../../../assets/image-plac
 export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() imageKey: string;
+  @Input() src: string;
   @Input() size: number;
   @Input() thumbnail: boolean = false;
   public img: string;
@@ -35,21 +36,28 @@ export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges {
 
   checkLoadImage() {
     this.img = ImageLoading;
-    if (!this.imageKey) {
+
+    if (this.src) {
+      //Load the src directly
+      this.img = this.src;
+      this.isLoading = false;
+    }
+    else if (this.imageKey) {
+      this.imageStore.get(this.imageKey, this.thumbnail)
+        .then(result => {
+          this.img = result;
+          this.isLoading = false;
+          this.change.detectChanges();
+        })
+        .catch(err => {
+          console.log(err);
+          this.isLoading = false;
+          this.change.detectChanges();
+        });
+    } else {
       this.img = ImagePlaceholder;
       this.isLoading = false;
       return;
     }
-    this.imageStore.get(this.imageKey, this.thumbnail)
-      .then(result => {
-        this.img = result;
-        this.isLoading = false;
-        this.change.detectChanges();
-      })
-      .catch(err => {
-        console.log(err);
-        this.isLoading = false;
-        this.change.detectChanges();
-      });
   }
 }

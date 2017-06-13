@@ -53,38 +53,32 @@ export class ImageStoreService {
      * @param swiId SWI Id
      * @param image Image as a Base64 string or SWIImage object
      */
-    public add(swiId: string, image: string | SWIImage): Promise<SWIImage> {
-        console.log("Adding image");
-        return new Promise<SWIImage>((resolve, reject) => {
-            //Check the image input type and get an SWIImage to work with
-            let swiImg: SWIImage;
-            if (typeof image === "string") {
-                swiImg = new SWIImage(image);
-            } else {
-                swiImg = image;
-            }
+    public async add(swiId: string, image: string | SWIImage): Promise<SWIImage> {
+        let swiImg = (typeof image === "string") ? new SWIImage(image) : image;
+        swiImg = await this.compressImages(swiImg);
+        let swiStoreImg = this.convertToStoreImage(swiId, swiImg);
 
-            //Setup promises for generating tumbnails and compressed
-            this.compressImages(swiImg).then(result => {
-                // console.log("SWI Images have been compressed ", result);
-                let swiStoreImg: SWIStoreImage = this.convertToStoreImage(swiId, swiImg);
-                this.imageStore.add(swiStoreImg)
-                    .then(result => resolve(swiImg))
-                    .catch(err => reject(err));
-            });
-        });
+        try {
+            await this.imageStore.add(swiStoreImg)
+            return swiImg;
+        } catch (error) {
+            if (error.message == "Key already exists in the object store.") {
+                return swiImg;
+            }
+            console.log("Could not add image to image store", error);
+        }
     }
 
     /**
      * Loads all of the images in an SWI document into the Image Store
      * @param swi 
      */
-    public addSWI(swi: SWIHeader): Promise<void> {
+    public addSWI(swi: SWIHeader, swiKey: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             let promises: Promise<SWIImage>[] = [];
             if (swi.swiImages) {
                 swi.swiImages.forEach(img => {
-                    promises.push(this.add(swi.id, img));
+                    promises.push(this.add(swiKey, img));
                 });
             }
             Promise.all(promises).then(results => {
@@ -119,6 +113,22 @@ export class ImageStoreService {
         });
     }
 
+    public async emmbedImagesIntoSWI(swi: SWIHeader): Promise<SWIHeader> {
+        //Get any images linked to this SWI from the image-store
+        let storeImages = await this.imageStore.filter(i => i.swiKey == swi.id).toArray();
+        console.log("store images", storeImages);
+        if (storeImages) {
+            let images: SWIImage[];
+            //images = storeImages.map(image => new SWIImage(image.value));
+            images = storeImages;
+            swi.swiImages = images;
+            console.log("Attached these images", images);
+        } else {
+            console.log("No store images found");
+        }
+        return swi;
+    }
+
     //Cleanup an SWI document's images (Removes unused images from the store)
     //Cleanup images which do not have a link to an swi
     public clean(): Observable<number> {
@@ -151,23 +161,17 @@ export class ImageStoreService {
     //Will take an SWIHeader and check for any swis in the document and
     //split them out into the store, while checking for dulpicates. Will
     //also make sure that all of the swi image keys have a matching store record 
-    public sync(swi: SWIHeader): Promise<SWIHeader> {
-        return new Promise<SWIHeader>((resolve, reject) => {
-            this.addSWI(swi).then(() => {
-                swi.swiImages = [];
-                resolve(swi);
-            });
-        });
+    public async sync(swi: SWIHeader): Promise<SWIHeader> {
+        await this.addSWI(swi, swi.id);
+        swi.swiImages = [];
+        return swi;
     }
 
     //  ######################      Private Helper Functions       ######################################
 
-    private isLoaded(imageKey: string): Promise<boolean> {
-        return new Promise<Boolean>((resolve, reject) => {
-            this.imageStore.orderBy("key").uniqueKeys().then(keys => {
-                console.log(keys);
-            });
-        });
+    private async isLoaded(imageKey: string): Promise<boolean> {
+        let result = await this.imageStore.get(imageKey);
+        return (result != null);
     }
 
     private hasChanged(imageKey: string, image: string): Promise<boolean> {

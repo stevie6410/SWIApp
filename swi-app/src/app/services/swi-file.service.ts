@@ -3,8 +3,10 @@ import { SWIHeader, SWIImage } from '../models/app.models';
 import Dexie from 'dexie';
 import { SWIDBService } from "../modules/core/swi-db.service";
 import { ImageService } from "./image.service";
+import { RepoDocsService } from "./repo-docs.service";
 import { ImageStoreService } from "./image-store.service";
 import { ImagePlaceholder } from "../../assets/image-placeholder";
+import { MD5 } from "crypto-js";
 
 @Injectable()
 export class SWIFileService {
@@ -14,7 +16,8 @@ export class SWIFileService {
     constructor(
         private db: SWIDBService,
         private imageService: ImageService,
-        private imageStore: ImageStoreService
+        private imageStore: ImageStoreService,
+        private repoDocs: RepoDocsService
     ) {
         this.table = this.db.table('swis');
     }
@@ -37,18 +40,14 @@ export class SWIFileService {
         return this.table.delete(id);
     }
 
-    saveFile(swi: SWIHeader): Promise<SWIHeader> {
+    async saveFile(swi: SWIHeader): Promise<SWIHeader> {
         console.log("Saving file");
-        return new Promise<SWIHeader>((resolve, reject) => {
-            swi.updatedOn = new Date();
-            this.imageStore.sync(swi)
-                .then(syncSWI => {
-                    console.log("File synced with image store, result: ", syncSWI)
-                    this.table.update(syncSWI.id, syncSWI).then(value => {
-                        resolve(syncSWI);
-                    }).catch(err => console.log("Error updating database", err));
-                }).catch(err => { console.log("Error syncing file with image store", err) });
-        });
+        swi.updatedOn = new Date();
+        swi = await this.imageStore.sync(swi);
+        swi.clientHash = this.getFileHash(swi);
+        await this.table.update(swi.id, swi);
+        this.imageStore.sync(swi);
+        return swi;
     }
 
     getFile(id: string): Promise<SWIHeader> {
@@ -60,7 +59,11 @@ export class SWIFileService {
     }
 
     cleanupSWI(swi: SWIHeader): SWIHeader {
-        swi = this.imageStore.clean(swi);
+        // swi = this.imageStore.clean(swi);
         return swi;
+    }
+
+    getFileHash(swi: SWIHeader): string {
+        return MD5(JSON.stringify(swi)).toString();
     }
 }

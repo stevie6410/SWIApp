@@ -34,9 +34,9 @@ export class StagesGalleryScreenComponent implements OnInit {
   setImagesArray() {
     this.swi.swiStages.forEach(stage => {
       let newImg: ImageInterface = {};
-      newImg.image = this.imageStore.get(stage.image);
+      this.imageStore.get(stage.image).then(img => newImg.image = img);
       newImg.text = stage.summary;
-      newImg.thumbnail = newImg.image;
+      newImg.thumbnail = newImg.thumbnail;
       this.images.push(newImg);
     });
   }

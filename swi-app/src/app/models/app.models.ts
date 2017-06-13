@@ -1,8 +1,12 @@
 import { SWIUser, SWICompany } from './security.models';
 import { ImagePlaceholder } from "../../assets/image-placeholder";
+import { SWIMaster } from "app/models/repo.models";
 
 export class SWIHeader {
     id: string;
+    swiMaster: SWIMaster;
+    swiRevisionId: string;
+    clientHash: string;
     filename: string;
     sequence: number;
     title: string;
