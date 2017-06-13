@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SWITool, SWIHeader, SWIImage, generateHash } from "../../../../../app/models/app.models";
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from "../../../../services/swi-file.service";
-import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
+import { ImageStoreService } from "../../../../services/image-store.service";
 import { CameraService } from "../../../../modules/camera/services/camera.service";
 
 @Component({
@@ -21,15 +21,12 @@ export class SwiToolEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private vcr: ViewContainerRef,
-    private toast: ToastsManager,
     private router: Router,
+    private toast: ToastsManager,
+    private cameraService: CameraService,
     public swiService: SWIFileService,
-    private changeDetector: ChangeDetectorRef,
-    private cameraService: CameraService
-  ) {
-    toast.setRootViewContainerRef(vcr);
-  }
+    public imageStore: ImageStoreService
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -44,10 +41,6 @@ export class SwiToolEditComponent implements OnInit {
       } else {
         this.tool = this.swi.swiTools.filter(t => t.id == this.toolId)[0];
       }
-
-      console.log("ToolID: ", this.toolId);
-      console.log("Tools in SWI: ", this.swi.swiTools);
-      console.log("Tool: ", this.tool);
       this.title = `SWI Builder - ${this.swi.title} - Edit Tool`;
     });
   }
@@ -57,11 +50,7 @@ export class SwiToolEditComponent implements OnInit {
   }
 
   getImage() {
-    let currentImage = this.swiService.getImageFromStore(this.swi, this.tool.image);
-    this.cameraService.requestCameraImage(currentImage).subscribe((image) => {
-      this.tool.image = this.swiService.addImage(this.swi, image.image);
-      this.changeDetector.detectChanges();
-    });
+    this.imageStore.callCamera(this.tool.image, this.swi.id).then(imageKey => this.tool.image = imageKey);
   }
 
   deleteTool() {

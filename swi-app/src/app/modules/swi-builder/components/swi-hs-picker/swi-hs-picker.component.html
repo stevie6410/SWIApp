@@ -8,7 +8,7 @@
     <div class="hs-options-container">
 
       <span class="hs-option" *ngFor="let option of options" (click)="this.toggleSelection(option)" [ngClass]="{'hs-option-selected': this.isSelected(option)}">
-        <img [src]="option.image">
+        <swi-img [src]="option.image"></swi-img>
         <span class="hs-option-caption">{{option.caption}}</span>
       <span class="hs-option-selected-icon fa-stack fa-lg" style="display: none" [ngClass]="{'hs-option-selected-icon': this.isSelected(option)}">
           <i class=" fa fa-circle fa-stack-2x"></i>

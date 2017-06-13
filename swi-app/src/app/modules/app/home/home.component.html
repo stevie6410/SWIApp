@@ -2,5 +2,45 @@
   <!--Add Page level buttons here with page-button class-->
   <div class='page-body'>
     <h1>Home</h1>
+
+    <input type="number" [(ngModel)]="this.docId">
+    <button class="btn btn-default" (click)="this.debugDBSize()">Debug DB Size</button>
+    <button class="btn btn-default" (click)="this.getDocument()">Get Document</button>
+    <button class="btn btn-default" (click)="this.getDocuments()">Get Documents</button>
+    <button class="btn btn-default" (click)="this.createDocument()">Create Document</button>
+    <button class="btn btn-default" (click)="this.attatchFile()">Attatch File</button>
+    <button class="btn btn-default" (click)="this.linkPart()">Link to Part</button>
+
+    <input type="text" [(ngModel)]="partNumber" name="partNumber">
+    <input type="text" [(ngModel)]="revision" name="revision">
+
+    <div *ngIf="linkPartErrorMessage">
+      <span class="text text-danger">{{linkPartErrorMessage}}</span>
+    </div>
+
+    <div *ngIf="loading">
+      <span class="loading-text">{{loadingMsg}}</span>
+
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+      </div>
+
+    </div>
+
+    <ul>
+      <li *ngFor="let doc of docs">
+        {{doc.id}}
+      </li>
+    </ul>
+
+
+    <h2>Title: {{this.swiTest?.title}}</h2>
+
+    <ul>
+      <li *ngFor="let linkPart of doc?.documentPartLinks">
+        {{linkPart.partNumber}} at {{linkPart.revision}}
+      </li>
+    </ul>
+
   </div>
 </app-page>

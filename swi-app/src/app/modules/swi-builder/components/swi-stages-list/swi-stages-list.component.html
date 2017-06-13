@@ -5,7 +5,7 @@
   <ul class="list-unstyled list-group list-group-flush card-list" [dragula]='"stages-bag"' [dragulaModel]='swi.swiStages'>
     <li class="list-group-item media" *ngFor="let stage of swi.swiStages" (click)="editStage(stage)" [ngClass]="{'draggable': editMode}">
       <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
-      <img class="d-flex mr-3" width="65px" height="65px" [src]="swiService.getImageFromStore(swi, stage.image)">
+      <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
       <div class="media-body">
         <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
         <!--{{stage.description}}-->

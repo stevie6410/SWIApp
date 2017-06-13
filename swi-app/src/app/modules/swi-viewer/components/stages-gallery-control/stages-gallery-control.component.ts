@@ -82,7 +82,7 @@ export class StagesGalleryControlComponent implements OnChanges {
     public closeLightboxGallery(): void {
         // this.isLightboxOpen = false;
         this.closeEmitter.emit();
-        
+
     }
     public nextImage(): void {
         if (this.curImageIndex !== this.images.length - 1) {

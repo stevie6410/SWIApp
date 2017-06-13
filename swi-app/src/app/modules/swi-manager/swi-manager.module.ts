@@ -5,21 +5,29 @@ import { SwiManagerScreenComponent } from './components/swi-manager-screen/swi-m
 import { SharedControlsModule } from "../../modules/shared-controls/shared-controls.module";
 import { RouterModule } from "@angular/router";
 import { SWIExportButton } from "./directives/swi-export.directive";
+import { SWIDuplicateButton } from "./directives/swi-duplicate.directive";
+import { SWIDeleteButton } from "./directives/swi-delete.directive";
+import { MomentModule } from "angular2-moment";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedControlsModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    MomentModule
   ],
   exports: [
     SwiManagerScreenComponent,
-    SWIExportButton
+    SWIExportButton,
+    SWIDuplicateButton,
+    SWIDeleteButton
   ],
   declarations: [
     SwiManagerScreenComponent,
-    SWIExportButton
+    SWIExportButton,
+    SWIDuplicateButton,
+    SWIDeleteButton
   ]
 })
 export class SwiManagerModule { }

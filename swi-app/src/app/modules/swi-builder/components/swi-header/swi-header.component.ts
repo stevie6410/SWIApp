@@ -3,11 +3,12 @@ import { SWIHeader, SWIImage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../../app/services/swi-file.service";
 import { CameraService } from "../../../camera/services/camera.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
 
 @Component({
   selector: 'swi-header',
   templateUrl: './swi-header.component.html',
-  styleUrls: ['./swi-header.component.css']
+  styleUrls: ['./swi-header.component.scss']
 })
 export class SwiHeaderComponent implements OnInit {
 
@@ -20,6 +21,7 @@ export class SwiHeaderComponent implements OnInit {
   constructor(
     private changeDetector: ChangeDetectorRef,
     public swiService: SWIFileService,
+    public imageStore: ImageStoreService,
     private cameraService: CameraService
   ) { }
 
@@ -31,10 +33,10 @@ export class SwiHeaderComponent implements OnInit {
   }
 
   getCoverImage() {
-    let currentImage: string = this.swiService.getImageFromStore(this.swi, this.swi.coverImage);
-    this.cameraService.requestCameraImage(currentImage).subscribe((captureImage) => {
-      this.swi.coverImage = this.swiService.addImage(this.swi, captureImage.image);
-      this.changeDetector.detectChanges();
-    });
+    this.imageStore.callCamera(this.swi.coverImage, this.swi.id)
+      .then(imageKey => {
+        console.log("Got a new image key: ", imageKey);
+        this.swi.coverImage = imageKey;
+      });
   }
 }

@@ -40,3 +40,8 @@
 .draggable{
   cursor: move !important;
 }
+
+.thumb-img{
+  width: 65px;
+  height: 65px;
+}

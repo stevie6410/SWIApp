@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { SwiBuilderScreenComponent } from './components/swi-builder-screen/swi-builder-screen.component';
 import { SharedControlsModule } from '../shared-controls/shared-controls.module';
 import { SWIFileService } from '../../services/swi-file.service';
+import { ImageService } from '../../services/image.service';
+import { ImageStoreService } from '../../services/image-store.service';
 import { SwiHeaderComponent } from './components/swi-header/swi-header.component';
 import { SwiStagesListComponent } from './components/swi-stages-list/swi-stages-list.component';
 import { SwiStageEditComponent } from './components/swi-stage-edit/swi-stage-edit.component';
@@ -17,13 +19,15 @@ import { SwiErpPartsComponent } from './components/swi-erp-parts/swi-erp-parts.c
 import { DragulaModule } from "ng2-dragula";
 import { SaveChangesDirective } from './directives/save-changes/save-changes.directive';
 import { DiscardChangesDirective } from './directives/discard-changes/discard-changes.directive';
+import { Ng2PicaModule } from "ng2-pica";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedControlsModule,
     FormsModule,
-    DragulaModule
+    DragulaModule,
+    Ng2PicaModule
   ],
   exports: [
     SwiBuilderScreenComponent,
@@ -45,7 +49,9 @@ import { DiscardChangesDirective } from './directives/discard-changes/discard-ch
   ],
   providers: [
     SWIFileService,
-    SWIHSItemService
+    SWIHSItemService,
+    ImageService,
+    ImageStoreService
   ]
 })
 export class SwiBuilderModule { }

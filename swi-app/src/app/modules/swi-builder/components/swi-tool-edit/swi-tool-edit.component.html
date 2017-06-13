@@ -21,7 +21,7 @@
         <div class="col-lg">
           <label for="toolImage">Tool Image</label>
           <div id="toolImage" class='card-block'>
-            <img class="tool-image" width="400px" height="400px" [src]="swiService.getImageFromStore(swi, tool.image)" *ngIf="!isFetchingImage" (click)="getImage()">
+            <swi-img class="tool-image" width="400px" height="400px" [imageKey]="tool.image" *ngIf="!isFetchingImage" (click)="getImage()"></swi-img>
           </div>
         </div>
       </div>

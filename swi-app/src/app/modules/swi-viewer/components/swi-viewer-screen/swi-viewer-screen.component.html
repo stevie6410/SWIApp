@@ -57,7 +57,7 @@
             <div *ngFor="let item of swi.swihsItems">
 
               <div class="item">
-                <img class="item-image" [src]="item.image">
+                <swi-img class="item-image" [src]="item.image"></swi-img>
                 <span class="item-caption">{{item.caption}}</span>
               </div>
             </div>
@@ -73,7 +73,7 @@
           <div class="items tool-items">
             <div *ngFor="let tool of swi.swiTools">
               <div class="item">
-                <img [src]="swiFileService.getImageFromStore(swi, tool.image)" class="item-image">
+                <swi-img [imageKey]="tool.image" class="item-image"></swi-img>
                 <span class="item-caption">{{tool.name}}</span>
               </div>
             </div>
@@ -84,32 +84,20 @@
       <!--Row 4 - Stages-->
       <div class="row">
         <div class="col">
-          <!--<span><strong>Stages:</strong></span>-->
-
           <div class="stages">
-
             <div *ngFor="let stage of swi.swiStages" class="stage-wrapper">
-
               <div class="stage">
-
                 <div>
                   <div class="stage-sequence" [ngClass]="{'carepoint': stage.criticalStep}">{{stage.sequence}}</div>
                 </div>
-                <div>
-                  <img class="stage-image" [src]="swiFileService.getImageFromStore(swi, stage.image)">
-                </div>
+                <swi-img class="stage-image" [imageKey]="stage.image"></swi-img>
                 <div class="stage-text-container">
                   <div class="stage-summary">{{stage.summary}}</div>
                   <div class="stage-carepoint" *ngIf="stage.criticalStep">{{stage?.carePoint }}</div>
                 </div>
-
               </div>
-
-
             </div>
-
           </div>
-
           <br>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr';
 import { SWIHeader, SWIStage, SWIImage, generateHash, hasChanges } from '../../../../models/app.models';
 import { SWIFileService } from '../../../../services/swi-file.service';
+import { ImageStoreService } from '../../../../services/image-store.service';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { CameraService } from "../../../camera/services/camera.service";
 
@@ -23,6 +24,7 @@ export class SwiStageEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public swiService: SWIFileService,
+    public imageStore: ImageStoreService,
     private router: Router,
     private cameraService: CameraService
   ) {
@@ -39,19 +41,6 @@ export class SwiStageEditComponent implements OnInit {
   }
 
   addImage() {
-    let currentImage: string = this.swiService.getImageFromStore(this.swi, this.stage.image);
-    this.cameraService.requestCameraImage(currentImage).subscribe((captureImage) => {
-      this.stage.image = this.swiService.addImage(this.swi, captureImage.image);
-      // this.changeDetector.detectChanges();
-    });
-  }
-
-  getImageFromKey(key: string): string {
-    try {
-      if (!key) return ImagePlaceholder;
-      return this.swi.swiImages.filter(i => i.key == key)[0].value;
-    } catch (error) {
-      return ImagePlaceholder;
-    }
+     this.imageStore.callCamera(this.stage.image, this.swi.id).then(imageKey => this.stage.image = imageKey);
   }
 }

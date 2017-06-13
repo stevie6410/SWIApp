@@ -48,7 +48,7 @@ export class SwiImporterScreenComponent implements OnInit, AfterViewInit {
   }
 
   loadSWIIntoMemory(swi: SWIHeader) {
-    this.swiService.createSWI(swi).then(importedSwi => {
+    this.swiService.createSWI(swi).then((importedSwi: SWIHeader) => {
       console.log(`SWI has been imported:  ${importedSwi.title}`);
       this.toast.success(importedSwi.title, "SWI has been imported");
     }).catch(err => {

@@ -2,9 +2,13 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { SWIHeader, GUID } from "../../../../models/app.models";
 import { SWIFileService } from "../../../../services/swi-file.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
+import { RepoDocsService } from '../../../../services/repo-docs.service';
+import { SyncRepoService } from "../../../../services/sync-repo.service";
 import { ToastsManager } from "ng2-toastr";
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
+import { SWIMaster, SWIRevision } from "app/models/repo.models";
 
 @Component({
   selector: 'swi-swi-manager-screen',
@@ -14,23 +18,35 @@ import { Modal } from "angular2-modal/plugins/bootstrap";
 export class SwiManagerScreenComponent implements OnInit {
 
   swi: SWIHeader;
-  newDupTitle: string;
+  swiMaster: SWIMaster;
+  loadingRepo: boolean = true;
+  loadingRepoError: string;
+  isSyncing: boolean;
+  pageLoading: boolean = false;
+  loadingMessage: string = "Loading";
+  activeRevision: SWIRevision;
+  isOutOfSync: boolean;
+  syncLatest: string;
+  clientTimestamp: number;
+  repoTimestamp: number;
+  clientHash: string;
+  repoHash: string;
 
   constructor(
-    public overlay: Overlay,
-    public vcr: ViewContainerRef,
-    public modal: Modal,
     private route: ActivatedRoute,
     private router: Router,
     public swiFileService: SWIFileService,
-    private toast: ToastsManager
+    public imageStore: ImageStoreService,
+    private repoDocs: RepoDocsService,
+    private syncRepoService: SyncRepoService
   ) {
     this.swi = this.route.snapshot.data['swi'];
-    overlay.defaultViewContainer = vcr;
+    this.updateRepoData();
     this.route.params.subscribe((params) => {
       //Detected a change to the params so reload the swiData
       if (params.id != this.swi.id) {
         this.swi = this.route.snapshot.data['swi'];
+        this.updateRepoData();
       }
     });
   }
@@ -38,11 +54,56 @@ export class SwiManagerScreenComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateDocumentSyncStatus() {
+    this.clientHash = this.swi.clientHash;
+    this.repoHash = this.activeRevision.document.clientHash;
+    this.clientTimestamp = new Date(this.swi.updatedOn).getTime();
+    this.repoTimestamp = new Date(this.activeRevision.document.timestamp).getTime();
+    this.isOutOfSync = (this.clientHash != this.repoHash);
+    if (this.isOutOfSync) {
+      //Check to see if the repo or client is ahead
+      this.syncLatest = (this.clientTimestamp > this.repoTimestamp) ? "Client" : "Repository";
+      console.log(`Out of sync and ${this.syncLatest} is ahead`);
+    }
+  }
+
+  async updateRepoData() {
+    this.loadingRepo = true;
+    //Reset Repo flags
+    this.swiMaster = null;
+    this.loadingRepoError = null;
+
+    if (!this.swi.swiMaster) {
+      console.log("No SWI Master linked");
+      this.loadingRepo = false;
+      this.loadingRepoError = "No SWI Master linked";
+      return;
+    }
+    try {
+      //Get the data SWIMaster from the repository (retry up to 3 times)
+      this.repoDocs.getMaster(this.swi.swiMaster.id).retry(3).subscribe((swiMaster) => {
+        this.swiMaster = swiMaster;
+        console.log("Fetched new SWI Master", this.swiMaster);
+        console.log("SWI", this.swi);
+        this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest == true)[0];
+        this.updateDocumentSyncStatus();
+      }, (err) => this.loadingRepoError = "Could not connect to SWI Repository");
+    } catch (error) {
+      console.log("Could not connect to repository");
+    }
+    this.loadingRepo = false;
+  }
+
   navBack() {
     this.router.navigate(['browser']);
   }
 
   editSWI() {
+    //First set the revison we are editing.
+    if (this.swiMaster) {
+      this.swi.swiRevisionId = this.swiMaster.swiRevisions.filter(r => r.released == false)[0].id;
+      console.log(this.swi.swiRevisionId);
+    }
     this.router.navigate(['builder', this.swi.id]);
   }
 
@@ -50,73 +111,22 @@ export class SwiManagerScreenComponent implements OnInit {
     this.router.navigate(['viewer', this.swi.id]);
   }
 
-  private confirmDuplicate(): Promise<string> {
-    this.newDupTitle = this.swi.title.toString();
-    return new Promise<string>((resolve, reject) => {
-      this.modal.confirm()
-        .size('lg')
-        .isBlocking(true)
-        .showClose(false)
-        .keyboard(27)
-        .titleHtml('<h5>Duplicate SWI - New Title</h5>')
-        .body(`
-          Are you sure you want to duplicate this SWI?
-          `)
-        .okBtn('Duplicate')
-        .okBtnClass('btn btn-primary')
-        .cancelBtn('Cancel')
-        .cancelBtnClass('btn btn-secondary')
-        .open()
-        .then(dialogRef => dialogRef.result)
-        .then(result => {
-          resolve('Copy of ' + this.swi.title);
-        })
-        .catch(err => console.log('Canceled'));
-    });
+  exportingStatus(exporting: boolean) {
+    this.loadingMessage = exporting ? "Exporting SWI" : "Loading";
+    this.pageLoading = exporting;
   }
 
-
-  duplicateSWI() {
-    this.confirmDuplicate().then(result => {
-      //Get a copy of the current SWI and change the ID
-      let newSWI: SWIHeader = JSON.parse(JSON.stringify(this.swi));
-      newSWI.id = new GUID().value;
-      newSWI.title = result;
-      this.swiFileService.createSWI(newSWI).then(value => {
-        console.log("SWI has been duplicated", newSWI.id);
-        this.router.navigate(['manager', newSWI.id]);
-        this.toast.success(newSWI.title, "SWI has been duplicated");
-      });
-
-    });
-
+  duplicatingStatus(duplicating: boolean) {
+    this.loadingMessage = duplicating ? "Duplicating SWI" : "Loading";
+    this.pageLoading = duplicating;
   }
 
-  deleteSWI() {
-
-    this.modal.confirm()
-      .size('lg')
-      .isBlocking(true)
-      .showClose(false)
-      .keyboard(27)
-      .titleHtml('<h5>Confirm Delete SWI</h5>')
-      .body(`Are you sure you want to delete this SWI?`)
-      .okBtn('Delete Stage')
-      .okBtnClass('btn btn-danger')
-      .cancelBtn('Cancel')
-      .cancelBtnClass('btn btn-secondary')
-      .open()
-      .then(dialogRef => dialogRef.result)
-      .then(result => {
-        //Delete logic goes here
-        this.swiFileService.deleteSWI(this.swi.id).then(((delSwi: SWIHeader) => {
-          this.toast.warning(this.swi.title + ' was deleted!', "Successfully Deleted");
-          this.navBack();
-        })).catch((err) => {
-          this.toast.error("Could not delete the SWI", "Delete failed");
-        });
-      })
-      .catch(err => console.log('Canceled'));
+  async syncRepo() {
+    this.isSyncing = true;
+    let activeRevId = (this.activeRevision) ? this.activeRevision.id : null;
+    this.swi = await this.syncRepoService.syncSWI(this.swi, activeRevId);
+    console.log("SWI after sync", this.swi);
+    this.isSyncing = false;
+    this.updateRepoData();
   }
-
 }

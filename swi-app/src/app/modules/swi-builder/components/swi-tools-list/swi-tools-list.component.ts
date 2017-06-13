@@ -3,6 +3,8 @@ import { SWIHeader, SWITool } from "../../../../../app/models/app.models";
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { Router } from "@angular/router";
 import { SWIFileService } from "../../../../services/swi-file.service";
+import { ImageStoreService } from '../../../../services/image-store.service';
+
 
 @Component({
   selector: 'swi-tools-list',
@@ -17,7 +19,8 @@ export class SwiToolsListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public swiService: SWIFileService
+    public swiService: SWIFileService,    
+    public imageStore: ImageStoreService
   ) { }
 
   ngOnInit() {
