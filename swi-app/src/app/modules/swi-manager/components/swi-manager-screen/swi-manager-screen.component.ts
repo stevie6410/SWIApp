@@ -81,14 +81,13 @@ export class SwiManagerScreenComponent implements OnInit {
     }
     try {
       //Get the data SWIMaster from the repository (retry up to 3 times)
-      this.repoDocs.getMaster(this.swi.swiMaster.id).retry(3).subscribe((swiMaster) => {
-        this.swiMaster = swiMaster;
-        console.log("Fetched new SWI Master", this.swiMaster);
-        console.log("SWI", this.swi);
-        this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest == true)[0];
-        this.updateDocumentSyncStatus();
-      }, (err) => this.loadingRepoError = "Could not connect to SWI Repository");
+      this.swiMaster = await this.repoDocs.getMaster(this.swi.swiMaster.id).toPromise();
+      console.log("Fetched new SWI Master", this.swiMaster);
+      console.log("SWI", this.swi);
+      this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest == true)[0];
+      this.updateDocumentSyncStatus();
     } catch (error) {
+      this.loadingRepoError = "Could not connect to the repository";
       console.log("Could not connect to repository");
     }
     this.loadingRepo = false;

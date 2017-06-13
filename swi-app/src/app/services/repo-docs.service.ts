@@ -92,7 +92,6 @@ export class RepoDocsService {
     return this.http
       .get(url)
       .map(res => this.handleResponse(res))
-      .retry(3)
       .catch((err, caught) => this.handleError(err));
   }
 
