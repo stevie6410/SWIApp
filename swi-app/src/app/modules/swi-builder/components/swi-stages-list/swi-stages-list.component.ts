@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SWIHeader, SWIStage } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
@@ -23,6 +23,7 @@ export class SwiStagesListComponent implements OnInit {
   stage: SWIStage;
   selectedSequence: number = 1;
   editMode: boolean = false;
+  selectedStage: SWIStage;
 
   constructor(
     private router: Router,
@@ -32,7 +33,8 @@ export class SwiStagesListComponent implements OnInit {
     public vcr: ViewContainerRef,
     public modal: Modal,
     private dragulaService: DragulaService,
-    private toast: ToastsManager
+    private toast: ToastsManager,
+    private changes: ChangeDetectorRef
   ) {
     overlay.defaultViewContainer = vcr;
 
@@ -60,6 +62,7 @@ export class SwiStagesListComponent implements OnInit {
 
   editStages() {
     this.editMode = !this.editMode;
+    if (!this.editMode) this.save();
   }
 
   addStage() {
@@ -99,10 +102,11 @@ export class SwiStagesListComponent implements OnInit {
       var element = this.swi.swiStages[i];
       element.sequence = i + 1;
     }
-    this.save();
+    // this.save();
   }
 
   moveUp(stage: SWIStage) {
+    this.highlightStage(stage);
     let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
     let above = this.swi.swiStages.filter(s => s.sequence == (stage.sequence - 1))[0];
     current.sequence = stage.sequence - 1;
@@ -112,12 +116,22 @@ export class SwiStagesListComponent implements OnInit {
   }
 
   moveDown(stage: SWIStage) {
+    this.highlightStage(stage);
     let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
     let below = this.swi.swiStages.filter(s => s.sequence == (stage.sequence + 1))[0];
     current.sequence = stage.sequence + 1;
     below.sequence = current.sequence - 1;
     this.swi.swiStages.sort((a, b) => a.sequence - b.sequence);
     this.recalculateSequences();
+  }
+
+  highlightStage(stage: SWIStage) {
+    console.log("Selected a stage");
+    this.selectedStage = stage;
+    setTimeout(() => {
+      console.log("DeSelected a stage");
+      this.selectedStage = null;
+    }, 500); 
   }
 
   save() {
