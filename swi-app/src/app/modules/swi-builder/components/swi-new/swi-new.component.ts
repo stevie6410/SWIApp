@@ -39,7 +39,7 @@ export class SwiNewComponent implements OnInit {
 
     try {
       //Run the create swi service call
-      await this.swiService.createSWI(this.swi);
+      await this.swiService.add(this.swi);
 
       //Log the successfull result
       console.log(`${this.swiName} was created`, `File Saved!`);

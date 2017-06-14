@@ -19,8 +19,8 @@ export class SwiBrowserScreenComponent implements OnInit {
   isLoading: boolean = true;
   loadingMessage = "Loading SWIs";
   isCleaning: boolean = false;
-  cleanProgress: number = 0;
-
+  progress: number = null;
+  
   constructor(
     public swiService: SWIFileService,
     public imageStore: ImageStoreService,
@@ -34,6 +34,7 @@ export class SwiBrowserScreenComponent implements OnInit {
     //tempSwis = tempSwis.sort((a, b) => { return b.updatedOn.getTime() - a.updatedOn.getTime() });
     this.localSWIs = tempSwis;
     this.isLoading = false;
+    this.cleanImageStore();
   }
 
   reloadList() {
@@ -61,7 +62,7 @@ export class SwiBrowserScreenComponent implements OnInit {
   }
 
   importStarted() {
-    this.toast.warning("Started importing document");
+    // this.toast.warning("Started importing document");
     this.isLoading = true;
     this.loadingMessage = "Importing SWI"
   }
@@ -71,14 +72,9 @@ export class SwiBrowserScreenComponent implements OnInit {
     this.router.navigate(['manager', swi.id]);
   }
 
-  cleanImageStore() {
+  async cleanImageStore() {
     this.isCleaning = true;
-    this.imageStore.clean()
-      .subscribe(update => {
-        this.cleanProgress = update;
-        console.log(update);
-      },
-      () => console.log("Error cleaning image store"),
-      () => this.isCleaning = false);
+    await this.imageStore.clean();
+    this.isCleaning = false;
   }
 }

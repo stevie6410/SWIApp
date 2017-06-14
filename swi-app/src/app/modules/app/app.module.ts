@@ -40,6 +40,7 @@ import { StagesGalleryScreenComponent } from "../swi-viewer/components/stages-ga
 import { ModalModule } from "angular2-modal";
 import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 import { SyncRepoService } from "../../services/sync-repo.service";
+import { SWIDuplicateService } from "../../services/swi-duplicate.service";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
@@ -92,7 +93,8 @@ const appRoutes: Routes = [
     SWIFileService,
     ImageStoreService,
     RepoDocsService,
-    SyncRepoService
+    SyncRepoService,
+    SWIDuplicateService
   ],
   bootstrap: [AppComponent]
 })

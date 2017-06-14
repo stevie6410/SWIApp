@@ -7,6 +7,7 @@ import { SWIFileService } from "../../../services/swi-file.service";
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { ToastsManager } from "ng2-toastr";
+import { SWIDuplicateService } from "../../../services/swi-duplicate.service";
 
 @Directive({
   selector: '[swiDuplicateButton]'
@@ -25,7 +26,8 @@ export class SWIDuplicateButton {
     private swiFileService: SWIFileService,
     private toast: ToastsManager,
     private router: Router,
-    private imageStore: ImageStoreService
+    private imageStore: ImageStoreService,
+    private dupService: SWIDuplicateService
   ) {
     overlay.defaultViewContainer = vcr;
   }
@@ -62,26 +64,37 @@ export class SWIDuplicateButton {
     });
   }
 
+  // async duplicateSWI() {
+  //   console.log("Orignial SWI Id:", this.swi.id);
+  //   var result = await this.confirmDuplicate();
+  //   this.started.emit();
+  //   //Get a copy of the current SWI and change the ID
+  //   let newSWI: SWIHeader = JSON.parse(JSON.stringify(this.swi));
+  //   newSWI.id = new GUID().value;
+  //   newSWI.swiMaster = null;
+  //   newSWI.swiRevisionId = null;
+  //   newSWI.title = result;
+
+  //   console.log("New SWI Id:", newSWI.id);
+  //   await this.swiFileService.createSWI(newSWI);
+  //   let tempSWIWithImages = await this.imageStore.emmbedImagesIntoSWI(this.swi);
+  //   console.log("TempSWI with images:", tempSWIWithImages);
+  //   await this.imageStore.addSWI(tempSWIWithImages, newSWI.id, false);
+
+  //   console.log("SWI has been duplicated", newSWI.id);
+  //   this.router.navigate(['manager', newSWI.id]);
+  //   this.toast.success(newSWI.title, "SWI has been duplicated");
+  //   this.completed.emit();
+  // }
+
   async duplicateSWI() {
-    console.log("Orignial SWI Id:", this.swi.id);
-    var result = await this.confirmDuplicate();
+    var dialogResult = await this.confirmDuplicate();
     this.started.emit();
-    //Get a copy of the current SWI and change the ID
-    let newSWI: SWIHeader = JSON.parse(JSON.stringify(this.swi));
-    newSWI.id = new GUID().value;
-    newSWI.swiMaster = null;
-    newSWI.swiRevisionId = null;
-    newSWI.title = result;
-
-    console.log("New SWI Id:", newSWI.id);
-    await this.swiFileService.createSWI(newSWI);
-    let tempSWIWithImages = await this.imageStore.emmbedImagesIntoSWI(this.swi);
-    console.log("TempSWI with images:", tempSWIWithImages);
-    await this.imageStore.addSWI(tempSWIWithImages, newSWI.id);
-
-    console.log("SWI has been duplicated", newSWI.id);
-    this.router.navigate(['manager', newSWI.id]);
-    this.toast.success(newSWI.title, "SWI has been duplicated");
+    let result = await this.dupService.duplicate(this.swi, dialogResult);
+    console.log("SWI has been duplicated", result.id);
+    this.router.navigate(['manager', result.id]);
+    this.toast.success(result.title, "SWI has been duplicated");
     this.completed.emit();
   }
+
 }

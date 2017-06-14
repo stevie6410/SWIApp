@@ -32,7 +32,7 @@ export class ImageService {
                 this.blobToDataURI(result)
                     .then(base64Img => {
                         // console.log(base64Img);
-                        if (base64Img) {
+                        if (base64Img != null) {
                             resolve(this.checkImagePrefix(base64Img));
                         } else {
                             console.log("Base64 result is null");
@@ -53,12 +53,19 @@ export class ImageService {
     }
 
     //Resize an image to the generate an image with the max resolution for the SWI App
-    public generateImage(image: string): Promise<string> {
-        return this.resizeImage(image, 300);
+    public async generateImage(image: string): Promise<string> {
+        //First check that the image is already > than the prescribed max resolution
+        var maxRes = await this.getMaxResolutionOfImage(image);
+        if (maxRes > 600) {
+            return this.resizeImage(image, 600);
+        } else {
+            return image
+        }
     }
 
     //Check image prefix
     public checkImagePrefix(image: string): string {
+        if (!image) return null;
         if (!image.startsWith('data:')) {
             image = 'data:image/jpg;base64,' + image;
         }
@@ -113,5 +120,23 @@ export class ImageService {
                 resolve(this.stripDataPrefix(reader.result));
             };
         });
+    }
+
+    public getMaxResolutionOfImage(image: string): Promise<number> {
+        return new Promise<number>((resolve, reject) => {
+            let img = new Image();
+            img.onload = function () {
+                resolve((img.width >= img.height) ? img.width : img.height);
+            }
+            img.src = image;
+        });
+    }
+
+    public async getImageSize(swiImg: SWIImage) {
+        let img = new Image();
+        img.onload = function () {
+            console.log(`Width: ${img.width} x ${img.height}`);
+        }
+        img.src = swiImg.value;
     }
 }

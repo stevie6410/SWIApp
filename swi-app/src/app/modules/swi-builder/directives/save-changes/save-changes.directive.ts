@@ -32,7 +32,7 @@ export class SaveChangesDirective {
     } else {
       console.log("Changes in directive");
       //Save the file and navigate back to the SWI Builder screen
-      this.swiService.saveFile(this.swi)
+      this.swiService.update(this.swi)
         .then((result) => {
           console.log(`${this.swi.id} was saved.`);
           this.toast.success(`${this.swi.title} was saved`, `File Saved!`);

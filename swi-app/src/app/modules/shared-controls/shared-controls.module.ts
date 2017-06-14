@@ -10,12 +10,14 @@ import { SwiCardComponent } from './components/swi-card/swi-card.component';
 import { SwiCategoryPickerComponent } from './components/swi-category-picker/swi-category-picker.component';
 import { ToggleFullscreenDirective } from './components/toggle-fullscreen/toggle-fullscreen.directive';
 import { SwiImageComponent } from './components/swi-image/swi-image.component';
+import { ProgressBarModule } from "primeng/primeng";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    CameraModule
+    CameraModule,
+    ProgressBarModule
   ],
   exports: [
     PageComponent,

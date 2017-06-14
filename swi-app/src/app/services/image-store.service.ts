@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Dexie from 'dexie';
 import { Ng2PicaService } from 'ng2-pica';
-import { SWIHeader, SWIImage, SWIStoreImage } from "../models/app.models";
+import { SWIHeader, SWIImage, SWIStoreImage, GUID } from "../models/app.models";
 import { ImagePlaceholder } from "assets/image-placeholder";
 import { SWIDBService } from "../modules/core/swi-db.service";
 import { ImageService } from "./image.service";
@@ -9,21 +9,21 @@ import { CameraService } from "../modules/camera/services/camera.service";
 import { CaptureImage } from "app/modules/camera/models/capture-image";
 import { Observable } from "rxjs/Rx";
 import { Subject } from "rxjs/Subject";
-// import { SWIFileService } from "./swi-file.service";
 
 @Injectable()
 export class ImageStoreService {
 
     imageStore: Dexie.Table<SWIStoreImage, string>;
+    swiStore: Dexie.Table<SWIHeader, string>;
 
     constructor(
         private db: SWIDBService,
         private pica: Ng2PicaService,
         private imageService: ImageService,
-        private cameraService: CameraService,
-        // public fileService: SWIFileService
+        private cameraService: CameraService
     ) {
         this.imageStore = this.db.table('imageStore');
+        this.swiStore = this.db.table('swis');
         console.log("Init image store");
     }
 
@@ -53,11 +53,12 @@ export class ImageStoreService {
      * @param swiId SWI Id
      * @param image Image as a Base64 string or SWIImage object
      */
-    public async add(swiId: string, image: string | SWIImage): Promise<SWIImage> {
+    public async add(swiId: string, image: string | SWIImage, compress: boolean = false): Promise<SWIImage> {
         let swiImg = (typeof image === "string") ? new SWIImage(image) : image;
-        swiImg = await this.compressImages(swiImg);
-        let swiStoreImg = this.convertToStoreImage(swiId, swiImg);
 
+        if (compress) swiImg = await this.compressImages(swiImg);
+        swiImg = await this.generateThumbnail(swiImg);
+        let swiStoreImg = this.convertToStoreImage(swiId, swiImg);
         try {
             await this.imageStore.add(swiStoreImg)
             return swiImg;
@@ -73,19 +74,14 @@ export class ImageStoreService {
      * Loads all of the images in an SWI document into the Image Store
      * @param swi 
      */
-    public addSWI(swi: SWIHeader, swiKey: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            let promises: Promise<SWIImage>[] = [];
-            if (swi.swiImages) {
-                swi.swiImages.forEach(img => {
-                    promises.push(this.add(swiKey, img));
-                });
+    public async addAll(swi: SWIHeader, swiKey: string, compress: boolean = false): Promise<void> {
+        if (swi.swiImages) {
+            for (var i = 0; i < swi.swiImages.length; i++) {
+                var element = swi.swiImages[i];
+                await this.add(swiKey, element, compress);
+                console.log(`Image ${i} of ${swi.swiImages.length}`);
             }
-            Promise.all(promises).then(results => {
-                // console.log("swiImages added: ", results)
-                resolve();
-            });
-        });
+        }
     }
 
     //Retreive an image from the SWI Image Store 
@@ -101,7 +97,7 @@ export class ImageStoreService {
                             resolve(ImagePlaceholder);
                             return;
                         }
-                        resolve(this.imageService.checkImagePrefix((thumbnail) ? storeImg.thumbnail : storeImg.image));
+                        resolve(this.imageService.checkImagePrefix((thumbnail) ? storeImg.thumbnail : storeImg.value));
                     })
                     .catch(err => {
                         console.log("Error getting image from db image store", err);
@@ -119,8 +115,13 @@ export class ImageStoreService {
         console.log("store images", storeImages);
         if (storeImages) {
             let images: SWIImage[];
-            //images = storeImages.map(image => new SWIImage(image.value));
-            images = storeImages;
+            images = storeImages.map(image => {
+                let img = new SWIImage(image.value);
+                img.key = image.key;
+                img.thumbnail = null;
+                return img;
+            });
+            // images = storeImages;
             swi.swiImages = images;
             console.log("Attached these images", images);
         } else {
@@ -131,43 +132,45 @@ export class ImageStoreService {
 
     //Cleanup an SWI document's images (Removes unused images from the store)
     //Cleanup images which do not have a link to an swi
-    public clean(): Observable<number> {
+    public async clean(): Promise<void> {
         let s = new Subject<number>();
 
-        this.imageStore.count().then(count => {
-            let i = 0;
-            this.imageStore.each((img) => {
-                console.log(img.key);
-                i++;
-                // this.fileService.getFile(img.swiKey).then(swi => {
-                //     let del: boolean = false;
-                //     del = ((!swi) || (JSON.stringify(swi).indexOf(img.key) > -1));
-                //     if (del) {
-                //         this.imageStore.delete(img.key).then(() => {
-                //             console.log("Deleted ", img.key);
-                //             let progress: number = Math.trunc((i / count) * 100);
-                //             s.next(progress);
-                //         });
-                //     } else {
-                //         let progress: number = Math.trunc((i / count) * 100);
-                //         s.next(progress);
-                //     }
-                // });
-            });
+        //Get all image keys used in the SWIs
+        let usedImages: string[] = [];
+        let swis: SWIHeader[] = await this.swiStore.toArray();
+        swis.forEach((swi) => usedImages = usedImages.concat(this.getSWIImageKeys(swi)));
+
+        console.log("Used Images Count", usedImages.length);
+        console.log("Image Store Count", await this.imageStore.count());
+
+        //For each image in the store check to see if it is used
+        let unusedImages: string[] = [];
+        await this.imageStore.toCollection().eachUniqueKey((imageKey) => {
+            if (usedImages.indexOf(imageKey.toString()) == -1) unusedImages.push(imageKey.toString());
         });
-        return s.asObservable();
+        await this.imageStore.bulkDelete(unusedImages);
+        console.log(`Deleted ${unusedImages.length} Images`);
+        return;
     }
 
-    //Will take an SWIHeader and check for any swis in the document and
-    //split them out into the store, while checking for dulpicates. Will
-    //also make sure that all of the swi image keys have a matching store record 
-    public async sync(swi: SWIHeader): Promise<SWIHeader> {
-        await this.addSWI(swi, swi.id);
-        swi.swiImages = [];
-        return swi;
+    public async duplicateImage(imageKey: string, newSWIKey: string): Promise<string> {
+        if (!imageKey) return null;
+        let origImg = await this.imageStore.get(imageKey);
+        console.log("Orig Img", origImg);
+        let newImg = Object.assign({}, origImg);
+        newImg.key = new GUID().value;
+        newImg.swiKey = newSWIKey;
+        console.log("New Img", newImg);
+        let result = await this.imageStore.add(newImg);
+        console.log("New Img", newImg);
+        return result;
     }
 
     //  ######################      Private Helper Functions       ######################################
+
+    private progress(total: number, increment: number): number {
+        return Math.trunc((increment / total) * 100);
+    }
 
     private async isLoaded(imageKey: string): Promise<boolean> {
         let result = await this.imageStore.get(imageKey);
@@ -180,27 +183,37 @@ export class ImageStoreService {
         });
     }
 
+    public getSWIImageKeys(swi: SWIHeader): string[] {
+        let results: string[] = [];
+        if (swi.coverImage) results.push(swi.coverImage);
+        results = results.concat(swi.swiStages.map(s => s.image));
+        results = results.concat(swi.swiTools.map(t => t.image));
+        // console.log("Got these SWI Keys for " + swi.id, results);
+        return results.filter(img => img != undefined);
+    }
+
     //Convert a regeular SWI Image to an SWIStoreImage
     private convertToStoreImage(swiId: string, swiImage: SWIImage): SWIStoreImage {
-        let storeImg: SWIStoreImage = new SWIStoreImage(swiImage.image);
+        let storeImg: SWIStoreImage = new SWIStoreImage(swiImage.value);
         storeImg.key = swiImage.key;
         storeImg.swiKey = swiId;
         storeImg.thumbnail = swiImage.thumbnail;
         return storeImg;
     }
 
-    private compressImages(swiImg: SWIImage): Promise<SWIImage> {
-        return new Promise<SWIImage>((resolve, reject) => {
-            this.imageService.generateImage(swiImg.value).then(imgResult => {
-                if (imgResult) {
-                    swiImg.image = imgResult;
-                }
-                this.imageService.generateThumbnail(swiImg.value).then(thumbResult => {
-                    swiImg.thumbnail = thumbResult;
-                    resolve(swiImg);
-                })
-                    .catch(() => console.log("Error generating thumbnail"));
-            }).catch(() => console.log("Error generating image"));
-        });
+    private async compressImages(swiImg: SWIImage): Promise<SWIImage> {
+        //Generate the main image (compressed)
+        var image = await this.imageService.generateImage(swiImg.value);
+        if (image) swiImg.value = image;
+        return swiImg;
     }
+
+    private async generateThumbnail(swiImg: SWIImage): Promise<SWIImage> {
+        //Genertate the thumbnail (comppressed)
+        var thumb = await this.imageService.generateThumbnail(swiImg.value);
+        if (thumb) swiImg.thumbnail = thumb;
+        return swiImg;
+    }
+
+
 }

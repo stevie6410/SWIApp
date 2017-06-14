@@ -133,3 +133,9 @@
   0%, 39%, 100% { opacity: 0; }
   40% { opacity: 1; } 
 }
+
+
+.progress-container{
+    width: 50%;
+    height: 50px;
+}

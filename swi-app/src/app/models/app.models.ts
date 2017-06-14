@@ -50,12 +50,12 @@ export class SWIHeader {
 export class SWIImage {
     constructor(rawImage: string) {
         this.key = new GUID().value;
+        // this.value = rawImage;
         this.value = rawImage;
-        this.image = rawImage;
     }
     key: string;
+    // value: string;
     value: string;
-    image: string;
     thumbnail: string;
 }
 

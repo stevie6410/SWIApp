@@ -26,6 +26,7 @@ export class PageComponent implements OnInit {
   @Input() faIcon: string;
   @Input() isLoading: boolean = true;
   @Input() loadingMessage: string;
+  @Input() progressNumber: number;
   @Output() onBackButtonClick = new EventEmitter<void>();
 
   isCameraMode: boolean = false;

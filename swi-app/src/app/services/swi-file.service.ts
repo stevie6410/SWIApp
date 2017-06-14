@@ -26,27 +26,28 @@ export class SWIFileService {
         return this.table.toArray();
     }
 
-    createSWI(swi: SWIHeader): Promise<SWIHeader> {
-        return new Promise<SWIHeader>((resolve, reject) => {
-            this.imageStore.sync(swi).then(syncSWI => {
-                this.table.add(swi)
-                    .then(result => resolve(swi))
-                    .catch(err => reject(err));
-            });
-        });
+    async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
+        if (!overrideSyncWithImageStore) await this.imageStore.addAll(swi, swi.id, compress);
+        try {
+            let newSWI = await this.table.add(swi);
+            return this.table.get(newSWI);    
+        } catch (error) {
+            console.log("Could not add SWI to store", error);
+            return null;;
+        }
     }
 
     deleteSWI(id: string): Promise<void> {
         return this.table.delete(id);
     }
 
-    async saveFile(swi: SWIHeader): Promise<SWIHeader> {
+    async update(swi: SWIHeader): Promise<SWIHeader> {
         console.log("Saving file");
         swi.updatedOn = new Date();
-        swi = await this.imageStore.sync(swi);
+        await this.imageStore.addAll(swi, swi.id);
         swi.clientHash = this.getFileHash(swi);
         await this.table.update(swi.id, swi);
-        this.imageStore.sync(swi);
+        this.imageStore.addAll(swi, swi.id);
         return swi;
     }
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SwiBuilderScreenComponent } from './components/swi-builder-screen/swi-builder-screen.component';
 import { SharedControlsModule } from '../shared-controls/shared-controls.module';
-import { SWIFileService } from '../../services/swi-file.service';
+// import { SWIFileService } from '../../services/swi-file.service';
 import { ImageService } from '../../services/image.service';
 import { ImageStoreService } from '../../services/image-store.service';
 import { SwiHeaderComponent } from './components/swi-header/swi-header.component';
@@ -48,7 +48,7 @@ import { Ng2PicaModule } from "ng2-pica";
     DiscardChangesDirective
   ],
   providers: [
-    SWIFileService,
+    // SWIFileService,
     SWIHSItemService,
     ImageService,
     ImageStoreService

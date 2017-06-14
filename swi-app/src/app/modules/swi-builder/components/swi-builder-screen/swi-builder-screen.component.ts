@@ -49,7 +49,7 @@ export class SwiBuilderScreenComponent implements OnInit {
       console.log("There were no changes");
     } else {
       console.log("Saving as there were changes");
-      this.swiService.saveFile(this.swi)
+      this.swiService.update(this.swi)
         .then((result) => {
           if (navBack) {
             this.naviagetBackToManager();

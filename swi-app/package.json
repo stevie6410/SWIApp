@@ -49,6 +49,7 @@
     "ngx-bootstrap": "^1.6.5",
     "ngx-tooltip": "^0.0.9",
     "pica": "^3.0.4",
+    "primeng": "^4.0.3",
     "rxjs": "^5.1.0",
     "screenfull": "^3.2.0",
     "web-animations-js": "^2.2.5",

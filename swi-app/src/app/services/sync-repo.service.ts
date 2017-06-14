@@ -64,7 +64,7 @@ export class SyncRepoService {
         swi.swiMaster = master;
         swi.swiRevisionId = revId;
         swi.clientHash = this.swiFileService.getFileHash(swi);
-        swi = await this.swiFileService.saveFile(swi);
+        swi = await this.swiFileService.update(swi);
         return swi;
     }
 }

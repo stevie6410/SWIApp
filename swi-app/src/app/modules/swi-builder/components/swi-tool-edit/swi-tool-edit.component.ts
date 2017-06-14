@@ -64,7 +64,7 @@ export class SwiToolEditComponent implements OnInit {
       if (navBack) this.router.navigate(['builder', this.swi.id]);
     } else {
       //Save the file and navigate back to the SWI Builder screen
-      this.swiService.saveFile(this.swi)
+      this.swiService.update(this.swi)
         .then((result) => {
           console.log(`${this.swi.id} was saved.`);
           if (navBack) this.router.navigate(['builder', this.swi.id]);
