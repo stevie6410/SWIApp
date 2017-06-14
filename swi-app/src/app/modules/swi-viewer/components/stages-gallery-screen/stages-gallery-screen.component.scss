@@ -115,13 +115,12 @@
   transform: translateY(-50%);
 }
 .ng2-igl-img{
-  height: auto;
-  max-height: calc(100% - 250px);
-  max-width: calc(100% - 100px);
+  width: 600px;
+  height: 600px;
   position: relative;
   display: block;
   margin: 0 auto 0 auto;
-  top: 45%;
+  top: 55%;
   z-index:8;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
@@ -181,8 +180,8 @@
   bottom: 35px;
 }
 .ng2-igl-thumbnail {
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 70px;
+  max-height: 70px;
   margin-right: 5px;
   opacity: 0.6;
 }

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ImageStoreService } from '../../../../services/image-store.service';
 import { ImageInterface } from "../stages-gallery-control/stages-gallery-control.component";
+import { ImagePlaceholder } from "assets/image-placeholder";
 
 @Component({
   selector: 'swi-stages-gallery-screen',
@@ -31,14 +32,22 @@ export class StagesGalleryScreenComponent implements OnInit {
     this.setImagesArray();
   }
 
-  setImagesArray() {
-    this.swi.swiStages.forEach(stage => {
+  async setImagesArray() {
+    //Use the embed images to get the image array, then strip it out into its own property
+    this.swi = await this.imageStore.emmbedImagesIntoSWI(this.swi);
+    let images = this.swi.swiImages.slice();
+    console.log("images", images);
+    this.swi.swiImages = [];
+
+    for (var i = 0; i < this.swi.swiStages.length; i++) {
+      var stage = this.swi.swiStages[i];
       let newImg: ImageInterface = {};
-      this.imageStore.get(stage.image).then(img => newImg.image = img);
+      let result = images.filter(i => i.key == stage.image)[0];
+      newImg.image = (result != null) ? result.value : ImagePlaceholder;
+      newImg.thumbnail = (result) ? result.value : ImagePlaceholder;
       newImg.text = stage.summary;
-      newImg.thumbnail = newImg.thumbnail;
       this.images.push(newImg);
-    });
+    }
   }
 
   navBack() {
