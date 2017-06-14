@@ -46,6 +46,9 @@
 .thumb-img{
   width: 65px;
   height: 65px;
+  /*border: 2px solid #535353;
+  border-radius: 9px;*/
+  box-shadow: 3px 3px 5px #888888;
 }
 
 .highlight-stage{

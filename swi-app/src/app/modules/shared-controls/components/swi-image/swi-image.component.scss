@@ -4,8 +4,9 @@ img{
 }
 
 img.img-border{
-    border: dashed 2px grey;
-    padding: 5px;
+    // border: dashed 2px grey;
+    box-shadow: 3px 3px 5px #888888; 
+    // padding: 5px;
 }
 
 .img-container{
