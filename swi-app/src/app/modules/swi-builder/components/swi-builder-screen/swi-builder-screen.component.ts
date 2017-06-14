@@ -46,6 +46,7 @@ export class SwiBuilderScreenComponent implements OnInit {
   saveFile(navBack: boolean) {
     if (!hasChanges(this.swi, this.initalSWIState)) {
       if (navBack) this.naviagetBackToManager();
+      this.toast.success(`File Saved!`, null, { toastLife: 1000, positionClass: "toast-bottom-center" });
       console.log("There were no changes");
     } else {
       console.log("Saving as there were changes");
@@ -54,7 +55,7 @@ export class SwiBuilderScreenComponent implements OnInit {
           if (navBack) {
             this.naviagetBackToManager();
           } else {
-            this.toast.success(`File Saved!`);
+            this.toast.success(`File Saved!`, null, { toastLife: 1000, positionClass: "toast-bottom-center" });
           }
         })
         .catch((err) => {

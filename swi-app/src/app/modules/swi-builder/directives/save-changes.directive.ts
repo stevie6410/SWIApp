@@ -28,6 +28,7 @@ export class SaveChangesDirective {
   save(navBack: Boolean) {
     if (!hasChanges(this.swi, this.initialState)) {
       console.log("No changes");
+      this.toast.success(`File Saved!`);
       if (navBack) this.navigateBack();
     } else {
       console.log("Changes in directive");
@@ -35,7 +36,7 @@ export class SaveChangesDirective {
       this.swiService.update(this.swi)
         .then((result) => {
           console.log(`${this.swi.id} was saved.`);
-          this.toast.success(`${this.swi.title} was saved`, `File Saved!`);
+          this.toast.success(`File Saved!`);
           if (navBack) this.navigateBack();
         })
         .catch((err) => {
