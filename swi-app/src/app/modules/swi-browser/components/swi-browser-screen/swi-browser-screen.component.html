@@ -17,9 +17,10 @@
               <span class="card-title">{{swi.title}}</span>
               <div class="badge-container">
                 <span class="badge badge-primary card-badge">{{swi?.category}}</span>
-                <span class="badge badge-primary card-badge">SWI Revision: A</span>
-                <span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span>
-                <span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>
+                <span class="badge badge-default card-badge">SWI Rev: A</span>
+                <!--<span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span>-->
+                <!--<span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>-->
+                <span class="badge badge-info card-badge" *ngIf="swi.appVersion"> <i class="fa fa-info-circle"></i>  v{{swi?.appVersion}}</span>
               </div>
             </div>
             <div class="card-footer">

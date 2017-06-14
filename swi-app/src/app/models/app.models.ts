@@ -7,6 +7,7 @@ export class SWIHeader {
     swiMaster: SWIMaster;
     swiRevisionId: string;
     clientHash: string;
+    appVersion: string;
     filename: string;
     sequence: number;
     title: string;

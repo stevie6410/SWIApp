@@ -21,12 +21,13 @@ export class SidenavComponent implements OnInit {
     private packageService: PackageService
   ) { }
 
-  ngOnInit() {
-    this.packageService.getVersionTag().then(res => {
-      this.versionTag = res
-      this.isProduction = this.versionTag.startsWith("Production");
-      this.packageService.getEnvironmentProp('buildNumber').then(res => this.buildNumber = res);
-    });
+  async ngOnInit() {
+
+    let verTag = await this.packageService.getVersionTag();
+    this.versionTag = verTag;
+    this.isProduction = this.versionTag.startsWith("Production");
+    this.buildNumber = await this.packageService.getEnvironmentProp('buildNumber');
+    console.info("App Version: ", await this.packageService.getAppVersion());
   }
 
   toggleSidebar() {

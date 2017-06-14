@@ -7,6 +7,7 @@ import { RepoDocsService } from "./repo-docs.service";
 import { ImageStoreService } from "./image-store.service";
 import { ImagePlaceholder } from "../../assets/image-placeholder";
 import { MD5 } from "crypto-js";
+import { PackageService } from "../services/package.service";
 
 @Injectable()
 export class SWIFileService {
@@ -17,7 +18,8 @@ export class SWIFileService {
         private db: SWIDBService,
         private imageService: ImageService,
         private imageStore: ImageStoreService,
-        private repoDocs: RepoDocsService
+        private repoDocs: RepoDocsService,
+        private pkgService: PackageService
     ) {
         this.table = this.db.table('swis');
     }
@@ -29,8 +31,10 @@ export class SWIFileService {
     async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
         if (!overrideSyncWithImageStore) await this.imageStore.addAll(swi, swi.id, compress);
         try {
+            swi.appVersion = await this.pkgService.getAppVersion();
+            swi.updatedOn = new Date();
             let newSWI = await this.table.add(swi);
-            return this.table.get(newSWI);    
+            return this.table.get(newSWI);
         } catch (error) {
             console.log("Could not add SWI to store", error);
             return null;;
@@ -44,6 +48,7 @@ export class SWIFileService {
     async update(swi: SWIHeader): Promise<SWIHeader> {
         console.log("Saving file");
         swi.updatedOn = new Date();
+        swi.appVersion = await this.pkgService.getAppVersion();
         await this.imageStore.addAll(swi, swi.id);
         swi.clientHash = this.getFileHash(swi);
         await this.table.update(swi.id, swi);
@@ -57,11 +62,6 @@ export class SWIFileService {
 
     getAllFiles(): Promise<SWIHeader[]> {
         return this.table.toArray();
-    }
-
-    cleanupSWI(swi: SWIHeader): SWIHeader {
-        // swi = this.imageStore.clean(swi);
-        return swi;
     }
 
     getFileHash(swi: SWIHeader): string {

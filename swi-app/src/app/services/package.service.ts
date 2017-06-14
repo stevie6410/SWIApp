@@ -41,7 +41,11 @@ export class PackageService {
                 }));
             }
         });
+    }
 
+    async getAppVersion(): Promise<string> {
+        if (!this.env) this.env = await this.getEnvFile();
+        return this.env.version;
     }
 
     private compileVersionTag(env: any): string {
