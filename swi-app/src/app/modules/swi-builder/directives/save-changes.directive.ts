@@ -3,8 +3,8 @@ import { Router } from "@angular/router";
 
 import { ToastsManager } from "ng2-toastr";
 
-import { SWIFileService } from "../../../../services/swi-file.service";
-import { hasChanges, SWIHeader } from "../../../../models/app.models";
+import { SWIFileService } from "../../../services/swi-file.service";
+import { hasChanges, SWIHeader } from "../../../models/app.models";
 
 @Directive({
   selector: '[swiSaveChanges]'

@@ -7,6 +7,7 @@ import { ImageStoreService } from '../../../../services/image-store.service';
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { DragulaService } from "ng2-dragula";
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'swi-stages-list',
@@ -30,7 +31,8 @@ export class SwiStagesListComponent implements OnInit {
     public overlay: Overlay,
     public vcr: ViewContainerRef,
     public modal: Modal,
-    private dragulaService: DragulaService
+    private dragulaService: DragulaService,
+    private toast: ToastsManager
   ) {
     overlay.defaultViewContainer = vcr;
 
@@ -120,6 +122,11 @@ export class SwiStagesListComponent implements OnInit {
 
   save() {
     this.onSave.emit();
+  }
+
+  stageDuplicated(stage: SWIStage) {
+    this.recalculateSequences();
+    this.toast.success("Stage duplicated");
   }
 
 }

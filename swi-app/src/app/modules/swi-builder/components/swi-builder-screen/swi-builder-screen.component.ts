@@ -54,7 +54,7 @@ export class SwiBuilderScreenComponent implements OnInit {
           if (navBack) {
             this.naviagetBackToManager();
           } else {
-            this.toast.success(`${this.swi.title} was saved`, `File Saved!`);
+            this.toast.success(`File Saved!`);
           }
         })
         .catch((err) => {

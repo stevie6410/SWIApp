@@ -14,6 +14,7 @@
       <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
         <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveUp(stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
         <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveDown(stage)" *ngIf="stage.sequence != swi.swiStages.length"><i class="fa fa-arrow-down"></i></button>
+        <button type="button" class="btn btn-primary swi-stage-reorder-btn" duplicateStage (onDuplicated)="stageDuplicated(stage)" [swi]="swi" [stage]="stage"><i class="fa fa-copy"></i></button>
         <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(stage)"><i class="fa fa-trash"></i></button>
       </div>
 
