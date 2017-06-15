@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RepoDocsService } from "../../../../services/repo-docs.service";
+import { SWIMaster } from "app/models/repo.models";
 
 @Component({
   selector: 'swi-repo-search',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RepoSearchComponent implements OnInit {
 
-  constructor() { }
+  results: SWIMaster[] = [];
+  selectedResult: SWIMaster = null;
+  loading: boolean = true;
+
+  constructor(
+    private repoStore: RepoDocsService
+  ) { }
 
   ngOnInit() {
+    this.search();
   }
 
+  async search() {
+    this.selectedResult = null;
+    this.loading = true;
+    this.results = await this.repoStore.getMasters().toPromise();
+    this.loading = false;
+  }
 }

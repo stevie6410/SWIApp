@@ -41,6 +41,8 @@ import { ModalModule } from "angular2-modal";
 import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 import { SyncRepoService } from "../../services/sync-repo.service";
 import { SWIDuplicateService } from "../../services/swi-duplicate.service";
+import { SwiRepoModule } from "../../modules/swi-repo/swi-repo.module";
+import { RepoSearchComponent } from "../../modules/swi-repo/components/repo-search/repo-search.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/browser', pathMatch: 'full' },
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
   { path: 'builder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
   { path: 'builder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolve } },
   { path: 'builder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
-  { path: 'importer', component: SwiImporterScreenComponent }
+  { path: 'importer', component: SwiImporterScreenComponent },
+  { path: 'repo/search', component: RepoSearchComponent }
 ];
 
 @NgModule({
@@ -80,7 +83,8 @@ const appRoutes: Routes = [
     SwiViewerModule,
     SwiManagerModule,
     ModalModule.forRoot(),
-    BootstrapModalModule
+    BootstrapModalModule,
+    SwiRepoModule
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },

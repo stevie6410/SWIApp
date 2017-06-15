@@ -95,7 +95,6 @@ export class RepoDocsService {
       .catch((err, caught) => this.handleError(err));
   }
 
-
   public getMaster(id: string): Observable<SWIMaster> {
     let url: string = this.baseApiUrl + this.mastersMethod + id.toString();
     return this.http

@@ -1,0 +1,38 @@
+.thumb-img{
+    height: 50px;
+    width: 50px;
+}
+
+.badge-pill{
+    margin-right: 15px;
+}
+
+.properties-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.property{
+    margin-left: 25px;
+    margin-right: 25px;
+    
+    .type-prop{
+        font-size: 13px;
+    }
+}
+.property.full-width{
+    width: 100%;
+}
+
+.search-result{
+    cursor: pointer;
+}
+
+.selected-result{
+    background-color: #e7e7e7;
+}
+
+.revision-panel{
+    background-color: #aae7ff;
+}
+

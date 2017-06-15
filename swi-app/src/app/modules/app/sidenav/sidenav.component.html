@@ -7,6 +7,11 @@
                         <i class="sb-icon fa fa-dashboard"></i><span class="sb-label">Home</span>
                     </a>
                 </li>
+                <li routerLink="/repo/search" routerLinkActive="sb-selected">
+                    <a tooltip="Repository" [tooltipDisabled]="true" tooltipPlacement="right">
+                        <i class="sb-icon fa fa-database"></i><span class="sb-label">Repository</span>
+                    </a>
+                </li>
                 <li [routerLink]="['/browser']" routerLinkActive="sb-selected">
                     <a tooltip="SWI Broswer" [tooltipDisabled]="true" tooltipPlacement="right">
                         <i class="sb-icon fa fa-cubes"></i><span class="sb-label">SWI Browser</span>
