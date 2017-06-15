@@ -10,8 +10,6 @@ export class SWIDBService extends Dexie {
         });
 
         this.version(2).stores({
-            swis: 'id',
-            appConfig: 'id++',
             imageStore: 'key'
         });
     }
