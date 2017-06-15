@@ -87,6 +87,15 @@ export class RepoDocsService {
       .catch((err, caught) => this.handleError(err));
   }
 
+  public getMasters(): Observable<SWIMaster[]> {
+    let url: string = this.baseApiUrl + this.mastersMethod;
+    return this.http
+      .get(url)
+      .map(res => this.handleResponse(res))
+      .catch((err, caught) => this.handleError(err));
+  }
+
+
   public getMaster(id: string): Observable<SWIMaster> {
     let url: string = this.baseApiUrl + this.mastersMethod + id.toString();
     return this.http
