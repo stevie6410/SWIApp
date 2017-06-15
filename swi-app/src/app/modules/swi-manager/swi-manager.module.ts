@@ -5,6 +5,7 @@ import { SwiManagerScreenComponent } from './components/swi-manager-screen/swi-m
 import { SharedControlsModule } from "../../modules/shared-controls/shared-controls.module";
 import { RouterModule } from "@angular/router";
 import { SWIExportButton } from "./directives/swi-export.directive";
+import { SWIExportLegacyButton } from "./directives/swi-legacyexport.directive";
 import { SWIDuplicateButton } from "./directives/swi-duplicate.directive";
 import { SWIDeleteButton } from "./directives/swi-delete.directive";
 import { SWICreateMasterButton } from "./directives/swi-create-master.directive";
@@ -30,7 +31,8 @@ import { MomentModule } from "angular2-moment";
     SWIExportButton,
     SWIDuplicateButton,
     SWIDeleteButton,
-    SWICreateMasterButton
+    SWICreateMasterButton,
+    SWIExportLegacyButton
   ]
 })
 export class SwiManagerModule { }
