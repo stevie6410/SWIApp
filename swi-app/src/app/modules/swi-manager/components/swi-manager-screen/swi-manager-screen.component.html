@@ -17,8 +17,6 @@
               class="btn btn-lg btn-block btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
             <button type="button" class="btn btn-lg btn-block btn-primary" swiExportButton (exportStarted)="exportingStatus(true)" (exportCompelte)="exportingStatus(false)"
               [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
-            <button type="button" class="btn btn-lg btn-block btn-primary" swiExportLegacyButton (exportStarted)="exportingStatus(true)"
-              (exportCompelte)="exportingStatus(false)" [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export Legacy</button>
             <button type="button" swiDeleteButton [swi]="swi" class="btn btn-lg btn-block btn-danger"><i class="fa fa-trash"></i> Delete</button>
           </div>
         </swi-card>

@@ -171,6 +171,10 @@
   version "2.53.42"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.42.tgz#74cb77fb6052edaff2a8984ddafd88d419f25cac"
 
+"@types/semver@^5.3.31":
+  version "5.3.31"
+  resolved "https://registry.yarnpkg.com/@types/semver/-/semver-5.3.31.tgz#b999d7d935f43f5207b01b00d3de20852f4ca75f"
+
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
