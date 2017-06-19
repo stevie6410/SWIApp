@@ -113,7 +113,7 @@ export class SWITool {
 }
 
 export class SWIStage {
-    id: number;
+    id: string;
     sequence: number;
     summary: string;
     description: string;
@@ -126,6 +126,7 @@ export class SWIStage {
     observations: SWIObservation[];
 
     constructor() {
+        this.id = new GUID().value;
         this.observations = [];
         this.criticalStep = false;
     }

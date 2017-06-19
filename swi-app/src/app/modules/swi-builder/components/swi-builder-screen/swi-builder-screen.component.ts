@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from '../../../../services/swi-file.service';
-import { SWIHeader, generateHash, hasChanges } from '../../../../models/app.models';
+import { SWIHeader, generateHash, hasChanges, SWIStageGroup } from '../../../../models/app.models';
 
 @Component({
   selector: 'swi-builder-screen',
@@ -33,6 +33,13 @@ export class SwiBuilderScreenComponent implements OnInit {
 
   onBackButton() {
     this.saveFile(true);
+  }
+
+  addStageGroup() {
+    let newGroupName: string = "New Group " + (this.swi.stageGroups.length + 1).toString();
+    let newGroup: SWIStageGroup = new SWIStageGroup(newGroupName);
+    this.swi.stageGroups.push(newGroup);
+    this.saveFile(false);
   }
 
   validateStageOrder() {

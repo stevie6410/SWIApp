@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, ViewContainerRef, ChangeDetectorRe
 import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr';
-import { SWIHeader, SWIStage, SWIImage, generateHash, hasChanges } from '../../../../models/app.models';
+import { SWIHeader, SWIStage, SWIImage, generateHash, hasChanges, SWIStageGroup } from '../../../../models/app.models';
 import { SWIFileService } from '../../../../services/swi-file.service';
 import { ImageStoreService } from '../../../../services/image-store.service';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
@@ -18,7 +18,9 @@ export class SwiStageEditComponent implements OnInit {
   title: string = "Edit Stage";
   swi: SWIHeader;
   stage: SWIStage;
-  sequence: number;
+  stageGroup: SWIStageGroup;
+  groupId: string;
+  stageId: string;
   initialState: number;
 
   constructor(
@@ -31,26 +33,33 @@ export class SwiStageEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
+      console.log("params", params);
       this.swi = this.route.snapshot.data['swi'];
-      this.initialState = generateHash(JSON.stringify(this.swi));
-      this.sequence = params['sequence'];
-
       console.log("swi", this.swi);
-      console.log("sequence", this.sequence);
+      this.initialState = generateHash(JSON.stringify(this.swi));
+      this.stageId = params['stageid'];
+      this.groupId = params['groupid'];
+      //Get the group
+      this.stageGroup = this.swi.stageGroups.filter(sg => sg.id == this.groupId)[0];
+      if (!this.stageGroup)
+        console.log("Error: Could not find group");
 
-      if (this.sequence == 0) {
+      console.log("group", this.stageGroup);
+
+
+      if (this.stageId == "new") {
         console.log("Creating new SWIStage");
         //New SWIStage is required
         this.stage = new SWIStage();
-        this.stage.sequence = this.swi.swiStages.length + 1;
-        this.sequence = this.stage.sequence;
-        this.swi.swiStages.push(this.stage);
+        this.stage.sequence = this.stageGroup.stages.length + 1;
+        this.stageGroup.stages.push(this.stage);
       } else {
-        console.log("Fetching SWIStage " + this.sequence.toString());
+        console.log("Fetching SWIStage " + this.stageId.toString());
         //Fetch the existing stage from the SWI 
-        this.stage = this.swi.swiStages.filter(s => s.sequence == this.sequence)[0];
+        this.stage = this.stageGroup.stages.filter(s => s.id == this.stageId)[0];
       }
-      this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.sequence}`;
+      console.log("stage", this.stage);
+      this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.stageId}`;
     });
   }
 

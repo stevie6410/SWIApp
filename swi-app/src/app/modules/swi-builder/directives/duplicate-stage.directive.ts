@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { ToastsManager } from "ng2-toastr";
 
 import { SWIFileService } from "../../../services/swi-file.service";
-import { hasChanges, SWIHeader, SWIStage } from "../../../models/app.models";
+import { hasChanges, SWIHeader, SWIStage, SWIStageGroup } from "../../../models/app.models";
 
 @Directive({
   selector: '[duplicateStage]'
@@ -13,7 +13,8 @@ export class DuplicateStageDirective {
 
   @Input() swi: SWIHeader;
   @Input() stage: SWIStage;
-  @Output() onDuplicated = new EventEmitter<void>();
+  @Input() group: SWIStageGroup;
+  @Output() onDuplicated = new EventEmitter<SWIStage>();
 
   constructor(
     private router: Router,
@@ -27,9 +28,9 @@ export class DuplicateStageDirective {
 
   duplicateStage() {
     let newStage: SWIStage = JSON.parse(JSON.stringify(this.stage));
-    newStage.sequence = this.swi.swiStages.length + 1;
+    newStage.sequence = this.group.stages.length + 1;
     newStage.summary = `Copy of stage ${this.stage.sequence}`;
-    this.swi.swiStages.push(newStage);
-    this.onDuplicated.emit();
+    this.group.stages.push(newStage);
+    this.onDuplicated.emit(newStage);
   }
 }

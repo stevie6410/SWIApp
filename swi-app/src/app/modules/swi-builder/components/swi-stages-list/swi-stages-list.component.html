@@ -1,12 +1,11 @@
-<swi-card [title]="title">
-  <button class="btn btn-warning btn-sm float-right card-btn" (click)="editStages()">Edit Stages</button>
-  <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage()">Add</button>
+<swi-card [title]="grp.name" *ngFor="let grp of this.swi.stageGroups">
 
-  <!--<ul class="list-unstyled list-group list-group-flush card-list" [dragula]='"stages-bag"' [dragulaModel]='swi.swiStages'>-->
-  <!--<ul class="list-unstyled list-group list-group-flush card-list" [sortablejs]="swi.swiStages">-->
+  <button class="btn btn-warning btn-sm float-right card-btn" (click)="editStages(grp)">Edit Stages</button>
+  <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage(grp)">Add</button>
+
   <ul class="list-unstyled list-group list-group-flush card-list">
-    <li class="list-group-item media" [ngClass]="{'highlight-stage': stage == this.selectedStage}" *ngFor="let stage of swi.swiStages"
-      (click)="editStage(stage)" [ngClass]="{'draggable': editMode}">
+    <li class="list-group-item media" [ngClass]="{'highlight-stage': stage == this.selectedStage}" *ngFor="let stage of grp.stages"
+      (click)="editStage(grp, stage)" [ngClass]="{'draggable': editMode}">
       <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
       <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
       <div class="media-body">
@@ -15,11 +14,11 @@
       </div>
 
       <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
-        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveUp(stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
-        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveDown(stage)" *ngIf="stage.sequence != swi.swiStages.length"><i class="fa fa-arrow-down"></i></button>
-        <button type="button" class="btn btn-primary swi-stage-reorder-btn" duplicateStage (onDuplicated)="stageDuplicated(stage)"
-          [swi]="swi" [stage]="stage"><i class="fa fa-copy"></i></button>
-        <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(stage)"><i class="fa fa-trash"></i></button>
+        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveUp(grp, stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
+        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveDown(grp, stage)" *ngIf="stage.sequence != grp.stages.length"><i class="fa fa-arrow-down"></i></button>
+        <button type="button" class="btn btn-primary swi-stage-reorder-btn" duplicateStage (onDuplicated)="stageDuplicated(grp, $event)"
+          [swi]="swi" [group]="grp" [stage]="stage"><i class="fa fa-copy"></i></button>
+        <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(grp, stage)"><i class="fa fa-trash"></i></button>
       </div>
 
     </li>

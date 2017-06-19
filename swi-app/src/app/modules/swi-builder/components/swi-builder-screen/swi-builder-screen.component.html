@@ -1,6 +1,7 @@
 <app-page [title]="pageTitle" (onBackButtonClick)="onBackButton()" [overrideBackButton]="true" [faIcon]="'fa-cube'">
   <!--Add Page level buttons here with page-button class-->
   <button type='button' class='page-button btn btn-success' (click)="saveFile(false)">Save</button>
+  <button type='button' class='page-button btn btn-success' (click)="addStageGroup(false)">Add Group</button>
   <div class='page-body'>
 
     <div *ngIf="swi">

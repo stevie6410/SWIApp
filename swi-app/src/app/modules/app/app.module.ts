@@ -53,7 +53,7 @@ const appRoutes: Routes = [
   { path: 'manager/:id', component: SwiManagerScreenComponent, resolve: { swi: SWIResolve } },
   { path: 'builder', component: SwiNewComponent },
   { path: 'builder/:id', component: SwiBuilderScreenComponent, resolve: { swi: SWIResolve } },
-  { path: 'builder/:id/stages/:sequence', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
+  { path: 'builder/:id/stagegroup/:groupid/stages/:stageid', component: SwiStageEditComponent, resolve: { swi: SWIResolve } },
   { path: 'builder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolve } },
   { path: 'builder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolve } },
   { path: 'importer', component: SwiImporterScreenComponent },

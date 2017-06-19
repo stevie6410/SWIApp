@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewContainerRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { SWIHeader, SWIStage } from '../../../../models/app.models';
+import { SWIHeader, SWIStage, SWIStageGroup } from '../../../../models/app.models';
 import { ImagePlaceholder } from "../../../../../assets/image-placeholder";
 import { SWIFileService } from "../../../../../app/services/swi-file.service";
 import { ImageStoreService } from '../../../../services/image-store.service';
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
-import { DragulaService } from "ng2-dragula";
 import { ToastsManager } from 'ng2-toastr';
 
 @Component({
@@ -32,51 +31,33 @@ export class SwiStagesListComponent implements OnInit {
     public overlay: Overlay,
     public vcr: ViewContainerRef,
     public modal: Modal,
-    private dragulaService: DragulaService,
     private toast: ToastsManager,
     private changes: ChangeDetectorRef
   ) {
     overlay.defaultViewContainer = vcr;
-
-    const bag: any = this.dragulaService.find('stages-bag');
-    if (bag !== undefined) this.dragulaService.destroy('stages-bag');
-    dragulaService.setOptions('stages-bag', {
-      moves: (el, source, handle, sibling) => el.classList.contains('draggable')
-    });
-
-    dragulaService.dropModel.subscribe((value, err, complete) => {
-      this.recalculateSequences();
-    })
-
   }
   ngOnInit() {
   }
 
-  editStage(stage: SWIStage) {
+  editStage(group: SWIStageGroup, stage: SWIStage) {
     if (!this.editMode) {
       this.save();
       this.stage = stage;
-      this.router.navigate(['builder', this.swi.id, 'stages', stage.sequence]);
+      this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'stages', stage.id]);
     }
   }
 
-  editStages() {
+  editStages(group: SWIStageGroup) {
     this.editMode = !this.editMode;
     if (!this.editMode) this.save();
   }
 
-  addStage() {
-    // this.stage = new SWIStage();
-    // this.stage.sequence = this.swi.swiStages.length + 1;
-    // console.log(`New stage created: ${this.stage}`);
-    // this.swi.swiStages.push(this.stage);
-    // this.save();
-    // this.editStage(this.stage);
+  addStage(group: SWIStageGroup) {
     this.save();
-    this.router.navigate(['builder', this.swi.id, 'stages', 0]);
+    this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'stages', 'new']);
   }
 
-  deleteStage(stage: SWIStage) {
+  deleteStage(group: SWIStageGroup, stage: SWIStage) {
     this.modal.confirm()
       .size('lg')
       .isBlocking(true)
@@ -92,37 +73,36 @@ export class SwiStagesListComponent implements OnInit {
       .then(dialogRef => dialogRef.result)
       .then(result => {
         this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != stage.sequence);
-        this.recalculateSequences();
+        this.recalculateSequences(group);
       })
       .catch(err => console.log("Canceled stage delete"));
   }
 
-  recalculateSequences() {
-    for (var i = 0; i < this.swi.swiStages.length; i++) {
-      var element = this.swi.swiStages[i];
+  recalculateSequences(group: SWIStageGroup) {
+    for (var i = 0; i < group.stages.length; i++) {
+      var element = group.stages[i];
       element.sequence = i + 1;
     }
-    // this.save();
   }
 
-  moveUp(stage: SWIStage) {
+  moveUp(group: SWIStageGroup, stage: SWIStage) {
     this.highlightStage(stage);
-    let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
-    let above = this.swi.swiStages.filter(s => s.sequence == (stage.sequence - 1))[0];
+    let current = group.stages.filter(s => s.sequence == stage.sequence)[0];
+    let above = group.stages.filter(s => s.sequence == (stage.sequence - 1))[0];
     current.sequence = stage.sequence - 1;
     above.sequence = current.sequence + 1;
-    this.swi.swiStages.sort((a, b) => a.sequence - b.sequence);
-    this.recalculateSequences();
+    group.stages.sort((a, b) => a.sequence - b.sequence);
+    this.recalculateSequences(group);
   }
 
-  moveDown(stage: SWIStage) {
+  moveDown(group: SWIStageGroup, stage: SWIStage) {
     this.highlightStage(stage);
-    let current = this.swi.swiStages.filter(s => s.sequence == stage.sequence)[0];
-    let below = this.swi.swiStages.filter(s => s.sequence == (stage.sequence + 1))[0];
+    let current = group.stages.filter(s => s.sequence == stage.sequence)[0];
+    let below = group.stages.filter(s => s.sequence == (stage.sequence + 1))[0];
     current.sequence = stage.sequence + 1;
     below.sequence = current.sequence - 1;
-    this.swi.swiStages.sort((a, b) => a.sequence - b.sequence);
-    this.recalculateSequences();
+    group.stages.sort((a, b) => a.sequence - b.sequence);
+    this.recalculateSequences(group);
   }
 
   highlightStage(stage: SWIStage) {
@@ -131,16 +111,17 @@ export class SwiStagesListComponent implements OnInit {
     setTimeout(() => {
       console.log("DeSelected a stage");
       this.selectedStage = null;
-    }, 500); 
+    }, 500);
   }
 
   save() {
     this.onSave.emit();
   }
 
-  stageDuplicated(stage: SWIStage) {
-    this.recalculateSequences();
+  stageDuplicated(group:SWIStageGroup, newStage: SWIStage) {
+    this.recalculateSequences(group);
     this.toast.success("Stage duplicated");
+    this.highlightStage(newStage);
   }
 
 }
