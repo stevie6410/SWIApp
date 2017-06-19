@@ -21,6 +21,7 @@ import { SaveChangesDirective } from './directives/save-changes.directive';
 import { DiscardChangesDirective } from './directives/discard-changes.directive';
 import { Ng2PicaModule } from "ng2-pica";
 import { DuplicateStageDirective } from "./directives/duplicate-stage.directive";
+import { SortablejsModule } from "angular-sortablejs";
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { DuplicateStageDirective } from "./directives/duplicate-stage.directive"
     SharedControlsModule,
     FormsModule,
     DragulaModule,
-    Ng2PicaModule
+    Ng2PicaModule,
+    SortablejsModule
   ],
   exports: [
     SwiBuilderScreenComponent,
