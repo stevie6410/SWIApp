@@ -19,6 +19,7 @@ export class SwiGroupComponent implements OnInit {
 
   editMode: boolean = false;
   selectedStage: SWIStage;
+  moveToGroupList: SWIStageGroup[];
 
   constructor(
     private router: Router,
@@ -33,6 +34,7 @@ export class SwiGroupComponent implements OnInit {
   ngOnInit() {
     if (this.swi) {
       this.recalculateGroupSequences();
+      this.moveToGroupList = this.swi.stageGroups.filter(g => g.id != this.group.id);
     }
   }
 

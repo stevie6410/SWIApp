@@ -48,7 +48,7 @@
             aria-expanded="false"><i class="fa fa-arrows-v"></i><span class="caret"></span></button>
 
           <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem" *ngFor="let grp of swi.stageGroups"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.name}}</a></li>
+            <li role="menuitem" *ngFor="let grp of moveToGroupList"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.name}}</a></li>
           </ul>
         </div>
 
