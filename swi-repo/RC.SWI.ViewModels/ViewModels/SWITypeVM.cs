@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace RC.SWI.ViewModels.ViewModels
 {
-    class SWITypeVM
+    public class SWITypeVM
     {
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
