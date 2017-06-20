@@ -18,6 +18,7 @@ namespace RC.SWI.Entities
     {
         System.Data.Entity.DbSet<__MigrationLog> __MigrationLogs { get; set; } // __MigrationLog
         System.Data.Entity.DbSet<__MigrationLogCurrent> __MigrationLogCurrents { get; set; } // __MigrationLogCurrent
+        System.Data.Entity.DbSet<AppConfiguration> AppConfigurations { get; set; } // AppConfigurations
         System.Data.Entity.DbSet<ApprovalAction> ApprovalActions { get; set; } // ApprovalActions
         System.Data.Entity.DbSet<ApprovalChanx> ApprovalChanges { get; set; } // ApprovalChanges
         System.Data.Entity.DbSet<ApprovalGroup> ApprovalGroups { get; set; } // ApprovalGroups
@@ -25,6 +26,7 @@ namespace RC.SWI.Entities
         System.Data.Entity.DbSet<ApprovalRequest> ApprovalRequests { get; set; } // ApprovalRequests
         System.Data.Entity.DbSet<ApprovalStatu> ApprovalStatus { get; set; } // ApprovalStatus
         System.Data.Entity.DbSet<ApprovalWorkflow> ApprovalWorkflows { get; set; } // ApprovalWorkflows
+        System.Data.Entity.DbSet<AppSetting> AppSettings { get; set; } // AppSettings
         System.Data.Entity.DbSet<AuthToken> AuthTokens { get; set; } // AuthTokens
         System.Data.Entity.DbSet<Document> Documents { get; set; } // Documents
         System.Data.Entity.DbSet<DocumentChanx> DocumentChanges { get; set; } // DocumentChanges
@@ -33,10 +35,12 @@ namespace RC.SWI.Entities
         System.Data.Entity.DbSet<DocumentPartLink> DocumentPartLinks { get; set; } // DocumentPartLinks
         System.Data.Entity.DbSet<DocumentType> DocumentTypes { get; set; } // DocumentTypes
         System.Data.Entity.DbSet<ErpSystem> ErpSystems { get; set; } // ErpSystem
+        System.Data.Entity.DbSet<HealthAndSafetyIcon> HealthAndSafetyIcons { get; set; } // HealthAndSafetyIcon
         System.Data.Entity.DbSet<Permission> Permissions { get; set; } // Permissions
         System.Data.Entity.DbSet<Role> Roles { get; set; } // Roles
         System.Data.Entity.DbSet<RolePermission> RolePermissions { get; set; } // RolePermissions
         System.Data.Entity.DbSet<Site> Sites { get; set; } // Sites
+        System.Data.Entity.DbSet<StandardTool> StandardTools { get; set; } // StandardTools
         System.Data.Entity.DbSet<SWIMaster> SWIMasters { get; set; } // SWIMasters
         System.Data.Entity.DbSet<SWIMasterSitePermission> SWIMasterSitePermissions { get; set; } // SWIMasterSitePermissions
         System.Data.Entity.DbSet<SWIRevision> SWIRevisions { get; set; } // SWIRevisions

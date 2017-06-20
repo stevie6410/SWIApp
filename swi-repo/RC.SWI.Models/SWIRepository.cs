@@ -19,6 +19,7 @@ namespace RC.SWI.Entities
     {
         public System.Data.Entity.DbSet<__MigrationLog> __MigrationLogs { get; set; } // __MigrationLog
         public System.Data.Entity.DbSet<__MigrationLogCurrent> __MigrationLogCurrents { get; set; } // __MigrationLogCurrent
+        public System.Data.Entity.DbSet<AppConfiguration> AppConfigurations { get; set; } // AppConfigurations
         public System.Data.Entity.DbSet<ApprovalAction> ApprovalActions { get; set; } // ApprovalActions
         public System.Data.Entity.DbSet<ApprovalChanx> ApprovalChanges { get; set; } // ApprovalChanges
         public System.Data.Entity.DbSet<ApprovalGroup> ApprovalGroups { get; set; } // ApprovalGroups
@@ -26,6 +27,7 @@ namespace RC.SWI.Entities
         public System.Data.Entity.DbSet<ApprovalRequest> ApprovalRequests { get; set; } // ApprovalRequests
         public System.Data.Entity.DbSet<ApprovalStatu> ApprovalStatus { get; set; } // ApprovalStatus
         public System.Data.Entity.DbSet<ApprovalWorkflow> ApprovalWorkflows { get; set; } // ApprovalWorkflows
+        public System.Data.Entity.DbSet<AppSetting> AppSettings { get; set; } // AppSettings
         public System.Data.Entity.DbSet<AuthToken> AuthTokens { get; set; } // AuthTokens
         public System.Data.Entity.DbSet<Document> Documents { get; set; } // Documents
         public System.Data.Entity.DbSet<DocumentChanx> DocumentChanges { get; set; } // DocumentChanges
@@ -34,10 +36,12 @@ namespace RC.SWI.Entities
         public System.Data.Entity.DbSet<DocumentPartLink> DocumentPartLinks { get; set; } // DocumentPartLinks
         public System.Data.Entity.DbSet<DocumentType> DocumentTypes { get; set; } // DocumentTypes
         public System.Data.Entity.DbSet<ErpSystem> ErpSystems { get; set; } // ErpSystem
+        public System.Data.Entity.DbSet<HealthAndSafetyIcon> HealthAndSafetyIcons { get; set; } // HealthAndSafetyIcon
         public System.Data.Entity.DbSet<Permission> Permissions { get; set; } // Permissions
         public System.Data.Entity.DbSet<Role> Roles { get; set; } // Roles
         public System.Data.Entity.DbSet<RolePermission> RolePermissions { get; set; } // RolePermissions
         public System.Data.Entity.DbSet<Site> Sites { get; set; } // Sites
+        public System.Data.Entity.DbSet<StandardTool> StandardTools { get; set; } // StandardTools
         public System.Data.Entity.DbSet<SWIMaster> SWIMasters { get; set; } // SWIMasters
         public System.Data.Entity.DbSet<SWIMasterSitePermission> SWIMasterSitePermissions { get; set; } // SWIMasterSitePermissions
         public System.Data.Entity.DbSet<SWIRevision> SWIRevisions { get; set; } // SWIRevisions
@@ -100,6 +104,7 @@ namespace RC.SWI.Entities
 
             modelBuilder.Configurations.Add(new __MigrationLogConfiguration());
             modelBuilder.Configurations.Add(new __MigrationLogCurrentConfiguration());
+            modelBuilder.Configurations.Add(new AppConfigurationConfiguration());
             modelBuilder.Configurations.Add(new ApprovalActionConfiguration());
             modelBuilder.Configurations.Add(new ApprovalChanxConfiguration());
             modelBuilder.Configurations.Add(new ApprovalGroupConfiguration());
@@ -107,6 +112,7 @@ namespace RC.SWI.Entities
             modelBuilder.Configurations.Add(new ApprovalRequestConfiguration());
             modelBuilder.Configurations.Add(new ApprovalStatuConfiguration());
             modelBuilder.Configurations.Add(new ApprovalWorkflowConfiguration());
+            modelBuilder.Configurations.Add(new AppSettingConfiguration());
             modelBuilder.Configurations.Add(new AuthTokenConfiguration());
             modelBuilder.Configurations.Add(new DocumentConfiguration());
             modelBuilder.Configurations.Add(new DocumentChanxConfiguration());
@@ -115,10 +121,12 @@ namespace RC.SWI.Entities
             modelBuilder.Configurations.Add(new DocumentPartLinkConfiguration());
             modelBuilder.Configurations.Add(new DocumentTypeConfiguration());
             modelBuilder.Configurations.Add(new ErpSystemConfiguration());
+            modelBuilder.Configurations.Add(new HealthAndSafetyIconConfiguration());
             modelBuilder.Configurations.Add(new PermissionConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
             modelBuilder.Configurations.Add(new RolePermissionConfiguration());
             modelBuilder.Configurations.Add(new SiteConfiguration());
+            modelBuilder.Configurations.Add(new StandardToolConfiguration());
             modelBuilder.Configurations.Add(new SWIMasterConfiguration());
             modelBuilder.Configurations.Add(new SWIMasterSitePermissionConfiguration());
             modelBuilder.Configurations.Add(new SWIRevisionConfiguration());
@@ -133,6 +141,7 @@ namespace RC.SWI.Entities
         {
             modelBuilder.Configurations.Add(new __MigrationLogConfiguration(schema));
             modelBuilder.Configurations.Add(new __MigrationLogCurrentConfiguration(schema));
+            modelBuilder.Configurations.Add(new AppConfigurationConfiguration(schema));
             modelBuilder.Configurations.Add(new ApprovalActionConfiguration(schema));
             modelBuilder.Configurations.Add(new ApprovalChanxConfiguration(schema));
             modelBuilder.Configurations.Add(new ApprovalGroupConfiguration(schema));
@@ -140,6 +149,7 @@ namespace RC.SWI.Entities
             modelBuilder.Configurations.Add(new ApprovalRequestConfiguration(schema));
             modelBuilder.Configurations.Add(new ApprovalStatuConfiguration(schema));
             modelBuilder.Configurations.Add(new ApprovalWorkflowConfiguration(schema));
+            modelBuilder.Configurations.Add(new AppSettingConfiguration(schema));
             modelBuilder.Configurations.Add(new AuthTokenConfiguration(schema));
             modelBuilder.Configurations.Add(new DocumentConfiguration(schema));
             modelBuilder.Configurations.Add(new DocumentChanxConfiguration(schema));
@@ -148,10 +158,12 @@ namespace RC.SWI.Entities
             modelBuilder.Configurations.Add(new DocumentPartLinkConfiguration(schema));
             modelBuilder.Configurations.Add(new DocumentTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new ErpSystemConfiguration(schema));
+            modelBuilder.Configurations.Add(new HealthAndSafetyIconConfiguration(schema));
             modelBuilder.Configurations.Add(new PermissionConfiguration(schema));
             modelBuilder.Configurations.Add(new RoleConfiguration(schema));
             modelBuilder.Configurations.Add(new RolePermissionConfiguration(schema));
             modelBuilder.Configurations.Add(new SiteConfiguration(schema));
+            modelBuilder.Configurations.Add(new StandardToolConfiguration(schema));
             modelBuilder.Configurations.Add(new SWIMasterConfiguration(schema));
             modelBuilder.Configurations.Add(new SWIMasterSitePermissionConfiguration(schema));
             modelBuilder.Configurations.Add(new SWIRevisionConfiguration(schema));

@@ -14,31 +14,24 @@
 namespace RC.SWI.Entities
 {
 
-    // SWITypes
-    public partial class SWIType
+    // AppSettings
+    public partial class AppSetting
     {
         public int Id { get; set; } // Id (Primary key)
-        public string Name { get; set; } // Name (length: 255)
+        public string Name { get; set; } // Name (length: 100)
         public string Description { get; set; } // Description (length: 255)
-        public int? AppConfigurationId { get; set; } // AppConfigurationId
-
-        // Reverse navigation
-
-        /// <summary>
-        /// Child SWIMasters where [SWIMasters].[SWITypeId] point to this entity (FK_SWIMasters_SWITypes)
-        /// </summary>
-        public virtual System.Collections.Generic.ICollection<SWIMaster> SWIMasters { get; set; } // SWIMasters.FK_SWIMasters_SWITypes
+        public string Value { get; set; } // Value (length: 1000)
+        public int AppConfigurationId { get; set; } // AppConfigurationId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent AppConfiguration pointed by [SWITypes].([AppConfigurationId]) (FK_SWITypes_AppConfigurations)
+        /// Parent AppConfiguration pointed by [AppSettings].([AppConfigurationId]) (FK_AppSettings_AppConfigurations)
         /// </summary>
-        public virtual AppConfiguration AppConfiguration { get; set; } // FK_SWITypes_AppConfigurations
+        public virtual AppConfiguration AppConfiguration { get; set; } // FK_AppSettings_AppConfigurations
 
-        public SWIType()
+        public AppSetting()
         {
-            SWIMasters = new System.Collections.Generic.List<SWIMaster>();
             InitializePartial();
         }
 

@@ -14,26 +14,27 @@
 namespace RC.SWI.Entities
 {
 
-    // SWITypes
-    public partial class SWITypeConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<SWIType>
+    // AppSettings
+    public partial class AppSettingConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<AppSetting>
     {
-        public SWITypeConfiguration()
-            : this("swi")
+        public AppSettingConfiguration()
+            : this("dbo")
         {
         }
 
-        public SWITypeConfiguration(string schema)
+        public AppSettingConfiguration(string schema)
         {
-            ToTable("SWITypes", schema);
+            ToTable("AppSettings", schema);
             HasKey(x => x.Id);
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255);
+            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
-            Property(x => x.AppConfigurationId).HasColumnName(@"AppConfigurationId").HasColumnType("int").IsOptional();
+            Property(x => x.Value).HasColumnName(@"Value").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(1000);
+            Property(x => x.AppConfigurationId).HasColumnName(@"AppConfigurationId").HasColumnType("int").IsRequired();
 
             // Foreign keys
-            HasOptional(a => a.AppConfiguration).WithMany(b => b.SWITypes).HasForeignKey(c => c.AppConfigurationId).WillCascadeOnDelete(false); // FK_SWITypes_AppConfigurations
+            HasRequired(a => a.AppConfiguration).WithMany(b => b.AppSettings).HasForeignKey(c => c.AppConfigurationId).WillCascadeOnDelete(false); // FK_AppSettings_AppConfigurations
             InitializePartial();
         }
         partial void InitializePartial();

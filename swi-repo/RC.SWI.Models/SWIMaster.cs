@@ -28,6 +28,10 @@ namespace RC.SWI.Entities
         // Reverse navigation
 
         /// <summary>
+        /// Child StandardTools where [StandardTools].[SWIId] point to this entity (FK_StandardTools_SWIMasters)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<StandardTool> StandardTools { get; set; } // StandardTools.FK_StandardTools_SWIMasters
+        /// <summary>
         /// Child SWIMasterSitePermissions where [SWIMasterSitePermissions].[SWIMasterId] point to this entity (FK_SWIMasterSitePermissions_SWIMasters)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<SWIMasterSitePermission> SWIMasterSitePermissions { get; set; } // SWIMasterSitePermissions.FK_SWIMasterSitePermissions_SWIMasters
@@ -49,6 +53,7 @@ namespace RC.SWI.Entities
 
         public SWIMaster()
         {
+            StandardTools = new System.Collections.Generic.List<StandardTool>();
             SWIMasterSitePermissions = new System.Collections.Generic.List<SWIMasterSitePermission>();
             SWIRevisions = new System.Collections.Generic.List<SWIRevision>();
             InitializePartial();

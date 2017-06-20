@@ -25,6 +25,10 @@ namespace RC.SWI.Entities
         // Reverse navigation
 
         /// <summary>
+        /// Child AppConfigurations where [AppConfigurations].[SiteId] point to this entity (FK_AppConfigurations_Sites)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<AppConfiguration> AppConfigurations { get; set; } // AppConfigurations.FK_AppConfigurations_Sites
+        /// <summary>
         /// Child SWIMasterSitePermissions where [SWIMasterSitePermissions].[SiteId] point to this entity (FK_SWIMasterSitePermissions_Sites)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<SWIMasterSitePermission> SWIMasterSitePermissions { get; set; } // SWIMasterSitePermissions.FK_SWIMasterSitePermissions_Sites
@@ -35,6 +39,7 @@ namespace RC.SWI.Entities
 
         public Site()
         {
+            AppConfigurations = new System.Collections.Generic.List<AppConfiguration>();
             SWIMasterSitePermissions = new System.Collections.Generic.List<SWIMasterSitePermission>();
             Users = new System.Collections.Generic.List<User>();
             InitializePartial();
