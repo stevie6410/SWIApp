@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConfiguration.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppConfigurationConfiguration.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
     <Compile Include="ApprovalAction.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
@@ -94,6 +100,12 @@
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="ApprovalWorkflowConfiguration.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppSetting.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppSettingConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="AuthToken.cs">
@@ -144,6 +156,12 @@
     <Compile Include="ErpSystemConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
+    <Compile Include="HealthAndSafetyIcon.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HealthAndSafetyIconConfiguration.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
     <Compile Include="ISWIRepository.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
@@ -169,6 +187,12 @@
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="SiteConfiguration.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StandardTool.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StandardToolConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="SWIMaster.cs">
