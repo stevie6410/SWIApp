@@ -31,11 +31,17 @@ export class SwiGroupComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.swi) {
+      this.recalculateGroupSequences();
+    }
   }
 
   editGroup(group: SWIStageGroup) {
     this.editMode = !this.editMode;
-    if (!this.editMode) this.save();
+    if (!this.editMode) {
+      this.recalculateGroupSequences();
+      this.save();
+    }
   }
 
   addStage(group: SWIStageGroup) {
@@ -53,10 +59,10 @@ export class SwiGroupComponent implements OnInit {
   moveStageToGroup(stage: SWIStage, newGroup: SWIStageGroup) {
     //Add the stage to the new group and recaclulate sequences
     newGroup.stages.push(stage);
-    this.recalculateSequences(newGroup);
+    this.recalculateStageSequences(newGroup);
     //Remove stage from the old group and recalculate sequences
     this.group.stages = this.group.stages.filter(s => s.id != stage.id);
-    this.recalculateSequences(this.group);
+    this.recalculateStageSequences(this.group);
   }
 
   deleteStage(group: SWIStageGroup, stage: SWIStage) {
@@ -75,36 +81,62 @@ export class SwiGroupComponent implements OnInit {
       .then(dialogRef => dialogRef.result)
       .then(result => {
         this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != stage.sequence);
-        this.recalculateSequences(group);
+        this.recalculateStageSequences(group);
       })
       .catch(err => console.log("Canceled stage delete"));
   }
 
-  recalculateSequences(group: SWIStageGroup) {
+  recalculateStageSequences(group: SWIStageGroup) {
     for (var i = 0; i < group.stages.length; i++) {
       var element = group.stages[i];
       element.sequence = i + 1;
     }
+    this.recalculateGroupSequences();
   }
 
-  moveUp(group: SWIStageGroup, stage: SWIStage) {
+  recalculateGroupSequences() {
+    for (var i = 0; i < this.swi.stageGroups.length; i++) {
+      var element = this.swi.stageGroups[i];
+      element.sequence = i + 1;
+    }
+  }
+
+  moveStageUp(group: SWIStageGroup, stage: SWIStage) {
     this.highlightStage(stage);
     let current = group.stages.filter(s => s.sequence == stage.sequence)[0];
     let above = group.stages.filter(s => s.sequence == (stage.sequence - 1))[0];
     current.sequence = stage.sequence - 1;
     above.sequence = current.sequence + 1;
     group.stages.sort((a, b) => a.sequence - b.sequence);
-    this.recalculateSequences(group);
+    this.recalculateStageSequences(group);
   }
 
-  moveDown(group: SWIStageGroup, stage: SWIStage) {
+  moveStageDown(group: SWIStageGroup, stage: SWIStage) {
     this.highlightStage(stage);
     let current = group.stages.filter(s => s.sequence == stage.sequence)[0];
     let below = group.stages.filter(s => s.sequence == (stage.sequence + 1))[0];
     current.sequence = stage.sequence + 1;
     below.sequence = current.sequence - 1;
     group.stages.sort((a, b) => a.sequence - b.sequence);
-    this.recalculateSequences(group);
+    this.recalculateStageSequences(group);
+  }
+
+  moveGroupDown(group: SWIStageGroup) {
+    let current = this.swi.stageGroups.filter(s => s.sequence == group.sequence)[0];
+    let below = this.swi.stageGroups.filter(s => s.sequence == group.sequence + 1)[0];
+    current.sequence = group.sequence + 1;
+    below.sequence = current.sequence - 1;
+    this.swi.stageGroups.sort((a, b) => a.sequence - b.sequence);
+    this.recalculateGroupSequences();
+  }
+
+  moveGroupUp(group: SWIStageGroup) {
+    let current = this.swi.stageGroups.filter(s => s.sequence == group.sequence)[0];
+    let above = this.swi.stageGroups.filter(s => s.sequence == group.sequence - 1)[0];
+    current.sequence = group.sequence - 1;
+    above.sequence = current.sequence + 1;
+    this.swi.stageGroups.sort((a, b) => a.sequence - b.sequence);
+    this.recalculateGroupSequences();
   }
 
   highlightStage(stage: SWIStage) {
@@ -121,9 +153,8 @@ export class SwiGroupComponent implements OnInit {
   }
 
   stageDuplicated(group: SWIStageGroup, newStage: SWIStage) {
-    this.recalculateSequences(group);
+    this.recalculateStageSequences(group);
     this.toast.success("Stage duplicated");
     this.highlightStage(newStage);
   }
-
 }

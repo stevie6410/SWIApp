@@ -59,7 +59,7 @@
   width: 100%;
 }
 
-.finish-edit{
+.margin-top{
   margin-top: 10px;
 }
 
@@ -93,4 +93,17 @@
 
 .swi-stage-btn-grp{
   display: flex;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.btn-group.special {
+  display: flex;
+  margin-top:10px;
+}
+
+.special .btn {
+  flex: 1
 }
