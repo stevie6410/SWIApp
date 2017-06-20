@@ -2,9 +2,9 @@
 
   <!--<button type="button" class="btn btn-success card-btn" (click)="save()">Save</button>-->
 
-  <span class="badge badge-primary card-badge">SWI Revision: A</span>
-  <span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span>
-  <span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>
+  <span class="badge badge-info card-badge">Rev: A</span>
+  <span class="badge badge-info card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span>
+  <span class="badge badge-info card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>
   <span class="badge badge-info card-badge" *ngIf="swi.appVersion"> <i class="fa fa-info-circle"></i>  v{{swi?.appVersion}}</span>
 
   <div class="card-block">

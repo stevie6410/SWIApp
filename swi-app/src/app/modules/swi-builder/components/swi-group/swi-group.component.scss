@@ -57,10 +57,23 @@
 }
 
 .group-name-label{
-  width: 100%;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .read-only-grp-header{
     display: flex;
     align-items: center;
+    flex-direction: column;
+}
+
+.label-group{
+  display: flex;
+  align-items: center;
+}
+
+.button-group{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 }

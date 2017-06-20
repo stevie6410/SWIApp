@@ -2,11 +2,15 @@
   <div class="card-header sticky-top">
 
     <div class="read-only-grp-header" *ngIf="!editMode">
+
       <span class="group-name-label">{{group.name}}</span>
-      <div class="btn-group float-right" role="group">
-        <button class="btn btn-warning float-right" (click)="editGroup(group)">Edit Group</button>
-        <button class="btn btn-success float-right" (click)="addStage(group)">Add Stage</button>
+      <div class="col-6-lg button-group float-right">
+        <div class="btn-group" role="group">
+          <button class="btn btn-warning" (click)="editGroup(group)"> <i class="fa fa-pencil"></i> Edit Group</button>
+          <button class="btn btn-primary" (click)="addStage(group)"> <i class="fa fa-plus"></i> Add Stage</button>
+        </div>
       </div>
+
     </div>
 
     <div class="edit-grp-header" *ngIf="editMode">
