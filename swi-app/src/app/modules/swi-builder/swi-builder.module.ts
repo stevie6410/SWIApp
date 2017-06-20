@@ -23,6 +23,8 @@ import { Ng2PicaModule } from "ng2-pica";
 import { DuplicateStageDirective } from "./directives/duplicate-stage.directive";
 import { SortablejsModule } from "angular-sortablejs";
 import { SwiGroupComponent } from './components/swi-group/swi-group.component';
+import { SwiGroupPickerComponent } from './components/swi-group-picker/swi-group-picker.component';
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 @NgModule({
   imports: [
@@ -31,7 +33,8 @@ import { SwiGroupComponent } from './components/swi-group/swi-group.component';
     FormsModule,
     DragulaModule,
     Ng2PicaModule,
-    SortablejsModule
+    SortablejsModule,
+    BsDropdownModule.forRoot()
   ],
   exports: [
     SwiBuilderScreenComponent,
@@ -51,7 +54,8 @@ import { SwiGroupComponent } from './components/swi-group/swi-group.component';
     SaveChangesDirective,
     DiscardChangesDirective,
     DuplicateStageDirective,
-    SwiGroupComponent
+    SwiGroupComponent,
+    SwiGroupPickerComponent
   ],
   providers: [
     // SWIFileService,

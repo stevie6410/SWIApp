@@ -7,10 +7,10 @@
       <div class="col-6-lg button-group float-right">
         <div class="btn-group" role="group">
           <button class="btn btn-warning" (click)="editGroup(group)"> <i class="fa fa-pencil"></i> Edit Group</button>
+          <button class="btn btn-primary" (click)="addStage(group)"> <i class="fa fa-plus"></i> Add Tool</button>
           <button class="btn btn-primary" (click)="addStage(group)"> <i class="fa fa-plus"></i> Add Stage</button>
         </div>
       </div>
-
     </div>
 
     <div class="edit-grp-header" *ngIf="editMode">
@@ -23,20 +23,31 @@
   <ul class="list-unstyled list-group list-group-flush">
     <li class="list-group-item media" [ngClass]="{'highlight-stage': stage == this.selectedStage}" *ngFor="let stage of group.stages"
       (click)="editStage(group, stage)">
-      <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
-      <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
-      <div class="media-body">
-        <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
-      </div>
+
+        <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
+        <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
+        <div class="media-body">
+          <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
+        </div>
 
       <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
         <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveUp(group, stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
         <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveDown(group, stage)" *ngIf="stage.sequence != group.stages.length"><i class="fa fa-arrow-down"></i></button>
         <button type="button" class="btn btn-primary swi-stage-reorder-btn" duplicateStage (onDuplicated)="stageDuplicated(group, $event)"
           [swi]="swi" [group]="group" [stage]="stage"><i class="fa fa-copy"></i></button>
+
+        <!--Move to Group Dropdown Button-->
+        <div class="btn-group" dropdown [placement]="'left'">
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false"><i class="fa fa-arrows-v"></i><span class="caret"></span></button>
+
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem" *ngFor="let grp of swi.stageGroups"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.name}}</a></li>
+          </ul>
+        </div>
+
         <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(group, stage)"><i class="fa fa-trash"></i></button>
       </div>
-
     </li>
   </ul>
 

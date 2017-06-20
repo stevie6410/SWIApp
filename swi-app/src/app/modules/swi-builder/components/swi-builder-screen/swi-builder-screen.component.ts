@@ -76,4 +76,8 @@ export class SwiBuilderScreenComponent implements OnInit {
     this.router.navigate(['manager', this.swi.id]);
   }
 
+  selectedGroup(group: SWIStageGroup) {
+    console.log("Selected Group: ", group);
+  }
+
 }

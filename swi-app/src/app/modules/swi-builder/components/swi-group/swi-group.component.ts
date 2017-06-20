@@ -5,6 +5,7 @@ import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { ToastsManager } from "ng2-toastr";
 
+
 @Component({
   selector: 'swi-group',
   templateUrl: './swi-group.component.html',
@@ -47,6 +48,15 @@ export class SwiGroupComponent implements OnInit {
       this.save();
       this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'stages', stage.id]);
     }
+  }
+
+  moveStageToGroup(stage: SWIStage, newGroup: SWIStageGroup) {
+    //Add the stage to the new group and recaclulate sequences
+    newGroup.stages.push(stage);
+    this.recalculateSequences(newGroup);
+    //Remove stage from the old group and recalculate sequences
+    this.group.stages = this.group.stages.filter(s => s.id != stage.id);
+    this.recalculateSequences(this.group);
   }
 
   deleteStage(group: SWIStageGroup, stage: SWIStage) {

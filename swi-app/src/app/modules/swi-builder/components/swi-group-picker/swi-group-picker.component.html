@@ -1,0 +1,16 @@
+<div>
+
+  <span class="label-helper">Pick group from the list</span>
+
+  <div class="list-unstyled list-group list-group-flush card-list">
+
+    <div class="list-group-item media search-result" (click)="selectGroup(grp)" *ngFor="let grp of swi.stageGroups" [ngClass]="{'selected-group': grp == selectedGroup}">
+      <span class="name-label">{{grp.name}}</span>
+    </div>
+
+  </div>
+  <div class="selection-container" *ngIf="this.selectedGroup">
+    <button type="button" class="btn btn-lg btn-primary btn-block">Select Group:  {{this.selectedGroup.name}}</button>
+  </div>
+
+</div>

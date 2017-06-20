@@ -7,7 +7,9 @@
     <div *ngIf="swi">
 
       <div class="row">
-        <div class="col-lg col-lg-7">
+        <div class="col-lg col-lg-5">
+
+          <!--<swi-group-picker [swi]="swi" (onGroupSelected)="selectedGroup($event)"></swi-group-picker>-->
 
           <swi-header [swi]="swi" (onSave)="saveFile(false)"></swi-header>
 
@@ -18,7 +20,7 @@
           <swi-tools-list [swi]="swi"></swi-tools-list>
 
         </div>
-        <div class="col-lg col-lg-5">
+        <div class="col-lg col-lg-7">
           <swi-stages-list [swi]="swi" (onSave)="saveFile(false)"></swi-stages-list>
         </div>
       </div>
