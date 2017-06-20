@@ -169,4 +169,8 @@ export class SwiGroupComponent implements OnInit {
     this.toast.success("Stage duplicated");
     this.highlightStage(newStage);
   }
+
+  get groupOptions() {
+    return this.swi.stageGroups.filter(sg => sg.id != this.group.id);
+  }
 }

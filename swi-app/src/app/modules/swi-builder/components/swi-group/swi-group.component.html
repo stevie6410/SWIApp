@@ -47,12 +47,12 @@
           [swi]="swi" [group]="group" [stage]="stage"><i class="fa fa-copy"></i></button>
 
         <!--Move to Group Dropdown Button-->
-        <div class="btn-group" dropdown [placement]="'left'">
+        <div class="btn-group" dropdown [placement]="'left'" *ngIf="swi.stageGroups.length > 1">
           <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false"><i class="fa fa-arrows-v"></i><span class="caret"></span></button>
 
           <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem" *ngFor="let grp of moveToGroupList"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.name}}</a></li>
+            <li role="menuitem" *ngFor="let grp of groupOptions"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.name}}</a></li>
           </ul>
         </div>
 
