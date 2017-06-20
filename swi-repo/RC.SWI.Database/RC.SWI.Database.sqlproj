@@ -215,9 +215,6 @@
     <None Include="Post-Deployment\01_Finalize_Deployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrations\1.0.0\001_20170606-1432_KentS.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\002_20170606-1739_KentS.sql" />
+    <None Include="Migrations\1.0.0\001_20170620-1703_KentS.sql" />
   </ItemGroup>
 </Project>
