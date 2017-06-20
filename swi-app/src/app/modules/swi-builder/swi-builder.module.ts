@@ -22,6 +22,7 @@ import { DiscardChangesDirective } from './directives/discard-changes.directive'
 import { Ng2PicaModule } from "ng2-pica";
 import { DuplicateStageDirective } from "./directives/duplicate-stage.directive";
 import { SortablejsModule } from "angular-sortablejs";
+import { SwiGroupComponent } from './components/swi-group/swi-group.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { SortablejsModule } from "angular-sortablejs";
     SwiErpPartsComponent,
     SaveChangesDirective,
     DiscardChangesDirective,
-    DuplicateStageDirective
+    DuplicateStageDirective,
+    SwiGroupComponent
   ],
   providers: [
     // SWIFileService,

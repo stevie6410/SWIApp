@@ -1,0 +1,66 @@
+.badge-pill{
+    margin-right: 15px;
+}
+
+.list-group-item{
+  transition: background-color 0.5s ease;
+  background-color: #fff;
+    cursor: pointer;
+}
+
+.list-group-item:hover{
+    background-color: #f9f6f6;
+}
+
+.swi-stage-reorder-btn{   
+  border-color: #d07c06;
+}
+
+.thumb-img{
+  width: 65px;
+  height: 65px;
+  /*border: 2px solid #535353;
+  border-radius: 9px;*/
+  box-shadow: 3px 3px 5px #888888;
+}
+
+.highlight-stage{
+  transition: background-color 0.5s ease;
+  /*background-color: #ffe4c4;*/
+  background-color: #f0ad4e;
+}
+.highlight-stage:hover{
+  transition: background-color 0.1s ease;
+  background-color: #fad4a6 !important; 
+}
+
+.card{
+    margin-bottom: 10px;
+    
+    .card-block{
+        padding: 0.5rem !important;
+    }   
+}
+
+.card-header{
+    font-size: 16px;
+    font-weight: bold;
+    top: 50px !important;
+}
+
+.edit-group-name{
+  width: 100%;
+}
+
+.finish-edit{
+  margin-top: 10px;
+}
+
+.group-name-label{
+  width: 100%;
+}
+
+.read-only-grp-header{
+    display: flex;
+    align-items: center;
+}

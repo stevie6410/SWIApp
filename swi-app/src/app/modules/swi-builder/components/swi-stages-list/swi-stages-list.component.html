@@ -1,27 +1,6 @@
-<swi-card [title]="grp.name" *ngFor="let grp of this.swi.stageGroups">
+<!--<div class="btn-group">
+  <button type="button" class="btn btn-secondary">Add Group</button>
+  <button type="button" class="btn btn-secondary">Reorder Group</button>
+</div>-->
 
-  <button class="btn btn-warning btn-sm float-right card-btn" (click)="editStages(grp)">Edit Stages</button>
-  <button class="btn btn-success btn-sm float-right card-btn" (click)="addStage(grp)">Add</button>
-
-  <ul class="list-unstyled list-group list-group-flush card-list">
-    <li class="list-group-item media" [ngClass]="{'highlight-stage': stage == this.selectedStage}" *ngFor="let stage of grp.stages"
-      (click)="editStage(grp, stage)" [ngClass]="{'draggable': editMode}">
-      <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
-      <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
-      <div class="media-body">
-        <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
-        <!--{{stage.description}}-->
-      </div>
-
-      <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
-        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveUp(grp, stage)" *ngIf="stage.sequence > 1"><i class="fa fa-arrow-up"></i></button>
-        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveDown(grp, stage)" *ngIf="stage.sequence != grp.stages.length"><i class="fa fa-arrow-down"></i></button>
-        <button type="button" class="btn btn-primary swi-stage-reorder-btn" duplicateStage (onDuplicated)="stageDuplicated(grp, $event)"
-          [swi]="swi" [group]="grp" [stage]="stage"><i class="fa fa-copy"></i></button>
-        <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(grp, stage)"><i class="fa fa-trash"></i></button>
-      </div>
-
-    </li>
-  </ul>
-
-</swi-card>
+<swi-group *ngFor="let grp of this.swi.stageGroups" (onSave)="save()" [swi]="swi" [group]="grp"></swi-group>
