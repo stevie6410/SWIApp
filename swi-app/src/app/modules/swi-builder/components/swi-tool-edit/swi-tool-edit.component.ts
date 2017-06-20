@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { SWITool, SWIHeader, SWIImage, generateHash } from "../../../../../app/models/app.models";
+import { SWITool, SWIHeader, SWIImage, generateHash, SWIStageGroup } from "../../../../../app/models/app.models";
 import { ToastsManager } from 'ng2-toastr';
 import { SWIFileService } from "../../../../services/swi-file.service";
 import { ImageStoreService } from "../../../../services/image-store.service";
@@ -16,6 +16,7 @@ export class SwiToolEditComponent implements OnInit {
   toolId: string;
   tool: SWITool;
   swi: SWIHeader;
+  group: SWIStageGroup;
   initialState: number;
   title: string = "SWI Builder";
 
@@ -33,14 +34,27 @@ export class SwiToolEditComponent implements OnInit {
       this.swi = this.route.snapshot.data['swi'];
       this.initialState = generateHash(JSON.stringify(this.swi));
 
+      this.group = this.swi.stageGroups.filter(sg => sg.id == params['groupid'])[0];
+
       this.toolId = params['toolid'];
       if (this.toolId == 'new') {
+        //Create a new tool
         this.tool = new SWITool('');
         this.toolId = this.tool.id;
-        this.swi.swiTools.push(this.tool);
+        if (this.group) {
+          this.group.tools.push(this.tool);
+        } else {
+          this.swi.swiTools.push(this.tool);
+        }
       } else {
-        this.tool = this.swi.swiTools.filter(t => t.id == this.toolId)[0];
+        //Retreie the existing tool
+        if (this.group) {
+          this.tool = this.group.tools.filter(t => t.id == this.toolId)[0];
+        } else {
+          this.tool = this.swi.swiTools.filter(t => t.id == this.toolId)[0];
+        }
       }
+
       this.title = `SWI Builder - ${this.swi.title} - Edit Tool`;
     });
   }
@@ -49,12 +63,16 @@ export class SwiToolEditComponent implements OnInit {
     this.save(true);
   }
 
-  getImage() {
-    this.imageStore.callCamera(this.tool.image, this.swi.id).then(imageKey => this.tool.image = imageKey);
+  async getImage() {
+    this.tool.image = await this.imageStore.callCamera(this.tool.image, this.swi.id);
   }
 
   deleteTool() {
-    this.swi.swiTools = this.swi.swiTools.filter(t => t.id != this.tool.id);
+    if (this.group) {
+      this.group.tools = this.group.tools.filter(t => t.id != this.tool.id);
+    } else {
+      this.swi.swiTools = this.swi.swiTools.filter(t => t.id != this.tool.id);
+    }
     this.save(true);
   }
 

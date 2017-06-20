@@ -188,6 +188,15 @@ export class ImageStoreService {
         if (swi.coverImage) results.push(swi.coverImage);
         results = results.concat(swi.swiStages.map(s => s.image));
         results = results.concat(swi.swiTools.map(t => t.image));
+
+        //Add all of the stage group tools
+        for (var group in swi.stageGroups) {
+            if (swi.stageGroups.hasOwnProperty(group)) {
+                var element = swi.stageGroups[group];
+                results = results.concat(element.tools.map(t => t.image));
+            }
+        }
+
         // console.log("Got these SWI Keys for " + swi.id, results);
         return results.filter(img => img != undefined);
     }

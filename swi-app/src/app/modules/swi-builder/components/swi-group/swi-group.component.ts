@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewContainerRef, Output, EventEmitter } from '@angular/core';
 import { Router } from "@angular/router";
-import { SWIHeader, SWIStageGroup, SWIStage } from "app/models/app.models";
+import { SWIHeader, SWIStageGroup, SWIStage, SWITool } from "app/models/app.models";
 import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { ToastsManager } from "ng2-toastr";
@@ -56,6 +56,16 @@ export class SwiGroupComponent implements OnInit {
       this.save();
       this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'stages', stage.id]);
     }
+  }
+
+  addTool(group: SWIStageGroup) {
+    this.save();
+    this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'tools', 'new']);
+  }
+
+  editTool(group: SWIStageGroup, tool: SWITool) {
+    this.save();
+    this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'tools', tool.id]);
   }
 
   moveStageToGroup(stage: SWIStage, newGroup: SWIStageGroup) {

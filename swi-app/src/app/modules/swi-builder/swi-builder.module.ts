@@ -25,6 +25,7 @@ import { SortablejsModule } from "angular-sortablejs";
 import { SwiGroupComponent } from './components/swi-group/swi-group.component';
 import { SwiGroupPickerComponent } from './components/swi-group-picker/swi-group-picker.component';
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { SwiToolsListViewComponent } from './components/swi-tools-list-view/swi-tools-list-view.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
     DiscardChangesDirective,
     DuplicateStageDirective,
     SwiGroupComponent,
-    SwiGroupPickerComponent
+    SwiGroupPickerComponent,
+    SwiToolsListViewComponent
   ],
   providers: [
     // SWIFileService,

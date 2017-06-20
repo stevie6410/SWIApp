@@ -1,0 +1,8 @@
+<div class="tool-options-container">
+
+  <span class="tool-option" *ngFor="let tool of tools" (click)="this.onSelected.emit(tool)">
+        <swi-img [imageKey]="tool.image" [border]="false"></swi-img>
+        <span class="tool-option-caption">{{tool.name}}</span>
+  </span>
+
+</div>
