@@ -1,7 +1,7 @@
 import { SWIHSItem } from "./app.models";
 import { SWIUser, SWICompany, SWIPermission, SWIRole } from "./security.models";
 
-export class SWIAppConfig {
+export class AppCatalog {
     id: number;
     lastSync: Date;
     repositoryUrl: string;

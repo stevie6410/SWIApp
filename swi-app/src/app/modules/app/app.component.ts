@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from "ng2-toastr";
-import { AppConfigService } from "../../services/repo-config.service";
+import { AppCatalogservice } from "../../services/app-catalog.service";
 
 @Component({
   selector: 'swi-root',
@@ -15,11 +15,14 @@ export class AppComponent {
   constructor(
     private toast: ToastsManager,
     vcr: ViewContainerRef,
-    private appConfigService: AppConfigService
+    private appCatalog: AppCatalogservice
   ) {
     toast.setRootViewContainerRef(vcr);
 
     //Make a call to the app config service to be sure that it is loaded and ready for the app
-    this.appConfigService.getAppConfig().then(config => console.log("Loaded app config"));
+    this.appCatalog.updateCatalog().then(catalog => {
+      console.info("App Catalog Loaded");
+      this.appCatalog.getCatalog().then(cat => console.info("App Catalog: ", cat));
+    });
   }
 }

@@ -1,6 +1,24 @@
-import { SWIUser, SWICompany } from './security.models';
+import { SWIUser, SWICompany, SWIPermission } from './security.models';
 import { ImagePlaceholder } from "../../assets/image-placeholder";
 import { SWIMaster } from "app/models/repo.models";
+
+export class AppCatalog {
+    id: number;
+    lastSync: Date;
+    repositoryUrl: string;
+    version: number;
+    categories: SWICategory[];
+    users: SWIUser[];
+    sites: SWICompany[];
+    swiPermissions: SWIPermission[];
+    swiHSItems: SWIHSItem[];
+}
+
+export class SWICategory {
+    id: number;
+    name: string;
+    description: string;
+}
 
 export class SWIHeader {
     id: string;

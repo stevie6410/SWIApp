@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from "@angular/forms";
-import { AppConfigService } from "../../../../services/repo-config.service";
+import { AppCatalogservice } from "../../../../services/app-catalog.service";
 
 @Component({
   selector: 'swi-category-picker',
@@ -24,13 +24,16 @@ export class SwiCategoryPickerComponent implements OnInit, ControlValueAccessor 
   private _selectedValue: string;
 
   constructor(
-    private appConfigService: AppConfigService
+    private appCatalog: AppCatalogservice
   ) { }
 
   ngOnInit() {
-    this.appConfigService.getAppConfig().then(config => {
-      this.categories = <string[]>config.swiCategories;
-    });
+    this.updateCategories();
+  }
+
+  private async updateCategories() {
+    let catalog = await this.appCatalog.getCatalog();
+    this.categories = catalog.categories.map(c => c.name);
   }
 
   get value(): string {

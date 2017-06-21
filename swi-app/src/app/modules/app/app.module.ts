@@ -22,7 +22,7 @@ import { SwiBrowserScreenComponent } from "../swi-browser/components/swi-browser
 import { MomentModule } from "angular2-moment";
 import { SwiNewComponent } from "../swi-builder/components/swi-new/swi-new.component";
 import { SwiHsPickerComponent } from "../swi-builder/components/swi-hs-picker/swi-hs-picker.component";
-import { AppConfigService } from "../../services/repo-config.service";
+import { AppCatalogservice } from "../../services/app-catalog.service";
 import { SWIResolve } from "../../resolvers/swi.resolver";
 import { SWIsResolve } from "../../resolvers/swis.resolver";
 import { HSItemsResolver } from "../../resolvers/hs-items.resolver";
@@ -89,7 +89,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     { provide: ToastOptions, useClass: CustomOptions },
-    AppConfigService,
+    AppCatalogservice,
     HSItemsResolver,
     PackageService,
     SWIResolve,
