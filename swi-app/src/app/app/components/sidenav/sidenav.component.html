@@ -1,0 +1,67 @@
+<div class="sb" [ngClass]="{'sb-collapsed': isCollapsed}" (dblclick)="toggleSidebar()">
+    <div class="sb-items">
+        <div class="sb-menu">
+            <ul>
+                <li routerLink="/home" routerLinkActive="sb-selected">
+                    <a tooltip="Home">
+                        <i class="sb-icon fa fa-dashboard"></i><span class="sb-label">Home</span>
+                    </a>
+                </li>
+                <li routerLink="/repo/search" routerLinkActive="sb-selected">
+                    <a tooltip="Repository">
+                        <i class="sb-icon fa fa-database"></i><span class="sb-label">Repository</span>
+                    </a>
+                </li>
+                <li [routerLink]="['/browser']" routerLinkActive="sb-selected">
+                    <a tooltip="SWI Broswer">
+                        <i class="sb-icon fa fa-cubes"></i><span class="sb-label">SWI Browser</span>
+                    </a>
+                </li>
+                <li [routerLink]="['/importer']" routerLinkActive="sb-selected">
+                    <a tooltip="SWI Importer">
+                        <i class="sb-icon fa fa-download"></i><span class="sb-label">SWI Importer</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <br>
+        <div class="sb-menu">
+            <ul>
+                <li toggleFullscreen>
+                    <a>
+                        <i class="sb-icon fa fa-arrows-alt"></i><span class="sb-label">Toggle Fullscreen</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="flex-spacer"></div>
+
+        <div class="sb-menu">
+            <ul>
+                <li *ngIf="!isCollapsed" class="version-tag-container">
+                    <span class="badge badge-default version-tag">{{versionTag}}</span>
+                    <br>
+                    <span class="badge badge-default version-tag">Build #{{buildNumber}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <img class="brand-logo" [src]='brandImage'>
+
+        <div class="sb-menu">
+            <ul>
+                <li class="sb-toggle-item" (click)="toggleSidebar()">
+                    <a>
+                        <span *ngIf="!isCollapsed"><i class="sb-icon fa fa-arrow-left"></i><span class="sb-label">Collapse Sidebar</span></span>
+                        <span *ngIf="isCollapsed"><i class="sb-icon fa fa-arrow-right"></i><span class="sb-label">Expand Sidebar</span></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="env-banner" *ngIf="!isProduction">
+    {{versionTag}} Build# {{buildNumber}}
+</div>
