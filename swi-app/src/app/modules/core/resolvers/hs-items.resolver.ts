@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { AppCatalogservice } from '../services/app-catalog.service';
-import { SWIHeader, SWIHSItem } from "../models/app.models";
+import { AppCatalogService } from '../services/app-catalog.service';
+import { SWIHeader, SWIHSItem } from "../../../models/app.models";
 
 @Injectable()
 export class HSItemsResolver implements Resolve<SWIHSItem[]> {
 
     constructor(
-        private appCatalog: AppCatalogservice
+        private appCatalog: AppCatalogService
     ) { }
 
     async resolve(): Promise<SWIHSItem[]> {

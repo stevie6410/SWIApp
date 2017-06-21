@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { SWIHeader, SWIImage } from '../models/app.models';
 import Dexie from 'dexie';
-import { SWIDBService } from "../modules/core/swi-db.service";
+import { SWIDBService } from "../modules/core/services/swi-db.service";
 import { ImageService } from "./image.service";
 import { RepoDocsService } from "./repo-docs.service";
 import { ImageStoreService } from "./image-store.service";
 import { ImagePlaceholder } from "../../assets/image-placeholder";
 import { MD5 } from "crypto-js";
-import { PackageService } from "../services/package.service";
+import { PackageService } from "../modules/core/services/package.service";
 
 @Injectable()
 export class SWIFileService {

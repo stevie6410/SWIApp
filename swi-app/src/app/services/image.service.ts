@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 import { Ng2PicaService } from 'ng2-pica';
 import { SWIHeader, SWIImage, SWIStoreImage } from "../models/app.models";
 import { ImagePlaceholder } from "assets/image-placeholder";
-import { SWIDBService } from "../modules/core/swi-db.service";
+import { SWIDBService } from "../modules/core/services/swi-db.service";
 
 @Injectable()
 export class ImageService {

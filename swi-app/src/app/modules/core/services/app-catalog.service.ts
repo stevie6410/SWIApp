@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { SWIDBService } from "../modules/core/swi-db.service";
+import { SWIDBService } from "./swi-db.service";
 import { SWIHSItem, AppCatalog } from "app/models/app.models";
 import Dexie from 'dexie';
 
 @Injectable()
-export class AppCatalogservice {
+export class AppCatalogService {
 
     appConfigTable: Dexie.Table<AppCatalog, number>;
     repoURL: string = "http://localhost:4201/api/v1/appcatalog/";
@@ -24,7 +24,7 @@ export class AppCatalogservice {
         let currentVersion: number = appCatalog.version;
         if(!currentVersion) return true;
         let result: boolean = await this.http.get(this.repoURL + 'checkversion/' + appCatalog.version).map(r => r.json()).toPromise();
-        return result;
+        return !result;
     }
 
     public async updateCatalog(): Promise<void> {

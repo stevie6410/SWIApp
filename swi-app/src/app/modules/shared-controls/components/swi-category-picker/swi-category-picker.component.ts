@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from "@angular/forms";
-import { AppCatalogservice } from "../../../../services/app-catalog.service";
+import { AppCatalogService } from "../../../core/services/app-catalog.service";
 
 @Component({
   selector: 'swi-category-picker',
@@ -24,7 +24,7 @@ export class SwiCategoryPickerComponent implements OnInit, ControlValueAccessor 
   private _selectedValue: string;
 
   constructor(
-    private appCatalog: AppCatalogservice
+    private appCatalog: AppCatalogService
   ) { }
 
   ngOnInit() {

@@ -11,6 +11,7 @@ import { SwiCategoryPickerComponent } from './components/swi-category-picker/swi
 import { ToggleFullscreenDirective } from './components/toggle-fullscreen/toggle-fullscreen.directive';
 import { SwiImageComponent } from './components/swi-image/swi-image.component';
 import { ProgressBarModule } from "primeng/primeng";
+import { UpdateAppCatalogDirective } from './directives/update-app-catalog.directive';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { ProgressBarModule } from "primeng/primeng";
     OrderBy,
     SwiCategoryPickerComponent,
     ToggleFullscreenDirective,
-    SwiImageComponent
+    SwiImageComponent,
+    UpdateAppCatalogDirective
   ],
   entryComponents: [
   ]

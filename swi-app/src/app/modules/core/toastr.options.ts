@@ -1,6 +1,6 @@
 import { ToastModule, ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
-export class CustomOptions extends ToastOptions {
+export class ToastCustomOptions extends ToastOptions {
   toastLife = 1500;
   animate = 'flyRight';
   dismiss = 'auto';

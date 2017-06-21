@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { showIndexedDbSize } from "../../core/swi-db.service";
+import { showIndexedDbSize } from "../../core/services/swi-db.service";
 import { RepoDocsService } from "../../../services/repo-docs.service";
 import { RepoDocument, RepoCreateDocumentPayload, SimpleRepoDocument, RepoDocumentPartLink } from "app/models/repo.models";
 import { SWIHeader } from "app/models/app.models";

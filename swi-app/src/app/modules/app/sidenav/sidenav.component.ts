@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SWIFileService } from "../../../services/swi-file.service";
 import { BrandImage } from "../../../../assets/image-placeholder";
-import { PackageService } from "../../../services/package.service";
+import { PackageService } from "../../core/services/package.service";
 
 @Component({
   selector: 'app-sidenav',

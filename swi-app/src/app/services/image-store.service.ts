@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 import { Ng2PicaService } from 'ng2-pica';
 import { SWIHeader, SWIImage, SWIStoreImage, GUID } from "../models/app.models";
 import { ImagePlaceholder } from "assets/image-placeholder";
-import { SWIDBService } from "../modules/core/swi-db.service";
+import { SWIDBService } from "../modules/core/services/swi-db.service";
 import { ImageService } from "./image.service";
 import { CameraService } from "../modules/camera/services/camera.service";
 import { CaptureImage } from "app/modules/camera/models/capture-image";

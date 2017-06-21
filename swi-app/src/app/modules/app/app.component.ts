@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from "ng2-toastr";
-import { AppCatalogservice } from "../../services/app-catalog.service";
+import { AppCatalogService } from "../core/services/app-catalog.service";
 
 @Component({
   selector: 'swi-root',
@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(
     private toast: ToastsManager,
     vcr: ViewContainerRef,
-    private appCatalog: AppCatalogservice
+    private appCatalog: AppCatalogService
   ) {
     toast.setRootViewContainerRef(vcr);
 

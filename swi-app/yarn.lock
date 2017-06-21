@@ -638,6 +638,10 @@ bootstrap@4.0.0-alpha.6:
     jquery ">=1.9.1"
     tether "^1.4.0"
 
+bootswatch@thomaspark/bootswatch#v4:
+  version "4.0.0-alpha.6"
+  resolved "https://codeload.github.com/thomaspark/bootswatch/tar.gz/bf1e0ad031fa099027d534164de1c532c27a96a3"
+
 boxen@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/boxen/-/boxen-0.6.0.tgz#8364d4248ac34ff0ef1b2f2bf49a6c60ce0d81b6"
