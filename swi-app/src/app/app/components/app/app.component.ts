@@ -21,8 +21,7 @@ export class AppComponent {
 
     //Make a call to the app config service to be sure that it is loaded and ready for the app
     this.appCatalog.updateCatalog().then(catalog => {
-      console.info("App Catalog Loaded");
-      this.appCatalog.getCatalog().then(cat => console.info("App Catalog: ", cat));
-    });
-  }
+      // console.info("App Catalog Loaded");
+  });
+}
 }
