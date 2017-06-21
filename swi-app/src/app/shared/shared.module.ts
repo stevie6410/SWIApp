@@ -37,7 +37,8 @@ import { ImportDropZoneDirective } from "./directives/import-dnd.directive";
     SwiCategoryPickerComponent,
     ToggleFullscreenDirective,
     SwiImageComponent,
-    ImportDropZoneDirective
+    ImportDropZoneDirective,
+    UpdateAppCatalogDirective
   ],
   declarations: [
     ImportDropZoneDirective,

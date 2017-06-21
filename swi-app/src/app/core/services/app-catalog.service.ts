@@ -24,6 +24,7 @@ export class AppCatalogService {
         let currentVersion: number = appCatalog.version;
         if(!currentVersion) return true;
         let result: boolean = await this.http.get(this.repoURL + 'checkversion/' + appCatalog.version).map(r => r.json()).toPromise();
+        console.log("check version result", result);
         return !result;
     }
 
