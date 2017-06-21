@@ -11,7 +11,7 @@ namespace RC.SWI.ViewModels.ViewModels
         public int Id { get; set; }
         public string RepositoryUrl { get; set; }
         public int Version { get; set; }
-        public List<SWITypeVM> SWICategories { get; set; }
+        public List<SWITypeVM> Categories { get; set; }
         public List<SiteVM> Sites { get; set; }
         public List<UserVM> Users { get; set; }
         public List<RoleVM> Roles { get; set; }

@@ -31,7 +31,7 @@ namespace RC.SWI.Services.Services
             catalog.HSIcons = appConfig.HealthAndSafetyIcons.Select(hs => new HSIconVM(hs)).ToList();
             catalog.Roles = (await db.Roles.ToListAsync()).Select(r => new RoleVM(r)).ToList();
             catalog.Sites = (await db.Sites.ToListAsync()).Select(s => new SiteVM(s)).ToList();
-            catalog.SWICategories = (await db.SWITypes.ToListAsync()).Select(t => new SWITypeVM(t)).ToList();
+            catalog.Categories = (await db.SWITypes.ToListAsync()).Select(t => new SWITypeVM(t)).ToList();
             catalog.Users = (await db.Users.ToListAsync()).Select(u => new UserVM(u)).ToList();
             catalog.Version = appConfig.Version;
             return catalog;
