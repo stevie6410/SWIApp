@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnChanges, Input, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnChanges, Input, ChangeDetectionStrategy, ChangeDetectorRef, SimpleChanges, OnDestroy } from '@angular/core';
 import { ImageLoading, ImagePlaceholder } from "assets/image-placeholder";
 import { ImageStoreService } from "app/core";
 
@@ -11,7 +11,7 @@ import { ImageStoreService } from "app/core";
   `,
   styleUrls: ['./swi-image.component.scss']
 })
-export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges {
+export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @Input() imageKey: string;
   @Input() src: string;
@@ -50,17 +50,21 @@ export class SwiImageComponent implements OnInit, AfterViewInit, OnChanges {
         .then(result => {
           this.img = result;
           this.isLoading = false;
-          this.change.detectChanges();
+          // this.change.detectChanges();
         })
         .catch(err => {
           console.log(err);
           this.isLoading = false;
-          this.change.detectChanges();
+          // this.change.detectChanges();
         });
     } else {
       this.img = ImagePlaceholder;
       this.isLoading = false;
       return;
     }
+  }
+
+  ngOnDestroy() {
+    this.change.detach();
   }
 }
