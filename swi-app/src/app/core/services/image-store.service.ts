@@ -93,7 +93,7 @@ export class ImageStoreService {
                 this.imageStore.get(key)
                     .then(storeImg => {
                         if (!storeImg) {
-                            console.log("Image not in store");
+                            // console.log("Image not in store");
                             resolve(ImagePlaceholder);
                             return;
                         }
