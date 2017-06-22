@@ -19,13 +19,18 @@ export class AppCatalogService {
     }
 
     public async updateRequired(): Promise<boolean> {
-        let appCatalog: AppCatalog = await this.getCatalog();
-        if (!appCatalog) return true;
-        let currentVersion: number = appCatalog.version;
-        if(!currentVersion) return true;
-        let result: boolean = await this.http.get(this.repoURL + 'checkversion/' + appCatalog.version).map(r => r.json()).toPromise();
-        // console.log("check version result", result);
-        return !result;
+        try {
+            let appCatalog: AppCatalog = await this.getCatalog();
+            if (!appCatalog) return true;
+            let currentVersion: number = appCatalog.version;
+            if (!currentVersion) return true;
+            let result: boolean = await this.http.get(this.repoURL + 'checkversion/' + appCatalog.version).map(r => r.json()).toPromise();
+            // console.log("check version result", result);
+            return !result;
+        } catch (error) {
+            console.warn("Could not connect to the repository to check the catalog for updates");
+            return false;
+        }
     }
 
     public async updateCatalog(): Promise<void> {
@@ -34,23 +39,26 @@ export class AppCatalogService {
         // console.log("Catalog Update Required: ", needUpdate);
         if (!needUpdate) return;
 
-        //First try and get the app config from the repository
-        let repoCatalog: AppCatalog = await this.http.get(this.repoURL).map(r => r.json()).toPromise();
-        // console.log("Repo Catlog: ", repoCatalog);
-        if (repoCatalog) {
-            await this.appConfigTable.clear();
-            await this.appConfigTable.add(repoCatalog);
-            return;
-        }
+        try {
+            //First try and get the app config from the repository
+            let repoCatalog: AppCatalog = await this.http.get(this.repoURL).map(r => r.json()).toPromise();
+            console.log("Repo Catlog: ", JSON.stringify(repoCatalog));
+            if (repoCatalog) {
+                await this.appConfigTable.clear();
+                await this.appConfigTable.add(repoCatalog);
+                return;
+            }
+        } catch (error) {
 
-        //Repository Failed, fall back to the the local catalog
-        console.warn("Fetching SWI Repository App Catalog failed. Falling back to local file");
-        let localCatalog = await this.http.get('./assets/appConfig.json').toPromise();
-        // console.log("Local Catlog: ", localCatalog);
-        if (localCatalog) {
-            await this.appConfigTable.clear();
-            await this.appConfigTable.add(repoCatalog);
-            return;
+            //Repository Failed, fall back to the the local catalog
+            console.warn("Fetching SWI Repository App Catalog failed. Falling back to local file");
+            let localCatalog = await this.http.get('./assets/appConfig.json').map(r => r.json()).toPromise();
+            // console.log("Local Catlog: ", localCatalog);
+            if (localCatalog) {
+                await this.appConfigTable.clear();
+                await this.appConfigTable.add(localCatalog);
+                return;
+            }
         }
     }
 

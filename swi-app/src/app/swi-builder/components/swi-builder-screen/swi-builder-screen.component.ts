@@ -35,6 +35,7 @@ export class SwiBuilderScreenComponent implements OnInit {
   }
 
   addStageGroup() {
+    if (!this.swi.stageGroups) this.swi.stageGroups = [];
     let newGroupName: string = "New Group " + (this.swi.stageGroups.length + 1).toString();
     let newGroup: SWIStageGroup = new SWIStageGroup(newGroupName);
     this.swi.stageGroups.push(newGroup);

@@ -1,63 +1,59 @@
 {
-    "id": 1,
-    "repositoryUrl": "https://localhost:4201",
-    "version": 4,
+    "swiRepository": "http://sao.beav.com/swi/sao/",
+    "lastSync": "2017-04-11 16:43",
     "categories": [
-        {
-            "id": 1,
-            "name": "Manufacturing",
-            "description": "Manufacturing Process"
-        }
+        "Production Part",
+        "Manufacturing Process",
+        "Software Process",
+        "Business Process"
     ],
-    "sites": [
+    "swiUsers": [
         {
-            "id": 1,
-            "name": "LB-SAO",
-            "description": "Leighton Buzzard SAO",
-            "siteADSecurityGroup": null
-        },
-        {
-            "id": 2,
-            "name": "WS-SAO",
-            "description": "Winston Salem SAO",
-            "siteADSecurityGroup": null
-        }
-    ],
-    "users": [
-        {
-            "id": 1,
+            "id": "c47f3cc4-e989-4d36-b291-001953fb9b13",
             "firstName": "Steve",
             "lastName": "Kent",
-            "fullName": "Steve Kent",
             "username": "kents",
-            "defaultSite": {
-                "id": 1,
-                "name": "LB-SAO",
-                "description": "Leighton Buzzard SAO",
-                "siteADSecurityGroup": null
-            }
+            "defaultCompany": "5b994f60-b835-452b-b1d7-ac78b4538631",
+            "role": ""
         },
         {
-            "id": 2,
+            "id": "13f7f824-b05e-483a-9b47-1c49a8228fa5",
             "firstName": "Mehrgan",
             "lastName": "Langeroodi",
-            "fullName": "Mehrgan Langeroodi",
             "username": "langerom",
-            "defaultSite": {
-                "id": 1,
-                "name": "LB-SAO",
-                "description": "Leighton Buzzard SAO",
-                "siteADSecurityGroup": null
-            }
+            "defaultCompany": "5b994f60-b835-452b-b1d7-ac78b4538631",
+            "role": ""
+        },
+        {
+            "id": "0412ace7-82be-46b8-a8a1-086d1e6bb301",
+            "firstName": "Chris",
+            "lastName": "Koontz",
+            "username": "koontzc",
+            "defaultCompany": "68103f04-0e92-433f-a06d-6e3be1171510",
+            "role": ""
         }
     ],
-    "roles": [
+    "swiCompanies": [
+        {
+            "id": "5b994f60-b835-452b-b1d7-ac78b4538631",
+            "name": "Leighton Buzzard SAO",
+            "erpName": "E1",
+            "description": "Rockwell Collins Leighton Buzzard SAO"
+        },
+        {
+            "id": "68103f04-0e92-433f-a06d-6e3be1171510",
+            "name": "Winston Salem SAO",
+            "erpName": "E1",
+            "description": "Rockwell Collins Winston Salem SAO"
+        }
+    ],
+    "swiRoles": [
         {
             "id": "0d3ffc66-5d1d-4614-b405-c4401a2ade32",
             "name": "Author"
         }
     ],
-    "hsIcons": [
+    "swiHSItems": [
         {
             "id": "2e6e4fbc-c0f8-4d26-8187-81816e8eacbf",
             "name": "Mandatory - Eye Protection",

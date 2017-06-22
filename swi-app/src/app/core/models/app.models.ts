@@ -9,8 +9,8 @@ export class AppCatalog {
     categories: SWICategory[];
     users: SWIUser[];
     sites: SWICompany[];
-    swiPermissions: SWIPermission[];
-    swiHSItems: SWIHSItem[];
+    permissions: SWIPermission[];
+    hsIcons: SWIHSItem[];
 }
 
 export class SWICategory {
