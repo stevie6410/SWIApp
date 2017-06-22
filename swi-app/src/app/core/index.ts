@@ -22,3 +22,6 @@ export * from './services/sync-repo.service';
 export * from './resolvers/swi.resolver';
 export * from './resolvers/swis.resolver';
 export * from './resolvers/hs-items.resolver';
+
+//Helpers
+export * from './helpers/http-helper'

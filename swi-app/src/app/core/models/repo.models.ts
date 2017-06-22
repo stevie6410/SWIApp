@@ -117,3 +117,20 @@ export class SWIType {
     name: string;
     description: string;
 }
+
+export class StandardTool{
+    id: number;
+    name: string;
+    image: string;
+    hasCarePoint: boolean;
+    carePoint: string;
+    swiMaster: SWIMaster;
+}
+
+export class CreateStandardTool{
+    name: string;
+    image: string;
+    hasCarePoint: boolean;
+    carePoint: string;
+    swiMasterId: string;
+}
