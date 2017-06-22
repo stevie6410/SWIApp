@@ -13,7 +13,7 @@ namespace RC.SWI.ViewModels
         public string Image { get; set; } // Image (Primary key)
         public bool HasCarePoint { get; set; } // HasCarePoint (Primary key)
         public string CarePoint { get; set; } // CarePoint (length: 255)
-        public Guid? SWIId { get; set; } // SWIId
+        public Guid? SWIMasterId { get; set; } // SWIId
 
     }
 
@@ -26,7 +26,7 @@ namespace RC.SWI.ViewModels
             result.Image = createTool.Image;
             result.HasCarePoint = createTool.HasCarePoint;
             result.CarePoint = createTool.CarePoint;
-            result.SWIId = createTool.SWIId; 
+            result.SWIMasterId = createTool.SWIMasterId; 
 
             return result;
         }

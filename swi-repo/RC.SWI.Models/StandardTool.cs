@@ -22,12 +22,12 @@ namespace RC.SWI.Entities
         public string Image { get; set; } // Image
         public bool HasCarePoint { get; set; } // HasCarePoint
         public string CarePoint { get; set; } // CarePoint (length: 255)
-        public System.Guid? SWIId { get; set; } // SWIId
+        public System.Guid? SWIMasterId { get; set; } // SWIMasterId
 
         // Foreign keys
 
         /// <summary>
-        /// Parent SWIMaster pointed by [StandardTools].([SWIId]) (FK_StandardTools_SWIMasters)
+        /// Parent SWIMaster pointed by [StandardTools].([SWIMasterId]) (FK_StandardTools_SWIMasters)
         /// </summary>
         public virtual SWIMaster SWIMaster { get; set; } // FK_StandardTools_SWIMasters
 

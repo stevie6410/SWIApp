@@ -28,7 +28,7 @@ namespace RC.SWI.Entities
         // Reverse navigation
 
         /// <summary>
-        /// Child StandardTools where [StandardTools].[SWIId] point to this entity (FK_StandardTools_SWIMasters)
+        /// Child StandardTools where [StandardTools].[SWIMasterId] point to this entity (FK_StandardTools_SWIMasters)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<StandardTool> StandardTools { get; set; } // StandardTools.FK_StandardTools_SWIMasters
         /// <summary>

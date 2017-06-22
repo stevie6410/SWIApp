@@ -32,10 +32,10 @@ namespace RC.SWI.Entities
             Property(x => x.Image).HasColumnName(@"Image").HasColumnType("varchar(max)").IsRequired().IsUnicode(false);
             Property(x => x.HasCarePoint).HasColumnName(@"HasCarePoint").HasColumnType("bit").IsRequired();
             Property(x => x.CarePoint).HasColumnName(@"CarePoint").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
-            Property(x => x.SWIId).HasColumnName(@"SWIId").HasColumnType("uniqueidentifier").IsOptional();
+            Property(x => x.SWIMasterId).HasColumnName(@"SWIMasterId").HasColumnType("uniqueidentifier").IsOptional();
 
             // Foreign keys
-            HasOptional(a => a.SWIMaster).WithMany(b => b.StandardTools).HasForeignKey(c => c.SWIId).WillCascadeOnDelete(false); // FK_StandardTools_SWIMasters
+            HasOptional(a => a.SWIMaster).WithMany(b => b.StandardTools).HasForeignKey(c => c.SWIMasterId).WillCascadeOnDelete(false); // FK_StandardTools_SWIMasters
             InitializePartial();
         }
         partial void InitializePartial();

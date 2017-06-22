@@ -40,7 +40,7 @@ namespace RC.SWI.ViewModels
             result.Image = toolVM.Image;
             result.HasCarePoint = toolVM.HasCarePoint;
             result.CarePoint = toolVM.CarePoint;
-            result.SWIId = toolVM.SWIMaster.Id;
+            result.SWIMasterId = toolVM.SWIMaster.Id;
             return result;
         }
     }

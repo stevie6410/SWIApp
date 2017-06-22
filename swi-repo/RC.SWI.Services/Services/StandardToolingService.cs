@@ -45,7 +45,7 @@ namespace RC.SWI.Services.Services
                 var result = db.StandardTools.Add(standardTool);
 
                 //Set the SWIMaster manualy based on the Id
-                var master = await db.SWIMasters.FindAsync(result.SWIId);
+                var master = await db.SWIMasters.FindAsync(result.SWIMasterId);
                 if (master != null) result.SWIMaster = master;
                 await db.SaveChangesAsync();
                 return new StandardToolVM(result);
