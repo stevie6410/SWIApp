@@ -6,6 +6,7 @@
 //Services
 
 //Resolvers
+export * from './resolvers/swi-standard-tool.resolver'
 
 //Helpers
 

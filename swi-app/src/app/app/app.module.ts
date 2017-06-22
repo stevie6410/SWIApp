@@ -11,7 +11,6 @@ import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 
 //Module Imports
 import { CoreModule } from "app/core/core.module";
-
 import { AppRoutingModule } from "../app-routing/app-routing.module";
 import { SwiBuilderModule } from '../swi-builder/swi-builder.module';
 import { SharedModule } from '../shared/shared.module';
@@ -20,6 +19,7 @@ import { SwiImporterModule } from "../swi-importer/swi-importer.module";
 import { SwiViewerModule } from "../swi-viewer/swi-viewer.module";
 import { SwiManagerModule } from "../swi-manager/swi-manager.module";
 import { SwiRepoModule } from "../swi-repo/swi-repo.module";
+import { SwiStandardToolingModule } from "app/swi-standard-tooling";
 
 //Module Components
 import { AppComponent } from './components/app/app.component';
@@ -49,7 +49,8 @@ import { ToastModule,ToastOptions } from "ng2-toastr/ng2-toastr";
     SwiImporterModule,
     SwiViewerModule,
     SwiManagerModule,
-    SwiRepoModule
+    SwiRepoModule,
+    SwiStandardToolingModule
   ],
   providers: [
     { provide: ToastOptions, useClass: ToastCustomOptions },

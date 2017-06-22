@@ -17,6 +17,7 @@ export * from './services/repo-docs.service';
 export * from './services/repo-swi.service';
 export * from './services/swi-duplicate.service';
 export * from './services/sync-repo.service';
+export * from './services/repo-standard-tooling.service'
 
 //Resolvers
 export * from './resolvers/swi.resolver';

@@ -15,6 +15,11 @@ import { SwiViewerScreenComponent } from "../swi-viewer/components/swi-viewer-sc
 import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager-screen/swi-manager-screen.component";
 import { StagesGalleryScreenComponent } from "../swi-viewer/components/stages-gallery-screen/stages-gallery-screen.component";
 import { RepoSearchComponent } from "../swi-repo/components/repo-search/repo-search.component";
+import {
+  StdToolingSearchComponent,
+  StdToolingFormComponent,
+  SWIStandardToolResolver
+} from "app/swi-standard-tooling";
 
 //Resolvers
 import { SWIsResolver, SWIResolver, HSItemsResolver } from "app/core";
@@ -33,7 +38,9 @@ const appRoutes: Routes = [
   { path: 'builder/:id/hsitems', component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolver } },
   { path: 'builder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolver } },
   { path: 'importer', component: SwiImporterScreenComponent },
-  { path: 'repo/search', component: RepoSearchComponent }
+  { path: 'repo/search', component: RepoSearchComponent },
+  { path: 'repo/tooling/search', component: StdToolingSearchComponent }, 
+  { path: 'repo/tooling/edit/:id', component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } } 
 ];
 
 @NgModule({

@@ -3,24 +3,19 @@
         <div class="sb-menu">
             <ul>
                 <li routerLink="/home" routerLinkActive="sb-selected">
-                    <a tooltip="Home">
-                        <i class="sb-icon fa fa-dashboard"></i><span class="sb-label">Home</span>
-                    </a>
+                    <a><i class="sb-icon fa fa-dashboard"></i><span class="sb-label">Home</span></a>
                 </li>
                 <li routerLink="/repo/search" routerLinkActive="sb-selected">
-                    <a tooltip="Repository">
-                        <i class="sb-icon fa fa-database"></i><span class="sb-label">Repository</span>
-                    </a>
+                    <a><i class="sb-icon fa fa-database"></i><span class="sb-label">Repository</span></a>
+                </li>
+                <li routerLink="/repo/tooling/search" routerLinkActive="sb-selected">
+                    <a><i class="sb-icon fa fa-book"></i><span class="sb-label">Tooling Library</span></a>
                 </li>
                 <li [routerLink]="['/browser']" routerLinkActive="sb-selected">
-                    <a tooltip="SWI Broswer">
-                        <i class="sb-icon fa fa-cubes"></i><span class="sb-label">SWI Browser</span>
-                    </a>
+                    <a><i class="sb-icon fa fa-cubes"></i><span class="sb-label">SWI Browser</span></a>
                 </li>
                 <li [routerLink]="['/importer']" routerLinkActive="sb-selected">
-                    <a tooltip="SWI Importer">
-                        <i class="sb-icon fa fa-download"></i><span class="sb-label">SWI Importer</span>
-                    </a>
+                    <a><i class="sb-icon fa fa-download"></i><span class="sb-label">SWI Importer</span></a>
                 </li>
             </ul>
         </div>
