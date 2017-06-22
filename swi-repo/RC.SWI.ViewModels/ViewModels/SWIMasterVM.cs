@@ -19,13 +19,16 @@ namespace RC.SWI.ViewModels
 
         public SWIMasterVM(SWIMaster master, bool includeFile = false)
         {
-            Id = master.Id;
-            Title = master.Title;
-            SWINumber = master.SWINumber;
-            Type = master.SWIType.Name;
-            IsPublic = master.IsPublic;
-            SWIRevisions = master.SWIRevisions.Select(r => new SWIRevisionVM(r, includeFile)).ToList();
-            SitePermissions = master.SWIMasterSitePermissions.Select(p => new SWIMasterSitePermissionVM(p)).ToList();
+            if (master != null)
+            {
+                Id = master.Id;
+                Title = master.Title;
+                SWINumber = master.SWINumber;
+                Type = master.SWIType.Name;
+                IsPublic = master.IsPublic;
+                SWIRevisions = master.SWIRevisions.Select(r => new SWIRevisionVM(r, includeFile)).ToList();
+                SitePermissions = master.SWIMasterSitePermissions.Select(p => new SWIMasterSitePermissionVM(p)).ToList();
+            }
         }
     }
 }

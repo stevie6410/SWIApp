@@ -46,6 +46,7 @@
     <Compile Include="Mappings\DocumentUpdateMapping.cs" />
     <Compile Include="Mappings\SWIMasterMapping.cs" />
     <Compile Include="ViewModels\AppCatalogVM.cs" />
+    <Compile Include="ViewModels\CreateStandardToolVM.cs" />
     <Compile Include="ViewModels\CreateSWIMasterVM.cs" />
     <Compile Include="ViewModels\CreateSWIRevisionVM.cs" />
     <Compile Include="ViewModels\CreateDocumentVM.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="ViewModels\HSIconVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
     <Compile Include="ViewModels\SiteVM.cs" />
+    <Compile Include="ViewModels\StandardToolVM.cs" />
     <Compile Include="ViewModels\SWIMasterSitePermissionVM.cs" />
     <Compile Include="ViewModels\SWIMasterVM.cs" />
     <Compile Include="ViewModels\SWIRevisionVM.cs" />

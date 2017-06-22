@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AppCatalogController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StandardToolsController.cs" />
     <Compile Include="Controllers\SWIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

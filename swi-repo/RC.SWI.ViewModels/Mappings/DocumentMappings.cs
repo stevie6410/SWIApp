@@ -22,13 +22,6 @@ namespace RC.SWI.ViewModels.Mappings
             doc.CheckedOut = true;
             doc.CheckedOutOn = DateTime.Now;
 
-            //var docFile = new DocumentFile();
-            //docFile.Data = Encoding.UTF8.GetBytes(docUpdate.SWIFile);
-            //docFile.FileSize = docFile.Data.Length;
-            //docFile.Hash = docFile.Data.ToFileHash();
-
-            //doc.DocumentFile = docFile;
-
             return doc;
         }
     }

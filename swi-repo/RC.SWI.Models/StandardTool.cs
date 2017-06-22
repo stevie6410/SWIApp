@@ -18,9 +18,9 @@ namespace RC.SWI.Entities
     public partial class StandardTool
     {
         public int Id { get; set; } // Id (Primary key)
-        public string Name { get; set; } // Name (Primary key) (length: 255)
-        public string Image { get; set; } // Image (Primary key)
-        public bool HasCarePoint { get; set; } // HasCarePoint (Primary key)
+        public string Name { get; set; } // Name (length: 255)
+        public string Image { get; set; } // Image
+        public bool HasCarePoint { get; set; } // HasCarePoint
         public string CarePoint { get; set; } // CarePoint (length: 255)
         public System.Guid? SWIId { get; set; } // SWIId
 

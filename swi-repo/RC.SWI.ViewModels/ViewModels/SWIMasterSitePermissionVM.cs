@@ -18,16 +18,19 @@ namespace RC.SWI.ViewModels
 
         public SWIMasterSitePermissionVM(SWIMasterSitePermission sitePermission)
         {
-            Id = sitePermission.Id;
-            SWIMasterId = sitePermission.SWIMaster.Id;
-            Site = new SiteVM(sitePermission.Site);
-            CanRead = sitePermission.CanRead;
-            CanAuthor = sitePermission.CanAuthor;
-            CanManage = sitePermission.CanManage;
-            IsOwner = sitePermission.IsOwner;
-            GrantedBy = new UserVM(sitePermission.GrantedBy).FullName;
-            GrantedOn = sitePermission.GrantedOn;
-            Notes = sitePermission.Notes;
+            if (sitePermission != null)
+            {
+                Id = sitePermission.Id;
+                SWIMasterId = sitePermission.SWIMaster.Id;
+                Site = new SiteVM(sitePermission.Site);
+                CanRead = sitePermission.CanRead;
+                CanAuthor = sitePermission.CanAuthor;
+                CanManage = sitePermission.CanManage;
+                IsOwner = sitePermission.IsOwner;
+                GrantedBy = new UserVM(sitePermission.GrantedBy).FullName;
+                GrantedOn = sitePermission.GrantedOn;
+                Notes = sitePermission.Notes;
+            }
         }
     }
 }

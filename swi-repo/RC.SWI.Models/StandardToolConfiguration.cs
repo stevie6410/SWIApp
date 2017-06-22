@@ -25,12 +25,12 @@ namespace RC.SWI.Entities
         public StandardToolConfiguration(string schema)
         {
             ToTable("StandardTools", schema);
-            HasKey(x => new { x.Id, x.Name, x.Image, x.HasCarePoint });
+            HasKey(x => x.Id);
 
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.Image).HasColumnName(@"Image").HasColumnType("varchar(max)").IsRequired().IsUnicode(false).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.HasCarePoint).HasColumnName(@"HasCarePoint").HasColumnType("bit").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255);
+            Property(x => x.Image).HasColumnName(@"Image").HasColumnType("varchar(max)").IsRequired().IsUnicode(false);
+            Property(x => x.HasCarePoint).HasColumnName(@"HasCarePoint").HasColumnType("bit").IsRequired();
             Property(x => x.CarePoint).HasColumnName(@"CarePoint").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
             Property(x => x.SWIId).HasColumnName(@"SWIId").HasColumnType("uniqueidentifier").IsOptional();
 

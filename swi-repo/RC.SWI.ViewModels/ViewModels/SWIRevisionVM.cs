@@ -17,6 +17,9 @@ namespace RC.SWI.ViewModels
 
         public SWIRevisionVM(SWIRevision revision, bool includeFile = false)
         {
+            if(revision != null)
+            {
+
             Id = revision.Id;
             RevisionNumber = revision.RevisionNumber;
             Released = revision.Released;
@@ -25,6 +28,7 @@ namespace RC.SWI.ViewModels
             ModifiedOn = revision.ModifiedOn;
             Document = new DocumentVM(revision.Document, includeFile);
             IsLatest = revision.SWIMaster.SWIRevisions.Where(rev => rev.RevisionNumber > revision.RevisionNumber).Any() == false;
+            }
         }
     }
 }
