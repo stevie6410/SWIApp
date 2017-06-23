@@ -1,4 +1,4 @@
-﻿-- <Migration ID="98bb7b86-c61f-4aef-886b-96883172b6e3" />
+﻿-- <Migration ID="99184c9c-642c-4aba-84db-d75a2e91bab7" />
 GO
 
 PRINT N'Creating schemas'
@@ -372,13 +372,17 @@ PRINT N'Creating [swi].[StandardTools]'
 GO
 CREATE TABLE [swi].[StandardTools]
 (
-[Id] [int] NOT NULL,
+[Id] [int] NOT NULL IDENTITY(1, 1),
 [Name] [varchar] (255) NOT NULL,
 [Image] [varchar] (max) NOT NULL,
 [HasCarePoint] [bit] NOT NULL,
 [CarePoint] [varchar] (255) NULL,
-[SWIId] [uniqueidentifier] NULL
+[SWIMasterId] [uniqueidentifier] NULL
 )
+GO
+PRINT N'Creating primary key [PK_StandardTools] on [swi].[StandardTools]'
+GO
+ALTER TABLE [swi].[StandardTools] ADD CONSTRAINT [PK_StandardTools] PRIMARY KEY CLUSTERED  ([Id])
 GO
 PRINT N'Creating [swi].[SWITypes]'
 GO
@@ -561,5 +565,5 @@ ALTER TABLE [swi].[SWIMasters] ADD CONSTRAINT [FK_SWIMasters_SWITypes] FOREIGN K
 GO
 PRINT N'Adding foreign keys to [swi].[StandardTools]'
 GO
-ALTER TABLE [swi].[StandardTools] ADD CONSTRAINT [FK_StandardTools_SWIMasters] FOREIGN KEY ([SWIId]) REFERENCES [swi].[SWIMasters] ([Id])
+ALTER TABLE [swi].[StandardTools] ADD CONSTRAINT [FK_StandardTools_SWIMasters] FOREIGN KEY ([SWIMasterId]) REFERENCES [swi].[SWIMasters] ([Id])
 GO
