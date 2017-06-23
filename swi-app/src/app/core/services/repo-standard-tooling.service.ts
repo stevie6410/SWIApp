@@ -27,6 +27,8 @@ export class RepoStandardToolingService {
   public create(createTool: CreateStandardTool): Observable<StandardTool> {
     let url: string = `${this.baseApiUrl}${this.stdToolingMethod}`;
     let body: string = JSON.stringify(createTool);
+    console.log("url", url);
+    // console.log("body", body);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -36,6 +38,8 @@ export class RepoStandardToolingService {
   public update(tool: StandardTool): Observable<StandardTool> {
     let url: string = `${this.baseApiUrl}${this.stdToolingMethod}`;
     let body: string = JSON.stringify(tool);
+    console.log("url", url);
+    // console.log("body", body);
     return this.http
       .put(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -43,7 +47,8 @@ export class RepoStandardToolingService {
   }
 
   public delete(id: number): Observable<boolean> {
-    let url: string = `${this.baseApiUrl}${this.stdToolingMethod}/${id}`;
+    let url: string = `${this.baseApiUrl}${this.stdToolingMethod}${id.toString()}`;
+    console.log("url", url);
     return this.http
       .delete(url)
       .map(res => handleResponse(res))

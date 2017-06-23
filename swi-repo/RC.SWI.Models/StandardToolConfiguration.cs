@@ -29,8 +29,8 @@ namespace RC.SWI.Entities
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255);
-            Property(x => x.Image).HasColumnName(@"Image").HasColumnType("varchar(max)").IsRequired().IsUnicode(false);
-            Property(x => x.HasCarePoint).HasColumnName(@"HasCarePoint").HasColumnType("bit").IsRequired();
+            Property(x => x.Image).HasColumnName(@"Image").HasColumnType("varchar(max)").IsOptional().IsUnicode(false);
+            Property(x => x.HasCarePoint).HasColumnName(@"HasCarePoint").HasColumnType("bit").IsOptional();
             Property(x => x.CarePoint).HasColumnName(@"CarePoint").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
             Property(x => x.SWIMasterId).HasColumnName(@"SWIMasterId").HasColumnType("uniqueidentifier").IsOptional();
 

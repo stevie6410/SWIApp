@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "app/shared";
+import { SwiRepoModule } from "app/swi-repo/swi-repo.module";
 import {
   StdToolingSearchComponent,
   StdToolingFormComponent,
-  StdToolingLookupComponent
+  StdToolingLookupComponent,
+  SWIStandardToolResolver
 } from "app/swi-standard-tooling";
-
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    SwiRepoModule
   ],
   exports: [
     StdToolingSearchComponent,
@@ -22,6 +26,9 @@ import {
     StdToolingSearchComponent,
     StdToolingFormComponent,
     StdToolingLookupComponent
+  ],
+  providers: [
+    SWIStandardToolResolver
   ]
 })
 export class SwiStandardToolingModule { }

@@ -39,8 +39,9 @@ const appRoutes: Routes = [
   { path: 'builder/:id/tools/:toolid', component: SwiToolEditComponent, resolve: { swi: SWIResolver } },
   { path: 'importer', component: SwiImporterScreenComponent },
   { path: 'repo/search', component: RepoSearchComponent },
-  { path: 'repo/tooling/search', component: StdToolingSearchComponent }, 
-  { path: 'repo/tooling/edit/:id', component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } } 
+  { path: 'repo/tooling/search', component: StdToolingSearchComponent },
+  { path: 'repo/tooling/edit/:id', component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } },
+  { path: 'repo/tooling/new', component: StdToolingFormComponent }
 ];
 
 @NgModule({

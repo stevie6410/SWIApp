@@ -20,7 +20,7 @@ namespace RC.SWI.Entities
         public int Id { get; set; } // Id (Primary key)
         public string Name { get; set; } // Name (length: 255)
         public string Image { get; set; } // Image
-        public bool HasCarePoint { get; set; } // HasCarePoint
+        public bool? HasCarePoint { get; set; } // HasCarePoint
         public string CarePoint { get; set; } // CarePoint (length: 255)
         public System.Guid? SWIMasterId { get; set; } // SWIMasterId
 

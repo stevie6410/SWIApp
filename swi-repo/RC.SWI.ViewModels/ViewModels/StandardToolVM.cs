@@ -12,7 +12,7 @@ namespace RC.SWI.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public bool HasCarePoint { get; set; }
+        public bool? HasCarePoint { get; set; }
         public string CarePoint { get; set; }
         public SWIMasterVM SWIMaster { get; set; }
 
@@ -40,7 +40,7 @@ namespace RC.SWI.ViewModels
             result.Image = toolVM.Image;
             result.HasCarePoint = toolVM.HasCarePoint;
             result.CarePoint = toolVM.CarePoint;
-            result.SWIMasterId = toolVM.SWIMaster.Id;
+            if (toolVM.SWIMaster != null) result.SWIMasterId = toolVM.SWIMaster.Id;
             return result;
         }
     }

@@ -51,7 +51,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         public async Task<IHttpActionResult> Update([FromBody]StandardToolVM tool)
         {
             var result = await stdTooling.Update(tool);
-            if (result == null) return null;
+            if (result == null) return BadRequest("Could not update standard tool");
             return Ok(result);
         }
 

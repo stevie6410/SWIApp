@@ -57,19 +57,21 @@ namespace RC.SWI.Services.Services
             }
         }
 
-        public async Task<StandardToolVM> Update(StandardToolVM tool)
+        public async Task<StandardToolVM> Update(StandardToolVM toolVM)
         {
             try
             {
-                var entity = db.Entry(tool.ToStandardTool());
+                var tool = toolVM.ToStandardTool();
+                var entity = db.Entry(tool);
                 entity.State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 //Refetch the record to maintain relationships in the return object
                 var result = await db.StandardTools.Include(t => t.SWIMaster).Where(t => t.Id == entity.Entity.Id).FirstOrDefaultAsync();
                 return new StandardToolVM(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 return null;
             }
         }
