@@ -1,8 +1,7 @@
-﻿-- <Migration ID="99184c9c-642c-4aba-84db-d75a2e91bab7" />
+﻿-- <Migration ID="f17ab68e-21b9-4f76-8a82-3c891028b044" />
 GO
 
 PRINT N'Creating schemas'
-
 GO
 CREATE SCHEMA [security]
 AUTHORIZATION [db_owner]
@@ -292,11 +291,15 @@ PRINT N'Creating [dbo].[HealthAndSafetyIcon]'
 GO
 CREATE TABLE [dbo].[HealthAndSafetyIcon]
 (
-[Id] [int] NOT NULL,
+[Id] [int] NOT NULL IDENTITY(1, 1),
 [Name] [varchar] (255) NOT NULL,
 [Image] [varchar] (max) NULL,
 [AppConfigurationId] [int] NOT NULL
 )
+GO
+PRINT N'Creating primary key [PK_HealthAndSafetyIcon] on [dbo].[HealthAndSafetyIcon]'
+GO
+ALTER TABLE [dbo].[HealthAndSafetyIcon] ADD CONSTRAINT [PK_HealthAndSafetyIcon] PRIMARY KEY CLUSTERED  ([Id])
 GO
 PRINT N'Creating [dbo].[DocumentPartLinks]'
 GO
@@ -375,8 +378,8 @@ CREATE TABLE [swi].[StandardTools]
 (
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [Name] [varchar] (255) NOT NULL,
-[Image] [varchar] (max) NOT NULL,
-[HasCarePoint] [bit] NOT NULL,
+[Image] [varchar] (max) NULL,
+[HasCarePoint] [bit] NULL,
 [CarePoint] [varchar] (255) NULL,
 [SWIMasterId] [uniqueidentifier] NULL
 )
