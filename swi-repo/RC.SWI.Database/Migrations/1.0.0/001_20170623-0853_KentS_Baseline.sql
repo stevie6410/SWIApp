@@ -2,6 +2,7 @@
 GO
 
 PRINT N'Creating schemas'
+
 GO
 CREATE SCHEMA [security]
 AUTHORIZATION [db_owner]
