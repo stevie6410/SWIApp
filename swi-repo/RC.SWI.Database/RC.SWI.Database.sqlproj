@@ -31,7 +31,7 @@
     <PreDeploymentSubFolder>Pre-Deployment</PreDeploymentSubFolder>
     <PostDeploymentSubFolder>Post-Deployment</PostDeploymentSubFolder>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <GenerateOctopusNuPkg>True</GenerateOctopusNuPkg>
+    <GenerateOctopusNuPkg>False</GenerateOctopusNuPkg>
     <OctoOptionDeployToLocalInstance>True</OctoOptionDeployToLocalInstance>
     <GenerateSqlPackage>True</GenerateSqlPackage>
     <SyncToOfflineSchemaModel>False</SyncToOfflineSchemaModel>
