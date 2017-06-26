@@ -38,7 +38,16 @@
     <DeployOnceUseSemver>True</DeployOnceUseSemver>
     <TargetFrameworkProfile />
     <ExcludeObjectsFromSync />
-    <IncludeObjectsInDataSync />
+    <IncludeObjectsInDataSync>
+Table=[dbo].[AppSettings];
+Table=[dbo].[AppConfigurations];
+Table=[security].[Roles];
+Table=[security].[Permissions];
+Table=[dbo].[ErpSystem];
+Table=[dbo].[DocumentTypes];
+Table=[swi].[SWITypes];
+Table=[dbo].[HealthAndSafetyIcon];
+</IncludeObjectsInDataSync>
     <DeployChangesInitialImportDone>False</DeployChangesInitialImportDone>
     <DeployChangesExecutionOrder />
     <AlwaysUseDefaultConnectionForShadowDatabase>True</AlwaysUseDefaultConnectionForShadowDatabase>
@@ -220,5 +229,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Migrations\1.0.0\002_20170626-1407_KentS.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Migrations\1.0.0\003_20170626-1808_KentS.sql" />
   </ItemGroup>
 </Project>
