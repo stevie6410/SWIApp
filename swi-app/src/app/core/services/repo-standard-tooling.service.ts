@@ -1,9 +1,10 @@
-import { ToolingSearchCriteria } from './../models/app.models';
+import { ActivatedRoute } from "@angular/router";
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptionsArgs, RequestOptions, URLSearchParams } from "@angular/http";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
-import { StandardTool, CreateStandardTool, defaultOptions, handleResponse, handleError, EnvironmentService } from "app/core";
+import { StandardTool, CreateStandardTool, defaultOptions, handleResponse, handleError, ToolingSearchCriteria, EnvironmentConfiguration } from "app/core";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Injectable()
 export class RepoStandardToolingService {
@@ -14,21 +15,21 @@ export class RepoStandardToolingService {
   constructor(
     private http: Http,
     private environment: EnvironmentService
-  ) { 
-    this.init();
-  }
-
-  public async init(){
-    this.baseApiUrl = await this.environment.getRepoURL();
+  ) {
+    this.baseApiUrl = environment.env.repositoryURL;
   }
 
   public getAll(): Observable<StandardTool[]> {
-    return this.http.get(this.baseApiUrl + this.stdToolingMethod)
+    let url = this.baseApiUrl + this.stdToolingMethod;
+    console.log("GetAll", url);
+    return this.http.get(url)
       .map(r => handleResponse(r));
   }
 
   public get(id: number): Observable<StandardTool> {
-    return this.http.get(this.baseApiUrl + this.stdToolingMethod + '/' + id)
+    let url = this.baseApiUrl + this.stdToolingMethod + id;
+    console.log("Get", url);
+    return this.http.get(url)
       .map(r => handleResponse(r));
   }
 
@@ -39,14 +40,17 @@ export class RepoStandardToolingService {
     if (criteria.hasCarePoint) params.set("hasCarePoint", (criteria.hasCarePoint) ? "true" : "false");
     if (criteria.hasLinkedSWI) params.set("hasLinkedSWI", (criteria.hasLinkedSWI) ? "true" : "false");
 
-    return this.http.get(this.baseApiUrl + this.stdToolingMethod + "search", { params: params })
+    let url = this.baseApiUrl + this.stdToolingMethod + 'search';
+    console.log("Search", url);
+
+    return this.http.get(url, { params: params })
       .map(r => handleResponse(r));
   }
 
   public create(createTool: CreateStandardTool): Observable<StandardTool> {
     let url: string = `${this.baseApiUrl}${this.stdToolingMethod}`;
     let body: string = JSON.stringify(createTool);
-    console.log("url", url);
+    console.log("Create", url);
     // console.log("body", body);
     return this.http
       .post(url, body, defaultOptions())
@@ -57,7 +61,7 @@ export class RepoStandardToolingService {
   public update(tool: StandardTool): Observable<StandardTool> {
     let url: string = `${this.baseApiUrl}${this.stdToolingMethod}`;
     let body: string = JSON.stringify(tool);
-    console.log("url", url);
+    console.log("Update", url);
     // console.log("body", body);
     return this.http
       .put(url, body, defaultOptions())
@@ -67,7 +71,7 @@ export class RepoStandardToolingService {
 
   public delete(id: number): Observable<boolean> {
     let url: string = `${this.baseApiUrl}${this.stdToolingMethod}${id.toString()}`;
-    console.log("url", url);
+    console.log("Delete", url);
     return this.http
       .delete(url)
       .map(res => handleResponse(res))

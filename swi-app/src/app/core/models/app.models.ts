@@ -1,6 +1,13 @@
 import { SWIUser, SWICompany, SWIPermission } from './security.models';
 import { SWIMaster } from "./repo.models";
 
+export class EnvironmentConfiguration {
+    environment: string;
+    version: string;
+    buildNumber: string;
+    repositoryURL: string;
+}
+
 export class AppCatalog {
     id: number;
     lastSync: Date;
@@ -167,10 +174,10 @@ export class SWITag {
 }
 
 export class ToolingSearchCriteria {
-  toolNumber: number;
-  term: string;
-  hasCarePoint: boolean;
-  hasLinkedSWI: boolean;
+    toolNumber: number;
+    term: string;
+    hasCarePoint: boolean;
+    hasLinkedSWI: boolean;
 }
 
 export class GUID {

@@ -15,8 +15,8 @@ import {
   handleResponse,
   defaultOptions,
   handleError,
-  EnvironmentService
 } from "app/core";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Injectable()
 export class RepoDocsService {
@@ -29,12 +29,8 @@ export class RepoDocsService {
     private http: Http,
     private imageStore: ImageStoreService,
     private environment: EnvironmentService
-  ) { 
-    this.init();
-  }
-
-  public async init(){
-      this.baseApiUrl = await this.environment.getRepoURL();
+  ) {
+    this.baseApiUrl = this.environment.env.repositoryURL;
   }
 
   public getDocument(id: number): Promise<RepoDocument> {

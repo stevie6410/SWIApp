@@ -1,5 +1,5 @@
 //Core Angular Imports
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -26,7 +26,8 @@ import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { ToastCustomOptions } from "app/core/toastr.options";
-import { ToastModule,ToastOptions } from "ng2-toastr/ng2-toastr";
+import { ToastModule, ToastOptions } from "ng2-toastr/ng2-toastr";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,8 @@ import { ToastModule,ToastOptions } from "ng2-toastr/ng2-toastr";
     SwiStandardToolingModule
   ],
   providers: [
+    { provide: APP_INITIALIZER, useFactory: (config: EnvironmentService) => () => config.load(), deps: [EnvironmentService], multi: true },
+    EnvironmentService,
     { provide: ToastOptions, useClass: ToastCustomOptions },
   ],
   bootstrap: [AppComponent]

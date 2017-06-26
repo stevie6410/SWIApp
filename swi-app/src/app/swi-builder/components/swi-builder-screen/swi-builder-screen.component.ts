@@ -21,6 +21,7 @@ export class SwiBuilderScreenComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
+    console.log("Route data SWI Builder screen", route.snapshot.data);
     this.swi = this.route.snapshot.data['swi'];
     this.initalSWIState = generateHash(JSON.stringify(this.swi));
     this.validateStageOrder();

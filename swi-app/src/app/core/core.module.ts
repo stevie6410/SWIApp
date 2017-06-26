@@ -1,5 +1,4 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-
+import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
 import { ModalModule } from "angular2-modal";
 import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 import { MomentModule } from "angular2-moment";
@@ -8,7 +7,6 @@ import {
     AppCatalogService,
     ImageService,
     ImageStoreService,
-    EnvironmentService,
     RepoDocsService,
     RepoSwiService,
     SWIDBService,
@@ -32,7 +30,6 @@ import {
         AppCatalogService,
         ImageService,
         ImageStoreService,
-        EnvironmentService,
         RepoDocsService,
         RepoSwiService,
         SWIDBService,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandImage } from "assets/image-placeholder";
-import { SWIFileService, EnvironmentService } from "app/core";
+import { SWIFileService } from "app/core";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Component({
   selector: 'app-sidenav',
@@ -17,16 +18,15 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private swiFileService: SWIFileService,
-    private packageService: EnvironmentService
+    private environment: EnvironmentService
   ) { }
 
-  async ngOnInit() {
-
-    let verTag = await this.packageService.getVersionTag();
+  ngOnInit() {
+    let verTag = this.environment.getVersionTag();
     this.versionTag = verTag;
     this.isProduction = this.versionTag.startsWith("Production");
-    this.buildNumber = await this.packageService.getEnvironmentProp('buildNumber');
-    console.info("App Version: ", await this.packageService.getAppVersion());
+    this.buildNumber = this.environment.getEnvironmentProp('buildNumber');
+    console.info("App Version: ", this.environment.getAppVersion());
   }
 
   toggleSidebar() {

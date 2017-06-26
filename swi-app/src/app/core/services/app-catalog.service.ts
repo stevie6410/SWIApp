@@ -4,7 +4,9 @@ import { Observable } from "rxjs/Observable";
 import { SWIDBService } from "./swi-db.service";
 import { SWIHSItem, AppCatalog } from "../models/app.models";
 import Dexie from 'dexie';
-import { EnvironmentService } from "app/core";
+import { EnvironmentConfiguration } from "app/core";
+import { ActivatedRoute } from "@angular/router";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Injectable()
 export class AppCatalogService {
@@ -16,15 +18,11 @@ export class AppCatalogService {
     constructor(
         private http: Http,
         private db: SWIDBService,
+        private route: ActivatedRoute,
         private environment: EnvironmentService
     ) {
         this.appConfigTable = this.db.table('appConfig');
-        this.init();
-    }
-
-    private async init() {
-        this.repoURL = await this.environment.getRepoURL();
-        console.log("Set this repoURL", this.repoURL);
+        this.repoURL = environment.env.repositoryURL;
     }
 
     private get fullBaseURL(): string {

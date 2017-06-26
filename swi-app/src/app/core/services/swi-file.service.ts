@@ -3,11 +3,11 @@ import { SWIHeader, SWIImage } from '../models/app.models';
 import Dexie from 'dexie';
 import { SWIDBService } from "./swi-db.service";
 import { ImageService } from "./image.service";
-import { EnvironmentService } from "./environment.service";
 import { RepoDocsService } from "./repo-docs.service";
 import { ImageStoreService } from "./image-store.service";
 import { ImagePlaceholder } from "assets/image-placeholder";
 import { MD5 } from "crypto-js";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Injectable()
 export class SWIFileService {
@@ -19,7 +19,7 @@ export class SWIFileService {
         private imageService: ImageService,
         private imageStore: ImageStoreService,
         private repoDocs: RepoDocsService,
-        private pkgService: EnvironmentService
+        private environment: EnvironmentService
     ) {
         this.table = this.db.table('swis');
     }
@@ -31,7 +31,7 @@ export class SWIFileService {
     async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
         if (!overrideSyncWithImageStore) await this.imageStore.addAll(swi, swi.id, compress);
         try {
-            swi.appVersion = await this.pkgService.getAppVersion();
+            swi.appVersion = await this.environment.getAppVersion();
             swi.updatedOn = new Date();
             let newSWI = await this.table.add(swi);
             return this.table.get(newSWI);
@@ -48,7 +48,7 @@ export class SWIFileService {
     async update(swi: SWIHeader): Promise<SWIHeader> {
         console.log("Saving file");
         swi.updatedOn = new Date();
-        swi.appVersion = await this.pkgService.getAppVersion();
+        swi.appVersion = await this.environment.getAppVersion();
         await this.imageStore.addAll(swi, swi.id);
         swi.clientHash = this.getFileHash(swi);
         await this.table.update(swi.id, swi);
