@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandImage } from "assets/image-placeholder";
-import { SWIFileService, PackageService } from "app/core";
+import { SWIFileService, EnvironmentService } from "app/core";
 
 @Component({
   selector: 'app-sidenav',
@@ -17,7 +17,7 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private swiFileService: SWIFileService,
-    private packageService: PackageService
+    private packageService: EnvironmentService
   ) { }
 
   async ngOnInit() {

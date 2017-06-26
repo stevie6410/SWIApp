@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Rx";
 import "rxjs/Rx";
 
 @Injectable()
-export class PackageService {
+export class EnvironmentService {
 
     private env: any;
 
@@ -44,8 +44,14 @@ export class PackageService {
     }
 
     async getAppVersion(): Promise<string> {
-        if (!this.env) this.env = await this.getEnvFile();
+        if (!this.env) this.env = await this.getEnvFile().toPromise();
         return this.env.version;
+    }
+
+    async getRepoURL(): Promise<string> {
+        if (!this.env) this.env = await this.getEnvFile().toPromise();
+        if (!this.env.repositoryURL) return null;
+        return this.env.repositoryURL;
     }
 
     private compileVersionTag(env: any): string {

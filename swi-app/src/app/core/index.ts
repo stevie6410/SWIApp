@@ -7,12 +7,12 @@ export * from './models/repo.models';
 export * from './models/security.models';
 
 //Services 
+export * from './services/environment.service';
 export * from './services/swi-db.service';
 export * from './services/image.service';
 export * from './services/image-store.service';
 export * from './services/swi-file.service';
 export * from './services/app-catalog.service';
-export * from './services/package.service';
 export * from './services/repo-docs.service';
 export * from './services/repo-swi.service';
 export * from './services/swi-duplicate.service';

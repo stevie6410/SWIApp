@@ -14,20 +14,28 @@ import {
   SWIHeader,
   handleResponse,
   defaultOptions,
-  handleError
+  handleError,
+  EnvironmentService
 } from "app/core";
 
 @Injectable()
 export class RepoDocsService {
 
-  private baseApiUrl: string = "http://localhost:4201/api/v1/";
-  private documentsMethod: string = "documents/"
-  private mastersMethod: string = "swi/master/";
+  private baseApiUrl: string;
+  private documentsMethod: string = "api/v1/documents/"
+  private mastersMethod: string = "api/v1/swi/master/";
 
   constructor(
     private http: Http,
-    private imageStore: ImageStoreService
-  ) { }
+    private imageStore: ImageStoreService,
+    private environment: EnvironmentService
+  ) { 
+    this.init();
+  }
+
+  public async init(){
+      this.baseApiUrl = await this.environment.getRepoURL();
+  }
 
   public getDocument(id: number): Promise<RepoDocument> {
     let url: string = this.baseApiUrl + this.documentsMethod + id.toString();

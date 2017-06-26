@@ -3,7 +3,7 @@ import { SWIHeader, SWIImage } from '../models/app.models';
 import Dexie from 'dexie';
 import { SWIDBService } from "./swi-db.service";
 import { ImageService } from "./image.service";
-import { PackageService } from "./package.service";
+import { EnvironmentService } from "./environment.service";
 import { RepoDocsService } from "./repo-docs.service";
 import { ImageStoreService } from "./image-store.service";
 import { ImagePlaceholder } from "assets/image-placeholder";
@@ -19,7 +19,7 @@ export class SWIFileService {
         private imageService: ImageService,
         private imageStore: ImageStoreService,
         private repoDocs: RepoDocsService,
-        private pkgService: PackageService
+        private pkgService: EnvironmentService
     ) {
         this.table = this.db.table('swis');
     }

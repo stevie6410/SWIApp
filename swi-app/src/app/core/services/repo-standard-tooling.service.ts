@@ -3,17 +3,24 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptionsArgs, RequestOptions, URLSearchParams } from "@angular/http";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
-import { StandardTool, CreateStandardTool, defaultOptions, handleResponse, handleError } from "app/core";
+import { StandardTool, CreateStandardTool, defaultOptions, handleResponse, handleError, EnvironmentService } from "app/core";
 
 @Injectable()
 export class RepoStandardToolingService {
 
-  private baseApiUrl: string = "http://localhost:4201/api/v1/";
-  private stdToolingMethod: string = "standardtools/"
+  private baseApiUrl: string;
+  private stdToolingMethod: string = "api/v1/standardtools/"
 
   constructor(
-    private http: Http
-  ) { }
+    private http: Http,
+    private environment: EnvironmentService
+  ) { 
+    this.init();
+  }
+
+  public async init(){
+    this.baseApiUrl = await this.environment.getRepoURL();
+  }
 
   public getAll(): Observable<StandardTool[]> {
     return this.http.get(this.baseApiUrl + this.stdToolingMethod)

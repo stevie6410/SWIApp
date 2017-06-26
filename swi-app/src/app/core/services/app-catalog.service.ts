@@ -4,18 +4,31 @@ import { Observable } from "rxjs/Observable";
 import { SWIDBService } from "./swi-db.service";
 import { SWIHSItem, AppCatalog } from "../models/app.models";
 import Dexie from 'dexie';
+import { EnvironmentService } from "app/core";
 
 @Injectable()
 export class AppCatalogService {
 
     appConfigTable: Dexie.Table<AppCatalog, number>;
-    repoURL: string = "http://localhost:4201/api/v1/appcatalog/";
+    repoURL: string;
+    appConfigMethod: string = 'api/v1/appcatalog/'
 
     constructor(
         private http: Http,
-        private db: SWIDBService
+        private db: SWIDBService,
+        private environment: EnvironmentService
     ) {
         this.appConfigTable = this.db.table('appConfig');
+        this.init();
+    }
+
+    private async init() {
+        this.repoURL = await this.environment.getRepoURL();
+        console.log("Set this repoURL", this.repoURL);
+    }
+
+    private get fullBaseURL(): string {
+        return this.repoURL + this.appConfigMethod;
     }
 
     public async updateRequired(): Promise<boolean> {
@@ -24,7 +37,7 @@ export class AppCatalogService {
             if (!appCatalog) return true;
             let currentVersion: number = appCatalog.version;
             if (!currentVersion) return true;
-            let result: boolean = await this.http.get(this.repoURL + 'checkversion/' + appCatalog.version).map(r => r.json()).toPromise();
+            let result: boolean = await this.http.get(this.fullBaseURL + 'checkversion/' + appCatalog.version).map(r => r.json()).toPromise();
             // console.log("check version result", result);
             return !result;
         } catch (error) {
@@ -41,7 +54,7 @@ export class AppCatalogService {
 
         try {
             //First try and get the app config from the repository
-            let repoCatalog: AppCatalog = await this.http.get(this.repoURL).map(r => r.json()).toPromise();
+            let repoCatalog: AppCatalog = await this.http.get(this.fullBaseURL).map(r => r.json()).toPromise();
             console.log("Repo Catlog: ", JSON.stringify(repoCatalog));
             if (repoCatalog) {
                 await this.appConfigTable.clear();
