@@ -5,22 +5,22 @@
     <!--Page Content Here   -->
 
 
-    <!--<swi-card [title]="'Filter'">
+    <swi-card [title]="'Filter'">
       <div class='card-block'>
         <div class="row">
           <div class="col">
-            <label for="repo-search-swino">SWI Number</label>
-            <input id="repo-search-swino" type="text" class="form-control">
+            <label for="repo-search-swino">Tool Number</label>
+            <input id="repo-search-swino" type="text" class="form-control" [(ngModel)]="searchCriteria.toolNumber">
           </div>
           <div class="col">
             <label for="repo-search-title">Title</label>
-            <input id="repo-search-title" type="text" class="form-control">
+            <input id="repo-search-title" type="text" class="form-control" [(ngModel)]="searchCriteria.term">
           </div>
         </div>
         <br>
         <button type="button" class="btn btn-primary btn-block" (click)="search()"><i class="fa fa-search"></i> Search</button>
       </div>
-    </swi-card>-->
+    </swi-card>
 
     <swi-card [title]="'Search Results'">
 

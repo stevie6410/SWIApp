@@ -166,6 +166,13 @@ export class SWITag {
     name: string;
 }
 
+export class ToolingSearchCriteria {
+  toolNumber: number;
+  term: string;
+  hasCarePoint: boolean;
+  hasLinkedSWI: boolean;
+}
+
 export class GUID {
     value: string;
     constructor() {
@@ -196,3 +203,4 @@ export function generateHash(obj: any) {
     }
     return hash;
 }
+

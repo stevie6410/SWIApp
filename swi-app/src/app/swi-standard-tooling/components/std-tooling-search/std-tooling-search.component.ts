@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { StandardTool, RepoStandardToolingService } from "app/core";
+import { StandardTool, RepoStandardToolingService, ToolingSearchCriteria } from "app/core";
 
 @Component({
   selector: 'swi-std-tooling-search',
@@ -11,6 +11,8 @@ export class StdToolingSearchComponent implements OnInit {
 
   loading: boolean = true;
   results: StandardTool[] = [];
+
+  searchCriteria: ToolingSearchCriteria = new ToolingSearchCriteria();
 
   constructor(
     private router: Router,
@@ -26,7 +28,9 @@ export class StdToolingSearchComponent implements OnInit {
   }
 
   async search() {
-    this.results = await this.toolStore.getAll().toPromise();
+    this.loading = true;
+    // this.results = await this.toolStore.getAll().toPromise();
+    this.results = await this.toolStore.search(this.searchCriteria).toPromise();
     this.loading = false;
   }
 

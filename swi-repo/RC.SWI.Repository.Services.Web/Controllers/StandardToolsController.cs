@@ -39,6 +39,16 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("search")]
+        public async Task<IHttpActionResult> Search(string term = "", string toolNumber = "", string hasCarePoint = "", string hasLinkedSWI = "")
+        {
+            var result = await stdTooling.Search(term, toolNumber, hasCarePoint, hasLinkedSWI);
+            if (result == null)
+                return BadRequest("Could not find any results");
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IHttpActionResult> Create([FromBody] CreateStandardToolVM tool)
         {

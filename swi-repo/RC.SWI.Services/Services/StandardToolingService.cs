@@ -32,8 +32,46 @@ namespace RC.SWI.Services.Services
         public async Task<StandardToolVM> Get(int id)
         {
             var result = await db.StandardTools.FindAsync(id);
-            if(result == null) return null;
+            if (result == null) return null;
             return new StandardToolVM(result);
+        }
+
+        public async Task<IList<StandardToolVM>> Search(string term = "", string toolNumber = "", string hasCarePoint = "", string hasLinkedSWI = "")
+        {
+            try
+            {
+                var query = db.StandardTools.AsQueryable();
+
+                if (term != string.Empty)
+                    query = query.Where(t => t.Name.Contains(term));
+
+                if (toolNumber != string.Empty)
+                {
+                    int number = int.Parse(toolNumber);
+                    query = query.Where(t => t.Id == number);
+                }
+
+                if (hasCarePoint != string.Empty)
+                {
+                    bool carePoint = bool.Parse(hasCarePoint);
+                    query = query.Where(t => t.HasCarePoint == carePoint);
+                }
+
+                if (hasLinkedSWI != string.Empty)
+                {
+                    bool linkedSWI = bool.Parse(hasLinkedSWI);
+                    query = query.Where(t => (t.SWIMaster != null) == linkedSWI);
+                }
+
+                var queryResults = await query.ToListAsync();
+                var results = queryResults.Select(r => new StandardToolVM(r)).ToList();
+                return results;                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<StandardToolVM> Create(CreateStandardToolVM tool)
@@ -53,7 +91,7 @@ namespace RC.SWI.Services.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                return null;             
+                return null;
             }
         }
 
