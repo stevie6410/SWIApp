@@ -1,4 +1,4 @@
-﻿-- <Migration ID="837dffa0-d332-4cdc-bf8a-66ce75c7065b" />
+﻿-- <Migration ID="96d0c404-eea6-4771-ae79-cfd4a4d6ffbe" />
 GO
 
 SET DATEFORMAT YMD;
@@ -15,16 +15,6 @@ IF (SELECT COUNT(*)
         INSERT  INTO [dbo].[DocumentTypes] ([Id], [Name], [Description], [AllowedFileExt], [IsString], [IsBinary], [IsSWI])
         VALUES                            (2, 'Setup Sheet', 'Setup Sheet', N'pdf', 0, 1, 0);
         SET IDENTITY_INSERT [dbo].[DocumentTypes] OFF;
-    END
-
-
-GO
-IF (SELECT COUNT(*)
-    FROM   [dbo].[ErpSystem]) = 0
-    BEGIN
-        PRINT (N'Add 1 row to [dbo].[ErpSystem]');
-        INSERT  INTO [dbo].[ErpSystem] ([Id], [Name], [Description])
-        VALUES                        (1, 'E1', 'Enterprise One');
     END
 
 

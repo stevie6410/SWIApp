@@ -1,4 +1,4 @@
-﻿-- <Migration ID="f17ab68e-21b9-4f76-8a82-3c891028b044" />
+﻿-- <Migration ID="132037f5-6a5e-4b2d-b9ce-c462b784a3c1" />
 GO
 
 PRINT N'Creating schemas'
@@ -320,7 +320,7 @@ PRINT N'Creating [dbo].[ErpSystem]'
 GO
 CREATE TABLE [dbo].[ErpSystem]
 (
-[Id] [int] NOT NULL,
+[Id] [int] NOT NULL IDENTITY(1, 1),
 [Name] [varchar] (50) NOT NULL,
 [Description] [varchar] (255) NULL
 )
