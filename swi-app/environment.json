@@ -1,5 +1,6 @@
 {
     "environment":  "Local Dev",
     "version":  "0.9.0",
-    "buildNumber":  "999"
+    "buildNumber":  "999",
+    "repositoryURL": "https://localhost:4201/"
 }
