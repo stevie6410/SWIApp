@@ -39,14 +39,17 @@
     <TargetFrameworkProfile />
     <ExcludeObjectsFromSync />
     <IncludeObjectsInDataSync>
-Table=[dbo].[AppSettings];
-Table=[dbo].[AppConfigurations];
 Table=[security].[Roles];
 Table=[security].[Permissions];
-Table=[dbo].[ErpSystem];
-Table=[dbo].[DocumentTypes];
 Table=[swi].[SWITypes];
+Table=[dbo].[AppSettings];
+Table=[dbo].[ApprovalActions];
+Table=[dbo].[DocumentTypes];
+Table=[dbo].[ErpSystem];
 Table=[dbo].[HealthAndSafetyIcon];
+Table=[security].[RolePermissions];
+Table=[security].[Sites];
+Table=[dbo].[AppConfigurations];
 </IncludeObjectsInDataSync>
     <DeployChangesInitialImportDone>False</DeployChangesInitialImportDone>
     <DeployChangesExecutionOrder />
@@ -231,6 +234,9 @@ Table=[dbo].[HealthAndSafetyIcon];
     <None Include="Migrations\1.0.0\002_20170626-1407_KentS.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrations\1.0.0\003_20170626-1808_KentS.sql" />
+    <None Include="Migrations\1.0.0\003_20170626-1817_KentS.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Migrations\1.0.0\004_20170626-1819_KentS.sql" />
   </ItemGroup>
 </Project>
