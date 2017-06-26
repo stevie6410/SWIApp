@@ -1,5 +1,6 @@
+import { ToolingSearchCriteria } from './../models/app.models';
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptionsArgs, RequestOptions } from "@angular/http";
+import { Http, Response, Headers, RequestOptionsArgs, RequestOptions, URLSearchParams } from "@angular/http";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
 import { StandardTool, CreateStandardTool, defaultOptions, handleResponse, handleError } from "app/core";
@@ -21,6 +22,17 @@ export class RepoStandardToolingService {
 
   public get(id: number): Observable<StandardTool> {
     return this.http.get(this.baseApiUrl + this.stdToolingMethod + '/' + id)
+      .map(r => handleResponse(r));
+  }
+
+  public search(criteria: ToolingSearchCriteria): Observable<StandardTool[]> {
+    let params: URLSearchParams = new URLSearchParams();
+    if (criteria.term) params.set("term", criteria.term);
+    if (criteria.toolNumber) params.set("toolNumber", criteria.toolNumber.toString());
+    if (criteria.hasCarePoint) params.set("hasCarePoint", (criteria.hasCarePoint) ? "true" : "false");
+    if (criteria.hasLinkedSWI) params.set("hasLinkedSWI", (criteria.hasLinkedSWI) ? "true" : "false");
+
+    return this.http.get(this.baseApiUrl + this.stdToolingMethod + "search", { params: params })
       .map(r => handleResponse(r));
   }
 
