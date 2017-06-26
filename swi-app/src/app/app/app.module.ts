@@ -29,6 +29,10 @@ import { ToastCustomOptions } from "app/core/toastr.options";
 import { ToastModule, ToastOptions } from "ng2-toastr/ng2-toastr";
 import { EnvironmentService } from "app/app/services/environment.service";
 
+export function initEnvironment(envService: EnvironmentService) {
+  return () => envService.load();
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +58,7 @@ import { EnvironmentService } from "app/app/services/environment.service";
     SwiStandardToolingModule
   ],
   providers: [
-    { provide: APP_INITIALIZER, useFactory: (config: EnvironmentService) => () => config.load(), deps: [EnvironmentService], multi: true },
+    { provide: APP_INITIALIZER, useFactory: initEnvironment, deps: [EnvironmentService], multi: true },
     EnvironmentService,
     { provide: ToastOptions, useClass: ToastCustomOptions },
   ],
