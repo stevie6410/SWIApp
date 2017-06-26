@@ -1,0 +1,34 @@
+<app-page [title]='title' [backButton]="false" [faIcon]="'fa-cubes'" [isLoading]="isLoading" [loadingMessage]="loadingMessage" [progressNumber]="progress">
+  <!--Add Page level buttons here with page-button class-->
+  <!--<button type='button' class='page-button btn btn-warning' (click)="this.cleanImageStore()">Clean Image Store</button>-->
+  <button type='button' class='page-button btn btn-success' routerLink="/builder">Create New SWI</button>
+  <div class='page-body' importDropZone (onImportStarted)="importStarted()" (onImported)="reloadList()" (onImportStageUpdate)="loadingMessage = $event" (onImportProgress)="progress = $event">
+
+    <!--Page Content Here   -->
+    <div class="row">
+
+      <div class="col">
+
+        <div class="card-gallery flex-container">
+          <!--<div class="card" *ngFor="let swi of localSWIs | orderBy: ['-updatedOn']" (click)="openSWI(swi)">-->
+          <div class="card" *ngFor="let swi of localSWIs" (click)="openSWI(swi)">
+            <swi-img class="card-img-top" [imageKey]="swi.coverImage"></swi-img>
+            <div class="card-block">
+              <span class="card-title">{{swi.title}}</span>
+              <div class="badge-container">
+                <span class="badge badge-primary card-badge">{{swi?.category}}</span>
+                <!--<span class="badge badge-default card-badge">SWI Rev: A</span>-->
+                <!--<span class="badge badge-success card-badge" *ngIf="swi.released"> <i class="fa fa-check"></i> Released</span>-->
+                <!--<span class="badge badge-warning card-badge" *ngIf="!swi.released"> <i class="fa fa-warning"></i> Unreleased</span>-->
+                <span class="badge badge-info card-badge" *ngIf="swi.appVersion"> <i class="fa fa-info-circle"></i>  v{{swi?.appVersion}}</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated: {{swi.updatedOn | amTimeAgo}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page>

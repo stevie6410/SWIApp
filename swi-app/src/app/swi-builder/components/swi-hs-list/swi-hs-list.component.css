@@ -1,0 +1,57 @@
+.hs-options-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hs-option{  
+    border: 2px dashed darkgray;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90px;
+    padding: 5px;
+    -moz-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    /*cursor: pointer;*/
+    position: relative;
+}
+
+.hs-option:hover{
+  -moz-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  border:2px dashed #3d464d;
+}
+
+.hs-option-caption{
+    max-width: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.hs-option-selected{
+    border:2px dashed #35d035;
+}
+
+.hs-option-selected:hover{
+    border:2px dashed #35d035;
+}
+
+.hs-option-selected-icon{
+    color: #35d035;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    right: 0px;
+    top: 0px;
+    display: initial !important;
+}
+
+img{
+    height: 80px;
+    width: 80px;
+}

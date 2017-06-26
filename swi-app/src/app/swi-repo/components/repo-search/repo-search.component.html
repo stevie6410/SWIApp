@@ -1,0 +1,79 @@
+<app-page [title]="' Search Repository'" [backButton]="false" [faIcon]="'fa-search'">
+  <!--Add Page level buttons here with page-button class-->
+  <!--<button type='button' class='page-button btn btn-primary'>Page Menu Button</button>-->
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+    <swi-card [title]="'Filter'">
+      <div class='card-block'>
+
+        <div class="row">
+          <div class="col">
+
+            <!--Search by Title-->
+            <label for="repo-search-swino">SWI Number</label>
+            <input id="repo-search-swino" type="text" class="form-control">
+
+          </div>
+          <div class="col">
+
+            <!--Search by Title-->
+            <label for="repo-search-title">Title</label>
+            <input id="repo-search-title" type="text" class="form-control">
+
+          </div>
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary btn-block" (click)="search()"><i class="fa fa-search"></i> Search</button>
+
+      </div>
+    </swi-card>
+
+    <swi-card [title]="'Search Results'">
+
+      <!--Loading Message-->
+      <div class='card-block' *ngIf="loading">
+        <h5>
+          <i class="fa fa-spinner fa-spin"></i> Searching SWI Repository...
+        </h5>
+      </div>
+
+      <!--Search Results List-->
+      <div class="list-unstyled list-group list-group-flush card-list" *ngIf="!loading">
+        <div *ngFor="let result of results">
+
+          <!--Main List Item-->
+          <div class="list-group-item media search-result" [ngClass]="{'selected-result': result == selectedResult}" (click)="selectedResult = result">
+            <h5><span class="badge badge-pill badge-primary">SWI-{{result.swiNumber}}</span></h5>
+            <swi-img class="d-flex mr-3 thumb-img" [imageKey]="'a'" [thumbnail]="true" [border]="true"></swi-img>
+            <div class="media-body">
+
+              <div class="properties-container">
+                <span class="property full-width"><h6 class="mt-0 mb-1">{{result.title}}</h6></span>
+                <span class="property"><span class="badge badge-default type-prop">{{result.type}}</span></span>
+                <span class="property">{{result.createdOn | amCalendar}}</span>
+                <span class="property">
+ 
+              </span>
+              </div>
+
+              <!--{{stage.description}}-->
+            </div>
+
+            <div class="btn-group">
+              <button type="button" class="btn btn-default"><i class="fa fa-arrow-down"></i> Import</button>
+            </div>
+
+          </div>
+
+          <!--Dropdown properties-->
+          <div class="list-group-item revision-panel" *ngIf="result == selectedResult">
+            Some Revison details can go here
+          </div>
+
+        </div>
+      </div>
+    </swi-card>
+
+  </div>
+</app-page>
