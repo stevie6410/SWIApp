@@ -45,7 +45,6 @@ Table=[swi].[SWITypes];
 Table=[dbo].[AppSettings];
 Table=[dbo].[ApprovalActions];
 Table=[dbo].[DocumentTypes];
-Table=[dbo].[ErpSystem];
 Table=[dbo].[HealthAndSafetyIcon];
 Table=[security].[RolePermissions];
 Table=[security].[Sites];
@@ -232,5 +231,8 @@ Table=[dbo].[AppConfigurations];
   </ItemGroup>
   <ItemGroup>
     <None Include="Migrations\1.0.0\002_20170626-1836_KentS.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Migrations\1.0.0\003_20170626-1841_KentS.sql" />
   </ItemGroup>
 </Project>
