@@ -41,6 +41,7 @@
     <IncludeObjectsInDataSync />
     <DeployChangesInitialImportDone>False</DeployChangesInitialImportDone>
     <DeployChangesExecutionOrder />
+    <AlwaysUseDefaultConnectionForShadowDatabase>True</AlwaysUseDefaultConnectionForShadowDatabase>
   </PropertyGroup>
   <!-- READYROLL OFFLINE SCHEMA MODEL OPTIONS -->
   <PropertyGroup>
@@ -215,6 +216,6 @@
     <None Include="Post-Deployment\01_Finalize_Deployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrations\1.0.0\001_20170623-0853_KentS.sql" />
+    <None Include="Migrations\1.0.0\001_20170623-0853_KentS_Baseline.sql" />
   </ItemGroup>
 </Project>
