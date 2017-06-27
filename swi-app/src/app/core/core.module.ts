@@ -16,7 +16,8 @@ import {
     HSItemsResolver,
     SWIResolver,
     SWIsResolver,
-    RepoStandardToolingService
+    RepoStandardToolingService,
+    SwiUpgradeService
 } from "./index";
 
 @NgModule({
@@ -39,7 +40,8 @@ import {
         HSItemsResolver,
         SWIResolver,
         SWIsResolver,
-        RepoStandardToolingService
+        RepoStandardToolingService,
+        SwiUpgradeService
     ],
     bootstrap: []
 })

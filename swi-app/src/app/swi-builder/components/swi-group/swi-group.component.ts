@@ -87,7 +87,7 @@ export class SwiGroupComponent implements OnInit {
       .open()
       .then(dialogRef => dialogRef.result)
       .then(result => {
-        this.swi.swiStages = this.swi.swiStages.filter(s => s.sequence != stage.sequence);
+        this.swi.stageGroups.filter(g => g.id == group.id)[0].stages = this.swi.stageGroups.filter(g => g.id == group.id)[0].stages.filter(s => s.sequence != stage.sequence);
         this.recalculateStageSequences(group);
       })
       .catch(err => console.log("Canceled stage delete"));

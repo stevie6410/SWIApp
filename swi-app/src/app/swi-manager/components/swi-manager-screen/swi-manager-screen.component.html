@@ -12,15 +12,16 @@
         <swi-card [title]="'Commands'">
           <div class="card-block">
 
-            <div class="btn-group btn-block" data-toggle="buttons">
+            <div class="btn-container" data-toggle="buttons">
 
-              <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success col-lg-4"><i class="fa fa-desktop"></i> View</button>
-              <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning col-lg-4"><i class="fa fa-cubes"></i> Edit</button>
+              <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View</button>
+              <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning" *ngIf="!this.requiresUpgrade"><i class="fa fa-cubes"></i> Edit</button>
+              <button type="button" swiUpgrade (completed)="upgradeComplete()" [swi]="swi" class="btn btn-lg btn-warning" *ngIf="this.requiresUpgrade"><i class="fa fa-arrow-up"></i> Upgrade</button>
               <button type="button" swiDuplicateButton [swi]="swi" (started)="duplicatingStatus(true)" (completed)="duplicatingStatus(false)"
-                class="btn btn-lg btn-primary col-lg-4"><i class="fa fa-copy"></i> Duplicate</button>
-              <button type="button" class="btn btn-lg btn-primary col-lg-4" swiExportButton (exportStarted)="exportingStatus(true)" (exportCompelte)="exportingStatus(false)"
+                class="btn btn-lg btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
+              <button type="button" class="btn btn-lg btn-primary" swiExportButton (exportStarted)="exportingStatus(true)" (exportCompelte)="exportingStatus(false)"
                 [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
-              <button type="button" swiDeleteButton [swi]="swi" class="btn btn-lg btn-danger col-lg-4"><i class="fa fa-trash"></i> Delete</button>
+              <button type="button" swiDeleteButton [swi]="swi" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete</button>
 
             </div>
           </div>

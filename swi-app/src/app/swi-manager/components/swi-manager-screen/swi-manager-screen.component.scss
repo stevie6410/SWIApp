@@ -13,3 +13,13 @@
     .property-badge-list{
         font-size: 25px;
     }
+
+    .btn-container{
+        display: flex;
+        flex-wrap: wrap; 
+        button{
+            height: 100px;
+            width: 180px;
+            margin: 5px;
+        }
+    }

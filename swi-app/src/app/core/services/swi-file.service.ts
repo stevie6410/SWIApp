@@ -28,10 +28,15 @@ export class SWIFileService {
         return this.table.toArray();
     }
 
+    async import(swi: SWIHeader): Promise<SWIHeader> {
+        if (!swi.appVersion) swi.appVersion = "0.1.0";
+        return this.add(swi, true, true);
+    }
+
     async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
         if (!overrideSyncWithImageStore) await this.imageStore.addAll(swi, swi.id, compress);
         try {
-            swi.appVersion = await this.environment.getAppVersion();
+            if (!swi.appVersion) swi.appVersion = this.environment.getAppVersion();
             swi.updatedOn = new Date();
             let newSWI = await this.table.add(swi);
             return this.table.get(newSWI);
@@ -48,7 +53,7 @@ export class SWIFileService {
     async update(swi: SWIHeader): Promise<SWIHeader> {
         console.log("Saving file");
         swi.updatedOn = new Date();
-        swi.appVersion = await this.environment.getAppVersion();
+        // swi.appVersion = await this.environment.getAppVersion();
         await this.imageStore.addAll(swi, swi.id);
         swi.clientHash = this.getFileHash(swi);
         await this.table.update(swi.id, swi);

@@ -61,11 +61,11 @@ export class ImportDropZoneDirective {
             this.updateImportStage("SWI is already imported!")
             setTimeout(() => {
                 this.onImported.emit();
-            }, 3000);
+            }, 1000);
             return null;
         }
 
-        let importedSWI = await this.swiStore.add(swi, true, true);
+        let importedSWI = await this.swiStore.import(swi);
         this.updateImportStage("Compressing Images");
         //Manually run the image store .add so that we can repost back progress
         for (var i = 0; i < importedSWI.swiImages.length; i++) {

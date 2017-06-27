@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ToastsManager } from "ng2-toastr";
 import { Modal } from "angular2-modal/plugins/bootstrap";
-import { SWIMaster, SWIHeader, SWIRevision, SWIFileService, ImageStoreService, RepoDocsService, SyncRepoService } from "app/core";
+import { SWIMaster, SWIHeader, SWIRevision, SWIFileService, ImageStoreService, RepoDocsService, SyncRepoService, SwiUpgradeService } from "app/core";
 
 @Component({
   selector: 'swi-swi-manager-screen',
@@ -25,6 +25,7 @@ export class SwiManagerScreenComponent implements OnInit {
   repoTimestamp: number;
   clientHash: string;
   repoHash: string;
+  requiresUpgrade: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,14 +33,17 @@ export class SwiManagerScreenComponent implements OnInit {
     public swiFileService: SWIFileService,
     public imageStore: ImageStoreService,
     private repoDocs: RepoDocsService,
-    private syncRepoService: SyncRepoService
+    private syncRepoService: SyncRepoService,
+    private upgradeService: SwiUpgradeService
   ) {
     this.swi = this.route.snapshot.data['swi'];
+    this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
     this.updateRepoData();
     this.route.params.subscribe((params) => {
       //Detected a change to the params so reload the swiData
       if (params.id != this.swi.id) {
         this.swi = this.route.snapshot.data['swi'];
+        this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
         this.updateRepoData();
       }
     });
@@ -112,6 +116,10 @@ export class SwiManagerScreenComponent implements OnInit {
   duplicatingStatus(duplicating: boolean) {
     this.loadingMessage = duplicating ? "Duplicating SWI" : "Loading";
     this.pageLoading = duplicating;
+  }
+
+  upgradeComplete() {
+    this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
   }
 
   async syncRepo() {
