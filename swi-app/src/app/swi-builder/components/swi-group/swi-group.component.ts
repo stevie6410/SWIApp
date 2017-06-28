@@ -46,10 +46,10 @@ export class SwiGroupComponent implements OnInit {
     this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'stages', 'new']);
   }
 
-  editStage(group: SWIStageGroup, stage: SWIStage) {
+  editStage(stage: SWIStage) {
     if (!this.editMode) {
       this.save();
-      this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'stages', stage.id]);
+      this.router.navigate(['builder', this.swi.id, 'stagegroup', this.group.id, 'stages', stage.id]);
     }
   }
 

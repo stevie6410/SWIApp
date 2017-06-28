@@ -32,7 +32,7 @@
 
   <ul class="list-unstyled list-group list-group-flush">
     <li class="list-group-item media" [ngClass]="{'highlight-stage': stage == this.selectedStage}" *ngFor="let stage of group.stages"
-      (click)="editStage(group, stage)">
+      (click)="editStage(stage)">
 
       <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
       <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
