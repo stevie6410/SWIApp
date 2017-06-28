@@ -60,6 +60,7 @@ export class SwiUpgradeService {
     if (!swi.stageGroups) swi.stageGroups = [];
     swi.stageGroups.push(newGroup);
     swi.swiStages = null;
+    swi.swiTools = null;
     return swi;
   }
 
