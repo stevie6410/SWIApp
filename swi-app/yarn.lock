@@ -246,9 +246,9 @@ angular-sortablejs@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/angular-sortablejs/-/angular-sortablejs-2.0.6.tgz#2cb41ff35e3e39e309d0e8a291413a52a9a29960"
 
-angular2-modal@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/angular2-modal/-/angular2-modal-2.0.3.tgz#d5e19a799f517c51d729f4960057506176563e8f"
+angular2-modal@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/angular2-modal/-/angular2-modal-3.0.1.tgz#626aa91b5f76e011462f135e0d5e6db142f8a252"
 
 angular2-moment@^1.3.3:
   version "1.3.3"

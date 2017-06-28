@@ -7,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //3rd Party Imports
-import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 
 //Module Imports
 import { CoreModule } from "app/core/core.module";

@@ -1,7 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { ToastsManager } from "ng2-toastr";
 import { AppCatalogService } from "app/core";
-import { Overlay } from "angular2-modal";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { ActivatedRoute } from "@angular/router";
 
@@ -20,11 +19,11 @@ export class AppComponent {
     vcr: ViewContainerRef,
     private appCatalog: AppCatalogService,
     public modal: Modal,
-    public overlay: Overlay,
+    // public overlay: Overlay,
     private route: ActivatedRoute
   ) {
     toast.setRootViewContainerRef(vcr);
-    overlay.defaultViewContainer = vcr;
+    // overlay.defaultViewContainer = vcr;
 
 
     //Make a call to the app config service to be sure that it is loaded and ready for the app
