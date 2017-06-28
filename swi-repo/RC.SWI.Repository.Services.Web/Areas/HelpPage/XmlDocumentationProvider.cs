@@ -6,6 +6,8 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
 using RC.SWI.Repository.Services.Web.Areas.HelpPage.ModelDescriptions;
+using System.Collections.Generic;
+using System.IO;
 
 namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
 {
@@ -15,6 +17,7 @@ namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
         private XPathNavigator _documentNavigator;
+        private List<XPathNavigator> _documentNavigators = new List<XPathNavigator>();
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
         private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
@@ -25,14 +28,30 @@ namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
         /// <param name="documentPath">The physical path to XML document.</param>
-        public XmlDocumentationProvider(string documentPath)
+        public XmlDocumentationProvider(string appDataPath)
         {
-            if (documentPath == null)
+            if (appDataPath == null)
             {
-                throw new ArgumentNullException("documentPath");
+                throw new ArgumentNullException("appDataPath");
             }
-            XPathDocument xpath = new XPathDocument(documentPath);
-            _documentNavigator = xpath.CreateNavigator();
+
+            var files = new[] { "XmlDocument.xml", "ViewModels.xml" };
+            foreach (var file in files)
+            {
+                XPathDocument xpath = new XPathDocument(Path.Combine(appDataPath, file));
+                _documentNavigators.Add(xpath.CreateNavigator());
+            }
+        }
+
+        private XPathNavigator SelectSingleNode(string selectExpression)
+        {
+            foreach (var navigator in _documentNavigators)
+            {
+                var propertyNode = navigator.SelectSingleNode(selectExpression);
+                if (propertyNode != null)
+                    return propertyNode;
+            }
+            return null;
         }
 
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
@@ -78,7 +97,7 @@ namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
             string expression = member.MemberType == MemberTypes.Field ? FieldExpression : PropertyExpression;
             string selectExpression = String.Format(CultureInfo.InvariantCulture, expression, memberName);
-            XPathNavigator propertyNode = _documentNavigator.SelectSingleNode(selectExpression);
+            XPathNavigator propertyNode = SelectSingleNode(selectExpression);
             return GetTagValue(propertyNode, "summary");
         }
 
@@ -94,7 +113,7 @@ namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
             if (reflectedActionDescriptor != null)
             {
                 string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
-                return _documentNavigator.SelectSingleNode(selectExpression);
+                return SelectSingleNode(selectExpression);
             }
 
             return null;
@@ -131,7 +150,7 @@ namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
         {
             string controllerTypeName = GetTypeName(type);
             string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
-            return _documentNavigator.SelectSingleNode(selectExpression);
+            return SelectSingleNode(selectExpression);
         }
 
         private static string GetTypeName(Type type)

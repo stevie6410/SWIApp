@@ -59,6 +59,7 @@ export class SwiUpgradeService {
     newGroup.tools = JSON.parse(JSON.stringify(swi.swiTools));
     if (!swi.stageGroups) swi.stageGroups = [];
     swi.stageGroups.push(newGroup);
+    swi.swiStages = null;
     return swi;
   }
 

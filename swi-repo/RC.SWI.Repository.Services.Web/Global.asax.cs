@@ -3,6 +3,7 @@ using RC.SWI.Repository.Services.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Hosting;
@@ -24,7 +25,8 @@ namespace RC.SWI.Repository.Services.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //Remove XML formatter. We want JSON
-            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+            GlobalConfiguration.Configuration.Formatters.Clear();
+            GlobalConfiguration.Configuration.Formatters.Add(new JsonMediaTypeFormatter()); 
 
             //JSON Formatter Settings
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
