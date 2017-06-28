@@ -8,6 +8,7 @@ export class SwiUpgradeService {
 
   upgradePaths: UpgradePath[] = [
     { affectedVersionsTo: "0.8.9", versionTo: "0.9.0", upgradeTask: "MigrateStagesToGroups", upgradeFunction: this.migrateStagesToGroups },
+    { affectedVersionsTo: "0.8.9", versionTo: "0.9.1", upgradeTask: "FixInvalidAppVersion", upgradeFunction: this.fixInvalidAppVersion },
     { affectedVersionsTo: "0.9.0", versionTo: "0.9.1", upgradeTask: "AddMissingUpgradeTasksArray", upgradeFunction: this.addMissingUpgradeTasksArray },
     { affectedVersionsTo: "0.9.0", versionTo: "0.9.1", upgradeTask: "AddIdsToStages", upgradeFunction: this.addIdsToStages },
   ];
@@ -74,6 +75,12 @@ export class SwiUpgradeService {
   private addMissingUpgradeTasksArray(swi: SWIHeader): SWIHeader {
     console.log("Upgrade Task: Add Missing Upgrade Tasks Array");
     if (!swi.upgradeTasks) swi.upgradeTasks = [];
+    return swi;
+  }
+
+  private fixInvalidAppVersion(swi: SWIHeader): SWIHeader {
+    console.log("Upgrade Task: Add Missing App Version");
+    if (!semver.valid(swi.appVersion)) swi.appVersion = "0.0.1";
     return swi;
   }
 }
