@@ -10,6 +10,10 @@
       <div class="col-md-8">
 
         <swi-card [title]="'Commands'">
+
+          <span class="badge card-badge" [ngClass]="{'badge-success': environment.isCurrentVersion(swi.appVersion), 'badge-warning': !environment.isCurrentVersion(swi.appVersion)}"
+            *ngIf="swi.appVersion"> <i class="fa fa-info-circle"></i>  v{{swi?.appVersion}}</span>
+
           <div class="card-block">
 
             <div class="btn-container" data-toggle="buttons">

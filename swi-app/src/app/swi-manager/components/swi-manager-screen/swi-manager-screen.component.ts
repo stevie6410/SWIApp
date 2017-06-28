@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ToastsManager } from "ng2-toastr";
 import { Modal } from "angular2-modal/plugins/bootstrap";
 import { SWIMaster, SWIHeader, SWIRevision, SWIFileService, ImageStoreService, RepoDocsService, SyncRepoService, SwiUpgradeService } from "app/core";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Component({
   selector: 'swi-swi-manager-screen',
@@ -34,7 +35,8 @@ export class SwiManagerScreenComponent implements OnInit {
     public imageStore: ImageStoreService,
     private repoDocs: RepoDocsService,
     private syncRepoService: SyncRepoService,
-    private upgradeService: SwiUpgradeService
+    private upgradeService: SwiUpgradeService,
+    private environment: EnvironmentService
   ) {
     this.swi = this.route.snapshot.data['swi'];
     this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);

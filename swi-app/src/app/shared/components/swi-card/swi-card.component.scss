@@ -21,4 +21,8 @@
 .card-badge-container{
     display: flex;
     flex-direction: row;
+    
+    .card-badge{
+        font-size: 100% !important;
+    }
 }

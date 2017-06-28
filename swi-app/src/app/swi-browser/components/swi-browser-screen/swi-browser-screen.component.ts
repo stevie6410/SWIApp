@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastsManager } from "ng2-toastr";
-import { ImageStoreService, SWIFileService, SWIHeader } from "app/core";
+import { ImageStoreService, SWIFileService, SWIHeader, SwiUpgradeService } from "app/core";
+import { EnvironmentService } from "app/app/services/environment.service";
 
 @Component({
   selector: 'swi-browser-screen',
@@ -22,7 +23,9 @@ export class SwiBrowserScreenComponent implements OnInit {
     public imageStore: ImageStoreService,
     private router: Router,
     private route: ActivatedRoute,
-    private toast: ToastsManager
+    private toast: ToastsManager,
+    public environment: EnvironmentService,
+    public upgrade: SwiUpgradeService
   ) { }
 
   ngOnInit() {
@@ -71,5 +74,9 @@ export class SwiBrowserScreenComponent implements OnInit {
     this.isCleaning = true;
     await this.imageStore.clean();
     this.isCleaning = false;
+  }
+
+  public upgradeRequired(swi: SWIHeader) {
+    return this.upgrade.upgradeRequired(swi);
   }
 }

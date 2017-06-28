@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Rx";
 import "rxjs/Rx";
 import { EnvironmentConfiguration } from "app/core";
 import { Subject } from "rxjs/Subject";
+import * as semver from 'semver';
 
 @Injectable()
 export class EnvironmentService {
@@ -26,6 +27,10 @@ export class EnvironmentService {
                 resolve(true);
             });
         });
+    }
+
+    isCurrentVersion(version: string): boolean {
+        return semver.gte(version, this.env.version);
     }
 
     getEnvironmentProp(propName: string): string {
