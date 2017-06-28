@@ -53,6 +53,7 @@ export class SWIHeader {
     swiImages: SWIImage[];
     swiLinkedERPParts: SWIERPPart[];
     category: string;
+    upgradeTasks: string[];
 
     constructor(title: string) {
         this.title = title;
@@ -69,6 +70,7 @@ export class SWIHeader {
         this.updatedOn = new Date();
         this.id = new GUID().value;
         this.filename = this.id + '.swi';
+        this.upgradeTasks = [];
     }
 }
 

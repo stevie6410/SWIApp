@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { EnvironmentService } from "app/app/services/environment.service";
-import { SWIHeader, SWIStageGroup, SWIFileService } from "app/core";
+import { SWIHeader, SWIStageGroup, SWIFileService, GUID } from "app/core";
 import * as semver from 'semver';
 
 @Injectable()
 export class SwiUpgradeService {
 
   upgradePaths: UpgradePath[] = [
-    { affectedVersions: "0.8.999", versionTo: "0.9.0", upgradeTask: "MigrateStagesToGroups" }
+    { affectedVersionsTo: "0.8.9", versionTo: "0.9.0", upgradeTask: "MigrateStagesToGroups", upgradeFunction: this.migrateStagesToGroups },
+    { affectedVersionsTo: "0.9.0", versionTo: "0.9.1", upgradeTask: "AddMissingUpgradeTasksArray", upgradeFunction: this.addMissingUpgradeTasksArray },
+    { affectedVersionsTo: "0.9.0", versionTo: "0.9.1", upgradeTask: "AddIdsToStages", upgradeFunction: this.addIdsToStages },
   ];
 
   constructor(
@@ -20,28 +22,33 @@ export class SwiUpgradeService {
     return (tasks.length > 0);
   }
 
-  private getUpgradePaths(swi: SWIHeader): UpgradePath[] {
-    let currentVersion: SemverVersion = new SemverVersion(swi.appVersion);
-    let upgradeTasks = this.upgradePaths.filter(u => (semver.lte(swi.appVersion, u.affectedVersions)));
-    return upgradeTasks;
+  public async upgrade(swi: SWIHeader): Promise<SWIHeader> {
+    this.getUpgradePaths(swi).forEach(task => {
+      swi = task.upgradeFunction(swi);
+      this.taskComplete(swi, task);
+    });
+    return await this.swiRepo.update(swi);
   }
 
-  public async upgrade(swi: SWIHeader): Promise<SWIHeader> {
-    let tasks = this.getUpgradePaths(swi);
-    console.log("Upgrade Tasks to be performed: ", tasks);
-    tasks.forEach(task => {
-      switch (task.upgradeTask) {
-        case "MigrateStagesToGroups":
-          swi = this.migrateStagesToGroups(swi);
-          swi.appVersion = task.versionTo;
-          break;
-        default:
-          break;
-      }
-    });
-    await this.swiRepo.update(swi);
+  private taskComplete(swi: SWIHeader, upgrade: UpgradePath): SWIHeader {
+    //If the upgrade version is greater than the current version then bump version    
+    if (semver.gt(upgrade.versionTo, swi.appVersion)) swi.appVersion = upgrade.versionTo;
+    //Add the task to the swi upgrade history
+    swi.upgradeTasks.push(upgrade.upgradeTask);
     return swi;
   }
+
+  private getUpgradePaths(swi: SWIHeader): UpgradePath[] {
+    if (!swi.upgradeTasks) swi.upgradeTasks = [];
+    return this.upgradePaths
+      .filter(u => semver.lte(swi.appVersion, u.affectedVersionsTo))      //Get tasks which apply to our version
+      .filter(u => !swi.upgradeTasks.includes(u.upgradeTask))             //Remove any tasks already applied
+      .sort((a, b) => (semver.lte(a.versionTo, b.versionTo)) ? -1 : 1);   //Sort in order of version
+  }
+
+  // #############################################################
+  // #############          Upgrade Functions       ##############
+  // #############################################################
 
   private migrateStagesToGroups(swi: SWIHeader): SWIHeader {
     console.log("Migrating Stages to Group");
@@ -52,24 +59,28 @@ export class SwiUpgradeService {
     swi.stageGroups.push(newGroup);
     return swi;
   }
+
+  private addIdsToStages(swi: SWIHeader): SWIHeader {
+    console.log("Upgrade Task: Addidng Ids to Stages");
+    swi.stageGroups.forEach(group => {
+      group.stages.forEach(stage => {
+        if (!stage.id) stage.id = new GUID().value;
+      });
+    });
+    return swi;
+  }
+
+  private addMissingUpgradeTasksArray(swi: SWIHeader): SWIHeader {
+    console.log("Upgrade Task: Add Missing Upgrade Tasks Array");
+    if (!swi.upgradeTasks) swi.upgradeTasks = [];
+    return swi;
+  }
 }
 
 export class UpgradePath {
-  affectedVersions: string;
+  affectedVersionsTo: string;
   versionTo: string;
   upgradeTask: string;
+  upgradeFunction: (swi: SWIHeader) => SWIHeader;
 }
 
-export class SemverVersion {
-  version: string;
-  major: number;
-  minor: number;
-  patch: number;
-
-  constructor(v: string) {
-    this.version = semver.clean(v);
-    this.major = semver.major(this.version);
-    this.minor = semver.minor(this.version);
-    this.patch = semver.patch(this.version);
-  }
-}
