@@ -39,6 +39,7 @@ export class SwiUpgradeService {
   }
 
   private getUpgradePaths(swi: SWIHeader): UpgradePath[] {
+    if (!swi.appVersion) swi.appVersion = "0.0.1";
     if (!swi.upgradeTasks) swi.upgradeTasks = [];
     return this.upgradePaths
       .filter(u => semver.lte(swi.appVersion, u.affectedVersionsTo))      //Get tasks which apply to our version
