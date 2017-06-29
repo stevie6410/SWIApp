@@ -38,8 +38,14 @@ namespace RC.SWI.Repository.Services.Web.Areas.HelpPage
             var files = new[] { "XmlDocument.xml", "ViewModels.xml" };
             foreach (var file in files)
             {
+                try
+                {
                 XPathDocument xpath = new XPathDocument(Path.Combine(appDataPath, file));
                 _documentNavigators.Add(xpath.CreateNavigator());
+                }
+                catch (Exception)
+                {
+                }
             }
         }
 
