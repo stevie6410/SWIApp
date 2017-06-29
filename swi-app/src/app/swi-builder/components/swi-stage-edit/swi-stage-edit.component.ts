@@ -68,4 +68,30 @@ export class SwiStageEditComponent implements OnInit {
     return (this.stage.summary != null);
   }
 
+  createNewStage() {
+    this.reloadForm(this.stageGroup.id);
+  }
+
+  async reloadForm(groupId: string) {
+
+    //Get the new SWI from the store
+    this.swi = await this.swiService.getFile(this.swi.id);
+    console.log("swi", this.swi);
+    this.initialState = generateHash(JSON.stringify(this.swi));
+    this.stageId = "new";
+    this.groupId = groupId;
+    //Get the group
+    this.stageGroup = this.swi.stageGroups.filter(sg => sg.id == this.groupId)[0];
+    if (!this.stageGroup)
+      console.log("Error: Could not find group");
+
+    console.log("Creating new SWIStage");
+    //New SWIStage is required
+    this.stage = new SWIStage();
+    this.stage.sequence = this.stageGroup.stages.length + 1;
+    this.stageGroup.stages.push(this.stage);
+
+    console.log("stage", this.stage);
+    this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.stageId}`;
+  }
 }

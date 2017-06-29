@@ -1,8 +1,8 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { ToastsManager } from "ng2-toastr";
-import { SWIHeader, SWIFileService, hasChanges } from "app/core";
+import { SWIHeader, SWIFileService, hasChanges, SWIStageGroup } from "app/core";
 
 
 @Directive({
@@ -13,6 +13,9 @@ export class SaveChangesDirective {
   @Input() navBack: boolean = true;
   @Input() swi: SWIHeader;
   @Input() initialState: number;
+  @Input() newStage: boolean = false;
+  @Input() group: SWIStageGroup = null;
+  @Output() saved = new EventEmitter<boolean>();
 
   constructor(
     private router: Router,
@@ -21,31 +24,33 @@ export class SaveChangesDirective {
   ) { }
 
   @HostListener('click') onClick() {
-    this.save(this.navBack);
+    this.save();
   }
 
-  save(navBack: Boolean) {
-    if (!hasChanges(this.swi, this.initialState)) {
-      console.log("No changes");
-      this.toast.success(`File Saved!`);
-      if (navBack) this.navigateBack();
-    } else {
-      console.log("Changes in directive");
-      //Save the file and navigate back to the SWI Builder screen
-      this.swiService.update(this.swi)
-        .then((result) => {
-          console.log(`${this.swi.id} was saved.`);
-          this.toast.success(`File Saved!`);
-          if (navBack) this.navigateBack();
-        })
-        .catch((err) => {
-          console.log("Error saving file: ", err);
-          this.toast.error(`${this.swi.title} could not be created`, "Error saving file!");
-        });
+  async save() {
+    try {
+      if (hasChanges(this.swi, this.initialState)) await this.swiService.update(this.swi);
+    } catch (error) {
+      console.log("Error saving file: ", error);
+      this.toast.error(`${this.swi.title} could not be created`, "Error saving file!");
     }
+    this.toast.success(`File Saved!`);
+    this.saved.emit();
+    if (this.navBack) this.navigateBack();
+    if (this.newStage) this.navigateNewStage();
   }
 
   navigateBack() {
     this.router.navigate(['builder', this.swi.id]);
   }
+
+  navigateNewStage() {
+    console.log(this.group);
+    if (this.group) {
+      this.router.navigate(['builder', this.swi.id, 'stagegroup', this.group.id, 'stages', 'new']);
+    } else {
+      console.log("Could not navigate to new stage as the group was not provided");
+    }
+  }
+
 }
