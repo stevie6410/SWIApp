@@ -16,6 +16,7 @@ import { SaveChangesDirective } from './directives/save-changes.directive';
 import { DiscardChangesDirective } from './directives/discard-changes.directive';
 import { Ng2PicaModule } from "ng2-pica";
 import { DuplicateStageDirective } from "./directives/duplicate-stage.directive";
+import { DeleteToolDirective } from "./directives/delete-tool.directive";
 import { SwiGroupComponent } from './components/swi-group/swi-group.component';
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { SwiToolsListViewComponent } from './components/swi-tools-list-view/swi-tools-list-view.component';
@@ -48,7 +49,8 @@ import { ImageService, ImageStoreService } from "app/core";
     DiscardChangesDirective,
     DuplicateStageDirective,
     SwiGroupComponent,
-    SwiToolsListViewComponent
+    SwiToolsListViewComponent,
+    DeleteToolDirective
   ],
   providers: [
     ImageService,

@@ -9,6 +9,13 @@
         <div class="card-block">
           <p class="card-text">{{tool.name}}</p>
         </div>
+
+
+        <span class="tool-option-selected-icon fa-stack fa-lg" style="display: none" [ngClass]="{'hs-option-selected-icon': this.isSelected(option)}">
+          <i class=" fa fa-circle fa-stack-2x"></i>
+          <i class=" fa fa-check fa-stack-1x fa-inverse"></i>
+        </span>
+
       </div>
 
     </div>

@@ -59,8 +59,10 @@ export class SwiGroupComponent implements OnInit {
   }
 
   editTool(group: SWIStageGroup, tool: SWITool) {
-    this.save();
-    this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'tools', tool.id]);
+    if (!this.editMode) {
+      this.save();
+      this.router.navigate(['builder', this.swi.id, 'stagegroup', group.id, 'tools', tool.id]);
+    }
   }
 
   moveStageToGroup(stage: SWIStage, newGroup: SWIStageGroup) {

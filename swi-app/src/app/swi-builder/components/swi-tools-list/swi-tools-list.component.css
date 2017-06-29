@@ -23,3 +23,14 @@
     flex-wrap: wrap;
     flex-direction: row;
 }
+
+.tool-option-selected-icon{
+    color: #35d035;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    right: 0px;
+    top: 0px;
+    display: initial !important;
+}

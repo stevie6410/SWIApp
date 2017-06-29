@@ -6,9 +6,9 @@
       <span class="group-name-label">{{group.sequence}} - {{group.name}}</span>
       <div class="col-6-lg button-group float-right">
         <div class="btn-group" role="group">
-          <button class="btn btn-warning" (click)="editGroup(group)"> <i class="fa fa-pencil"></i> Edit Group</button>
           <button class="btn btn-primary" (click)="addTool(group)"> <i class="fa fa-plus"></i> Add Tool</button>
           <button class="btn btn-primary" (click)="addStage(group)"> <i class="fa fa-plus"></i> Add Stage</button>
+          <button class="btn btn-warning" (click)="editGroup(group)"> <i class="fa fa-pencil"></i> Edit Group</button>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="card-block tools-block">
-    <swi-tools-list-view [tools]="this.group.tools" (onSelected)="editTool(group, $event)"></swi-tools-list-view>
+    <swi-tools-list-view [swi]="swi" [group]="this.group" [editMode]="editMode" (save)="save()" (selected)="editTool(group, $event)"></swi-tools-list-view>
   </div>
 
   <ul class="list-unstyled list-group list-group-flush">
@@ -52,7 +52,7 @@
             aria-expanded="false"><i class="fa fa-arrows-v"></i><span class="caret"></span></button>
 
           <ul *dropdownMenu class="dropdown-menu" role="menu">
-            <li role="menuitem" *ngFor="let grp of groupOptions"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.name}}</a></li>
+            <li role="menuitem" *ngFor="let grp of groupOptions"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.sequence}} - {{grp.name}}</a></li>
           </ul>
         </div>
 

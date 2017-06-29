@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SWITool } from "app/core";
+import { SWITool, SWIStageGroup, SWIHeader } from "app/core";
 
 
 @Component({
@@ -9,11 +9,30 @@ import { SWITool } from "app/core";
 })
 export class SwiToolsListViewComponent implements OnInit {
 
-  @Input() tools: SWITool[];
-  @Output() onSelected = new EventEmitter<SWITool>();
-
+  @Input() swi: SWIHeader;
+  @Input() group: SWIStageGroup;
+  @Input() editMode: boolean = false;
+  @Output() selected = new EventEmitter<SWITool>();
+  @Output() save = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSelected(tool: SWITool) {
+    if (!this.editMode) this.selected.emit(tool);
+  }
+
+  onDeleted() {
+    this.save.emit();
+  }
+
+  moveToolToGroup(tool: SWITool, newGroup: SWIStageGroup) {
+    newGroup.tools.push(tool);
+    this.group.tools = this.group.tools.filter(t => t.id != tool.id);
+  }
+
+  get groupOptions() {
+    return this.swi.stageGroups.filter(sg => sg.id != this.group.id);
   }
 }
