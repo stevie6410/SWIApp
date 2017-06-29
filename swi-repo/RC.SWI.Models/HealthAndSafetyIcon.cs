@@ -18,9 +18,10 @@ namespace RC.SWI.Entities
     public partial class HealthAndSafetyIcon
     {
         public int Id { get; set; } // Id (Primary key)
-        public string Name { get; set; } // Name (Primary key) (length: 255)
+        public string Name { get; set; } // Name (length: 255)
         public string Image { get; set; } // Image
-        public int AppConfigurationId { get; set; } // AppConfigurationId (Primary key)
+        public int AppConfigurationId { get; set; } // AppConfigurationId
+        public string Caption { get; set; } // Caption (length: 255)
 
         // Foreign keys
 

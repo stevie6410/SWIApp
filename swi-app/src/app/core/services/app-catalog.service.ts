@@ -53,7 +53,8 @@ export class AppCatalogService {
         try {
             //First try and get the app config from the repository
             let repoCatalog: AppCatalog = await this.http.get(this.fullBaseURL).map(r => r.json()).toPromise();
-            console.log("Repo Catlog: ", JSON.stringify(repoCatalog));
+            console.log("Updated the repo catalog to version", repoCatalog.version);
+            //console.log("Repo Catalog: ", JSON.stringify(repoCatalog));
             if (repoCatalog) {
                 await this.appConfigTable.clear();
                 await this.appConfigTable.add(repoCatalog);

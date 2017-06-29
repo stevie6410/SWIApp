@@ -25,12 +25,13 @@ namespace RC.SWI.Entities
         public HealthAndSafetyIconConfiguration(string schema)
         {
             ToTable("HealthAndSafetyIcon", schema);
-            HasKey(x => new { x.Id, x.Name, x.AppConfigurationId });
+            HasKey(x => x.Id);
 
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255);
             Property(x => x.Image).HasColumnName(@"Image").HasColumnType("varchar(max)").IsOptional().IsUnicode(false);
-            Property(x => x.AppConfigurationId).HasColumnName(@"AppConfigurationId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.AppConfigurationId).HasColumnName(@"AppConfigurationId").HasColumnType("int").IsRequired();
+            Property(x => x.Caption).HasColumnName(@"Caption").HasColumnType("nvarchar").IsOptional().HasMaxLength(255);
 
             // Foreign keys
             HasRequired(a => a.AppConfiguration).WithMany(b => b.HealthAndSafetyIcons).HasForeignKey(c => c.AppConfigurationId).WillCascadeOnDelete(false); // FK_HealthAndSafetyIcon_AppConfigurations

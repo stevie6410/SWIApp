@@ -4,10 +4,7 @@
         <swi-img [imageKey]="tool.image" [border]="false"></swi-img>
         <span class="tool-option-caption">{{tool.name}}</span>
 
-  <!--<span class="fa-stack fa-lg" style="display: none" [ngClass]="{'hs-option-selected-icon': this.isSelected(option)}">-->
-  <!--<div dropdown [placement]="'left'" *ngIf="swi.stageGroups.length > 1">-->
-  <div dropdown [placement]="'left'" >
-
+  <div dropdown [placement]="'left'" *ngIf="swi.stageGroups.length > 1">
     <span dropdownToggle class="fa-stack fa-lg tool-move-icon" [ngClass]="{'tool-move-icon': editMode, 'tool-move-icon-hide': !editMode}"
       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class=" fa fa-circle fa-stack-2x "></i>

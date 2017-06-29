@@ -44,11 +44,11 @@ export class SwiBuilderScreenComponent implements OnInit {
   }
 
   validateStageOrder() {
-    let i = 1;
-    this.swi.swiStages.forEach(stage => {
-      if (stage.sequence != i) stage.sequence = i;
-      i++;
-    });
+    // let i = 1;
+    // this.swi.swiStages.forEach(stage => {
+    //   if (stage.sequence != i) stage.sequence = i;
+    //   i++;
+    // });
   }
 
   saveFile(navBack: boolean) {

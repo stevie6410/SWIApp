@@ -190,14 +190,15 @@ export class ImageStoreService {
     public getSWIImageKeys(swi: SWIHeader): string[] {
         let results: string[] = [];
         if (swi.coverImage) results.push(swi.coverImage);
-        results = results.concat(swi.swiStages.map(s => s.image));
-        results = results.concat(swi.swiTools.map(t => t.image));
+        if(swi.swiStages) results = results.concat(swi.swiStages.map(s => s.image));
+        if(swi.swiTools) results = results.concat(swi.swiTools.map(t => t.image));
 
         //Add all of the stage group tools
         for (var group in swi.stageGroups) {
             if (swi.stageGroups.hasOwnProperty(group)) {
                 var element = swi.stageGroups[group];
-                results = results.concat(element.tools.map(t => t.image));
+                if(element.tools) results = results.concat(element.tools.map(t => t.image));
+                if(element.stages) results = results.concat(element.stages.map(s => s.image));
             }
         }
 
