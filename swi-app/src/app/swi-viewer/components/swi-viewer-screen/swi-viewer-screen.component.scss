@@ -62,6 +62,17 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
         }
     }
 
+.group-header{
+    background-color: #d3d3d3;
+    height: 40px;
+}
+
+.group-title{
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
     .stages{
         display: flex;
         flex-direction: row;
@@ -126,6 +137,10 @@ $carepoint-color: rgba(255, 0, 0,  0.5);
 
 @media print {
 
+    h1::first-letter {
+        margin-top: 0;
+    }
+    
     @page{
         margin-left: 15px;
         margin-right: 15px;

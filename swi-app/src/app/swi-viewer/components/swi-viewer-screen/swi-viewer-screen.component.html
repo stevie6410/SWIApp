@@ -48,6 +48,7 @@
         </div>
       </div>
 
+
       <!--Row 2 - H&S-->
       <div class="row">
         <div class="col">
@@ -65,42 +66,68 @@
         </div>
       </div>
 
-      <!--Row 3 - Tooling-->
-      <div class="row">
-        <div class="col">
-          <span><strong>Tooling:</strong></span>
-          <br>
-          <div class="items tool-items">
-            <div *ngFor="let tool of swi.swiTools">
-              <div class="item">
-                <swi-img [imageKey]="tool.image" class="item-image"></swi-img>
-                <span class="item-caption">{{tool.name}}</span>
+
+      <!--Groups-->
+      <div *ngFor="let group of swi.stageGroups">
+        <div class="row group-header">
+          <div class="col">
+            <h1 class="group-title">Group {{group.sequence}} - {{group.name}}</h1>
+            <br>
+          </div>
+        </div>
+
+        <!--Row 3 - Tooling-->
+        <div class="row">
+          <div class="col">
+            <span><strong>Tooling:</strong></span>
+            <br>
+            <div class="items tool-items">
+              <div *ngFor="let tool of group.tools">
+                <div class="item">
+                  <swi-img [imageKey]="tool.image" class="item-image"></swi-img>
+                  <span class="item-caption">{{tool.name}}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!--Row 4 - Stages-->
+        <div class="row">
+          <div class="col">
+            <div class="stages">
+              <div *ngFor="let stage of group.stages" class="stage-wrapper">
+                <div class="stage">
+                  <div>
+                    <div class="stage-sequence" [ngClass]="{'carepoint': stage.criticalStep}">{{stage.sequence}}</div>
+                  </div>
+                  <swi-img class="stage-image" [imageKey]="stage.image"></swi-img>
+                  <div class="stage-text-container">
+                    <div class="stage-summary">{{stage.summary}}</div>
+                    <div class="stage-carepoint" *ngIf="stage.criticalStep">{{stage?.carePoint }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+
+
+
+
+
       </div>
 
-      <!--Row 4 - Stages-->
-      <div class="row">
-        <div class="col">
-          <div class="stages">
-            <div *ngFor="let stage of swi.swiStages" class="stage-wrapper">
-              <div class="stage">
-                <div>
-                  <div class="stage-sequence" [ngClass]="{'carepoint': stage.criticalStep}">{{stage.sequence}}</div>
-                </div>
-                <swi-img class="stage-image" [imageKey]="stage.image"></swi-img>
-                <div class="stage-text-container">
-                  <div class="stage-summary">{{stage.summary}}</div>
-                  <div class="stage-carepoint" *ngIf="stage.criticalStep">{{stage?.carePoint }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-        </div>
-      </div>
+
+
+
+
+
+
+
+
+
 
 
     </div>
