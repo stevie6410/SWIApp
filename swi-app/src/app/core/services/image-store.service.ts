@@ -38,11 +38,15 @@ export class ImageStoreService {
         return new Promise<string>((resolve, reject) => {
             this.get(currentImageKey).then(img => {
                 this.cameraService.requestCameraImage(img).subscribe((captureImage: CaptureImage) => {
-                    //Got the image from the camera, now add the image to the store
-                    this.add(swiId, captureImage.image).then(swiImg => {
-                        //Added to the image store. Now return the key
-                        resolve(swiImg.key);
-                    });
+                    if (!captureImage.image) {
+                        resolve(null);
+                    } else {
+                        //Got the image from the camera, now add the image to the store
+                        this.add(swiId, captureImage.image).then(swiImg => {
+                            //Added to the image store. Now return the key
+                            resolve(swiImg.key);
+                        });
+                    }
                 });
             });
         });

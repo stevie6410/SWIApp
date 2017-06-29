@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, View
 import { CameraService } from "../../services/camera.service";
 import { CaptureImage } from "../../models/capture-image";
 import { ImageCropperComponent } from "../camera-cropper/image-cropper.component";
+import { GUID } from "app/core";
 
 @Component({
   selector: 'swi-camera',
@@ -44,6 +45,18 @@ export class CameraControlComponent implements OnInit {
   }
 
   cancelCapture() {
+    this.cameraService.cameraCompleted(this.captureImage);
+    this.onCaptured.emit();
+  }
+
+  deleteImage() {
+    let captureImage = new CaptureImage();
+    // captureImage.image = null;
+    // captureImage.key = new GUID().value;
+    this.image = null;
+    this.captureImage.image = null;
+    this.captureImage.key = new GUID().value;
+
     this.cameraService.cameraCompleted(this.captureImage);
     this.onCaptured.emit();
   }
