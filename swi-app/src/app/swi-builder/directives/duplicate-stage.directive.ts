@@ -2,7 +2,7 @@ import { Directive, HostListener, Input, EventEmitter, Output } from '@angular/c
 import { Router } from "@angular/router";
 
 import { ToastsManager } from "ng2-toastr";
-import { SWIFileService, SWIStage, SWIHeader, SWIStageGroup } from "app/core";
+import { SWIFileService, SWIStage, SWIHeader, SWIStageGroup, GUID } from "app/core";
 
 
 @Directive({
@@ -27,6 +27,7 @@ export class DuplicateStageDirective {
 
   duplicateStage() {
     let newStage: SWIStage = JSON.parse(JSON.stringify(this.stage));
+    newStage.id = new GUID().value;
     newStage.sequence = this.group.stages.length + 1;
     newStage.summary = `Copy of stage ${this.stage.sequence}`;
     this.group.stages.push(newStage);
