@@ -29,6 +29,7 @@ export class SwiGroupComponent implements OnInit {
   ngOnInit() {
     if (this.swi) {
       this.recalculateGroupSequences();
+      this.swi.stageGroups.forEach(grp => this.recalculateStageSequences(grp));
       this.moveToGroupList = this.swi.stageGroups.filter(g => g.id != this.group.id);
     }
   }
@@ -95,12 +96,25 @@ export class SwiGroupComponent implements OnInit {
       .catch(err => console.log("Canceled stage delete"));
   }
 
+  // recalculateStageSequences(group: SWIStageGroup) {
+  //   for (var i = 0; i < group.stages.length; i++) {
+  //     var element = group.stages[i];
+  //     element.sequence = i + 1;
+  //   }
+  //   this.recalculateGroupSequences();
+  // }
+
   recalculateStageSequences(group: SWIStageGroup) {
+    //First sort the stages by seqence number
+    group.stages = group.stages.sort((a, b) => {
+      if (a.sequence > b.sequence) return -1;
+      if (a.sequence < b.sequence) return 1;
+      return 0;
+    });
     for (var i = 0; i < group.stages.length; i++) {
       var element = group.stages[i];
       element.sequence = i + 1;
     }
-    this.recalculateGroupSequences();
   }
 
   recalculateGroupSequences() {

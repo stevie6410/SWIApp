@@ -30,9 +30,9 @@ export class SwiStageEditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      console.log("params", params);
+      //console.log("params", params);
       this.swi = this.route.snapshot.data['swi'];
-      console.log("swi", this.swi);
+      //console.log("swi", this.swi);
       this.initialState = generateHash(JSON.stringify(this.swi));
       this.stageId = params['stageid'];
       this.groupId = params['groupid'];
@@ -42,7 +42,6 @@ export class SwiStageEditComponent implements OnInit {
         console.log("Error: Could not find group");
 
       console.log("group", this.stageGroup);
-
 
       if (this.stageId == "new") {
         console.log("Creating new SWIStage");
@@ -56,7 +55,7 @@ export class SwiStageEditComponent implements OnInit {
         this.stage = this.stageGroup.stages.filter(s => s.id == this.stageId)[0];
       }
       console.log("stage", this.stage);
-      this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.stageId}`;
+      this.title = `Edit Stage ${this.stage.sequence} - ${this.stage.summary}`;
     });
   }
 
@@ -69,11 +68,10 @@ export class SwiStageEditComponent implements OnInit {
   }
 
   createNewStage() {
-    this.reloadForm(this.stageGroup.id);
+    this.reloadForm(this.stageGroup.id, this.stage.id);
   }
 
-  async reloadForm(groupId: string) {
-
+  async reloadForm(groupId: string, previousStageId: string) {
     //Get the new SWI from the store
     this.swi = await this.swiService.getFile(this.swi.id);
     console.log("swi", this.swi);
@@ -87,11 +85,45 @@ export class SwiStageEditComponent implements OnInit {
 
     console.log("Creating new SWIStage");
     //New SWIStage is required
+    this.recalculateStageSequences(this.stageGroup);
+    var previousStage = this.stageGroup.stages.filter(s => s.id == previousStageId)[0];
     this.stage = new SWIStage();
-    this.stage.sequence = this.stageGroup.stages.length + 1;
+    this.stage.sequence = previousStage.sequence + 0.5;
     this.stageGroup.stages.push(this.stage);
+    this.recalculateStageSequences(this.stageGroup);
 
     console.log("stage", this.stage);
-    this.title = `SWI Builder - ${this.swi.title} - Edit Stage - ${this.stageId}`;
+    this.title = `Edit Stage ${this.stage.sequence} - ${this.stage.summary}`;
+  }
+
+  recalculateStageSequences(group: SWIStageGroup) {
+    //First sort the stages by seqence number
+    group.stages = group.stages.sort((a, b) => {
+      return a.sequence - b.sequence;
+    });
+    for (var i = 0; i < group.stages.length; i++) {
+      var element = group.stages[i];
+      element.sequence = i + 1;
+    }
+  }
+
+  moveUp() {
+    var previousStageId = this.stageGroup.stages.filter(s => s.sequence == this.stage.sequence - 1)[0].id;
+    this.router.navigate(['builder', this.swi.id, 'stagegroup', this.stageGroup.id, 'stages', previousStageId]);
+  }
+
+  moveDown() {
+    var nextStageId = this.stageGroup.stages.filter(s => s.sequence == this.stage.sequence + 1)[0].id;
+    this.router.navigate(['builder', this.swi.id, 'stagegroup', this.stageGroup.id, 'stages', nextStageId]);
+  }
+
+  get canMoveUp(): boolean {
+    return this.stage.sequence > 1;
+  }
+
+  get canMoveDown(): boolean {
+    let maxSequence = this.stageGroup.stages[this.stageGroup.stages.length - 1].sequence;
+    // console.log(maxSequence);
+    return !(maxSequence == this.stage.sequence);
   }
 }
