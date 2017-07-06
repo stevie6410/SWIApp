@@ -21,11 +21,13 @@ export class SWIDuplicateService {
 
         //Get all of the image keys and make copies
         newSWI.coverImage = await this.imageStore.duplicateImage(newSWI.coverImage, newSWI.id);
-        for (let tool of newSWI.swiTools) {
-            tool.image = await this.imageStore.duplicateImage(tool.image, newSWI.id);
-        }
-        for (let stage of newSWI.swiStages) {
-            stage.image = await this.imageStore.duplicateImage(stage.image, newSWI.id);
+        for (let grp of newSWI.stageGroups) {
+            for (let stage of grp.stages) {
+                stage.image = await this.imageStore.duplicateImage(stage.image, newSWI.id);
+            }
+            for (let tool of grp.tools) {
+                tool.image = await this.imageStore.duplicateImage(tool.image, newSWI.id);
+            }
         }
 
         //Create the new SWI
