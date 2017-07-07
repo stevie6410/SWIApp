@@ -28,7 +28,7 @@ export class DuplicateStageDirective {
   duplicateStage() {
     let newStage: SWIStage = JSON.parse(JSON.stringify(this.stage));
     newStage.id = new GUID().value;
-    newStage.sequence = this.group.stages.length + 1;
+    newStage.sequence = this.stage.sequence + 0.5;
     newStage.summary = `Copy of stage ${this.stage.sequence}`;
     this.group.stages.push(newStage);
     this.onDuplicated.emit(newStage);

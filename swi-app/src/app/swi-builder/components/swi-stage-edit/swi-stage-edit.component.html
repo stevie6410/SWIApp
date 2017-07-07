@@ -1,7 +1,9 @@
 <app-page [title]='title' [backButton]="false" [faIcon]="'fa-pencil-square-o'">
 
-  <button type='button' class='page-button btn btn-secondary' [disabled]="!canMoveUp"(click)="moveUp()"> <i class="fa fa-arrow-up"></i></button>
-  <button type='button' class='page-button btn btn-secondary' [disabled]="!canMoveDown" (click)="moveDown()"> <i class="fa fa-arrow-down"></i></button>
+  <button type='button' class='page-button btn btn-secondary' [disabled]="!canMoveUp" (saved)="moveUp()" swiSaveChanges [swi]="swi"
+    [initialState]="initialState" [navBack]="false"> <i class="fa fa-arrow-up"></i></button>
+  <button type='button' class='page-button btn btn-secondary' [disabled]="!canMoveDown" (saved)="moveDown()" swiSaveChanges
+    [swi]="swi" [initialState]="initialState" [navBack]="false"> <i class="fa fa-arrow-down"></i></button>
 
   <div class='page-body' *ngIf="stage">
     <!--Page Content Here   -->
@@ -48,13 +50,16 @@
             <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="stage.carePoint"></textarea>
           </div>
 
-          <button type="button" [disabled]="!this.canSave" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState"
-            [navBack]="true">Save & Close</button>
-          <button type="button" [disabled]="!this.canSave" class="btn btn-lg btn-block btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState"
-            [navBack]="false" (saved)="createNewStage()">Save & Add New Stage</button>
-          <button type="button" class="btn btn-lg btn-block btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState"
-            [navBack]="true">Discard Changes</button>
+          <div class="btn-container">
 
+            <button type="button" class="btn btn-lg btn-secondary" swiDiscardChanges [swi]="swi" [initialState]="initialState"
+              [navBack]="true"><i class="fa fa-arrow-left"></i> Back to SWI</button>
+            <button type="button" [disabled]="!this.canSave" class="btn btn-lg btn-primary" swiSaveChanges [swi]="swi" [initialState]="initialState"
+              [navBack]="true"><i class="fa fa-save"></i> <i class="fa fa-close"></i> Save & Close</button>
+            <button type="button" [disabled]="!this.canSave" class="btn btn-lg btn-success" swiSaveChanges [swi]="swi" [initialState]="initialState"
+              [navBack]="false" (saved)="createNewStage()"><i class="fa fa-save"></i> <i class="fa fa-plus"></i>  Save & Add</button>
+
+          </div>
         </div>
 
       </div>

@@ -1,0 +1,18 @@
+.min-height-80{
+    min-height: 80px;
+}
+
+.care-point-input{
+    background-color: #ffd6d6;
+}
+
+    .btn-container{
+        display: flex;
+        //flex-wrap: wrap; 
+
+        button{
+            height: 100px;
+            width: 200px;
+            margin: 5px;
+        }
+    }

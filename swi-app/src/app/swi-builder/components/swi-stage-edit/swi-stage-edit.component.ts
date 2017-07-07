@@ -3,12 +3,12 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from "@angular/router";
 import { ToastsManager } from 'ng2-toastr';
 import { CameraService } from "../../../camera/services/camera.service";
-import { SWIHeader, SWIStage, SWIStageGroup, SWIFileService, ImageStoreService, generateHash } from "app/core";
+import { SWIHeader, SWIStage, SWIStageGroup, SWIFileService, ImageStoreService, generateHash, recalculateStageSequences } from "app/core";
 
 @Component({
   selector: 'swi-stage-edit',
   templateUrl: './swi-stage-edit.component.html',
-  styleUrls: ['./swi-stage-edit.component.css']
+  styleUrls: ['./swi-stage-edit.component.scss']
 })
 export class SwiStageEditComponent implements OnInit {
 
@@ -85,26 +85,15 @@ export class SwiStageEditComponent implements OnInit {
 
     console.log("Creating new SWIStage");
     //New SWIStage is required
-    this.recalculateStageSequences(this.stageGroup);
+    recalculateStageSequences(this.stageGroup);
     var previousStage = this.stageGroup.stages.filter(s => s.id == previousStageId)[0];
     this.stage = new SWIStage();
     this.stage.sequence = previousStage.sequence + 0.5;
     this.stageGroup.stages.push(this.stage);
-    this.recalculateStageSequences(this.stageGroup);
+    recalculateStageSequences(this.stageGroup);
 
     console.log("stage", this.stage);
     this.title = `Edit Stage ${this.stage.sequence} - ${this.stage.summary}`;
-  }
-
-  recalculateStageSequences(group: SWIStageGroup) {
-    //First sort the stages by seqence number
-    group.stages = group.stages.sort((a, b) => {
-      return a.sequence - b.sequence;
-    });
-    for (var i = 0; i < group.stages.length; i++) {
-      var element = group.stages[i];
-      element.sequence = i + 1;
-    }
   }
 
   moveUp() {

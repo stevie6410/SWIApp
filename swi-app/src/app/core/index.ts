@@ -26,6 +26,7 @@ export * from './resolvers/hs-items.resolver';
 
 //Helpers
 export * from './helpers/http-helper'
+export * from './helpers/swi-helper'
 
 //Module
 export * from './core.module'
