@@ -68,6 +68,7 @@ export class SwiGroupComponent implements OnInit {
 
   moveStageToGroup(stage: SWIStage, newGroup: SWIStageGroup) {
     //Add the stage to the new group and recaclulate sequences
+    stage.sequence = newGroup.stages.length + 1;
     newGroup.stages.push(stage);
     recalculateStageSequences(newGroup);
     //Remove stage from the old group and recalculate sequences
