@@ -34,7 +34,10 @@ export class SwiViewerScreenComponent implements OnInit {
   }
 
   openPrintPreview(){
+    var tempTitle = document.title;
+    document.title = this.swi.title;
     window.print();
+    document.title = tempTitle;
   }
 
   openStagesGallery(){
