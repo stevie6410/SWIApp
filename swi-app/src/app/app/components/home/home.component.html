@@ -1,7 +1,32 @@
-<app-page [title]='title' [backButton]="false">
-  <!--Add Page level buttons here with page-button class-->
+<div id="content-body">
+  <main>
+    <div id="sidebar-container">
+      <app-sidenav></app-sidenav>
+    </div>
+
+    <div id="content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!--Added the breaks as a quickfix to allow all content to be visible on the overflow-->
+    <br>
+    <br>
+    <br>
+  </main>
+</div>
+
+<!-- <app-page [title]='title' [backButton]="false">
   <div class='page-body'>
     <h1>Home</h1>
+
+
+    <input type="text" name="username" [(ngModel)]="username" placeholder="Username">
+    <input type="password" name="password" [(ngModel)]="password" placeholder="Password">
+    <button type="button" class="btn btn-sm" (click)="login()">Login</button>
+
+    <br>
+    <br>
+    <br>
 
     <input type="number" [(ngModel)]="this.docId">
     <button class="btn btn-default" (click)="this.debugDBSize()">Debug DB Size</button>
@@ -40,4 +65,4 @@
     </ul>
 
   </div>
-</app-page>
+</app-page> -->

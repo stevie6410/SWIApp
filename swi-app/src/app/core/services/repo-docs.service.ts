@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { Http, Response, Headers, RequestOptionsArgs, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import { Subject } from "rxjs/Subject";
@@ -22,8 +22,8 @@ import { EnvironmentService } from "app/app/services/environment.service";
 export class RepoDocsService {
 
   private baseApiUrl: string;
-  private documentsMethod: string = "api/v1/documents/"
-  private mastersMethod: string = "api/v1/swi/master/";
+  private documentsMethod = "api/v1/documents/";
+  private mastersMethod = "api/v1/swi/master/";
 
   constructor(
     private http: Http,
@@ -34,18 +34,18 @@ export class RepoDocsService {
   }
 
   public getDocument(id: number): Promise<RepoDocument> {
-    let url: string = this.baseApiUrl + this.documentsMethod + id.toString();
+    const url: string = this.baseApiUrl + this.documentsMethod + id.toString();
     return this.http.get(url).map(res => handleResponse(res)).toPromise();
   }
 
   public getDocuments(): Promise<SimpleRepoDocument[]> {
-    let url: string = this.baseApiUrl + this.documentsMethod;
+    const url: string = this.baseApiUrl + this.documentsMethod;
     return this.http.get(url).map(res => handleResponse(res)).toPromise();
   }
 
   public createDocument(createDoc: RepoCreateDocumentPayload): Promise<RepoDocument> {
-    let url: string = this.baseApiUrl + this.documentsMethod;
-    let body: string = JSON.stringify(createDoc);
+    const url: string = this.baseApiUrl + this.documentsMethod;
+    const body: string = JSON.stringify(createDoc);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -53,8 +53,8 @@ export class RepoDocsService {
   }
 
   public attatchFile(docId: number, file: string): Promise<RepoDocument> {
-    let url: string = this.baseApiUrl + this.documentsMethod + docId.toString() + '/attatchfile';
-    let body: string = JSON.stringify(file);
+    const url: string = this.baseApiUrl + this.documentsMethod + docId.toString() + "/attatchfile";
+    const body: string = JSON.stringify(file);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -62,8 +62,8 @@ export class RepoDocsService {
   }
 
   public linkPart(docId: number, linkPart: RepoDocumentPartLink): Promise<RepoDocumentPartLink> {
-    let url: string = this.baseApiUrl + this.documentsMethod + docId.toString() + '/linkpart';
-    let body: string = JSON.stringify(linkPart);
+    const url: string = this.baseApiUrl + this.documentsMethod + docId.toString() + "/linkpart";
+    const body: string = JSON.stringify(linkPart);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -72,8 +72,8 @@ export class RepoDocsService {
   }
 
   public createMaster(createMaster: CreateSWIMaster): Promise<SWIMaster> {
-    let url: string = this.baseApiUrl + this.mastersMethod;
-    let body: string = JSON.stringify(createMaster);
+    const url: string = this.baseApiUrl + this.mastersMethod;
+    const body: string = JSON.stringify(createMaster);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -82,8 +82,8 @@ export class RepoDocsService {
   }
 
   public createRevision(createRevision: CreateSWIRevision): Promise<SWIMaster> {
-    let url: string = `${this.baseApiUrl}${this.mastersMethod}${createRevision.swiMasterId}\\revision`;
-    let body: string = JSON.stringify(createRevision);
+    const url = `${this.baseApiUrl}${this.mastersMethod}${createRevision.swiMasterId}\\revision`;
+    const body: string = JSON.stringify(createRevision);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -93,9 +93,9 @@ export class RepoDocsService {
 
   public attatchSWIFile(masterId: string, revisionId: string, swi: SWIHeader): Observable<SWIMaster> {
     console.log("Client Hash before the attach SWI call", swi.clientHash);
-    let url: string = `${this.baseApiUrl}${this.mastersMethod}${masterId}\\revision\\${revisionId}\\attatchswi\\${swi.clientHash}`;
+    const url = `${this.baseApiUrl}${this.mastersMethod}${masterId}\\revision\\${revisionId}\\attatchswi\\${swi.clientHash}`;
     console.log("attachSWIFile URL: ", url);
-    let body: string = JSON.stringify(swi);
+    const body: string = JSON.stringify(swi);
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
@@ -103,7 +103,7 @@ export class RepoDocsService {
   }
 
   public getMasters(): Observable<SWIMaster[]> {
-    let url: string = this.baseApiUrl + this.mastersMethod;
+    const url: string = this.baseApiUrl + this.mastersMethod;
     return this.http
       .get(url)
       .map(res => handleResponse(res))
@@ -111,7 +111,7 @@ export class RepoDocsService {
   }
 
   public getMaster(id: string): Observable<SWIMaster> {
-    let url: string = this.baseApiUrl + this.mastersMethod + id.toString();
+    const url: string = this.baseApiUrl + this.mastersMethod + id.toString();
     return this.http
       .get(url)
       .map(res => handleResponse(res))

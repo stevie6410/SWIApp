@@ -1,0 +1,15 @@
+<div class="controls-container">
+
+  <div class="controls">
+    <img class="brand-logo" [src]='brandImage'>
+    <!-- <h2>SWI Builder Login</h2> -->
+    <div class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </div>
+
+    <input type="text" class="form-control" name="username" [(ngModel)]="username" placeholder="Username">
+    <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Password">
+    <button type="button" class="btn btn-primary btn-sm btn-block" [disabled]="loading" (click)="login()"> <i *ngIf="loading" class="fa fa-spinner fa-spin"></i> Login</button>
+  </div>
+
+</div>

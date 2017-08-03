@@ -31,24 +31,6 @@
           </div>
         </swi-card>
 
-        <!--<div *ngIf="isSyncing">
-          <h3>Syncing with Repository</h3>
-        </div>
-
-        <div *ngIf="isOutOfSync">
-          <h3>Out of Sync with Repository!</h3>
-        </div>
-
-        <h4>C Hash: {{clientHash}}</h4>
-        <h4>R Hash: {{repoHash}}</h4>
-
-        <h4>C Timestamp: {{clientTimestamp}}</h4>
-        <h4>R Timestamp: {{repoTimestamp}}</h4>
-
-        <h4>{{syncLatest}}</h4>
-
-        <h4>LoadingRepo: {{loadingRepo}}</h4>-->
-
 
         <swi-card [title]="'SWI Master Properties'">
           <div class='card-block' *ngIf="!loadingRepo && !loadingRepoError">
@@ -94,18 +76,7 @@
           </div>
         </swi-card>
 
-      </div>
-
-      <div class="col-md-4">
-
-        <swi-card [title]="'SWI Overview'">
-
-          <div class="card-block">
-            <swi-img [imageKey]="swi.coverImage" [border]="true" width="100%" class="cover-image"></swi-img>
-          </div>
-        </swi-card>
-
-        <!--<swi-card [title]="'SWI Repository Status'">
+        <swi-card [title]="'SWI Repository Status'" *ngIf="isLoggedIn">
           <div class='card-block'>
 
             <div *ngIf="isOutOfSync">
@@ -134,7 +105,36 @@
             </div>
 
           </div>
-        </swi-card>-->
+        </swi-card>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <swi-card [title]="'SWI Overview'">
+
+          <div class="card-block">
+            <swi-img [imageKey]="swi.coverImage" [border]="true" width="100%" class="cover-image"></swi-img>
+          </div>
+        </swi-card>
+
+        <div *ngIf="!isLoggedIn">
+
+          <swi-card [title]='"Login to Repository"'>
+            <div class="card-block">
+
+              <swi-login></swi-login>
+
+            </div>
+          </swi-card>
+
+        </div>
+
+        <div *ngIf="isLoggedIn">
+
+          <swi-user-profile-card></swi-user-profile-card>
+
+        </div>
 
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from '@angular/core';
+import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from "@angular/core";
 import { ModalModule } from "angular2-modal";
 import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 import { MomentModule } from "angular2-moment";
@@ -17,7 +17,9 @@ import {
     SWIResolver,
     SWIsResolver,
     RepoStandardToolingService,
-    SwiUpgradeService
+    SwiUpgradeService,
+    AuthService,
+    AuthGuard
 } from "./index";
 
 @NgModule({
@@ -41,14 +43,16 @@ import {
         SWIResolver,
         SWIsResolver,
         RepoStandardToolingService,
-        SwiUpgradeService
+        SwiUpgradeService,
+        AuthService,
+        AuthGuard
     ],
     bootstrap: []
 })
 export class CoreModule {
     constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
         if (parentModule) {
-            throw new Error('CoreModule is already loaded. Import it in the AppModule only');
+            throw new Error("CoreModule is already loaded. Import it in the AppModule only");
         }
     }
 }

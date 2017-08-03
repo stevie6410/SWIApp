@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { SimpleRepoDocument, SWIHeader, RepoDocument, RepoDocsService, SWIFileService, ImageStoreService, showIndexedDbSize, RepoCreateDocumentPayload, RepoDocumentPartLink } from "app/core";
+import { Component, OnInit } from "@angular/core";
+import {
+  SimpleRepoDocument,
+  SWIHeader,
+  RepoDocument,
+  RepoDocsService,
+  SWIFileService,
+  ImageStoreService,
+  showIndexedDbSize,
+  RepoCreateDocumentPayload,
+  RepoDocumentPartLink,
+  AuthService
+} from "app/core";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "swi-app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
 
-  title = 'Standard Work Instructions!!';
-  docId: number = 1;
+  title = "Standard Work Instructions!!";
+  docId = 1;
   docs: SimpleRepoDocument[];
   swiTest: SWIHeader;
   doc: RepoDocument;
-  loading: boolean = false;
+  loading = false;
   loadingMsg: string;
+  username: string;
+  password: string;
 
   partNumber: string;
   revision: string;
@@ -23,7 +36,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private repoDocs: RepoDocsService,
     private swiService: SWIFileService,
-    private imageStore: ImageStoreService
+    private imageStore: ImageStoreService,
+    private authService: AuthService
   ) {
 
   }
@@ -35,11 +49,21 @@ export class HomeComponent implements OnInit {
     showIndexedDbSize();
   }
 
+  async login() {
+    let token: string;
+    try {
+      token = await this.authService.login(this.username, this.password).toPromise();
+      console.log("Login succesful");
+    } catch (error) {
+      console.log("Could not log in", error.json().message);
+    }
+  }
+
   async getDocument() {
     this.loading = true;
     this.loadingMsg = "Downloading document from SWI Repository...";
 
-    let doc = await this.repoDocs.getDocument(this.docId);
+    const doc = await this.repoDocs.getDocument(this.docId);
 
     this.doc = doc;
     this.loadingMsg = "Extracting SWI...";
@@ -53,14 +77,14 @@ export class HomeComponent implements OnInit {
 
   async createDocument() {
 
-    let createDoc = new RepoCreateDocumentPayload();
+    const createDoc = new RepoCreateDocumentPayload();
     createDoc.userId = 1;
     createDoc.documentTypeId = 1;
     createDoc.name = "Test from the builder App";
     createDoc.appVersion = "0.7.1";
     createDoc.swiFile = "";
 
-    let doc = await this.repoDocs.createDocument(createDoc);
+    const doc = await this.repoDocs.createDocument(createDoc);
     this.doc = doc;
     this.docId = doc.id;
 
@@ -70,10 +94,10 @@ export class HomeComponent implements OnInit {
 
   handleRawSWI(rawSWI: string): SWIHeader {
     try {
-      var start = Date.now();
+      const start = Date.now();
       let swi: SWIHeader;
       swi = JSON.parse(JSON.parse(rawSWI));
-      console.log('Took', Date.now() - start, 'ms');
+      console.log("Took", Date.now() - start, "ms");
       return swi;
     } catch (error) {
       console.log("File data is not a valid SWI");
@@ -81,8 +105,8 @@ export class HomeComponent implements OnInit {
   }
 
   async attatchFile() {
-    //Get an swi from the store
-    let swis = await this.swiService.getAll();
+    // Get an swi from the store
+    const swis = await this.swiService.getAll();
     let swi = swis[0];
     swi = await this.imageStore.emmbedImagesIntoSWI(swi);
     this.doc = await this.repoDocs.attatchFile(this.docId, JSON.stringify(swi));
@@ -90,12 +114,12 @@ export class HomeComponent implements OnInit {
   }
 
   async linkPart() {
-    let linkPart = new RepoDocumentPartLink();
+    const linkPart = new RepoDocumentPartLink();
     linkPart.partNumber = this.partNumber;
     linkPart.revision = this.revision;
     linkPart.erpSystemId = 1;
 
-    let partLink = await this.repoDocs.linkPart(this.docId, linkPart);
+    const partLink = await this.repoDocs.linkPart(this.docId, linkPart);
     this.doc.documentPartLinks.push(partLink);
   }
 

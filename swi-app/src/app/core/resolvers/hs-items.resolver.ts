@@ -12,9 +12,9 @@ export class HSItemsResolver implements Resolve<SWIHSItem[]> {
 
     async resolve(): Promise<SWIHSItem[]> {
         console.log("Starting HS resolver");
-        let catalog = await this.appCatalog.getCatalog();
+        const catalog = await this.appCatalog.getCatalog();
         console.log("Got catalog", catalog);
-        let results = catalog.hsIcons;
+        const results = catalog.hsIcons;
         console.log("Got results", results);
 
         return results;
