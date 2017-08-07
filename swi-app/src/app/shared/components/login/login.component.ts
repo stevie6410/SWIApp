@@ -24,14 +24,14 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/browser';
+    this.returnURL = this.route.snapshot.queryParams['returnURL'];
   }
 
   login() {
     this.loading = true;
     this.authService.login(this.username, this.password).subscribe(
       token => {
-        this.router.navigateByUrl(this.returnURL);
+        if (this.returnURL) { this.router.navigateByUrl(this.returnURL); }
         this.loading = false;
       },
       err => {

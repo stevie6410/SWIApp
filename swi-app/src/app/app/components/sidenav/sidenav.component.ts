@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandImage } from "assets/image-placeholder";
-import { SWIFileService } from "app/core";
+import { SWIFileService, AuthService } from "app/core";
 import { EnvironmentService } from "app/app/services/environment.service";
 
 @Component({
@@ -18,7 +18,8 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private swiFileService: SWIFileService,
-    private environment: EnvironmentService
+    private environment: EnvironmentService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -32,5 +33,9 @@ export class SidenavComponent implements OnInit {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 }
