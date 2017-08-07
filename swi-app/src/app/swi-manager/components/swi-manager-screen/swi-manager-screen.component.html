@@ -1,0 +1,142 @@
+<app-page [title]="'SWI Manager - ' + swi.title" [backButton]="true" [overrideBackButton]="true" [faIcon]="'fa-cubes'" (onBackButtonClick)="navBack()"
+  [isLoading]="pageLoading" [loadingMessage]="loadingMessage">
+  <!--Add Page level buttons here with page-button class-->
+  <!--<button type='button' class='page-button btn btn-primary'>Page Menu Button</button>-->
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+    <div class="row">
+
+      <div class="col-md-8">
+
+        <swi-card [title]="'Commands'">
+
+          <span class="badge card-badge" [ngClass]="{'badge-success': environment.isCurrentVersion(swi.appVersion), 'badge-warning': !environment.isCurrentVersion(swi.appVersion)}"
+            *ngIf="swi.appVersion"> <i class="fa fa-info-circle"></i>  v{{swi?.appVersion}}</span>
+
+          <div class="card-block">
+
+            <div class="btn-container" data-toggle="buttons">
+
+              <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View</button>
+              <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning" *ngIf="!this.requiresUpgrade"><i class="fa fa-cubes"></i> Edit</button>
+              <button type="button" swiUpgrade (completed)="upgradeComplete()" [swi]="swi" class="btn btn-lg btn-warning" *ngIf="this.requiresUpgrade"><i class="fa fa-arrow-up"></i> Upgrade</button>
+              <button type="button" swiDuplicateButton [swi]="swi" (started)="duplicatingStatus(true)" (completed)="duplicatingStatus(false)"
+                class="btn btn-lg btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
+              <button type="button" class="btn btn-lg btn-primary" swiExportButton (exportStarted)="exportingStatus(true)" (exportCompelte)="exportingStatus(false)"
+                [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
+              <button type="button" swiDeleteButton [swi]="swi" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete</button>
+
+            </div>
+          </div>
+        </swi-card>
+
+
+        <swi-card [title]="'SWI Master Properties'">
+          <div class='card-block' *ngIf="!loadingRepo && !loadingRepoError">
+
+            <div class="property-badge-list">
+              <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
+              <span class="badge badge-default">{{swiMaster?.type}}</span>
+            </div>
+
+          </div>
+          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
+            <h6 *ngIf="loadingRepo">
+              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
+            </h6>
+            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Revision Properties'">
+          <table class="table table-sm card-table" *ngIf="swiMaster">
+            <thead>
+              <tr>
+                <th>Revision #</th>
+                <th>Released</th>
+                <th>Created On</th>
+                <th>Modified On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rev of swiMaster?.swiRevisions">
+                <td>{{rev.revisionNumber}}</td>
+                <td>{{rev.released}}</td>
+                <td>{{rev.createdOn | amCalendar}}</td>
+                <td>{{rev.modifiedOn | amCalendar}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
+            <h6 *ngIf="loadingRepo">
+              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
+            </h6>
+            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Repository Status'" *ngIf="isLoggedIn">
+          <div class='card-block'>
+
+            <div *ngIf="isOutOfSync">
+              <div class="alert alert-warning alert-zero-margin" *ngIf="isOutOfSync">
+                <i class="fa fa-warning"></i> Out of sync with the Repository
+              </div>
+              <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="!isSyncing"
+                (click)="this.syncRepo()"><i class="fa fa-refresh"></i> Sync with Repository</button>
+              <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
+            </div>
+
+
+            <div *ngIf="!isOutOfSync && !this.loadingRepoError">
+              <div class="alert alert-success alert-zero-margin">
+                <i class="fa fa-check"></i> In sync with the Repository
+              </div>
+            </div>
+
+            <div *ngIf="loadingRepoError">
+              <div class="alert alert-danger alert-zero-margin">
+                <i class="fa fa-warning"></i> Not Linked to Repository
+              </div>
+              <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="!isSyncing"
+                (click)="this.syncRepo()"><i class="fa fa-refresh"></i> Sync with Repository</button>
+              <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
+            </div>
+
+          </div>
+        </swi-card>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <swi-card [title]="'SWI Overview'">
+
+          <div class="card-block">
+            <swi-img [imageKey]="swi.coverImage" [border]="true" width="100%" class="cover-image"></swi-img>
+          </div>
+        </swi-card>
+
+        <div *ngIf="!isLoggedIn">
+
+          <swi-card [title]='"Login to Repository"'>
+            <div class="card-block">
+
+              <swi-login></swi-login>
+
+            </div>
+          </swi-card>
+
+        </div>
+
+        <div *ngIf="isLoggedIn">
+
+          <swi-user-profile-card></swi-user-profile-card>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</app-page>

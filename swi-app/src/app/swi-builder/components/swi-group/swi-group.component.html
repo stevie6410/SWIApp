@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header sticky-top">
+
+    <div class="read-only-grp-header" *ngIf="!editMode">
+
+      <span class="group-name-label">{{group.sequence}} - {{group.name}}</span>
+      <div class="col-6-lg button-group float-right">
+        <div class="btn-group" role="group">
+          <button class="btn btn-primary" (click)="addTool(group)"> <i class="fa fa-plus"></i> Add Tool</button>
+          <button class="btn btn-primary" (click)="addStage(group)"> <i class="fa fa-plus"></i> Add Stage</button>
+          <button class="btn btn-warning" (click)="editGroup(group)"> <i class="fa fa-pencil"></i> Edit Group</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-grp-header" *ngIf="editMode">
+      <input class="edit-group-name form-control" type="text" [(ngModel)]="group.name">
+
+      <div class="btn-group special margin-top" role="group">
+        <button class="btn btn-primary" (click)="moveGroupUp(group)" [disabled]="!group.sequence || group.sequence <= 1"> <i class="fa fa-arrow-up"></i> Move Group Up</button>
+        <button class="btn btn-primary" (click)="moveGroupDown(group)" [disabled]="!group.sequence || group.sequence == swi.stageGroups.length"> <i class="fa fa-arrow-down"></i> Move Group Down</button>
+        <button class="btn btn-success" (click)="editGroup(group)"> <i class="fa fa-save"></i> Save Changes</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card-block tools-block">
+    <swi-tools-list-view [swi]="swi" [group]="this.group" [editMode]="editMode" (save)="save()" (selected)="editTool(group, $event)"></swi-tools-list-view>
+  </div>
+
+  <ul class="list-unstyled list-group list-group-flush">
+    <li class="list-group-item media" [ngClass]="{'highlight-stage': stage == this.selectedStage}" *ngFor="let stage of group.stages"
+      (click)="editStage(stage)">
+
+      <h4><span class="badge badge-pill badge-primary" [ngClass]="{'badge-danger': stage.criticalStep}">{{stage.sequence}}</span></h4>
+      <swi-img class="d-flex mr-3 thumb-img" [imageKey]="stage.image" [thumbnail]="true"></swi-img>
+      <div class="media-body">
+        <h6 class="mt-0 mb-1">{{stage.summary}}</h6>
+      </div>
+
+      <div class="btn-group swi-stage-btn-grp" *ngIf="editMode">
+        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveStageUp(group, stage)" [disabled]="stage.sequence == 1"><i class="fa fa-arrow-up"></i></button>
+        <button type="button" class="btn btn-warning swi-stage-reorder-btn" (click)="moveStageDown(group, stage)" [disabled]="stage.sequence == group.stages.length"><i class="fa fa-arrow-down"></i></button>
+        <button type="button" class="btn btn-primary swi-stage-reorder-btn" duplicateStage (onDuplicated)="stageDuplicated(group, $event)"
+          [swi]="swi" [group]="group" [stage]="stage"><i class="fa fa-copy"></i></button>
+
+        <!--Move to Group Dropdown Button-->
+        <div class="btn-group" dropdown [placement]="'left'" *ngIf="swi.stageGroups.length > 1">
+          <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false"><i class="fa fa-arrows-v"></i><span class="caret"></span></button>
+
+          <ul *dropdownMenu class="dropdown-menu" role="menu">
+            <li role="menuitem" *ngFor="let grp of groupOptions"><a class="dropdown-item" (click)="this.moveStageToGroup(stage, grp)">{{grp.sequence}} - {{grp.name}}</a></li>
+          </ul>
+        </div>
+
+        <button type="button" class="btn btn-danger swi-stage-reorder-btn" (click)="deleteStage(group, stage)"><i class="fa fa-trash"></i></button>
+      </div>
+    </li>
+  </ul>
+
+</div>

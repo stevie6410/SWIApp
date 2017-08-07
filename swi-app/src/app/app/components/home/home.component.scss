@@ -1,0 +1,40 @@
+.page-loading{
+    margin-top: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .loading-text{
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: -150px;
+    }
+}
+
+#content-body {
+    height: 100%;
+ }
+
+    #content-body main {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
+
+#content {
+    font-size: 12px;
+    height: 100%;
+    flex: 1;
+    overflow: overlay;
+}
+
+.form-horizontal {
+    display: flex;
+    flex-direction: column;
+}
+
+textarea.form-control {
+    height: 100%;
+}

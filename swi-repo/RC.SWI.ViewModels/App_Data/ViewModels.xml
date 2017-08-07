@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RC.SWI.ViewModels</name>
+    </assembly>
+    <members>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.Id">
+            <summary>
+            New SWI Master Id
+            </summary>
+        </member>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.Title">
+            <summary>
+            New SWI Master document title
+            </summary>
+        </member>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.TypeId">
+            <summary>
+            SWI Type Id
+            </summary>
+        </member>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.UserId">
+            <summary>
+            User Id requesting the new SWI Master
+            </summary>
+        </member>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.AppVersion">
+            <summary>
+            App version of the client. Must be a valid semver version string (e.g. 1.2.3)
+            </summary>
+        </member>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.SWIFile">
+            <summary>
+            SWI file converted to a string. Typically generated using JSON.stringify(swi)
+            </summary>
+        </member>
+    </members>
+</doc>

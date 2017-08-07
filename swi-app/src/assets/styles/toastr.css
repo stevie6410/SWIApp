@@ -101,8 +101,8 @@ button.toast-close-button {
 	overflow: hidden;
 	margin: 0 0 6px;
 	padding: 15px 15px 15px 50px;
-	width: 300px;
-	border-radius: 3px 3px 3px 3px;
+	width: 500px;
+	/*border-radius: 3px 3px 3px 3px;*/
 	background-position: 15px;
 	background-repeat: no-repeat;
 	box-shadow: 0 0 12px #999;

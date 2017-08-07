@@ -1,0 +1,11 @@
+<swi-card [title]="'User Profile'">
+
+  <div class="card-block">
+
+    <h5> <i class="fa fa-user"></i> Logged in as {{authService?.loggedInUser?.fullName}}</h5>
+    <br>
+    <button type="button" class="btn btn-secondary btn-block" (click)="authService.logout()">Logout</button>
+
+  </div>
+
+</swi-card>

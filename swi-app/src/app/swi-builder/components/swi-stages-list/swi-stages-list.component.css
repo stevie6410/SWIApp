@@ -1,0 +1,17 @@
+
+/*@keyframes MyAnimation {
+  0% {
+    padding-left: 200px;
+  }
+  100% {
+    padding-left: 20px;
+  } 
+}
+
+.my-animation {
+  animation: MyAnimation 0.75s;
+}*/
+
+.btn-group{
+    margin: 10px;
+}

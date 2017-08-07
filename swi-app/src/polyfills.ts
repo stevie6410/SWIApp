@@ -48,7 +48,8 @@ import 'core-js/es7/reflect';
 /** ALL Firefox browsers require the following to support `@angular/animation`. **/
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
-
+/** Added for Angualr material http://stackoverflow.com/questions/41322566/angular-2-could-not-find-hammerjs */
+import 'hammerjs/hammer';
 
 /***************************************************************************************************
  * Zone JS is required by Angular itself.

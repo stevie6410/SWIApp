@@ -1,0 +1,47 @@
+<app-page [title]="'Create New Standard Tool'" [backButton]="false">
+  <!--Add Page level buttons here with page-button class-->
+  <!--<button type='button' class='page-button btn btn-primary'>Save</button>-->
+  <div class='page-body'>
+    <!--Page Content Here   -->
+
+    <form name="tool-form">
+      <div class="row">
+        <!--Column 1-->
+        <div class="col-lg-5">
+          <swi-img class="tool-image" [src]="tool.image" [border]="true" (click)="getImage()"></swi-img>
+        </div>
+        <!--Column 2-->
+        <div class="col-lg-7">
+          <!--Summary-->
+          <div class="form-group">
+            <label for="title">Summary</label>
+            <input type="text" class="form-control" required name="summary" [(ngModel)]="tool.name">
+          </div>
+          <!--Is Released (Checkbox)-->
+          <div class="row min-height-80 padding-top-20">
+            <div class="col">
+              <label>Care Point</label>
+            </div>
+            <div class="col">
+              <div class="switch float-right">
+                <input id="swi-header-isCritical" class="cmn-toggle cmn-toggle-round" type="checkbox" name="isCritical" [(ngModel)]="tool.hasCarePoint">
+                <label for="swi-header-isCritical"></label>
+              </div>
+            </div>
+          </div>
+          <!--Care Point Text-->
+          <div class="form-group" *ngIf="tool.hasCarePoint">
+            <!--<label for="title">Care Point</label>-->
+            <textarea class="form-control care-point-input" rows="5" name="carepoint" [(ngModel)]="tool.carePoint"></textarea>
+          </div>
+          <button type="button" class="btn btn-lg btn-block btn-success" (click)="save()"> <i class="fa fa-save"></i> Save And Close</button>
+          <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="navBack()">Cancel</button>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+</app-page>

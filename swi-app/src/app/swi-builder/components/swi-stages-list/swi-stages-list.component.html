@@ -1,0 +1,6 @@
+<!--<div class="btn-group">
+  <button type="button" class="btn btn-secondary">Add Group</button>
+  <button type="button" class="btn btn-secondary">Reorder Group</button>
+</div>-->
+
+<swi-group *ngFor="let grp of this.swi.stageGroups" (onSave)="save()" [swi]="swi" [group]="grp"></swi-group>

@@ -1,0 +1,54 @@
+$card-width: 200px;
+
+.card-gallery{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card{
+    width: $card-width + 4px;
+    margin: 5px;
+    border: 2px solid #acacac;
+    cursor: pointer;
+    animation: zoomIn 0.5s;
+    transition: all 0.5s;
+
+    .card-block-container{
+        padding: 0.75rem;
+    }
+
+}
+
+.card:hover{
+    border:2px solid #3d464d;
+    transform: scale(1.05);
+}
+
+.card-img-top{
+    width: $card-width; 
+    height: $card-width;
+}
+
+.card-selected{
+    transform: scale(1.05);
+    border:2px solid green;
+}
+
+.card-badge{
+    font-size: 10px;
+}
+
+.card-title{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.page-body{
+    height: 100%;
+}
+
+.dropzone{
+    // height:500px;
+    // width: 100%;
+    // border: dashed 2px red;
+}
