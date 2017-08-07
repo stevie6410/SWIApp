@@ -4,17 +4,17 @@ import { SWIFileService } from "app/core";
 import { EnvironmentService } from "app/app/services/environment.service";
 
 @Component({
-  selector: 'app-sidenav',
+  selector: 'swi-app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
 
   brandImage: string = BrandImage;
-  isCollapsed: boolean = true;
-  isProduction: boolean = false;
-  versionTag: string = "Loading...";
-  buildNumber: string = "Loading...";
+  isCollapsed = true;
+  isProduction = false;
+  versionTag = "Loading...";
+  buildNumber = "Loading...";
 
   constructor(
     private swiFileService: SWIFileService,
@@ -22,10 +22,11 @@ export class SidenavComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let verTag = this.environment.getVersionTag();
+    const verTag = this.environment.getVersionTag();
     this.versionTag = verTag;
     this.isProduction = this.versionTag.startsWith("Production");
     this.buildNumber = this.environment.getEnvironmentProp('buildNumber');
+    // tslint:disable-next-line:no-console
     console.info("App Version: ", this.environment.getAppVersion());
   }
 
