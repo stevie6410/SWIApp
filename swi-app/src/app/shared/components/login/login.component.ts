@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "app/core";
 import { BrandImage } from "assets/image-placeholder";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "swi-login",
@@ -15,21 +15,24 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   brandImage: string = BrandImage;
   loading = false;
+  returnURL: string;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.returnURL = this.route.snapshot.queryParams['returnURL'] || '/browser';
   }
 
   login() {
     this.loading = true;
     this.authService.login(this.username, this.password).subscribe(
       token => {
+        this.router.navigateByUrl(this.returnURL);
         this.loading = false;
-        // console.log("token", token);
       },
       err => {
         this.loading = false;

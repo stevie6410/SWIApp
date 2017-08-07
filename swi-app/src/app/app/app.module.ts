@@ -27,6 +27,7 @@ import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { ToastCustomOptions } from "app/core/toastr.options";
 import { ToastModule, ToastOptions } from "ng2-toastr/ng2-toastr";
 import { EnvironmentService } from "app/app/services/environment.service";
+import { SwiUsersModule } from "app/swi-users";
 
 export function initEnvironment(envService: EnvironmentService) {
   return () => envService.load();
@@ -54,7 +55,8 @@ export function initEnvironment(envService: EnvironmentService) {
     SwiViewerModule,
     SwiManagerModule,
     SwiRepoModule,
-    SwiStandardToolingModule
+    SwiStandardToolingModule,
+    SwiUsersModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: initEnvironment, deps: [EnvironmentService], multi: true },

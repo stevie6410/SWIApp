@@ -60,8 +60,8 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  redirectToLogin() {
-    this.router.navigate(["login"]);
+  redirectToLogin(returnURL: string) {
+    this.router.navigate(["login"], { queryParams: { returnURL: returnURL } });
   }
 
   public get loggedInUser(): AuthUser {

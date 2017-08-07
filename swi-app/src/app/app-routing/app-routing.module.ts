@@ -24,6 +24,7 @@ import {
 // Resolvers
 import { SWIsResolver, SWIResolver, HSItemsResolver, AuthGuard } from "app/core";
 import { LoginComponent } from "app/shared";
+import { UserSearchScreenComponent } from "app/swi-users";
 
 const appRoutes: Routes = [
   {
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
       { path: "repo/search", component: RepoSearchComponent },
       { path: "repo/tooling/search", component: StdToolingSearchComponent },
       { path: "repo/tooling/edit/:id", component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } },
-      { path: "repo/tooling/new", component: StdToolingFormComponent }
+      { path: "repo/tooling/new", component: StdToolingFormComponent },
+      { path: "admin/users/search", component: UserSearchScreenComponent, canActivate: [ AuthGuard ] }
     ]
   },
   { path: "login", component: LoginComponent }
