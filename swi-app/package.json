@@ -1,6 +1,6 @@
 {
   "name": "swiweb-app",
-  "version": "0.9.5",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -54,7 +54,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0",
+    "@angular/cli": "^1.2.7",
     "@angular/compiler-cli": "^4.0.0",
     "@types/cropperjs": "^0.0.23",
     "@types/crypto-js": "^3.1.33",
