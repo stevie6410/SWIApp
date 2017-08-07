@@ -19,6 +19,7 @@
       <div class="btn-group special margin-top" role="group">
         <button class="btn btn-primary" (click)="moveGroupUp(group)" [disabled]="!group.sequence || group.sequence <= 1"> <i class="fa fa-arrow-up"></i> Move Group Up</button>
         <button class="btn btn-primary" (click)="moveGroupDown(group)" [disabled]="!group.sequence || group.sequence == swi.stageGroups.length"> <i class="fa fa-arrow-down"></i> Move Group Down</button>
+        <button class="btn btn-danger" (click)="deleteGroup(group)"> <i class="fa fa-trash"></i> Delete Group</button>
         <button class="btn btn-success" (click)="editGroup(group)"> <i class="fa fa-save"></i> Save Changes</button>
       </div>
 

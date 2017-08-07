@@ -149,6 +149,28 @@ export class SwiGroupComponent implements OnInit {
     }, 500);
   }
 
+  deleteGroup(group: SWIStageGroup) {
+    this.modal.confirm()
+      .size('lg')
+      .isBlocking(true)
+      .showClose(false)
+      .keyboard(27)
+      .titleHtml('<h5>Confirm Delete Group</h5>')
+      .body(`Are you sure you want to delete group ${group.name}?`)
+      .okBtn('Delete Group')
+      .okBtnClass('btn btn-danger')
+      .cancelBtn('Cancel')
+      .cancelBtnClass('btn btn-secondary')
+      .open()
+      .then(dialogRef => dialogRef.result)
+      .then(result => {
+        this.swi.stageGroups = this.swi.stageGroups.filter(g => g.id !== group.id);
+        recalculateGroupSequences(this.swi);
+        this.toast.warning(`Group ${group.name} has been deleted`);
+      })
+      .catch(err => console.log("Canceled stage delete"));
+  }
+
   save() {
     this.onSave.emit();
   }
