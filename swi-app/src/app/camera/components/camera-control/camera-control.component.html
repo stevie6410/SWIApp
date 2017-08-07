@@ -23,19 +23,19 @@
 
     <!--Buttons for the Image Control Main Menu-->
     <div *ngIf="!isCroppingMode && !isCaptureMode">
-      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="toggleFileMode()"><i class="fa fa-folder-open"></i> From File</button>
-      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="toggleCaptureMode()"><i class="fa fa-camera"></i> From Camera</button>
-      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="toggleCroppingMode()"><i class="fa fa-crop"></i> Crop Image</button>
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="this.captureComplete()"><i class="fa fa-check"></i> Confirm Image</button>
-      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="this.deleteImage()"><i class="fa fa-trash"></i> Delete Image</button>
-      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="this.cancelCapture()"><i class="fa fa-ban"></i> Cancel</button>
+      <button type="button" class="btn btn-primary btn-lg btn-block btn-tall" (click)="toggleFileMode()"><i class="fa fa-folder-open"></i> From File</button>
+      <button type="button" class="btn btn-primary btn-lg btn-block btn-tall" (click)="toggleCaptureMode()"><i class="fa fa-camera"></i> From Camera</button>
+      <button type="button" class="btn btn-primary btn-lg btn-block btn-tall" (click)="toggleCroppingMode()"><i class="fa fa-crop"></i> Crop Image</button>
+      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="this.captureComplete()"><i class="fa fa-check"></i> Confirm Image</button>
+      <button type="button" class="btn btn-danger btn-lg btn-block btn-tall" (click)="this.deleteImage()"><i class="fa fa-trash"></i> Delete Image</button>
+      <button type="button" class="btn btn-danger btn-lg btn-block btn-tall" (click)="this.cancelCapture()"><i class="fa fa-ban"></i> Cancel</button>
     </div>
 
     <!--Buttons for cropping Mode-->
     <div *ngIf="image && isCroppingMode">
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="this.cropper.crop()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
-      <button type="button" class="btn btn-success btn-lg btn-block" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Use Full Image</button>
-      <button type="button" class="btn btn-danger btn-lg btn-block" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
+      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="this.cropper.crop()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
+      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Use Full Image</button>
+      <button type="button" class="btn btn-danger btn-lg btn-block btn-tall" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
     </div>
 
     <!--Buttons for capture Mode-->
