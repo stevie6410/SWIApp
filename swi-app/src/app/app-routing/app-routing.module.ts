@@ -24,7 +24,8 @@ import {
 // Resolvers
 import { SWIsResolver, SWIResolver, HSItemsResolver, AuthGuard } from "app/core";
 import { LoginComponent } from "app/shared";
-import { UserSearchScreenComponent } from "app/swi-users";
+import { SwiSettingsScreenComponent, SwiSettingsFeaturesComponent, SwiSettingsStorageComponent } from "app/swi-settings";
+import { UserListComponent } from "app/swi-users";
 
 const appRoutes: Routes = [
   {
@@ -44,7 +45,26 @@ const appRoutes: Routes = [
       { path: "repo/tooling/search", component: StdToolingSearchComponent },
       { path: "repo/tooling/edit/:id", component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } },
       { path: "repo/tooling/new", component: StdToolingFormComponent },
-      { path: "admin/users/search", component: UserSearchScreenComponent, canActivate: [ AuthGuard ] }
+      {
+        path: "settings", component: SwiSettingsScreenComponent, children: [
+          {
+            path: "local", children: [
+              { path: "features", component: SwiSettingsFeaturesComponent },
+              { path: "storage", component: SwiSettingsStorageComponent }
+            ]
+          },
+          {
+            path: "repo", canActivateChild: [AuthGuard], children: [
+              { path: "users", component: UserListComponent }
+            ]
+          },
+          {
+            path: "security", canActivateChild: [AuthGuard], children: [
+              { path: "users", component: UserListComponent }
+            ]
+          }
+        ]
+      }
     ]
   },
   { path: "login", component: LoginComponent }

@@ -28,6 +28,7 @@ import { ToastCustomOptions } from "app/core/toastr.options";
 import { ToastModule, ToastOptions } from "ng2-toastr/ng2-toastr";
 import { EnvironmentService } from "app/app/services/environment.service";
 import { SwiUsersModule } from "app/swi-users";
+import { SwiSettingsModule } from "app/swi-settings";
 
 export function initEnvironment(envService: EnvironmentService) {
   return () => envService.load();
@@ -56,7 +57,8 @@ export function initEnvironment(envService: EnvironmentService) {
     SwiManagerModule,
     SwiRepoModule,
     SwiStandardToolingModule,
-    SwiUsersModule
+    SwiUsersModule,
+    SwiSettingsModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: initEnvironment, deps: [EnvironmentService], multi: true },

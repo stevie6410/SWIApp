@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserSearchScreenComponent } from './user-search-screen.component';
+import { SwiSettingsMenuComponent } from './swi-settings-menu.component';
 
-describe('UserSearchScreenComponent', () => {
-  let component: UserSearchScreenComponent;
-  let fixture: ComponentFixture<UserSearchScreenComponent>;
+describe('SwiSettingsMenuComponent', () => {
+  let component: SwiSettingsMenuComponent;
+  let fixture: ComponentFixture<SwiSettingsMenuComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserSearchScreenComponent ]
+      declarations: [ SwiSettingsMenuComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserSearchScreenComponent);
+    fixture = TestBed.createComponent(SwiSettingsMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
