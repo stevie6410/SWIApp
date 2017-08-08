@@ -5,6 +5,7 @@
 export * from "./models/app.models";
 export * from "./models/repo.models";
 export * from "./models/security.models";
+export * from "./models/app-security.models";
 
 // Services
 export * from "./services/swi-db.service";
@@ -19,6 +20,7 @@ export * from "./services/sync-repo.service";
 export * from "./services/repo-standard-tooling.service";
 export * from "./services/swi-upgrade.service";
 export * from "./services/auth.service";
+export * from './services/users.service';
 
 // Resolvers
 export * from "./resolvers/swi.resolver";

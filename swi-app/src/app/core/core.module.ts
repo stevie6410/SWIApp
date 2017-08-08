@@ -21,6 +21,7 @@ import {
     AuthService,
     AuthGuard
 } from "./index";
+import { UsersService } from "app/core/services/users.service";
 
 @NgModule({
     declarations: [],
@@ -45,7 +46,8 @@ import {
         RepoStandardToolingService,
         SwiUpgradeService,
         AuthService,
-        AuthGuard
+        AuthGuard,
+        UsersService
     ],
     bootstrap: []
 })

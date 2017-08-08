@@ -35,12 +35,12 @@ export class AuthUser {
   username: string;
   fullName: string;
   role: string;
-  permissions: Permission[];
+  permissions: AuthPermission[];
   expiresOn: Date;
   isExpired: boolean;
 }
 
-export class Permission {
+export class AuthPermission {
   Name: string;
   Description: string;
 }
