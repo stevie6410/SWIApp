@@ -1,7 +1,8 @@
+.image-capture-container{
+    height: 100%;
+}
+
 .capture-button{
-    position: fixed;
-    right: 50px;
-    bottom: 70px;
     width: 120px;
     height: 120px;
     background: #ff0000;
@@ -12,4 +13,35 @@
 
 .capture-button:hover{
     background: #ae0b0b;
+}
+
+.capture-button-left{
+  position: absolute;
+  left: 50px;
+  bottom: 120px;
+}
+
+.capture-button-right{
+    position: fixed;
+    right: 50px;
+    bottom: 70px;
+}
+
+.camera{
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.video-webcam{
+  width: 600px;
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.canvas-webcam{
+  width: 600px;
+  height: 600px;
+  display: none;
 }

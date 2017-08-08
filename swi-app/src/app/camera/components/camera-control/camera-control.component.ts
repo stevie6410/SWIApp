@@ -86,7 +86,7 @@ export class CameraControlComponent implements OnInit, AfterViewInit {
   setImage(image: string, crop: boolean) {
     this.image = image;
     this.isCaptureMode = false;
-    this.isCroppingMode = crop;
+    this.isCroppingMode = true;
     this.isFileMode = false;
     this.changeDetector.detectChanges();
   }
