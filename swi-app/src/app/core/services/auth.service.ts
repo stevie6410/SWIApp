@@ -35,7 +35,8 @@ export class AuthService {
       .post(this.appSecurityURL + "auth/login", body, { headers: headers })
       .map(x => x.json())
       .subscribe(token => {
-        // console.log("AuthService: login", token);
+        console.log("AuthService: login", token);
+        window.localStorage.removeItem("auth-token");
         window.localStorage.setItem("auth-token", token);
         this.updateLoggedInUser(token);
         s.next(token);

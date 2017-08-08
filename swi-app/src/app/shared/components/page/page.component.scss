@@ -10,7 +10,7 @@
     align-items: center;
     display: flex;
     z-index: 1031;
-    width: 100%;   
+    width: 100%;
     position: fixed;
     top: 0;
 }
@@ -40,7 +40,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    
+
     .loading-text{
             font-size: 30px;
             font-weight: bold;
@@ -62,10 +62,34 @@
 }
 
 .btn-group{
-    /*margin-left: auto;*/
     z-index: 1031;
     margin-right: 30px;
     position: fixed;
-    right: 0;
-    
+    right: 50px;
 }
+
+.page-header-user{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 0;
+  top: 0;
+
+  background-color: #E4551F;
+  color: #fff;
+  border-left: 2px solid #D93A2A;
+
+  cursor: pointer;
+}
+
+.page-header-user:hover{
+  background-color: #D93A2A;
+}
+
+.page-header-user-icon{
+  padding-left: 18px;
+  padding-top: 15px;
+  width: 100%;
+  height: 100%;
+}
+

@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.username, this.password).subscribe(
       token => {
-        if (this.returnURL) { this.router.navigateByUrl(this.returnURL); }
+        const returnURL = this.route.snapshot.queryParams['returnURL'];
+        console.log("Return URL: ", returnURL);
+        if (returnURL) { this.router.navigateByUrl(returnURL); }
         this.loading = false;
       },
       err => {
@@ -40,4 +42,9 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  checkIsLoggedIn() {
+    console.log("IsLoggedIn: ", this.authService.isLoggedIn());
+  }
+
 }

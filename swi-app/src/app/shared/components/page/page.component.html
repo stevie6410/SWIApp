@@ -1,45 +1,61 @@
 <div class="page">
 
-    <div class="page-header">
+  <div class="page-header">
 
-        <span class="fa fa-arrow-left page-header-back" (click)="navBack()" *ngIf="backButton && !isCameraMode"></span>
+    <span class="fa fa-arrow-left page-header-back" (click)="navBack()" *ngIf="backButton && !isCameraMode"></span>
 
-        <div class="page-header-title">
-            <i class="fa" [ngClass]="faIcon"></i> {{title}}
-        </div>
-
-        <div class="btn-group" role="group" aria-label="First group" *ngIf="!isCameraMode">
-            <ng-content select=".page-button"></ng-content>
-        </div>
+    <div class="page-header-title">
+      <i class="fa" [ngClass]="faIcon"></i> {{title}}
     </div>
 
-    <div class="page-loading" *ngIf="isLoading">
-        <span class="loading-text">{{loadingMessage}}</span>
-        <div class="sk-fading-circle" *ngIf="progressNumber <= 0">
-            <div class="sk-circle1 sk-circle"></div>
-            <div class="sk-circle2 sk-circle"></div>
-            <div class="sk-circle3 sk-circle"></div>
-            <div class="sk-circle4 sk-circle"></div>
-            <div class="sk-circle5 sk-circle"></div>
-            <div class="sk-circle6 sk-circle"></div>
-            <div class="sk-circle7 sk-circle"></div>
-            <div class="sk-circle8 sk-circle"></div>
-            <div class="sk-circle9 sk-circle"></div>
-            <div class="sk-circle10 sk-circle"></div>
-            <div class="sk-circle11 sk-circle"></div>
-            <div class="sk-circle12 sk-circle"></div>
-        </div>
-        <div *ngIf="progressNumber > 0" class="progress-container">
-            <p-progressBar [value]="progressNumber"></p-progressBar>
-        </div>
+    <div class="btn-group" role="group" aria-label="First group" *ngIf="!isCameraMode">
+      <ng-content select=".page-button"></ng-content>
     </div>
 
-    <div class="page-body" *ngIf="!isCameraMode && !isLoading">
-        <ng-content select=".page-body"></ng-content>
+    <div class="page-header-user" dropdown>
+      <span href dropdownToggle class="page-header-user-icon fa fa-user"></span>
+      <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+        <li>
+          <a class="dropdown-item" *ngIf="authService.isLoggedIn()"><i class="fa fa-check"></i> Logged in as {{this.authService?.loggedInUser?.fullName}}</a>
+        </li>
+        <li class="divider dropdown-divider" *ngIf="authService.isLoggedIn()"></li>
+        <li>
+          <a class="dropdown-item" (click)="login()" *ngIf="!authService.isLoggedIn()"><i class="fa fa-sign-in"></i> Login</a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="logout()" *ngIf="authService.isLoggedIn()"><i class="fa fa-sign-out"></i> Logout</a>
+        </li>
+      </ul>
     </div>
+  </div>
 
-    <div class="page-camera" *ngIf="isCameraMode">
-        <swi-camera [captureImage]="this.captureImage" (onCaptured)="onCaptured()"></swi-camera>
+  <div class="page-loading" *ngIf="isLoading">
+    <span class="loading-text">{{loadingMessage}}</span>
+    <div class="sk-fading-circle" *ngIf="progressNumber <= 0">
+      <div class="sk-circle1 sk-circle"></div>
+      <div class="sk-circle2 sk-circle"></div>
+      <div class="sk-circle3 sk-circle"></div>
+      <div class="sk-circle4 sk-circle"></div>
+      <div class="sk-circle5 sk-circle"></div>
+      <div class="sk-circle6 sk-circle"></div>
+      <div class="sk-circle7 sk-circle"></div>
+      <div class="sk-circle8 sk-circle"></div>
+      <div class="sk-circle9 sk-circle"></div>
+      <div class="sk-circle10 sk-circle"></div>
+      <div class="sk-circle11 sk-circle"></div>
+      <div class="sk-circle12 sk-circle"></div>
     </div>
+    <div *ngIf="progressNumber > 0" class="progress-container">
+      <p-progressBar [value]="progressNumber"></p-progressBar>
+    </div>
+  </div>
+
+  <div class="page-body" *ngIf="!isCameraMode && !isLoading">
+    <ng-content select=".page-body"></ng-content>
+  </div>
+
+  <div class="page-camera" *ngIf="isCameraMode">
+    <swi-camera [captureImage]="this.captureImage" (onCaptured)="onCaptured()"></swi-camera>
+  </div>
 
 </div>

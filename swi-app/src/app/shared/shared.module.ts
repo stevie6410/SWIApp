@@ -24,13 +24,15 @@ import { ToggleFullscreenDirective } from "./directives/toggle-fullscreen.direct
 import { UpdateAppCatalogDirective } from "./directives/update-app-catalog.directive";
 import { ImportDropZoneDirective } from "./directives/import-dnd.directive";
 import { UserProfileCardComponent } from './components/user-profile-card/user-profile-card.component';
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     ProgressBarModule,
-    CameraModule
+    CameraModule,
+    BsDropdownModule
   ],
   exports: [
     PageComponent,
