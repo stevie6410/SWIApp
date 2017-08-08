@@ -81,6 +81,11 @@ export class CameraControlComponent implements OnInit, AfterViewInit {
       .catch(err => console.log("Canceled delete image"));
   }
 
+  crop() {
+    this.cropper.crop();
+    this.toggleCroppingMode();
+  }
+
   // #####################################
 
   setImage(image: string, crop: boolean) {

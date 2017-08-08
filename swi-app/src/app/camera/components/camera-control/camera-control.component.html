@@ -33,7 +33,7 @@
 
     <!--Buttons for cropping Mode-->
     <div *ngIf="image && isCroppingMode">
-      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="this.cropper.crop()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
+      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="crop()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
       <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Use Full Image</button>
       <button type="button" class="btn btn-danger btn-lg btn-block btn-tall" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
     </div>

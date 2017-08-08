@@ -81,12 +81,20 @@ export class ImageCaptureComponent implements OnInit, AfterViewInit {
       const constraints = { video: { deviceId: { exact: this.selectedDevice.deviceId } } };
 
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        _video.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
-        _video.onloadedmetadata = () => {
-          _canvas.height = 600;
-          _canvas.width = 600;
-        };
+        navigator.mediaDevices.getUserMedia(constraints)
+          .then(stream => {
+            _canvas.height = 600;
+            _canvas.width = 600;
+            _video.src = window.URL.createObjectURL(stream);
+            _video.play();
+          });
       }
+
+      // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      //   _video.srcObject = await navigator.mediaDevices.getUserMedia({ video: true });
+      //   _video.onloadedmetadata = () => {
+      //   };
+      // }
     } else {
       this.isCameraConnected = false;
     }

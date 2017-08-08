@@ -8,7 +8,6 @@
 
   <canvas #canvas class="canvas-webcam"></canvas>
 
-
   <div class="row" *ngIf="devices?.length > 1">
     <div class="col">
       <select class="form-control" [(ngModel)]="selectedDevice" (ngModelChange)="onDeviceChange($event)">>
@@ -16,7 +15,6 @@
         </select>
     </div>
   </div>
-
 
   <button class="capture-button capture-button-left" (click)="getImage()"></button>
   <button class="capture-button capture-button-right" (click)="getImage()"></button>
