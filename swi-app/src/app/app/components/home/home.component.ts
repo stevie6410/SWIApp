@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import {
   SimpleRepoDocument,
   SWIHeader,
@@ -37,12 +38,16 @@ export class HomeComponent implements OnInit {
     private repoDocs: RepoDocsService,
     private swiService: SWIFileService,
     private imageStore: ImageStoreService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
 
   }
 
   ngOnInit() {
+    // Check to see if the route is blank, if so navigate to the browser
+    if (!this.route.snapshot.url[0]) { this.router.navigate(['/browser']); }
   }
 
   debugDBSize() {
