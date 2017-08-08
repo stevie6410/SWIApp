@@ -4,6 +4,11 @@
   <div class='page-body' importDropZone (onImportStarted)="importStarted()" (onImported)="reloadList()" (onImportStageUpdate)="loadingMessage = $event"
     (onImportProgress)="progress = $event">
 
+    <div class="alert alert-warning" *ngIf="localSWIs.length >= maxDocumentWarningLimit">
+      <h4><i class="fa fa-warning"></i>Warning!</h4>
+      <p>The limit of {{this.maxDocumentWarningLimit}} local documents has been exceeded!</p>
+    </div>
+
     <!--Page Content Here   -->
     <div class="row">
 

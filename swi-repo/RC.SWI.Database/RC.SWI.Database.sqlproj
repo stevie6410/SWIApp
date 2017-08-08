@@ -244,4 +244,7 @@ Table=[dbo].[AppConfigurations];
   <ItemGroup>
     <None Include="Migrations\1.0.0\006_20170629-1159_KentS.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Migrations\1.0.0\007_20170808-1332_KentS.sql" />
+  </ItemGroup>
 </Project>
