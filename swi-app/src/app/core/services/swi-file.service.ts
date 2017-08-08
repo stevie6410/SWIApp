@@ -54,7 +54,7 @@ export class SWIFileService {
         console.log("Saving file");
         swi.updatedOn = new Date();
         // swi.appVersion = await this.environment.getAppVersion();
-        await this.imageStore.addAll(swi, swi.id);
+        //await this.imageStore.addAll(swi, swi.id);
         swi.clientHash = this.getFileHash(swi);
         await this.table.update(swi.id, swi);
         this.imageStore.addAll(swi, swi.id);
