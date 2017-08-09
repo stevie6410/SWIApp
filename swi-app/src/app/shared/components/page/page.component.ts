@@ -6,12 +6,15 @@ import {
   NavigationStart,
   NavigationEnd,
   NavigationCancel,
-  NavigationError
+  NavigationError,
+  ActivatedRoute,
+  RouterStateSnapshot
 } from "@angular/router";
 
 import { CameraService } from "../../../camera/services/camera.service";
 import { CaptureImage } from "../../../camera/models/capture-image";
 import * as $ from 'jquery';
+import { AuthService } from "app/core";
 
 @Component({
   selector: 'app-page',
@@ -21,30 +24,34 @@ import * as $ from 'jquery';
 export class PageComponent implements OnInit {
 
   @Input() title: string;
-  @Input() backButton: boolean = true;
-  @Input() overrideBackButton: boolean = false;
+  @Input() backButton = true;
+  @Input() overrideBackButton = false;
   @Input() faIcon: string;
-  @Input() isLoading: boolean = true;
+  @Input() isLoading = true;
   @Input() loadingMessage: string;
   @Input() progressNumber: number;
   @Output() onBackButtonClick = new EventEmitter<void>();
 
-  isCameraMode: boolean = false;
+  isCameraMode = false;
   captureImage: CaptureImage;
+
+  public items: string[] = ['The first choice!', 'And another choice for you.', 'but wait! A third!'];
 
   constructor(
     private location: Location,
     private cameraService: CameraService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    public authService: AuthService
   ) {
     $('#content').animate({ scrollTop: 0 }, 200);
 
-    //Router Events to set the isLoading flag
+    // Router Events to set the isLoading flag
     router.events.subscribe((event: RouterEvent) => {
       this.navigationInterceptor(event);
     });
 
-    //New Capture Requests
+    // New Capture Requests
     this.cameraService.cameraRequestedEvents.subscribe((captureImage: CaptureImage) => {
       this.isCameraMode = true;
       this.captureImage = captureImage;
@@ -56,7 +63,7 @@ export class PageComponent implements OnInit {
 
   navBack() {
     this.onBackButtonClick.emit();
-    if (!this.overrideBackButton) this.location.back();
+    if (!this.overrideBackButton) { this.location.back(); };
   }
 
   onCaptured() {
@@ -79,6 +86,15 @@ export class PageComponent implements OnInit {
     if (event instanceof NavigationError) {
       this.isLoading = false;
     }
+  }
+
+  login() {
+    const returnURL: string = this.route.snapshot.url.map(url => url.path).join('/');
+    this.authService.redirectToLogin(returnURL);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

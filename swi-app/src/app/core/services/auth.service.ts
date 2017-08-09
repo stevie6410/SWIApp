@@ -35,7 +35,8 @@ export class AuthService {
       .post(this.appSecurityURL + "auth/login", body, { headers: headers })
       .map(x => x.json())
       .subscribe(token => {
-        // console.log("AuthService: login", token);
+        console.log("AuthService: login", token);
+        window.localStorage.removeItem("auth-token");
         window.localStorage.setItem("auth-token", token);
         this.updateLoggedInUser(token);
         s.next(token);
@@ -60,8 +61,8 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  redirectToLogin() {
-    this.router.navigate(["login"]);
+  redirectToLogin(returnURL: string) {
+    this.router.navigate(["login"], { queryParams: { returnURL: returnURL } });
   }
 
   public get loggedInUser(): AuthUser {

@@ -16,7 +16,7 @@ export class SwiGroupComponent implements OnInit {
   @Input() group: SWIStageGroup;
   @Output() onSave = new EventEmitter<void>();
 
-  editMode: boolean = false;
+  editMode = false;
   selectedStage: SWIStage;
   moveToGroupList: SWIStageGroup[];
 
@@ -30,7 +30,7 @@ export class SwiGroupComponent implements OnInit {
     if (this.swi) {
       recalculateGroupSequences(this.swi);
       this.swi.stageGroups.forEach(grp => recalculateStageSequences(grp));
-      this.moveToGroupList = this.swi.stageGroups.filter(g => g.id != this.group.id);
+      this.moveToGroupList = this.swi.stageGroups.filter(g => g.id !== this.group.id);
     }
   }
 
@@ -67,12 +67,12 @@ export class SwiGroupComponent implements OnInit {
   }
 
   moveStageToGroup(stage: SWIStage, newGroup: SWIStageGroup) {
-    //Add the stage to the new group and recaclulate sequences
+    // Add the stage to the new group and recaclulate sequences
     stage.sequence = newGroup.stages.length + 1;
     newGroup.stages.push(stage);
     recalculateStageSequences(newGroup);
-    //Remove stage from the old group and recalculate sequences
-    this.group.stages = this.group.stages.filter(s => s.id != stage.id);
+    // Remove stage from the old group and recalculate sequences
+    this.group.stages = this.group.stages.filter(s => s.id !== stage.id);
     recalculateStageSequences(this.group);
   }
 
@@ -91,14 +91,16 @@ export class SwiGroupComponent implements OnInit {
       .open()
       .then(dialogRef => dialogRef.result)
       .then(result => {
-        this.swi.stageGroups.filter(g => g.id == group.id)[0].stages = this.swi.stageGroups.filter(g => g.id == group.id)[0].stages.filter(s => s.sequence != stage.sequence);
+        this.swi.stageGroups.filter(g => g.id === group.id)[0].stages = this.swi.stageGroups
+          .filter(g => g.id === group.id)[0].stages
+          .filter(s => s.sequence !== stage.sequence);
         recalculateStageSequences(group);
       })
       .catch(err => console.log("Canceled stage delete"));
   }
 
   moveStageUp(group: SWIStageGroup, stage: SWIStage) {
-    let above = group.stages.filter(s => s.sequence == (stage.sequence - 1))[0];
+    const above = group.stages.filter(s => s.sequence === (stage.sequence - 1))[0];
     console.log("target stage", stage);
     console.log("above stage", above);
     if (above && stage) {
@@ -111,8 +113,8 @@ export class SwiGroupComponent implements OnInit {
   }
 
   moveStageDown(group: SWIStageGroup, stage: SWIStage) {
-    let current = group.stages.filter(s => s.sequence == stage.sequence)[0];
-    let below = group.stages.filter(s => s.sequence == (stage.sequence + 1))[0];
+    const current = group.stages.filter(s => s.sequence === stage.sequence)[0];
+    const below = group.stages.filter(s => s.sequence === (stage.sequence + 1))[0];
     if (current && below) {
       this.highlightStage(stage);
       current.sequence = stage.sequence + 1;
@@ -123,8 +125,8 @@ export class SwiGroupComponent implements OnInit {
   }
 
   moveGroupDown(group: SWIStageGroup) {
-    let current = this.swi.stageGroups.filter(s => s.sequence == group.sequence)[0];
-    let below = this.swi.stageGroups.filter(s => s.sequence == group.sequence + 1)[0];
+    const current = this.swi.stageGroups.filter(s => s.sequence === group.sequence)[0];
+    const below = this.swi.stageGroups.filter(s => s.sequence === group.sequence + 1)[0];
     current.sequence = group.sequence + 1;
     below.sequence = current.sequence - 1;
     this.swi.stageGroups.sort((a, b) => a.sequence - b.sequence);
@@ -132,8 +134,8 @@ export class SwiGroupComponent implements OnInit {
   }
 
   moveGroupUp(group: SWIStageGroup) {
-    let current = this.swi.stageGroups.filter(s => s.sequence == group.sequence)[0];
-    let above = this.swi.stageGroups.filter(s => s.sequence == group.sequence - 1)[0];
+    const current = this.swi.stageGroups.filter(s => s.sequence === group.sequence)[0];
+    const above = this.swi.stageGroups.filter(s => s.sequence === group.sequence - 1)[0];
     current.sequence = group.sequence - 1;
     above.sequence = current.sequence + 1;
     this.swi.stageGroups.sort((a, b) => a.sequence - b.sequence);
@@ -182,6 +184,6 @@ export class SwiGroupComponent implements OnInit {
   }
 
   get groupOptions() {
-    return this.swi.stageGroups.filter(sg => sg.id != this.group.id);
+    return this.swi.stageGroups.filter(sg => sg.id !== this.group.id);
   }
 }

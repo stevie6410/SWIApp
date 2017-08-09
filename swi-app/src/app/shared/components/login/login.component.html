@@ -10,6 +10,7 @@
     <input type="text" class="form-control" name="username" [(ngModel)]="username" placeholder="Username">
     <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Password">
     <button type="button" class="btn btn-primary btn-sm btn-block" [disabled]="loading" (click)="login()"> <i *ngIf="loading" class="fa fa-spinner fa-spin"></i> Login</button>
+    <!-- <button type="button" class="btn btn-primary btn-sm btn-block" [disabled]="loading" (click)="checkIsLoggedIn()"> Is Logged In</button> -->
   </div>
 
 </div>

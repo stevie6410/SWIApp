@@ -4,6 +4,34 @@ import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 import { MomentModule } from "angular2-moment";
 
 import {
+  AppCatalogService,
+  ImageService,
+  ImageStoreService,
+  RepoDocsService,
+  RepoSwiService,
+  SWIDBService,
+  SWIDuplicateService,
+  SWIFileService,
+  SyncRepoService,
+  HSItemsResolver,
+  SWIResolver,
+  SWIsResolver,
+  RepoStandardToolingService,
+  SwiUpgradeService,
+  AuthService,
+  AuthGuard,
+  PermissionGuard
+} from "./index";
+import { UsersService } from "app/core/services/users.service";
+
+@NgModule({
+  declarations: [],
+  imports: [
+    ModalModule.forRoot(),
+    BootstrapModalModule,
+    MomentModule
+  ],
+  providers: [
     AppCatalogService,
     ImageService,
     ImageStoreService,
@@ -19,41 +47,17 @@ import {
     RepoStandardToolingService,
     SwiUpgradeService,
     AuthService,
-    AuthGuard
-} from "./index";
-
-@NgModule({
-    declarations: [],
-    imports: [
-        ModalModule.forRoot(),
-        BootstrapModalModule,
-        MomentModule
-    ],
-    providers: [
-        AppCatalogService,
-        ImageService,
-        ImageStoreService,
-        RepoDocsService,
-        RepoSwiService,
-        SWIDBService,
-        SWIDuplicateService,
-        SWIFileService,
-        SyncRepoService,
-        HSItemsResolver,
-        SWIResolver,
-        SWIsResolver,
-        RepoStandardToolingService,
-        SwiUpgradeService,
-        AuthService,
-        AuthGuard
-    ],
-    bootstrap: []
+    AuthGuard,
+    UsersService,
+    PermissionGuard
+  ],
+  bootstrap: []
 })
 export class CoreModule {
-    constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
-        if (parentModule) {
-            throw new Error("CoreModule is already loaded. Import it in the AppModule only");
-        }
+  constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+    if (parentModule) {
+      throw new Error("CoreModule is already loaded. Import it in the AppModule only");
     }
+  }
 }
 
