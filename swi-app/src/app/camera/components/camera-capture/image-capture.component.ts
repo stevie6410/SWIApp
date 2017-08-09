@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'image-capture',
+  selector: 'swi-image-capture',
   templateUrl: './image-capture.component.html',
   styleUrls: ['./image-capture.component.css']
 })
@@ -41,11 +41,10 @@ export class ImageCaptureComponent implements OnInit, AfterViewInit {
         // this.devices = devices;
         this.devices = devices.filter(d => d.kind === 'videoinput');
 
-        if (this.devices.length == 0) {
+        if (this.devices.length === 0) {
           this.isCameraConnected = false;
           resolve();
-        }
-        else if (this.devices.length == 1) {
+        } else if (this.devices.length === 1) {
           this.selectedDevice = this.devices[0];
           resolve();
         } else {

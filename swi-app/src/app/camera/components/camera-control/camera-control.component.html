@@ -12,7 +12,7 @@
       </div>
 
       <div *ngIf="isCaptureMode">
-        <image-capture (onCaptured)="this.setImage($event, true)" (onCancel)="cancelCapture()"></image-capture>
+        <swi-image-capture (onCaptured)="this.setImage($event, true)" (onCancel)="cancelCapture()"></swi-image-capture>
       </div>
 
     </div>

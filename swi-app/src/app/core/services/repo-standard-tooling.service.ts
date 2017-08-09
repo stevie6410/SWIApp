@@ -18,7 +18,7 @@ import {
 export class RepoStandardToolingService {
 
   private baseApiUrl: string;
-  private stdToolingMethod: string = "api/v1/standardtools/"
+  private stdToolingMethod: "api/v1/standardtools/";
 
   constructor(
     private http: Http,

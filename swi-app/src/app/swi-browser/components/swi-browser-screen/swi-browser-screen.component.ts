@@ -11,7 +11,7 @@ import { EnvironmentService } from "app/app/services/environment.service";
 })
 export class SwiBrowserScreenComponent implements OnInit {
 
-  title = "SWI Browser"
+  title = "SWI Browser";
   localSWIs: SWIHeader[];
   isLoading = true;
   loadingMessage = "Loading SWIs";
