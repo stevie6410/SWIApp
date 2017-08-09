@@ -59,6 +59,7 @@
         padding:10px;
         overflow: hidden;
         margin-top: 50px;
+        height:100%;
 }
 
 .btn-group{
@@ -80,6 +81,15 @@
   border-left: 2px solid #D93A2A;
 
   cursor: pointer;
+}
+
+.page-header-user-logged-in{
+    background-color: #3c9849;
+    border-left: 2px solid #2c7035;
+}
+
+.page-header-user-logged-in:hover{
+    background-color: #2c7035 !important;
 }
 
 .page-header-user:hover{

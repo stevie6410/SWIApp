@@ -22,29 +22,50 @@ import {
 } from "app/swi-standard-tooling";
 
 // Resolvers
-import { SWIsResolver, SWIResolver, HSItemsResolver, AuthGuard } from "app/core";
+import { SWIsResolver, SWIResolver, HSItemsResolver, AuthGuard, PermissionGuard } from "app/core";
 import { LoginComponent } from "app/shared";
 import { SwiSettingsScreenComponent, SwiSettingsFeaturesComponent, SwiSettingsStorageComponent } from "app/swi-settings";
 import { UserListComponent } from "app/swi-users";
 
 const appRoutes: Routes = [
   {
-    path: "", component: HomeComponent, canActivateChild: [], children: [
-      { path: "browser", component: SwiBrowserScreenComponent, resolve: { swis: SWIsResolver } },
-      { path: "viewer/:id", component: SwiViewerScreenComponent, resolve: { swi: SWIResolver } },
-      { path: "viewer/:id/stagesgallery", component: StagesGalleryScreenComponent, resolve: { swi: SWIResolver } },
-      { path: "manager/:id", component: SwiManagerScreenComponent, resolve: { swi: SWIResolver } },
-      { path: "builder", component: SwiNewComponent },
-      { path: "builder/:id", component: SwiBuilderScreenComponent, resolve: { swi: SWIResolver } },
-      { path: "builder/:id/stagegroup/:groupid/stages/:stageid", component: SwiStageEditComponent, resolve: { swi: SWIResolver } },
-      { path: "builder/:id/stagegroup/:groupid/tools/:toolid", component: SwiToolEditComponent, resolve: { swi: SWIResolver } },
-      { path: "builder/:id/hsitems", component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolver } },
-      { path: "builder/:id/tools/:toolid", component: SwiToolEditComponent, resolve: { swi: SWIResolver } },
+    path: "", component: HomeComponent, canActivateChild: [PermissionGuard], children: [
+      {
+        path: "browser",
+        component: SwiBrowserScreenComponent,
+        resolve: { swis: SWIsResolver }
+      },
+      {
+        path: "viewer",
+        children: [
+          { path: ":id", component: SwiViewerScreenComponent, resolve: { swi: SWIResolver } },
+          { path: ":id/stagesgallery", component: StagesGalleryScreenComponent, resolve: { swi: SWIResolver } },
+        ]
+      },
+      {
+        path: "manager/:id",
+        component: SwiManagerScreenComponent,
+        resolve: { swi: SWIResolver }
+      },
+      {
+        path: "builder", children: [
+          { path: "create", component: SwiNewComponent },
+          { path: ":id", component: SwiBuilderScreenComponent, resolve: { swi: SWIResolver } },
+          { path: ":id/stagegroup/:groupid/stages/:stageid", component: SwiStageEditComponent, resolve: { swi: SWIResolver } },
+          { path: ":id/stagegroup/:groupid/tools/:toolid", component: SwiToolEditComponent, resolve: { swi: SWIResolver } },
+          { path: ":id/hsitems", component: SwiHsPickerComponent, resolve: { hsitems: HSItemsResolver, swi: SWIResolver } },
+          { path: ":id/tools/:toolid", component: SwiToolEditComponent, resolve: { swi: SWIResolver } },
+        ],
+      },
       { path: "importer", component: SwiImporterScreenComponent },
-      { path: "repo/search", component: RepoSearchComponent },
-      { path: "repo/tooling/search", component: StdToolingSearchComponent },
-      { path: "repo/tooling/edit/:id", component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } },
-      { path: "repo/tooling/new", component: StdToolingFormComponent },
+      {
+        path: "repo", canActivateChild: [AuthGuard], children: [
+          { path: "search", component: RepoSearchComponent },
+          { path: "tooling/search", component: StdToolingSearchComponent },
+          { path: "tooling/edit/:id", component: StdToolingFormComponent, resolve: { stdTool: SWIStandardToolResolver } },
+          { path: "tooling/new", component: StdToolingFormComponent },
+        ]
+      },
       {
         path: "settings", component: SwiSettingsScreenComponent, children: [
           {

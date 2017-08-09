@@ -33,6 +33,7 @@ export * from "./helpers/swi-helper"
 
 // Guards
 export * from "./guards/auth.guard";
+export * from "./guards/permission.guard";
 
 // Module
 export * from "./core.module"

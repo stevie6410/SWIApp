@@ -41,13 +41,11 @@ export class HomeComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     // Check to see if the route is blank, if so navigate to the browser
-    if (!this.route.snapshot.url[0]) { this.router.navigate(['/browser']); }
+    if (this.router.url === '/') { this.router.navigate(['/browser']); }
   }
 
   debugDBSize() {
