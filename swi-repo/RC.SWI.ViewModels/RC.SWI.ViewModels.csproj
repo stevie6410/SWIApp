@@ -62,6 +62,7 @@
     <Compile Include="ViewModels\FileVM.cs" />
     <Compile Include="ViewModels\HSIconVM.cs" />
     <Compile Include="ViewModels\RoleVM.cs" />
+    <Compile Include="ViewModels\SettingVM.cs" />
     <Compile Include="ViewModels\SiteVM.cs" />
     <Compile Include="ViewModels\StandardToolVM.cs" />
     <Compile Include="ViewModels\SWIMasterSitePermissionVM.cs" />

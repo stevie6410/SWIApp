@@ -25,7 +25,7 @@ $card-width: 200px;
 }
 
 .card-img-top{
-    width: $card-width; 
+    width: $card-width;
     height: $card-width;
 }
 
@@ -47,8 +47,11 @@ $card-width: 200px;
     height: 100%;
 }
 
-.dropzone{
-    // height:500px;
-    // width: 100%;
-    // border: dashed 2px red;
+.alert-warning {
+    background-color: #fff3b6;
+    border-color: #f7dd61;
+    color: #a64100;
+    p {
+      margin: 0;
+    }
 }

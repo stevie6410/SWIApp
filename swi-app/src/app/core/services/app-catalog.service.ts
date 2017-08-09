@@ -3,7 +3,7 @@ import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { SWIDBService } from "./swi-db.service";
 import { SWIHSItem, AppCatalog } from "../models/app.models";
-import { EnvironmentConfiguration } from "app/core";
+import { EnvironmentConfiguration, Setting } from "app/core";
 import { ActivatedRoute } from "@angular/router";
 import { EnvironmentService } from "app/app/services/environment.service";
 import Dexie from "dexie";
@@ -79,5 +79,13 @@ export class AppCatalogService {
   public async checkCatalogExists(): Promise<boolean> {
     const result = await this.getCatalog();
     return (result != null);
+  }
+
+  public async getAppSetting(settingName: string): Promise<Setting> {
+    const catalog = await this.getCatalog();
+    if (!catalog.settings) { return null; }
+    const setting = catalog.settings.find(s => s.name === settingName);
+    if (!setting) { return null; }
+    return setting;
   }
 }

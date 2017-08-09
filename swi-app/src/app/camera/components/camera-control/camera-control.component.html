@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-md-7">
+<div class="row full-height">
+  <div class="col-md-8">
 
     <div class="image-frame">
 
@@ -12,14 +12,14 @@
       </div>
 
       <div *ngIf="isCaptureMode">
-        <image-capture (onCaptured)="this.setImage($event, true)" (onCancel)="cancelCapture()"></image-capture>
+        <swi-image-capture (onCaptured)="this.setImage($event, true)" (onCancel)="cancelCapture()"></swi-image-capture>
       </div>
 
     </div>
 
   </div>
 
-  <div class="col-md-5 mt-2">
+  <div class="col-md-4 mt-2">
 
     <!--Buttons for the Image Control Main Menu-->
     <div *ngIf="!isCroppingMode && !isCaptureMode">
@@ -33,7 +33,7 @@
 
     <!--Buttons for cropping Mode-->
     <div *ngIf="image && isCroppingMode">
-      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="this.cropper.crop()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
+      <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="crop()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Crop Image</button>
       <button type="button" class="btn btn-success btn-lg btn-block btn-tall" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode"><i class="fa fa-crop"></i> Use Full Image</button>
       <button type="button" class="btn btn-danger btn-lg btn-block btn-tall" (click)="toggleCroppingMode()" *ngIf="image && isCroppingMode">Cancel Cropping</button>
     </div>

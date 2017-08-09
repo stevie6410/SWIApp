@@ -19,6 +19,14 @@ export class AppCatalog {
   sites: SWICompany[];
   permissions: SWIPermission[];
   hsIcons: SWIHSItem[];
+  settings: Setting[];
+}
+
+export class Setting {
+  id: number;
+  name: string;
+  description: string;
+  value: string;
 }
 
 export class SWICategory {

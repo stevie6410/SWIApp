@@ -34,6 +34,7 @@ namespace RC.SWI.Services.Services
             catalog.Categories = (await db.SWITypes.ToListAsync()).Select(t => new SWITypeVM(t)).ToList();
             catalog.Users = (await db.Users.ToListAsync()).Select(u => new UserVM(u)).ToList();
             catalog.Version = appConfig.Version;
+            catalog.Settings = (await db.AppSettings.ToListAsync()).Select(s => new SettingVM(s)).ToList();
             return catalog;
         }
 
