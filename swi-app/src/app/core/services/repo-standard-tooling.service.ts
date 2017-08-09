@@ -3,8 +3,16 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptionsArgs, RequestOptions, URLSearchParams } from "@angular/http";
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
-import { StandardTool, CreateStandardTool, defaultOptions, handleResponse, handleError, ToolingSearchCriteria, EnvironmentConfiguration } from "app/core";
 import { EnvironmentService } from "app/app/services/environment.service";
+import {
+  StandardTool,
+  CreateStandardTool,
+  defaultOptions,
+  handleResponse,
+  handleError,
+  ToolingSearchCriteria,
+  EnvironmentConfiguration
+} from "app/core";
 
 @Injectable()
 export class RepoStandardToolingService {
