@@ -19,6 +19,5 @@ export class UserListComponent implements OnInit {
   }
 
   async refreshData() {
-    // this.users = await this.userService.getByApplication('SWIAPP').toPromise();
   }
 }

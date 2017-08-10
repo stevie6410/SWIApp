@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from "@angular/http";
+import { Http, Headers, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/Rx";
 
+import { handleError, handleResponse } from "../../helpers/http-helper";
+import { EnvironmentService } from "app/app";
 import {
   ApplicationUserExtended,
   Permission,
@@ -14,16 +16,14 @@ import {
   User,
   CreateUser,
   UpdatePassword,
-  ResetPassword
+  ResetPassword,
+  UserSearchFilter
 } from "app/core";
-
-import { handleError, handleResponse } from "../helpers/http-helper";
-import { EnvironmentService } from "../../app/services/environment.service";
 
 @Injectable()
 export class UsersService {
 
-  get serviceUrl(): string { return this.env.env.appSecurityURL + "api/v1/" };
+  get serviceUrl(): string { return this.env.env.repositoryURL + "api/v1/" };
 
   constructor(
     private http: Http,
@@ -48,15 +48,29 @@ export class UsersService {
       .catch(e => handleError(e));
   }
 
+  public search(filter: UserSearchFilter): Observable<User[]> {
+    const params: URLSearchParams = new URLSearchParams();
+    if (filter.username !== "") { params.set('username', filter.username); }
+    if (filter.firstName !== "") { params.set('firstName', filter.firstName); }
+    if (filter.lastName !== "") { params.set('lastName', filter.lastName); }
+    if (filter.defaultCompanyId) { params.set('defaultCompanyId', filter.defaultCompanyId.toString()); }
+    if (filter.isDisabled !== null) { params.set('isDisabled', (filter.isDisabled) ? 'true' : 'false'); }
+    if (filter.isLocal !== null) { params.set('isLocal', (filter.isLocal) ? 'true' : 'false'); }
+
+    return this.http.get(this.serviceUrl + 'users/search', { params: params })
+      .map(r => handleResponse(r))
+      .catch(e => handleError(e));
+  }
+
   public create(create: CreateUser): Observable<User> {
-    var body = JSON.stringify(create);
+    const body = JSON.stringify(create);
     return this.http.post(this.serviceUrl + 'users', body, this.defaultOptions)
       .map(r => handleResponse(r))
       .catch(e => handleError(e));
   }
 
   public update(updated: User): Observable<User> {
-    var body = JSON.stringify(updated);
+    const body = JSON.stringify(updated);
     return this.http.post(this.serviceUrl + 'users/' + updated.username, body, this.defaultOptions)
       .map(r => handleResponse(r))
       .catch(e => handleError(e));
@@ -87,21 +101,21 @@ export class UsersService {
   }
 
   public updatePassword(updatePassword: UpdatePassword): Observable<User> {
-    var body = JSON.stringify(updatePassword);
+    const body = JSON.stringify(updatePassword);
     return this.http.post(this.serviceUrl + 'users/updatepassword', body, this.defaultOptions)
       .map(r => handleResponse(r))
       .catch(e => handleError(e));
   }
 
   public resetPassword(resetPassword: ResetPassword): Observable<User> {
-    var body = JSON.stringify(resetPassword);
+    const body = JSON.stringify(resetPassword);
     return this.http.post(this.serviceUrl + 'users/resetpassword', body, this.defaultOptions)
       .map(r => handleResponse(r))
       .catch(e => handleError(e));
   }
 
   public convertToDomain(username: string): Observable<User> {
-    var body = JSON.stringify("");
+    const body = JSON.stringify("");
     return this.http.post(this.serviceUrl + 'users/updatepassword', body, this.defaultOptions)
       .map(r => handleResponse(r))
       .catch(e => handleError(e));
@@ -114,8 +128,8 @@ export class UsersService {
   }
 
   private get defaultOptions(): RequestOptions {
-    let h = new Headers({ "Content-Type": "application/json" });
-    let options = new RequestOptions({ headers: h });
+    const h = new Headers({ "Content-Type": "application/json" });
+    const options = new RequestOptions({ headers: h });
     return options;
   }
 }

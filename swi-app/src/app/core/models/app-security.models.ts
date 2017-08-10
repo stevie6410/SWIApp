@@ -106,8 +106,14 @@ export class UserSearchFilter {
   username: string;
   firstName: string;
   lastName: string;
-  isLocal: boolean;
-  isDisabled: boolean;
+  isLocal?: boolean;
+  isDisabled?: boolean;
   appId: number;
   roleId: number;
+  defaultCompanyId: number;
+
+  constructor() {
+    this.isLocal = null;
+    this.isDisabled = null;
+  }
 }

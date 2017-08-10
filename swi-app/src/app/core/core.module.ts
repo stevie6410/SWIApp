@@ -20,9 +20,13 @@ import {
   SwiUpgradeService,
   AuthService,
   AuthGuard,
-  PermissionGuard
+  PermissionGuard,
+  UsersService,
+  RolesService,
+  PermissionsService,
+  CompaniesService,
+  ApplicationsService
 } from "./index";
-import { UsersService } from "app/core/services/users.service";
 
 @NgModule({
   declarations: [],
