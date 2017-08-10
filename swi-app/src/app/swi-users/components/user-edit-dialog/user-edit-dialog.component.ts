@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UsersService, CreateUser, User, Application, ApplicationsService } from "app/core";
+import { Component, OnInit, Input } from '@angular/core';
+import { User, Company, CompaniesService } from "app/core";
+import { SelectItem } from "primeng/primeng";
 
 @Component({
   selector: 'swi-user-edit-dialog',
@@ -8,17 +9,17 @@ import { UsersService, CreateUser, User, Application, ApplicationsService } from
 })
 export class UserEditDialogComponent implements OnInit {
 
-  @Input() user: CreateUser;
-  @Output() onSaved = new EventEmitter<User>();
+  @Input() user: User;
   visible = false;
-  password: string;
+  companies: Company[];
+  companyOptions: SelectItem[];
 
   constructor(
-    private userService: UsersService,
-    private appService: ApplicationsService
+    private companyService: CompaniesService
   ) { }
 
   ngOnInit() {
+    this.getCompanies();
   }
 
   show() {
@@ -29,23 +30,20 @@ export class UserEditDialogComponent implements OnInit {
     this.visible = false;
   }
 
-  async save() {
-    // Create the user
-    const newUser = await this.userService.create(this.user).toPromise();
-    // Get the appid for the "SWIAPP"
-    const apps: Application[] = await this.appService.getAll().toPromise();
-    const appId: number = apps.find(a => a.appId === "SWIAPP").id;
-    console.log("AppID", appId);
-    const appResult = await this.userService.addApplication(newUser.username, appId).toPromise();
-    console.log("AppResult", appResult);
-    console.log(`Application SWIApp added to user ${newUser.firstName} ${newUser.lastName}`);
+  save() {
 
-    this.onSaved.emit(newUser);
-    this.hide();
   }
 
-  delete() {
-
+  async getCompanies() {
+    this.companies = await this.companyService.getAll().toPromise();
+    this.companyOptions = [];
+    const options = this.companies.map(c => {
+      return {
+        label: c.name,
+        value: c.id
+      };
+    });
+    options.forEach(o => this.companyOptions.push(o));
   }
 
 }

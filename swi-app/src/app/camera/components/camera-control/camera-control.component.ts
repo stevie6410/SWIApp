@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { CameraService } from "../../services/camera.service";
 import { CaptureImage } from "../../models/capture-image";
 import { ImageCropperComponent } from "../camera-cropper/image-cropper.component";
@@ -111,5 +111,16 @@ export class CameraControlComponent implements OnInit, AfterViewInit {
   toggleCroppingMode() {
     this.isCroppingMode = !this.isCroppingMode;
     this.changeDetector.detectChanges();
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    // console.log(event);
+    let x = event.keyCode;
+    if (x === 27) {
+      if (!this.isCaptureMode && !this.isFileMode && !this.isCroppingMode) {
+        this.captureComplete();
+      }
+    }
   }
 }

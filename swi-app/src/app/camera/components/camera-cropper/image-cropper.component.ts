@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ChangeDetectorRef, HostListener } from '@angular/core';
 import * as Cropper from 'cropperjs';
 
 @Component({
@@ -45,6 +45,15 @@ export class ImageCropperComponent implements OnInit, AfterViewInit {
   destroyCropper() {
     if (this.cropperControl) {
       this.cropperControl.destroy();
+    }
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event);
+    let x = event.keyCode;
+    if (x === 27) {
+      this.onCropped.emit(this.image);
     }
   }
 

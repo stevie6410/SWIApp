@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { User, UserSearchFilter, Company, UsersService, CompaniesService } from "app/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { User, UserSearchFilter, Company, UsersService, CompaniesService, CreateUser } from "app/core";
 import { SelectItem } from "primeng/primeng";
+import { UserEditDialogComponent, UserCreateDialogComponent } from "app/swi-users";
 
 @Component({
   selector: 'swi-user-search-screen',
@@ -9,11 +10,14 @@ import { SelectItem } from "primeng/primeng";
 })
 export class UserSearchScreenComponent implements OnInit {
 
-   users: User[];
+  users: User[];
+  selectedUser: User;
   filter: UserSearchFilter = new UserSearchFilter();
   title: string;
   companies: Company[];
   companyOptions: SelectItem[];
+  @ViewChild("userEditDialog") userEditDialog: UserEditDialogComponent;
+  @ViewChild("userCreateDialog") userCreateDialog: UserCreateDialogComponent;
 
   constructor(
     private userService: UsersService,
@@ -40,6 +44,26 @@ export class UserSearchScreenComponent implements OnInit {
     });
     options.push({ label: 'All', value: null });
     options.forEach(o => this.companyOptions.push(o));
+  }
+
+  selectUser(user: User) {
+    console.log("Selected user", user);
+    this.selectedUser = user;
+    this.showEditDialog();
+  }
+
+  deleteUser(user: User) {
+
+  }
+
+  showCreateDialog() {
+    this.userCreateDialog.show();
+    this.userCreateDialog.user = new CreateUser();
+  }
+
+  showEditDialog() {
+    this.userEditDialog.show();
+    this.userEditDialog.user = this.selectedUser;
   }
 
 

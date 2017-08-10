@@ -1,3 +1,4 @@
 <swi-user-search-filter [filter]="filter" [companyOptions]="companyOptions" (onSearch)="loadUsers()"></swi-user-search-filter>
-
-<swi-user-search-results [users]="users"></swi-user-search-results>
+<swi-user-search-results [users]="users" (userSelected)="selectUser($event)" (requestDelete)="deleteUser($event)"></swi-user-search-results>
+<swi-user-create-dialog #userCreateDialog></swi-user-create-dialog>
+<swi-user-edit-dialog #userEditDialog></swi-user-edit-dialog>

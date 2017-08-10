@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { SharedModule } from "app/shared";
 import { PrimengModule } from "app/primeng";
+import { UserSearchScreenComponent } from './screens/user-search-screen/user-search-screen.component';
 import {
-  UserCreateFormComponent,
   UserEditDialogComponent,
+  UserCreateDialogComponent,
   UserSearchFilterComponent,
   UserSearchResultsComponent
 } from "app/swi-users";
-import { UserSearchScreenComponent } from './screens/user-search-screen/user-search-screen.component';
-
 @NgModule({
   imports: [
     CommonModule,
@@ -19,18 +18,18 @@ import { UserSearchScreenComponent } from './screens/user-search-screen/user-sea
     FormsModule
   ],
   declarations: [
-    UserCreateFormComponent,
     UserEditDialogComponent,
     UserSearchFilterComponent,
     UserSearchResultsComponent,
-    UserSearchScreenComponent
+    UserSearchScreenComponent,
+    UserCreateDialogComponent
   ],
   exports: [
-    UserCreateFormComponent,
     UserEditDialogComponent,
     UserSearchFilterComponent,
     UserSearchResultsComponent,
-    UserSearchScreenComponent
+    UserSearchScreenComponent,
+    UserCreateDialogComponent
   ]
 })
 export class SwiUsersModule { }

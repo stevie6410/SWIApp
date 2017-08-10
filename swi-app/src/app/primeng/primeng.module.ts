@@ -12,7 +12,8 @@ import {
   SplitButtonModule,
   DialogModule,
   PasswordModule,
-  TriStateCheckboxModule
+  TriStateCheckboxModule,
+  ContextMenuModule
 } from "primeng/primeng";
 
 @NgModule({
@@ -28,7 +29,8 @@ import {
     SplitButtonModule,
     DialogModule,
     PasswordModule,
-    TriStateCheckboxModule
+    TriStateCheckboxModule,
+    ContextMenuModule
   ],
   exports: [
     ProgressBarModule,
@@ -42,7 +44,8 @@ import {
     SplitButtonModule,
     DialogModule,
     PasswordModule,
-    TriStateCheckboxModule
+    TriStateCheckboxModule,
+    ContextMenuModule
   ],
   declarations: []
 })

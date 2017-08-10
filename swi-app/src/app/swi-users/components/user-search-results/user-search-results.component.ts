@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { User, CreateUser } from "app/core";
 import { UserEditDialogComponent } from "../user-edit-dialog/user-edit-dialog.component";
+import { UserCreateDialogComponent } from "app/swi-users";
+import { MenuItem } from "primeng/primeng";
 
 @Component({
   selector: 'swi-user-search-results',
@@ -12,37 +14,22 @@ import { UserEditDialogComponent } from "../user-edit-dialog/user-edit-dialog.co
 export class UserSearchResultsComponent implements OnInit {
 
   @Input() users: User[];
-  @ViewChild("userEditDialog") userEditDialog: UserEditDialogComponent;
   selectedUser: User;
-  loading: boolean = false;
+  loading = false;
   title: string;
+  menuItems: MenuItem[] = [];
+
+  @Output() userSelected = new EventEmitter<User>();
+  @Output() requestDelete = new EventEmitter<User>();
 
   constructor(
     private router: Router
   ) { }
 
   ngOnInit() {
-    // this.title = `Results ${this.users.length}`;
-  }
-
-  edit(user: User) {
-    this.router.navigate(['users', user.username]);
-  }
-
-  onRowDblClick(user: User) {
-    console.log("event", event);
-    if (user) {
-      // this.router.navigate(["settings", "security", "users", user.username]);
-    }
-  }
-
-  onUserAdded(user: User) {
-    // navigate to the edit screen
-    // this.router.navigate(["settings", "security", "users", user.username]);
-  }
-
-  showEditUserDialog() {
-    this.userEditDialog.show();
-    this.userEditDialog.user = new CreateUser();
+    this.menuItems = [
+      { label: 'Edit', icon: 'fa-pencil', command: (event) => this.userSelected.emit(this.selectedUser) },
+      { label: 'Delete', icon: 'fa-trash', command: (event) => this.requestDelete.emit(this.selectedUser) }
+    ];
   }
 }
