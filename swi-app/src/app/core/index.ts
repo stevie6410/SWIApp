@@ -20,7 +20,11 @@ export * from "./services/sync-repo.service";
 export * from "./services/repo-standard-tooling.service";
 export * from "./services/swi-upgrade.service";
 export * from "./services/auth.service";
-export * from './services/users.service';
+export * from './services/auth-services/users.service';
+export * from './services/auth-services/roles.service';
+export * from './services/auth-services/permissions.service';
+export * from './services/auth-services/companies.service';
+export * from './services/auth-services/applications.service';
 
 // Resolvers
 export * from "./resolvers/swi.resolver";

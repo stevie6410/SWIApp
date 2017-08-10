@@ -8,7 +8,7 @@
       <image-file *ngIf="isFileMode" (imageSelected)="this.setImage($event, true)"></image-file>
 
       <div *ngIf="image && isCroppingMode">
-        <image-cropper #cropper [image]="image" (onCropped)="this.setImage($event, false)"></image-cropper>
+        <image-cropper #cropper [image]="image" (onCropped)="this.toggleCroppingMode()"></image-cropper>
       </div>
 
       <div *ngIf="isCaptureMode">

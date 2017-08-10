@@ -103,11 +103,17 @@ export class ResetPassword {
 }
 
 export class UserSearchFilter {
+  appid: string;
   username: string;
   firstName: string;
   lastName: string;
-  isLocal: boolean;
-  isDisabled: boolean;
-  appId: number;
+  isLocal?: boolean;
+  isDisabled?: boolean;
   roleId: number;
+  defaultCompanyId: number;
+
+  constructor() {
+    this.isLocal = null;
+    this.isDisabled = null;
+  }
 }

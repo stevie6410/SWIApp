@@ -1,24 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserFormComponent } from './components/user-form/user-form.component';
-import { UserListComponent } from './components/user-list/user-list.component';
-import { UserEditDialogComponent } from './components/user-edit-dialog/user-edit-dialog.component';
+import { FormsModule } from "@angular/forms";
 import { SharedModule } from "app/shared";
-
+import { PrimengModule } from "app/primeng";
+import { UserSearchScreenComponent } from './screens/user-search-screen/user-search-screen.component';
+import {
+  UserEditDialogComponent,
+  UserCreateDialogComponent,
+  UserSearchFilterComponent,
+  UserSearchResultsComponent
+} from "app/swi-users";
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    PrimengModule,
+    FormsModule
   ],
   declarations: [
-    UserFormComponent,
-    UserListComponent,
-    UserEditDialogComponent
+    UserEditDialogComponent,
+    UserSearchFilterComponent,
+    UserSearchResultsComponent,
+    UserSearchScreenComponent,
+    UserCreateDialogComponent
   ],
   exports: [
-    UserFormComponent,
-    UserListComponent,
-    UserEditDialogComponent
+    UserEditDialogComponent,
+    UserSearchFilterComponent,
+    UserSearchResultsComponent,
+    UserSearchScreenComponent,
+    UserCreateDialogComponent
   ]
 })
 export class SwiUsersModule { }

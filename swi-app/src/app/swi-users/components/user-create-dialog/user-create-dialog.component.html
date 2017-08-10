@@ -1,4 +1,4 @@
-<p-dialog header="Edit User" [(visible)]="visible" modal="modal" [width]="800">
+<p-dialog header="Create User" [(visible)]="visible" modal="modal" [width]="800">
 
   <form *ngIf="user" #userForm="ngForm">
 
@@ -21,13 +21,18 @@
 
       <div class="ui-g-12 ui-md-4"><label>Default Company</label></div>
       <div class="ui-g-12 ui-md-8">
-        <p-dropdown [autoWidth]="true" class="dropdown" [options]="companyOptions" name="defaultCompany" [required]="true" [(ngModel)]="user.company.id"
+        <p-dropdown [autoWidth]="true" class="dropdown" [options]="companyOptions" name="defaultCompany" [required]="true" [(ngModel)]="user.defaultCompanyId"
           [placeholder]="'Pick a company...'" appendTo="body"></p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-md-4"><label>Is Local Account</label></div>
       <div class="ui-g-12 ui-md-8">
         <p-checkbox [(ngModel)]="user.isLocalAccount" [binary]="true" name="isLocalAccount"></p-checkbox>
+      </div>
+
+      <div class="ui-g-12 ui-md-4" *ngIf="user.isLocalAccount"><label>Password</label></div>
+      <div class="ui-g-12 ui-md-8" *ngIf="user.isLocalAccount">
+        <input pPassword type="password" name="password" required [(ngModel)]="user.password">
       </div>
 
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ViewChildren, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Component({
   selector: 'swi-image-capture',
@@ -122,5 +122,18 @@ export class ImageCaptureComponent implements OnInit, AfterViewInit {
   reset() {
     this.image = null;
     this.isCapturing = true;
+  }
+
+  keypress(event: any) {
+    console.log(event);
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    // console.log(event);
+    let x = event.keyCode;
+    if (x === 27) {
+      this.getImage();
+    }
   }
 }

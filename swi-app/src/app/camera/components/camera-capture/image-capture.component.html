@@ -1,4 +1,4 @@
-<div class="image-capture-container">
+<div class="image-capture-container" (keydown)="keypress($event)">
 
   <div *ngIf="!isCameraConnected">Cammera not connected!</div>
 
