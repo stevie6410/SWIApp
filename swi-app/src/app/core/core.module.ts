@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf, APP_INITIALIZER } from "@angular/core";
 import { ModalModule } from "angular2-modal";
 import { BootstrapModalModule } from "angular2-modal/plugins/bootstrap";
 import { MomentModule } from "angular2-moment";
+import { PrimengModule } from "app/primeng";
 
 import {
   AppCatalogService,
@@ -33,7 +34,8 @@ import {
   imports: [
     ModalModule.forRoot(),
     BootstrapModalModule,
-    MomentModule
+    MomentModule,
+    PrimengModule
   ],
   providers: [
     AppCatalogService,
@@ -53,6 +55,10 @@ import {
     AuthService,
     AuthGuard,
     UsersService,
+    RolesService,
+    PermissionsService,
+    CompaniesService,
+    ApplicationsService,
     PermissionGuard
   ],
   bootstrap: []

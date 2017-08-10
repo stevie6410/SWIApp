@@ -1,3 +1,9 @@
-<p>
-  user-edit-dialog works!
-</p>
+<p-dialog header="Create User" [(visible)]="visible" modal="modal" [width]="800">
+
+  <swi-user-create-form [user]="user"></swi-user-create-form>
+
+  <p-footer>
+    <button pButton type="button" label="Save" icon="fa-save" (click)="save()"></button>
+  </p-footer>
+
+</p-dialog>

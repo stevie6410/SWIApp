@@ -10,7 +10,7 @@ import { EnvironmentService } from "app/app";
 @Injectable()
 export class CompaniesService {
 
-  get serviceUrl(): string { return this.env.env.repositoryURL + "api/v1/" };
+  get serviceUrl(): string { return this.env.env.appSecurityURL + "api/v1/" };
 
   constructor(
     private http: Http,

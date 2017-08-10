@@ -25,7 +25,7 @@ import {
 import { SWIsResolver, SWIResolver, HSItemsResolver, AuthGuard, PermissionGuard } from "app/core";
 import { LoginComponent } from "app/shared";
 import { SwiSettingsScreenComponent, SwiSettingsFeaturesComponent, SwiSettingsStorageComponent } from "app/swi-settings";
-import { UserListComponent } from "app/swi-users";
+import { UserSearchScreenComponent } from "app/swi-users";
 
 const appRoutes: Routes = [
   {
@@ -76,12 +76,12 @@ const appRoutes: Routes = [
           },
           {
             path: "repo", canActivateChild: [AuthGuard], children: [
-              { path: "users", component: UserListComponent }
+              { path: "users", component: UserSearchScreenComponent }
             ]
           },
           {
             path: "security", canActivateChild: [AuthGuard], children: [
-              { path: "users", component: UserListComponent }
+              { path: "users", component: UserSearchScreenComponent }
             ]
           }
         ]

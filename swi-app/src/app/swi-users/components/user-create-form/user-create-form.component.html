@@ -1,0 +1,42 @@
+<form *ngIf="user" #userForm="ngForm">
+
+  <div class="ui-g">
+
+    <div class="ui-g-12 ui-md-4"><label>First Name</label></div>
+    <div class="ui-g-12 ui-md-8">
+      <input pInputText type="text" name="firstName" required [(ngModel)]="user.firstName">
+    </div>
+
+    <div class="ui-g-12 ui-md-4"><label>Last Name</label></div>
+    <div class="ui-g-12 ui-md-8">
+      <input pInputText type="text" name="lastName" required [(ngModel)]="user.lastName">
+    </div>
+
+    <div class="ui-g-12 ui-md-4"><label>Username</label></div>
+    <div class="ui-g-12 ui-md-8">
+      <input pInputText type="text" name="username" required [(ngModel)]="user.username">
+    </div>
+
+    <div class="ui-g-12 ui-md-4"><label>Default Company</label></div>
+    <div class="ui-g-12 ui-md-8">
+      <p-dropdown [autoWidth]="true" class="dropdown" [options]="companyOptions" name="defaultCompany" [required]="true" [(ngModel)]="user.defaultCompanyId"
+        [placeholder]="'Pick a company...'" appendTo="body"></p-dropdown>
+    </div>
+
+    <div class="ui-g-12 ui-md-4"><label>Is Local Account</label></div>
+    <div class="ui-g-12 ui-md-8">
+      <p-checkbox [(ngModel)]="user.isLocalAccount" [binary]="true" name="isLocalAccount"></p-checkbox>
+    </div>
+
+    <div class="ui-g-12 ui-md-4" *ngIf="user.isLocalAccount"><label>Password</label></div>
+    <div class="ui-g-12 ui-md-8" *ngIf="user.isLocalAccount">
+      <input pPassword type="password" name="password" required [(ngModel)]="user.password">
+    </div>
+
+  </div>
+
+  <!-- <pre>
+    {{user | json}}
+  </pre> -->
+
+</form>

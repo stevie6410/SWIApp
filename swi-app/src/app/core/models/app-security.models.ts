@@ -103,12 +103,12 @@ export class ResetPassword {
 }
 
 export class UserSearchFilter {
+  appid: string;
   username: string;
   firstName: string;
   lastName: string;
   isLocal?: boolean;
   isDisabled?: boolean;
-  appId: number;
   roleId: number;
   defaultCompanyId: number;
 

@@ -1,0 +1,42 @@
+<p-panel header="User Search Filter" [toggleable]="true" [collapsed]="true">
+
+  <div class="ui-g">
+
+    <!-- <div class="ui-g-12 ui-md-2"><label>AppId</label></div>
+    <div class="ui-g-12 ui-md-10">
+      <input pInputText type="text" name="appId" [(ngModel)]="filter.appid">
+    </div> -->
+
+    <div class="ui-g-12 ui-md-2"><label>Username</label></div>
+    <div class="ui-g-12 ui-md-10">
+      <input pInputText type="text" name="username" [(ngModel)]="filter.username">
+    </div>
+
+    <div class="ui-g-12 ui-md-2"><label>First Name</label></div>
+    <div class="ui-g-12 ui-md-10">
+      <input pInputText type="text" name="firatName" [(ngModel)]="filter.firstName">
+    </div>
+
+    <div class="ui-g-12 ui-md-2"><label>Last Name</label></div>
+    <div class="ui-g-12 ui-md-10">
+      <input pInputText type="text" name="lastName" [(ngModel)]="filter.lastName">
+    </div>
+
+    <div class="ui-g-12 ui-md-2"><label>Default Company</label></div>
+    <div class="ui-g-12 ui-md-10">
+      <p-dropdown [autoWidth]="true" class="dropdown" [options]="companyOptions" name="defaultCompany" [required]="false" [(ngModel)]="filter.defaultCompanyId"></p-dropdown>
+    </div>
+
+    <div class="ui-g-12 ui-md-2"><label>Is Local Account</label></div>
+    <div class="ui-g-12 ui-md-10">
+      <p-triStateCheckbox [(ngModel)]="filter.isLocal" name="isLocalAccount"></p-triStateCheckbox>
+    </div>
+
+  </div>
+
+  <p-footer>
+    <button pButton type="button" label="Search" icon="fa-search" (click)="search()"></button>
+  </p-footer>
+</p-panel>
+
+<br>
