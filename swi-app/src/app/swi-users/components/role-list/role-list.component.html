@@ -1,0 +1,17 @@
+<p-dataTable [value]="roles" selectionMode="single" [(selection)]="selectedRole" (onRowDblclick)="onRowDblClick($event.data)" (onRowClick)="onRowClick($event.data)">
+  <p-header>Roles</p-header>
+  <p-column field="name" header="Name"></p-column>
+  <p-column field="description" header="Description"></p-column>
+
+  <p-footer>
+    <button pButton type="button" label="Add" icon="fa-plus" (click)="addRoleSelector()" [disabled]="!app"></button>
+    <button pButton type="button" label="Remove" icon="fa-minus" class="ui-button-danger" [disabled]="!selectedRole" (click)="removeRoleSelector()"></button>
+  </p-footer>
+
+</p-dataTable>
+
+<swi-role-picker #rolePicker [app]="app" (onSelected)="addUserRole(this.user, $event)"></swi-role-picker>
+
+<p-confirmDialog header="Confirm Remove Role" icon="fa fa-question-circle" width="425" [key]="'roleListDialog'"></p-confirmDialog>
+
+<swi-role-edit-dialog #roleEditDialog [app]="app" (onSaved)="onRefreshRequest.emit()"></swi-role-edit-dialog>

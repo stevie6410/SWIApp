@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from "@angular/forms";
 import {
   ProgressBarModule,
   DropdownModule,
@@ -13,7 +14,8 @@ import {
   DialogModule,
   PasswordModule,
   TriStateCheckboxModule,
-  ContextMenuModule
+  ContextMenuModule,
+  ConfirmDialogModule
 } from "primeng/primeng";
 
 @NgModule({
@@ -30,7 +32,9 @@ import {
     DialogModule,
     PasswordModule,
     TriStateCheckboxModule,
-    ContextMenuModule
+    ContextMenuModule,
+    ConfirmDialogModule,
+    FormsModule
   ],
   exports: [
     ProgressBarModule,
@@ -45,7 +49,8 @@ import {
     DialogModule,
     PasswordModule,
     TriStateCheckboxModule,
-    ContextMenuModule
+    ContextMenuModule,
+    ConfirmDialogModule
   ],
   declarations: []
 })

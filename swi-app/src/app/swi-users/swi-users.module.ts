@@ -8,7 +8,11 @@ import {
   UserEditDialogComponent,
   UserCreateDialogComponent,
   UserSearchFilterComponent,
-  UserSearchResultsComponent
+  UserSearchResultsComponent,
+  RoleEditDialogComponent,
+  RoleFormComponent,
+  RoleListComponent,
+  RolePickerComponent
 } from "app/swi-users";
 @NgModule({
   imports: [
@@ -22,14 +26,22 @@ import {
     UserSearchFilterComponent,
     UserSearchResultsComponent,
     UserSearchScreenComponent,
-    UserCreateDialogComponent
+    UserCreateDialogComponent,
+    RoleEditDialogComponent,
+    RoleFormComponent,
+    RoleListComponent,
+    RolePickerComponent
   ],
   exports: [
     UserEditDialogComponent,
     UserSearchFilterComponent,
     UserSearchResultsComponent,
     UserSearchScreenComponent,
-    UserCreateDialogComponent
+    UserCreateDialogComponent,
+    RoleEditDialogComponent,
+    RoleFormComponent,
+    RoleListComponent,
+    RolePickerComponent
   ]
 })
 export class SwiUsersModule { }

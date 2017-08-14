@@ -1,0 +1,10 @@
+<p-dialog header="Pick Role" [(visible)]="visible" modal="modal" [width]="500">
+    <h4>Pick a role from the list: </h4>
+
+    <p-dropdown [lazy]="true" [options]="options" [(ngModel)]="selectedRole" [placeholder]="'Select role...'" appendTo="body"></p-dropdown>
+
+    <p-footer>
+        <button pButton type="button" label="Add" icon="fa-plus" (click)="confirmed()"></button>
+    </p-footer>
+
+</p-dialog>

@@ -17,7 +17,7 @@ export class SyncRepoService {
   public async syncSWI(swi: SWIHeader, revId: string, createMaster: CreateSWIMaster = null): Promise<SWIHeader> {
 
     try {
-      // Get the SWI Images embedded into the SWI
+      // Embed the SWI Images into the SWI
       swi = await this.imageStore.emmbedImagesIntoSWI(swi);
       console.log("swi after embedded", swi);
 

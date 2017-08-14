@@ -1,0 +1,9 @@
+<p-dialog header="Add/Edit Role" [(visible)]="visible" modal="modal" [width]="800">
+
+  <swi-role-form [role]="role" (saved)="save()" (deleted)="delete()"></swi-role-form>
+
+  <p-footer>
+    <button pButton type="button" label="Save" icon="fa-save" (click)="save()"></button>
+  </p-footer>
+
+</p-dialog>
