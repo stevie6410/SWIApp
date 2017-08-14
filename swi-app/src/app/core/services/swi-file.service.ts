@@ -12,64 +12,66 @@ import { EnvironmentService } from "app/app/services/environment.service";
 @Injectable()
 export class SWIFileService {
 
-    table: Dexie.Table<SWIHeader, string>;
+  table: Dexie.Table<SWIHeader, string>;
 
-    constructor(
-        private db: SWIDBService,
-        private imageService: ImageService,
-        private imageStore: ImageStoreService,
-        private repoDocs: RepoDocsService,
-        private environment: EnvironmentService
-    ) {
-        this.table = this.db.table('swis');
-    }
+  constructor(
+    private db: SWIDBService,
+    private imageService: ImageService,
+    private imageStore: ImageStoreService,
+    private repoDocs: RepoDocsService,
+    private environment: EnvironmentService
+  ) {
+    this.table = this.db.table('swis');
+  }
 
-    getAll() {
-        return this.table.toArray();
-    }
+  getAll() {
+    return this.table.toArray();
+  }
 
-    async import(swi: SWIHeader): Promise<SWIHeader> {
-        if (!swi.appVersion) swi.appVersion = "0.1.0";
-        return this.add(swi, true, true);
-    }
+  async import(swi: SWIHeader): Promise<SWIHeader> {
+    if (!swi.appVersion) { swi.appVersion = "0.1.0"; }
+    return this.add(swi, true, true);
+  }
 
-    async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
-        if (!overrideSyncWithImageStore) await this.imageStore.addAll(swi, swi.id, compress);
-        try {
-            if (!swi.appVersion) swi.appVersion = this.environment.getAppVersion();
-            swi.updatedOn = new Date();
-            let newSWI = await this.table.add(swi);
-            return this.table.get(newSWI);
-        } catch (error) {
-            console.log("Could not add SWI to store", error);
-            return null;;
-        }
+  async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
+    if (!overrideSyncWithImageStore) { await this.imageStore.addAll(swi, swi.id, compress); }
+    try {
+      if (!swi.appVersion) { swi.appVersion = this.environment.getAppVersion(); }
+      // swi.updatedOn = new Date();
+      const newSWI = await this.table.add(swi);
+      return this.table.get(newSWI);
+    } catch (error) {
+      console.log("Could not add SWI to store", error);
+      return null;
     }
+  }
 
-    deleteSWI(id: string): Promise<void> {
-        return this.table.delete(id);
-    }
+  deleteSWI(id: string): Promise<void> {
+    return this.table.delete(id);
+  }
 
-    async update(swi: SWIHeader): Promise<SWIHeader> {
-        console.log("Saving file");
-        swi.updatedOn = new Date();
-        // swi.appVersion = await this.environment.getAppVersion();
-        //await this.imageStore.addAll(swi, swi.id);
-        swi.clientHash = this.getFileHash(swi);
-        await this.table.update(swi.id, swi);
-        this.imageStore.addAll(swi, swi.id);
-        return swi;
-    }
+  async update(swi: SWIHeader): Promise<SWIHeader> {
+    console.log("Saving file");
+    // swi.updatedOn = new Date();
+    // swi.appVersion = await this.environment.getAppVersion();
+    // await this.imageStore.addAll(swi, swi.id);
+    swi.clientHash = this.getFileHash(swi);
+    await this.table.update(swi.id, swi);
+    this.imageStore.addAll(swi, swi.id);
+    return swi;
+  }
 
-    getFile(id: string): Promise<SWIHeader> {
-        return this.table.get(id);
-    }
+  getFile(id: string): Promise<SWIHeader> {
+    return this.table.get(id);
+  }
 
-    getAllFiles(): Promise<SWIHeader[]> {
-        return this.table.toArray();
-    }
+  getAllFiles(): Promise<SWIHeader[]> {
+    return this.table.toArray();
+  }
 
-    getFileHash(swi: SWIHeader): string {
-        return MD5(JSON.stringify(swi)).toString();
-    }
+  getFileHash(swi: SWIHeader): string {
+    const swiCopy: SWIHeader = Object.apply(swi);
+    swiCopy.swiImages = [];
+    return MD5(JSON.stringify(swiCopy)).toString();
+  }
 }

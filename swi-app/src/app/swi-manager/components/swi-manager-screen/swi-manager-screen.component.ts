@@ -139,6 +139,10 @@ export class SwiManagerScreenComponent implements OnInit {
     this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
   }
 
+  recalculateClientHash() {
+    console.log(this.swiFileService.getFileHash(this.swi));
+  }
+
   async syncRepo() {
     this.isSyncing = true;
     const activeRevId = (this.activeRevision) ? this.activeRevision.id : null;
