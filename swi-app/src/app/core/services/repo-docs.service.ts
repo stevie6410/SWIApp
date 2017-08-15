@@ -105,7 +105,7 @@ export class RepoDocsService {
   public getMasters(): Observable<SWIMaster[]> {
     const url: string = this.baseApiUrl + this.mastersMethod;
     return this.http
-      .get(url)
+      .get(url, defaultOptions())
       .map(res => handleResponse(res))
       .catch((err, caught) => handleError(err));
   }
@@ -113,7 +113,7 @@ export class RepoDocsService {
   public getMaster(id: string): Observable<SWIMaster> {
     const url: string = this.baseApiUrl + this.mastersMethod + id.toString();
     return this.http
-      .get(url)
+      .get(url, defaultOptions())
       .map(res => handleResponse(res))
       .catch((err, caught) => handleError(err));
   }

@@ -1,10 +1,11 @@
- //Private Helper Functions
+ // Private Helper Functions
 import { Http, Response, Headers, RequestOptionsArgs, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 
 export function defaultOptions(): RequestOptions {
-    let h = new Headers({ "Content-Type": "application/json" });
-    let options = new RequestOptions({ headers: h });
+    const authToken = window.localStorage.getItem("auth-token");
+    const h = new Headers({ "Content-Type": "application/json", "token": authToken });
+    const options = new RequestOptions({ headers: h });
     return options;
   }
 
