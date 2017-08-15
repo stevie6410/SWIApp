@@ -1,8 +1,6 @@
 ﻿using RC.SWI.Repository.Services.Web.Attributes;
 using RC.SWI.Services.Services;
 using RC.SWI.ViewModels;
-using SharpRaven;
-using SharpRaven.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,9 +16,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
     public class SWIController : ApiController
     {
         private readonly SWIService swiService;
-        //Configure Raven Client for Sentry Logger
-        private RavenClient ravenClient = new RavenClient("https://d69718d4bef5465aa6bdb707d29fc13d:951922b836a945efb58b27263cd2a4a1@sentry.io/203965");
-
+        
         public SWIController()
         {
             swiService = new SWIService();
