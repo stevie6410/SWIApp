@@ -29,11 +29,10 @@ namespace RC.SWI.Entities
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.ApprovalGroupId).HasColumnName(@"ApprovalGroupId").HasColumnType("int").IsRequired();
-            Property(x => x.UserId).HasColumnName(@"UserId").HasColumnType("int").IsRequired();
+            Property(x => x.Username).HasColumnName(@"Username").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
 
             // Foreign keys
             HasRequired(a => a.ApprovalGroup).WithMany(b => b.Users).HasForeignKey(c => c.ApprovalGroupId).WillCascadeOnDelete(false); // FK_ApprovalGroupUsers_ApprovalGroup_Users
-            HasRequired(a => a.User).WithMany(b => b.ApprovalGroupUsers).HasForeignKey(c => c.UserId).WillCascadeOnDelete(false); // FK_ApprovalGroupUsers_Users
             InitializePartial();
         }
         partial void InitializePartial();

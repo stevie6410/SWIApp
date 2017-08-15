@@ -29,20 +29,18 @@ namespace RC.SWI.Entities
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.DocumentId).HasColumnName(@"DocumentId").HasColumnType("int").IsRequired();
-            Property(x => x.RequestedById).HasColumnName(@"RequestedById").HasColumnType("int").IsRequired();
+            Property(x => x.RequestedBy).HasColumnName(@"RequestedBy").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.RequestedOn).HasColumnName(@"RequestedOn").HasColumnType("datetime2").IsRequired();
             Property(x => x.ApprovalStatusId).HasColumnName(@"ApprovalStatusId").HasColumnType("int").IsRequired();
-            Property(x => x.AssignedApprover).HasColumnName(@"AssignedApprover").HasColumnType("int").IsOptional();
+            Property(x => x.AssignedApprover).HasColumnName(@"AssignedApprover").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(100);
             Property(x => x.ApprovalGroupId).HasColumnName(@"ApprovalGroupId").HasColumnType("int").IsRequired();
             Property(x => x.ApprovalWorkflowId).HasColumnName(@"ApprovalWorkflowId").HasColumnType("int").IsOptional();
 
             // Foreign keys
             HasOptional(a => a.ApprovalWorkflow).WithMany(b => b.ApprovalRequests).HasForeignKey(c => c.ApprovalWorkflowId).WillCascadeOnDelete(false); // FK_ApprovalRequests_ApprovalWorkflows
-            HasOptional(a => a.User_AssignedApprover).WithMany(b => b.AssignedApprover).HasForeignKey(c => c.AssignedApprover).WillCascadeOnDelete(false); // FK_ApprovalRequests_Users1
             HasRequired(a => a.ApprovalGroup).WithMany(b => b.ApprovalRequests).HasForeignKey(c => c.ApprovalGroupId).WillCascadeOnDelete(false); // FK_ApprovalRequests_ApprovalGroup_ApprovalRequests
             HasRequired(a => a.ApprovalStatu).WithMany(b => b.ApprovalRequests).HasForeignKey(c => c.ApprovalStatusId).WillCascadeOnDelete(false); // FK_ApprovalRequests_ApprovalStatus
             HasRequired(a => a.Document).WithMany(b => b.ApprovalRequests).HasForeignKey(c => c.DocumentId).WillCascadeOnDelete(false); // FK_ApprovalRequests_Documents
-            HasRequired(a => a.RequestedBy).WithMany(b => b.RequestedBy).HasForeignKey(c => c.RequestedById).WillCascadeOnDelete(false); // FK_ApprovalRequests_Users
             InitializePartial();
         }
         partial void InitializePartial();

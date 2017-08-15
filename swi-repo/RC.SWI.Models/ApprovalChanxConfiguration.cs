@@ -30,7 +30,7 @@ namespace RC.SWI.Entities
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.ApprovalRequestId).HasColumnName(@"ApprovalRequestId").HasColumnType("int").IsOptional();
             Property(x => x.ApprovalActionId).HasColumnName(@"ApprovalActionId").HasColumnType("int").IsOptional();
-            Property(x => x.ChangedBy).HasColumnName(@"ChangedBy").HasColumnType("int").IsRequired();
+            Property(x => x.ChangedBy).HasColumnName(@"ChangedBy").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.ChangedOn).HasColumnName(@"ChangedOn").HasColumnType("datetime2").IsRequired();
             Property(x => x.ChangeNotes).HasColumnName(@"ChangeNotes").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
 

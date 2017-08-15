@@ -31,17 +31,15 @@ namespace RC.SWI.Entities
             Property(x => x.DocumentTypeId).HasColumnName(@"DocumentTypeId").HasColumnType("int").IsRequired();
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("nvarchar").IsRequired().HasMaxLength(255);
             Property(x => x.CreatedOn).HasColumnName(@"CreatedOn").HasColumnType("datetime2").IsRequired();
-            Property(x => x.CreatedById).HasColumnName(@"CreatedById").HasColumnType("int").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.AppVersion).HasColumnName(@"AppVersion").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(10);
             Property(x => x.CheckedOut).HasColumnName(@"CheckedOut").HasColumnType("bit").IsRequired();
-            Property(x => x.CheckedOutById).HasColumnName(@"CheckedOutById").HasColumnType("int").IsOptional();
+            Property(x => x.CheckedOutBy).HasColumnName(@"CheckedOutBy").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(100);
             Property(x => x.CheckedOutOn).HasColumnName(@"CheckedOutOn").HasColumnType("datetime2").IsOptional();
             Property(x => x.DocumentFileId).HasColumnName(@"DocumentFileId").HasColumnType("int").IsOptional();
 
             // Foreign keys
-            HasOptional(a => a.CheckedOutBy).WithMany(b => b.CheckedOutDocuments).HasForeignKey(c => c.CheckedOutById).WillCascadeOnDelete(false); // FK_Documents_CheckedOutBy_CheckedOutDocuments
             HasOptional(a => a.DocumentFile).WithMany(b => b.Documents).HasForeignKey(c => c.DocumentFileId).WillCascadeOnDelete(false); // FK_Docs_Files
-            HasRequired(a => a.CreatedBy).WithMany(b => b.CreatedDocuments).HasForeignKey(c => c.CreatedById).WillCascadeOnDelete(false); // FK_Documents_CreatedBy_CreatedDocuments
             HasRequired(a => a.DocumentType).WithMany(b => b.Documents).HasForeignKey(c => c.DocumentTypeId).WillCascadeOnDelete(false); // FK_Documents_DocumentTypes
             InitializePartial();
         }

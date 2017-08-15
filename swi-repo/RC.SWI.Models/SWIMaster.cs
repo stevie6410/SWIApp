@@ -21,7 +21,7 @@ namespace RC.SWI.Entities
         public string Title { get; set; } // Title (length: 255)
         public int SWINumber { get; set; } // SWINumber
         public bool IsPublic { get; set; } // IsPublic
-        public int CreatedById { get; set; } // CreatedById
+        public string CreatedBy { get; set; } // CreatedBy (length: 100)
         public System.DateTime CreatedOn { get; set; } // CreatedOn
         public int SWITypeId { get; set; } // SWITypeId
 
@@ -46,10 +46,6 @@ namespace RC.SWI.Entities
         /// Parent SWIType pointed by [SWIMasters].([SWITypeId]) (FK_SWIMasters_SWITypes)
         /// </summary>
         public virtual SWIType SWIType { get; set; } // FK_SWIMasters_SWITypes
-        /// <summary>
-        /// Parent User pointed by [SWIMasters].([CreatedById]) (FK_SWIMasters_CreatedBy_SWIMastersCreated)
-        /// </summary>
-        public virtual User CreatedBy { get; set; } // FK_SWIMasters_CreatedBy_SWIMastersCreated
 
         public SWIMaster()
         {

@@ -14,9 +14,9 @@ namespace RC.SWI.ViewModels.Mappings
         {
             var doc = new Document();
             doc.Name = docUpdate.Name;
-            doc.CreatedById = docUpdate.UserId;
+            doc.CreatedBy = docUpdate.Username;
             doc.DocumentTypeId = docUpdate.DocumentTypeId;
-            doc.CheckedOutById = docUpdate.UserId;
+            doc.CheckedOutBy = docUpdate.Username;
             doc.AppVersion = docUpdate.AppVersion;
             doc.CreatedOn = DateTime.Now;
             doc.CheckedOut = true;

@@ -20,7 +20,7 @@ namespace RC.SWI.Entities
         public int Id { get; set; } // Id (Primary key)
         public int DocumentId { get; set; } // DocumentId
         public System.DateTime ChangedOn { get; set; } // ChangedOn
-        public int ChangedById { get; set; } // ChangedById
+        public string ChangedBy { get; set; } // ChangedBy (length: 100)
         public string ChangeNotes { get; set; } // ChangeNotes (length: 255)
 
         // Foreign keys
@@ -29,10 +29,6 @@ namespace RC.SWI.Entities
         /// Parent Document pointed by [DocumentChanges].([DocumentId]) (FK_DocumentChanges_Documents)
         /// </summary>
         public virtual Document Document { get; set; } // FK_DocumentChanges_Documents
-        /// <summary>
-        /// Parent User pointed by [DocumentChanges].([ChangedById]) (FK_DocumentChanges_Users)
-        /// </summary>
-        public virtual User User { get; set; } // FK_DocumentChanges_Users
 
         public DocumentChanx()
         {

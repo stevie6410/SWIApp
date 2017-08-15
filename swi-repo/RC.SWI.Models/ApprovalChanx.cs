@@ -20,7 +20,7 @@ namespace RC.SWI.Entities
         public int Id { get; set; } // Id (Primary key)
         public int? ApprovalRequestId { get; set; } // ApprovalRequestId
         public int? ApprovalActionId { get; set; } // ApprovalActionId
-        public int ChangedBy { get; set; } // ChangedBy
+        public string ChangedBy { get; set; } // ChangedBy (length: 100)
         public System.DateTime ChangedOn { get; set; } // ChangedOn
         public string ChangeNotes { get; set; } // ChangeNotes (length: 255)
 

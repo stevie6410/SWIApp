@@ -19,7 +19,7 @@ namespace RC.SWI.Entities
     {
         public int Id { get; set; } // Id (Primary key)
         public int ApprovalGroupId { get; set; } // ApprovalGroupId
-        public int UserId { get; set; } // UserId
+        public string Username { get; set; } // Username (length: 100)
 
         // Foreign keys
 
@@ -27,10 +27,6 @@ namespace RC.SWI.Entities
         /// Parent ApprovalGroup pointed by [ApprovalGroupUsers].([ApprovalGroupId]) (FK_ApprovalGroupUsers_ApprovalGroup_Users)
         /// </summary>
         public virtual ApprovalGroup ApprovalGroup { get; set; } // FK_ApprovalGroupUsers_ApprovalGroup_Users
-        /// <summary>
-        /// Parent User pointed by [ApprovalGroupUsers].([UserId]) (FK_ApprovalGroupUsers_Users)
-        /// </summary>
-        public virtual User User { get; set; } // FK_ApprovalGroupUsers_Users
 
         public ApprovalGroupUser()
         {

@@ -24,9 +24,9 @@
             SWI Type Id
             </summary>
         </member>
-        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.UserId">
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.username">
             <summary>
-            User Id requesting the new SWI Master
+            Username requesting the new SWI Master
             </summary>
         </member>
         <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.AppVersion">

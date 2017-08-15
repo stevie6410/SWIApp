@@ -14,9 +14,9 @@ namespace RC.SWI.ViewModels
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime CreatedOn { get; set; }
-        public IUserVM CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
         public bool CheckedOut { get; set; }
-        public IUserVM CheckedOutBy { get; set; }
+        public string CheckedOutBy { get; set; }
         public DateTime? CheckedOutOn { get; set; }
         public FileVM File { get; set; }
         public string Hash { get; set; }
@@ -32,9 +32,9 @@ namespace RC.SWI.ViewModels
                 Id = doc.Id;
                 Name = doc.Name;
                 CreatedOn = doc.CreatedOn;
-                CreatedBy = new UserVM(doc.CreatedBy);
+                CreatedBy = doc.CreatedBy;
                 CheckedOut = doc.CheckedOut;
-                CheckedOutBy = new UserVM(doc.CreatedBy);
+                CheckedOutBy = doc.CreatedBy;
                 CheckedOutOn = doc.CheckedOutOn;
                 DocumentPartLinks = doc.DocumentPartLinks.Select(pl => new DocumentPartLinkVM(pl)).ToList();
 

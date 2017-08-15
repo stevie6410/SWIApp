@@ -20,7 +20,7 @@ namespace RC.SWI.Entities
         public System.Guid Id { get; set; } // Id (Primary key)
         public System.Guid SWIMasterId { get; set; } // SWIMasterId
         public int SiteId { get; set; } // SiteId
-        public int GrantedById { get; set; } // GrantedById
+        public string GrantedBy { get; set; } // GrantedBy (length: 100)
         public System.DateTime GrantedOn { get; set; } // GrantedOn
         public bool IsOwner { get; set; } // IsOwner
         public string Notes { get; set; } // Notes (length: 255)
@@ -38,10 +38,6 @@ namespace RC.SWI.Entities
         /// Parent SWIMaster pointed by [SWIMasterSitePermissions].([SWIMasterId]) (FK_SWIMasterSitePermissions_SWIMasters)
         /// </summary>
         public virtual SWIMaster SWIMaster { get; set; } // FK_SWIMasterSitePermissions_SWIMasters
-        /// <summary>
-        /// Parent User pointed by [SWIMasterSitePermissions].([GrantedById]) (FK_SWIMasterSitePermissions_GrantedBy_SWIMasterSitePermissions)
-        /// </summary>
-        public virtual User GrantedBy { get; set; } // FK_SWIMasterSitePermissions_GrantedBy_SWIMasterSitePermissions
 
         public SWIMasterSitePermission()
         {

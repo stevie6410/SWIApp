@@ -31,6 +31,7 @@ namespace RC.SWI.Entities
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
             Property(x => x.SiteADSecurityGroup).HasColumnName(@"SiteADSecurityGroup").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
+            Property(x => x.AppSecurityCompanyId).HasColumnName(@"AppSecurityCompanyId").HasColumnType("int").IsOptional();
             InitializePartial();
         }
         partial void InitializePartial();

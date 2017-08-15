@@ -88,7 +88,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             using (StreamReader sr = new StreamReader(await Request.Content.ReadAsStreamAsync(), Encoding.UTF8))
             {
                 var fileBinary = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync());
-                var result = await swiService.AttatchSWIFile(revId, clientHash, fileBinary);
+                var result = await swiService.AttatchSWIFile(revId, clientHash, fileBinary, "kents");
                 return Ok(result);
             }
         }

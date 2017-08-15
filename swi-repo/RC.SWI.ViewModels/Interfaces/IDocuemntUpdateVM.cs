@@ -6,6 +6,6 @@
         int DocumentTypeId { get; set; }
         string Name { get; set; }
         byte[] File { get; set; }
-        int UserId { get; set; }
+        string Username { get; set; }
     }
 }

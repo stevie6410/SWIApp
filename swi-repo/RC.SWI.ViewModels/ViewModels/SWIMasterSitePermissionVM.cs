@@ -27,7 +27,7 @@ namespace RC.SWI.ViewModels
                 CanAuthor = sitePermission.CanAuthor;
                 CanManage = sitePermission.CanManage;
                 IsOwner = sitePermission.IsOwner;
-                GrantedBy = new UserVM(sitePermission.GrantedBy).FullName;
+                GrantedBy = sitePermission.GrantedBy;
                 GrantedOn = sitePermission.GrantedOn;
                 Notes = sitePermission.Notes;
             }

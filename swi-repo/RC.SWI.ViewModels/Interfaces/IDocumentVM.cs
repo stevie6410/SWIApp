@@ -7,9 +7,9 @@ namespace RC.SWI.ViewModels.Interfaces
     public interface IDocumentVM
     {
         bool CheckedOut { get; set; }
-        IUserVM CheckedOutBy { get; set; }
+        string CheckedOutBy { get; set; }
         DateTime? CheckedOutOn { get; set; }
-        IUserVM CreatedBy { get; set; }
+        string CreatedBy { get; set; }
         DateTime CreatedOn { get; set; }
         //List<DocumentLink> DocumentLinks { get; set; }
         //List<DocumentPartLink> DocumentPartLinks { get; set; }

@@ -26,9 +26,9 @@ namespace RC.SWI.ViewModels
                 Id = doc.Id;
                 Name = doc.Name;
                 CreatedOn = doc.CreatedOn;
-                CreatedBy = new UserVM(doc.CreatedBy).FullName;
+                CreatedBy = doc.CreatedBy;
                 CheckedOut = doc.CheckedOut;
-                CheckedOutBy = new UserVM(doc.CreatedBy).FullName;
+                CheckedOutBy = doc.CreatedBy;
                 CheckedOutOn = doc.CheckedOutOn;
 
                 if (doc.DocumentFile != null)
