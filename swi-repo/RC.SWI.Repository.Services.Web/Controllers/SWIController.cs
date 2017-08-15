@@ -1,4 +1,5 @@
-﻿using RC.SWI.Services.Services;
+﻿using RC.SWI.Repository.Services.Web.Attributes;
+using RC.SWI.Services.Services;
 using RC.SWI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace RC.SWI.Repository.Services.Web.Controllers
-{
+{   
+    [RequiresPermission("CanCreateSWI")]
     [RoutePrefix("api/v1/swi")]
     public class SWIController : ApiController
     {

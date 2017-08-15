@@ -25,6 +25,7 @@ export * from './services/auth-services/roles.service';
 export * from './services/auth-services/permissions.service';
 export * from './services/auth-services/companies.service';
 export * from './services/auth-services/applications.service';
+export * from './services/swi-import.service'
 
 // Resolvers
 export * from "./resolvers/swi.resolver";

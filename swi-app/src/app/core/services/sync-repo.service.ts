@@ -17,9 +17,9 @@ export class SyncRepoService {
   public async syncSWI(swi: SWIHeader, revId: string, createMaster: CreateSWIMaster = null): Promise<SWIHeader> {
 
     try {
-      // Get the SWI Images embedded into the SWI
+      // Embed the SWI Images into the SWI
       swi = await this.imageStore.emmbedImagesIntoSWI(swi);
-      console.log("swi after embedded", swi);
+      console.log("SWI after images embedded", swi);
 
       // Update the swi UpdatedOn fields
       swi.updatedOn = new Date();
@@ -42,7 +42,7 @@ export class SyncRepoService {
         if (master) {
           // Set the repo detials on the header
           swi = await this.setRepoFieldsOnHeader(swi, master, master.swiRevisions[0].id);
-          console.log("swi before upload", swi);
+          console.log("SWI header before upload", swi);
           // Save the file to the newley created SWI
           await this.repoDocs.attatchSWIFile(master.id, revId, swi).toPromise();
         }
@@ -51,7 +51,7 @@ export class SyncRepoService {
         // Get the SWIMaster from the repo
         const master = await this.repoDocs.getMaster(swi.swiMaster.id).toPromise();
         // Get the revision
-        const revision = master.swiRevisions.filter(rev => rev.id === revId)[0];
+        const revision = master.swiRevisions.find(rev => rev.id === revId);
         // Validate that we have the revision and that the revision has a linked document
         if (!revision) { throw new Error(`SWI revison could not be found in the SWI Master: ${revId}`); }
         // Set the SWIHeader with updated repo

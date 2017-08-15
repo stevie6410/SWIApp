@@ -1,4 +1,5 @@
-﻿using RC.SWI.Services.Services;
+﻿using RC.SWI.Repository.Services.Web.Attributes;
+using RC.SWI.Services.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Web.Http;
 namespace RC.SWI.Repository.Services.Web.Controllers
 {
     [RoutePrefix("api/v1/appcatalog")]
+    [RequiresPermission("CanManageAppSecurity")]
     public class AppCatalogController : ApiController
     {
         private readonly AppCatalogService appCatalog;

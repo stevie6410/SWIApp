@@ -8,7 +8,7 @@ import { SWIFileService, SWIHeader } from "app/core";
 @Directive({
     selector: '[swiDeleteButton]'
 })
-export class SWIDeleteButton {
+export class SWIDeleteButtonDirective {
 
     @Input() swi: SWIHeader;
 
@@ -38,9 +38,9 @@ export class SWIDeleteButton {
             .open()
             .then(dialogRef => dialogRef.result)
             .then(result => {
-                //Delete logic goes here
+                // Delete logic goes here
                 this.swiFileService.deleteSWI(this.swi.id).then((() => {
-                    this.toast.warning(this.swi.title + ' was deleted!', "Successfully Deleted");
+                    this.toast.success(this.swi.title + ' was deleted!', "Successfully Deleted");
                     this.router.navigate(['browser']);
                 })).catch((err) => {
                     this.toast.error("Could not delete the SWI", "Delete failed");

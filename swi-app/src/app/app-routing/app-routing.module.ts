@@ -13,7 +13,6 @@ import { SwiToolEditComponent } from "../swi-builder/components/swi-tool-edit/sw
 import { SwiImporterScreenComponent } from "../swi-importer/components/swi-importer-screen/swi-importer-screen.component";
 import { SwiViewerScreenComponent } from "../swi-viewer/components/swi-viewer-screen/swi-viewer-screen.component";
 import { SwiManagerScreenComponent } from "../swi-manager/components/swi-manager-screen/swi-manager-screen.component";
-import { StagesGalleryScreenComponent } from "../swi-viewer/components/stages-gallery-screen/stages-gallery-screen.component";
 import { RepoSearchComponent } from "../swi-repo/components/repo-search/repo-search.component";
 import {
   StdToolingSearchComponent,
@@ -38,8 +37,7 @@ const appRoutes: Routes = [
       {
         path: "viewer",
         children: [
-          { path: ":id", component: SwiViewerScreenComponent, resolve: { swi: SWIResolver } },
-          { path: ":id/stagesgallery", component: StagesGalleryScreenComponent, resolve: { swi: SWIResolver } },
+          { path: ":id", component: SwiViewerScreenComponent, resolve: { swi: SWIResolver } }
         ]
       },
       {

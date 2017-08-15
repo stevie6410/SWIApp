@@ -6,6 +6,8 @@ import { defaultOptions, AuthUser } from "app/core";
 import { Subject } from "rxjs/Subject";
 import { JwtHelper } from "angular2-jwt";
 import { Router } from "@angular/router";
+import * as jwtDecode from 'jwt-decode';
+import * as moment from 'moment';
 
 @Injectable()
 export class AuthService {

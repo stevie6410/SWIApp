@@ -53,7 +53,7 @@
                 <span class="property"><span class="badge badge-default type-prop">{{result.type}}</span></span>
                 <span class="property">{{result.createdOn | amCalendar}}</span>
                 <span class="property">
- 
+
               </span>
               </div>
 
@@ -61,14 +61,25 @@
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-default"><i class="fa fa-arrow-down"></i> Import</button>
+              <button type="button" class="btn btn-default" (click)="importSWI()"><i class="fa fa-arrow-down"></i> Import</button>
             </div>
 
           </div>
 
           <!--Dropdown properties-->
           <div class="list-group-item revision-panel" *ngIf="result == selectedResult">
-            Some Revison details can go here
+
+            <ul>
+              <li *ngFor="let rev of result.swiRevisions">
+                <ul>
+                  <li>Revision: {{rev.revisionNumber}}</li>
+                  <li>Hash: {{rev.document.hash}}</li>
+                  <li>Client Hash: {{rev.document.clientHash}}</li>
+                </ul>
+                <button type="button" (click)="importSWI(rev)">Import</button></li>
+            </ul>
+
+            <!-- Some Revison details can go here -->
           </div>
 
         </div>

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using RC.SWI.Repository.Services.Web.Attributes;
 using RC.SWI.Services;
 using RC.SWI.ViewModels;
 using System;
@@ -16,6 +17,7 @@ using System.Web.Http;
 namespace RC.SWI.Repository.Services.Web.Controllers
 {
     [RoutePrefix("api/v1/documents")]
+    [RequiresPermission("CanCreateSWI")]
     public class DocumentsController : ApiController
     {
         private readonly DocumentService docService;

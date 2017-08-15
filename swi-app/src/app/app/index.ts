@@ -1,5 +1,4 @@
 // **DO NOT CHANGE ORDER**
-// DI Requires they be loaded in order
 
 // Models
 

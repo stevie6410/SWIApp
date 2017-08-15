@@ -26,7 +26,8 @@ import {
   RolesService,
   PermissionsService,
   CompaniesService,
-  ApplicationsService
+  ApplicationsService,
+  SWIImportService
 } from "./index";
 
 @NgModule({
@@ -59,7 +60,8 @@ import {
     PermissionsService,
     CompaniesService,
     ApplicationsService,
-    PermissionGuard
+    PermissionGuard,
+    SWIImportService
   ],
   bootstrap: []
 })
