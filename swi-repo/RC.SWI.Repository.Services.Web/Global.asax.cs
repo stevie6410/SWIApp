@@ -1,15 +1,8 @@
 ﻿using Newtonsoft.Json.Serialization;
-using RC.SWI.Repository.Services.Web.App_Start;
 using RC.SWI.Repository.Services.Web.Logger;
-using SharpRaven;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Formatting;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
-using System.Web.Http.Hosting;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
