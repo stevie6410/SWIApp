@@ -29,8 +29,12 @@ export class SWIFileService {
   }
 
   async import(swi: SWIHeader): Promise<SWIHeader> {
-    if (!swi.appVersion) { swi.appVersion = "0.1.0"; }
-    return this.add(swi, true, true);
+    try {
+      if (!swi.appVersion) { swi.appVersion = "0.1.0"; }
+      return this.add(swi, true, true);
+    } catch (error) {
+      console.log("Cannot import 123");
+    }
   }
 
   async add(swi: SWIHeader, compress: boolean = false, overrideSyncWithImageStore: boolean = false): Promise<SWIHeader> {
@@ -42,7 +46,7 @@ export class SWIFileService {
       return this.table.get(newSWI);
     } catch (error) {
       console.log("Could not add SWI to store", error);
-      return null;
+      throw error;
     }
   }
 
@@ -50,12 +54,12 @@ export class SWIFileService {
     return this.table.delete(id);
   }
 
-  async update(swi: SWIHeader): Promise<SWIHeader> {
+  async update(swi: SWIHeader, clientHash: string = null): Promise<SWIHeader> {
     console.log("Saving file");
     // swi.updatedOn = new Date();
     // swi.appVersion = await this.environment.getAppVersion();
     // await this.imageStore.addAll(swi, swi.id);
-    swi.clientHash = this.getFileHash(swi);
+    swi.clientHash = (clientHash) ? clientHash : this.getFileHash(swi);
     await this.table.update(swi.id, swi);
     this.imageStore.addAll(swi, swi.id);
     return swi;
@@ -70,8 +74,9 @@ export class SWIFileService {
   }
 
   getFileHash(swi: SWIHeader): string {
-    const swiCopy: SWIHeader = Object.apply(swi);
+    const swiCopy: SWIHeader = JSON.parse(JSON.stringify(swi));
     swiCopy.swiImages = [];
+    console.log("SWICopy", swiCopy);
     return MD5(JSON.stringify(swiCopy)).toString();
   }
 }

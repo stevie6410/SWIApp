@@ -17,6 +17,7 @@ import {
   handleError,
 } from "app/core";
 import { EnvironmentService } from "app/app/services/environment.service";
+import { ToastsManager } from "ng2-toastr/ng2-toastr";
 
 @Injectable()
 export class RepoDocsService {
@@ -28,19 +29,26 @@ export class RepoDocsService {
   constructor(
     private http: Http,
     private imageStore: ImageStoreService,
-    private environment: EnvironmentService
+    private environment: EnvironmentService,
+    private toast: ToastsManager
   ) {
     this.baseApiUrl = this.environment.env.repositoryURL;
   }
 
   public getDocument(id: number): Promise<RepoDocument> {
     const url: string = this.baseApiUrl + this.documentsMethod + id.toString();
-    return this.http.get(url).map(res => handleResponse(res)).toPromise();
+    return this.http.get(url, defaultOptions())
+    .map(res => handleResponse(res))
+    .catch((err, caught) => handleError(err, this.toast))
+    .toPromise();
   }
 
   public getDocuments(): Promise<SimpleRepoDocument[]> {
     const url: string = this.baseApiUrl + this.documentsMethod;
-    return this.http.get(url).map(res => handleResponse(res)).toPromise();
+    return this.http.get(url, defaultOptions())
+    .map(res => handleResponse(res))
+    .catch((err, caught) => handleError(err, this.toast))
+    .toPromise();
   }
 
   public createDocument(createDoc: RepoCreateDocumentPayload): Promise<RepoDocument> {
@@ -49,6 +57,7 @@ export class RepoDocsService {
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
+      .catch((err, caught) => handleError(err, this.toast))
       .toPromise();
   }
 
@@ -58,6 +67,7 @@ export class RepoDocsService {
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
+      .catch((err, caught) => handleError(err, this.toast))
       .toPromise();
   }
 
@@ -67,7 +77,7 @@ export class RepoDocsService {
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
-      .catch((err, caught) => handleError(err))
+      .catch((err, caught) => handleError(err, this.toast))
       .toPromise();
   }
 
@@ -77,7 +87,7 @@ export class RepoDocsService {
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
-      .catch((err, caught) => handleError(err))
+      .catch((err, caught) => handleError(err, this.toast))
       .toPromise();
   }
 
@@ -87,7 +97,7 @@ export class RepoDocsService {
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
-      .catch((err, caught) => handleError(err))
+      .catch((err, caught) => handleError(err, this.toast))
       .toPromise();
   }
 
@@ -99,7 +109,7 @@ export class RepoDocsService {
     return this.http
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
-      .catch((err, caught) => handleError(err));
+      .catch((err, caught) => handleError(err, this.toast));
   }
 
   public getMasters(): Observable<SWIMaster[]> {
@@ -107,7 +117,7 @@ export class RepoDocsService {
     return this.http
       .get(url, defaultOptions())
       .map(res => handleResponse(res))
-      .catch((err, caught) => handleError(err));
+      .catch((err, caught) => handleError(err, this.toast));
   }
 
   public getMaster(id: string): Observable<SWIMaster> {
@@ -115,6 +125,6 @@ export class RepoDocsService {
     return this.http
       .get(url, defaultOptions())
       .map(res => handleResponse(res))
-      .catch((err, caught) => handleError(err));
+      .catch((err, caught) => handleError(err, this.toast));
   }
 }

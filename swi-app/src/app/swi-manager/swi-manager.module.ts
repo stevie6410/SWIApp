@@ -6,7 +6,7 @@ import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { SWIExportButton } from "./directives/swi-export.directive";
 import { SWIDuplicateButton } from "./directives/swi-duplicate.directive";
-import { SWIDeleteButton } from "./directives/swi-delete.directive";
+import { SWIDeleteButtonDirective } from "./directives/swi-delete.directive";
 import { SWICreateMasterButton } from "./directives/swi-create-master.directive";
 import { MomentModule } from "angular2-moment";
 import { SWIUpgradeDirective } from "./directives/swi-upgrade.directive";
@@ -23,7 +23,7 @@ import { SWIUpgradeDirective } from "./directives/swi-upgrade.directive";
     SwiManagerScreenComponent,
     SWIExportButton,
     SWIDuplicateButton,
-    SWIDeleteButton,
+    SWIDeleteButtonDirective,
     SWICreateMasterButton,
     SWIUpgradeDirective
   ],
@@ -31,7 +31,7 @@ import { SWIUpgradeDirective } from "./directives/swi-upgrade.directive";
     SwiManagerScreenComponent,
     SWIExportButton,
     SWIDuplicateButton,
-    SWIDeleteButton,
+    SWIDeleteButtonDirective,
     SWICreateMasterButton,
     SWIUpgradeDirective
   ]

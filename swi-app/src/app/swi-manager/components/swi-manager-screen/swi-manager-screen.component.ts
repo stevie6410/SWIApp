@@ -70,42 +70,48 @@ export class SwiManagerScreenComponent implements OnInit {
   }
 
   updateDocumentSyncStatus() {
-    this.clientHash = this.swi.clientHash;
-    this.repoHash = this.activeRevision.document.clientHash;
-    this.clientTimestamp = new Date(this.swi.updatedOn).getTime();
-    this.repoTimestamp = new Date(this.activeRevision.document.timestamp).getTime();
-    this.isOutOfSync = (this.clientHash != this.repoHash);
-    if (this.isOutOfSync) {
-      // Check to see if the repo or client is ahead
-      this.syncLatest = (this.clientTimestamp > this.repoTimestamp) ? "Client" : "Repository";
-      console.log(`Out of sync and ${this.syncLatest} is ahead`);
+    if (this.isLoggedIn) {
+
+      this.clientHash = this.swi.clientHash;
+      this.repoHash = this.activeRevision.document.clientHash;
+      this.clientTimestamp = new Date(this.swi.updatedOn).getTime();
+      this.repoTimestamp = new Date(this.activeRevision.document.timestamp).getTime();
+      this.isOutOfSync = (this.clientHash != this.repoHash);
+      if (this.isOutOfSync) {
+        // Check to see if the repo or client is ahead
+        this.syncLatest = (this.clientTimestamp > this.repoTimestamp) ? "Client" : "Repository";
+        console.log(`Out of sync and ${this.syncLatest} is ahead`);
+      }
     }
   }
 
   async updateRepoData() {
-    this.loadingRepo = true;
-    // Reset Repo flags
-    this.swiMaster = null;
-    this.loadingRepoError = null;
+    if (this.isLoggedIn) {
 
-    if (!this.swi.swiMaster) {
-      console.log("No SWI Master linked");
+      this.loadingRepo = true;
+      // Reset Repo flags
+      this.swiMaster = null;
+      this.loadingRepoError = null;
+
+      if (!this.swi.swiMaster) {
+        console.log("No SWI Master linked");
+        this.loadingRepo = false;
+        this.loadingRepoError = "No SWI Master linked";
+        return;
+      }
+      try {
+        // Get the data SWIMaster from the repository (retry up to 3 times)
+        this.swiMaster = await this.repoDocs.getMaster(this.swi.swiMaster.id).toPromise();
+        console.log("Fetched new SWI Master", this.swiMaster);
+        console.log("SWI", this.swi);
+        this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest == true)[0];
+        this.updateDocumentSyncStatus();
+      } catch (error) {
+        this.loadingRepoError = "Could not connect to the repository";
+        console.log("Could not connect to repository");
+      }
       this.loadingRepo = false;
-      this.loadingRepoError = "No SWI Master linked";
-      return;
     }
-    try {
-      // Get the data SWIMaster from the repository (retry up to 3 times)
-      this.swiMaster = await this.repoDocs.getMaster(this.swi.swiMaster.id).toPromise();
-      console.log("Fetched new SWI Master", this.swiMaster);
-      console.log("SWI", this.swi);
-      this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest == true)[0];
-      this.updateDocumentSyncStatus();
-    } catch (error) {
-      this.loadingRepoError = "Could not connect to the repository";
-      console.log("Could not connect to repository");
-    }
-    this.loadingRepo = false;
   }
 
   navBack() {
@@ -144,16 +150,18 @@ export class SwiManagerScreenComponent implements OnInit {
   }
 
   async syncRepo() {
-    this.isSyncing = true;
-    const activeRevId = (this.activeRevision) ? this.activeRevision.id : null;
-    try {
-      this.swi = await this.syncRepoService.syncSWI(this.swi, activeRevId);
-    } catch (error) {
-      console.log("Error while syncing", error);
-      this.loadingRepoError = error;
+    if (this.isLoggedIn) {
+      this.isSyncing = true;
+      const activeRevId = (this.activeRevision) ? this.activeRevision.id : null;
+      try {
+        this.swi = await this.syncRepoService.syncSWI(this.swi, activeRevId);
+      } catch (error) {
+        console.log("Error while syncing", error);
+        this.loadingRepoError = error;
+      }
+      console.log("SWI after sync", this.swi);
+      this.isSyncing = false;
+      this.updateRepoData();
     }
-    console.log("SWI after sync", this.swi);
-    this.isSyncing = false;
-    this.updateRepoData();
   }
 }

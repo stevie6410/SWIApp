@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SWIMaster, RepoDocsService, SWIRevision, SWIHeader, SWIFileService, SWIImportService } from "app/core";
+import { ToastsManager } from "ng2-toastr/ng2-toastr";
 
 @Component({
   selector: 'swi-repo-search',
@@ -16,7 +17,8 @@ export class RepoSearchComponent implements OnInit {
   constructor(
     private repoStore: RepoDocsService,
     private swiService: SWIFileService,
-    private swiImportService: SWIImportService
+    private swiImportService: SWIImportService,
+    private toast: ToastsManager
   ) {
     this.swiImportService.importProgress.subscribe(
       msg => {
@@ -38,7 +40,7 @@ export class RepoSearchComponent implements OnInit {
   }
 
   async importSWI(swiRev: SWIRevision) {
-    console.log("Downloading document");
+    this.notify("Downloading document");
     const doc = await this.repoStore.getDocument(swiRev.document.id);
     console.log("Got Document: ", doc);
     console.log("Parsing SWI");
@@ -51,6 +53,9 @@ export class RepoSearchComponent implements OnInit {
     } else {
       console.log("Imported Succesfully");
     }
+  }
 
+  notify(msg: string){
+    this.toast.success(msg, null, { maxShown: 5, newestOnTop: false, toastLife: 3000 });
   }
 }

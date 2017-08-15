@@ -35,51 +35,15 @@
           </div>
         </swi-card>
 
+        <swi-card [title]='"Login to Repository"' *ngIf="!isLoggedIn">
+          <div class="card-block">
 
-        <swi-card [title]="'SWI Master Properties'">
-          <div class='card-block' *ngIf="!loadingRepo && !loadingRepoError">
+            <swi-login></swi-login>
 
-
-            <div class="property-badge-list">
-              <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
-              <span class="badge badge-default">{{swiMaster?.type}}</span>
-            </div>
-
-          </div>
-          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
-            <h6 *ngIf="loadingRepo">
-              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
-            </h6>
-            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
           </div>
         </swi-card>
 
-        <swi-card [title]="'SWI Revision Properties'">
-          <table class="table table-sm card-table" *ngIf="swiMaster">
-            <thead>
-              <tr>
-                <th>Revision #</th>
-                <th>Released</th>
-                <th>Created On</th>
-                <th>Modified On</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let rev of swiMaster?.swiRevisions">
-                <td>{{rev.revisionNumber}}</td>
-                <td>{{rev.released}}</td>
-                <td>{{rev.createdOn | amCalendar}}</td>
-                <td>{{rev.modifiedOn | amCalendar}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
-            <h6 *ngIf="loadingRepo">
-              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
-            </h6>
-            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
-          </div>
-        </swi-card>
+        <!-- <swi-user-profile-card *ngIf="isLoggedIn"></swi-user-profile-card> -->
 
         <swi-card [title]="'SWI Repository Status'" *ngIf="isLoggedIn">
           <div class='card-block'>
@@ -112,6 +76,50 @@
           </div>
         </swi-card>
 
+        <swi-card [title]="'SWI Master Properties'" *ngIf="isLoggedIn">
+
+          <div class='card-block' *ngIf="!loadingRepo && !loadingRepoError">
+            <div class="property-badge-list">
+              <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
+              <span class="badge badge-default">{{swiMaster?.type}}</span>
+            </div>
+          </div>
+
+          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
+            <h6 *ngIf="loadingRepo">
+              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
+            </h6>
+            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
+          </div>
+        </swi-card>
+
+        <swi-card [title]="'SWI Revision Properties'" *ngIf="isLoggedIn">
+          <table class="table table-sm card-table" *ngIf="swiMaster">
+            <thead>
+              <tr>
+                <th>Revision #</th>
+                <th>Released</th>
+                <th>Created On</th>
+                <th>Modified On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rev of swiMaster?.swiRevisions">
+                <td>{{rev.revisionNumber}}</td>
+                <td>{{rev.released}}</td>
+                <td>{{rev.createdOn | amCalendar}}</td>
+                <td>{{rev.modifiedOn | amCalendar}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
+            <h6 *ngIf="loadingRepo">
+              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
+            </h6>
+            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
+          </div>
+        </swi-card>
+
       </div>
 
       <div class="col-md-4">
@@ -123,23 +131,8 @@
           </div>
         </swi-card>
 
-        <div *ngIf="!isLoggedIn">
 
-          <swi-card [title]='"Login to Repository"'>
-            <div class="card-block">
 
-              <swi-login></swi-login>
-
-            </div>
-          </swi-card>
-
-        </div>
-
-        <div *ngIf="isLoggedIn">
-
-          <swi-user-profile-card></swi-user-profile-card>
-
-        </div>
 
       </div>
     </div>

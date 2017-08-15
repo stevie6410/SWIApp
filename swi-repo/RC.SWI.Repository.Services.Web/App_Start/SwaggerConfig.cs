@@ -2,11 +2,35 @@ using System.Web.Http;
 using WebActivatorEx;
 using RC.SWI.Repository.Services.Web;
 using Swashbuckle.Application;
+using Swashbuckle.Swagger;
+using System.Collections.Generic;
+using System.Web.Http.Description;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace RC.SWI.Repository.Services.Web
 {
+    public class AddAuthTokenHeaderParameter : IOperationFilter
+    {
+        public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
+        {
+            if (operation.parameters == null)
+                operation.parameters = new List<Parameter>();
+
+            HeaderParameter p = new HeaderParameter();
+            p.name = "token";
+            p.@in = "header";
+            p.type = "string";
+            p.required = false;
+
+            operation.parameters.Add(p);
+        }
+
+        class HeaderParameter : Parameter
+        {
+        }
+    }
+
     public class SwaggerConfig
     {
         public static void Register()
@@ -16,6 +40,8 @@ namespace RC.SWI.Repository.Services.Web
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
+                        c.OperationFilter<AddAuthTokenHeaderParameter>();
+
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
