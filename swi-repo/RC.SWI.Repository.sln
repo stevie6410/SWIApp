@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RC.SWI.Common", "RC.SWI.Com
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "RC.SWI.Database", "RC.SWI.Database\RC.SWI.Database.sqlproj", "{3C7A65F8-3BA2-4926-8F5C-E94B77E0AAC0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{766858B6-5DC6-4F6B-BF46-2CA8C0715C70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

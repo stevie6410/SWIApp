@@ -14,7 +14,6 @@ export * from "./services/image-store.service";
 export * from "./services/swi-file.service";
 export * from "./services/app-catalog.service";
 export * from "./services/repo-docs.service";
-export * from "./services/repo-swi.service";
 export * from "./services/swi-duplicate.service";
 export * from "./services/sync-repo.service";
 export * from "./services/repo-standard-tooling.service";

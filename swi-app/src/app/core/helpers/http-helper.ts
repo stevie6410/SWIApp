@@ -14,8 +14,8 @@ export function handleResponse(res: Response): any {
   return res.json();
 }
 
-export function handleError(error: Response | any, toastManager: ToastsManager = null) {
-  console.log("GOT AN ERROR", error);
+export function handleError(error: Response | any) {
+  // console.log("GOT AN ERROR", error);
   // In a real world app, you might use a remote logging infrastructure
   let errMsg: string;
   if (error instanceof Response) {
@@ -27,11 +27,5 @@ export function handleError(error: Response | any, toastManager: ToastsManager =
     errMsg = error.message ? error.message : error.toString();
   }
 
-  if (toastManager) {
-    console.log("We have a toastmanager");
-    toastManager.error(errMsg, "SWI Repository Error", { toastLife: 5000 });
-  }
-
-  console.error(errMsg);
   return Observable.throw(errMsg);
 }
