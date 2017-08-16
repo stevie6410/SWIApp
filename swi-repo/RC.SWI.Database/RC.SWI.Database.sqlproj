@@ -227,27 +227,9 @@ Table=[dbo].[AppConfigurations];
     <None Include="Post-Deployment\01_Finalize_Deployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrations\1.0.0\001_20170626-1851_KentS_InitDB.sql" />
+    <None Include="Migrations\1.0.0\001_20170816-1508_KentS.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Migrations\1.0.0\002_20170626-1851_KentS_ConfigData.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\003_20170629-1130_KentS.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\004_20170629-1138_KentS.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\005_20170629-1158_KentS.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\006_20170629-1159_KentS.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\007_20170808-1332_KentS.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Migrations\1.0.0\008_20170816-1500_KentS.sql" />
+    <None Include="Migrations\1.0.0\002_20170816-1508_KentS.sql" />
   </ItemGroup>
 </Project>
