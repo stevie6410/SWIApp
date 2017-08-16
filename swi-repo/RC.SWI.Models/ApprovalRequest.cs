@@ -19,10 +19,10 @@ namespace RC.SWI.Entities
     {
         public int Id { get; set; } // Id (Primary key)
         public int DocumentId { get; set; } // DocumentId
-        public int RequestedById { get; set; } // RequestedById
+        public string RequestedBy { get; set; } // RequestedBy (length: 100)
         public System.DateTime RequestedOn { get; set; } // RequestedOn
         public int ApprovalStatusId { get; set; } // ApprovalStatusId
-        public int? AssignedApprover { get; set; } // AssignedApprover
+        public string AssignedApprover { get; set; } // AssignedApprover (length: 100)
         public int ApprovalGroupId { get; set; } // ApprovalGroupId
         public int? ApprovalWorkflowId { get; set; } // ApprovalWorkflowId
 
@@ -51,14 +51,6 @@ namespace RC.SWI.Entities
         /// Parent Document pointed by [ApprovalRequests].([DocumentId]) (FK_ApprovalRequests_Documents)
         /// </summary>
         public virtual Document Document { get; set; } // FK_ApprovalRequests_Documents
-        /// <summary>
-        /// Parent User pointed by [ApprovalRequests].([RequestedById]) (FK_ApprovalRequests_Users)
-        /// </summary>
-        public virtual User RequestedBy { get; set; } // FK_ApprovalRequests_Users
-        /// <summary>
-        /// Parent User pointed by [ApprovalRequests].([AssignedApprover]) (FK_ApprovalRequests_Users1)
-        /// </summary>
-        public virtual User User_AssignedApprover { get; set; } // FK_ApprovalRequests_Users1
 
         public ApprovalRequest()
         {

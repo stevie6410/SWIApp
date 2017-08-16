@@ -29,13 +29,6 @@ namespace RC.SWI.Entities
         /// </summary>
         public virtual System.Collections.Generic.ICollection<ApprovalChanx> ApprovalChanges { get; set; } // ApprovalChanges.FK_ApprovalChanges_ApprovalAction_ApprovalChanges
 
-        // Foreign keys
-
-        /// <summary>
-        /// Parent Permission pointed by [ApprovalActions].([PermissionId]) (FK_ApprovalActions_ApprovalActions_Permission)
-        /// </summary>
-        public virtual Permission ApprovalActions { get; set; } // FK_ApprovalActions_ApprovalActions_Permission
-
         public ApprovalAction()
         {
             ApprovalChanges = new System.Collections.Generic.List<ApprovalChanx>();

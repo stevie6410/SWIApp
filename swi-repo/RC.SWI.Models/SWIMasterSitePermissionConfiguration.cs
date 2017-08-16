@@ -30,7 +30,7 @@ namespace RC.SWI.Entities
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("uniqueidentifier").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.SWIMasterId).HasColumnName(@"SWIMasterId").HasColumnType("uniqueidentifier").IsRequired();
             Property(x => x.SiteId).HasColumnName(@"SiteId").HasColumnType("int").IsRequired();
-            Property(x => x.GrantedById).HasColumnName(@"GrantedById").HasColumnType("int").IsRequired();
+            Property(x => x.GrantedBy).HasColumnName(@"GrantedBy").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.GrantedOn).HasColumnName(@"GrantedOn").HasColumnType("datetime2").IsRequired();
             Property(x => x.IsOwner).HasColumnName(@"IsOwner").HasColumnType("bit").IsRequired();
             Property(x => x.Notes).HasColumnName(@"Notes").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
@@ -39,7 +39,6 @@ namespace RC.SWI.Entities
             Property(x => x.CanManage).HasColumnName(@"CanManage").HasColumnType("bit").IsRequired();
 
             // Foreign keys
-            HasRequired(a => a.GrantedBy).WithMany(b => b.SWIMasterSitePermissions).HasForeignKey(c => c.GrantedById).WillCascadeOnDelete(false); // FK_SWIMasterSitePermissions_GrantedBy_SWIMasterSitePermissions
             HasRequired(a => a.Site).WithMany(b => b.SWIMasterSitePermissions).HasForeignKey(c => c.SiteId).WillCascadeOnDelete(false); // FK_SWIMasterSitePermissions_Sites
             HasRequired(a => a.SWIMaster).WithMany(b => b.SWIMasterSitePermissions).HasForeignKey(c => c.SWIMasterId).WillCascadeOnDelete(false); // FK_SWIMasterSitePermissions_SWIMasters
             InitializePartial();

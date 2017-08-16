@@ -31,9 +31,6 @@ namespace RC.SWI.Entities
             Property(x => x.Name).HasColumnName(@"Name").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(50);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(255);
             Property(x => x.PermissionId).HasColumnName(@"PermissionId").HasColumnType("int").IsOptional();
-
-            // Foreign keys
-            HasOptional(a => a.ApprovalActions).WithMany(b => b.Permission1).HasForeignKey(c => c.PermissionId).WillCascadeOnDelete(false); // FK_ApprovalActions_ApprovalActions_Permission
             InitializePartial();
         }
         partial void InitializePartial();

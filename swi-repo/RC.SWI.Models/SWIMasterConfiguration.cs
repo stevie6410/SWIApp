@@ -31,12 +31,11 @@ namespace RC.SWI.Entities
             Property(x => x.Title).HasColumnName(@"Title").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(255);
             Property(x => x.SWINumber).HasColumnName(@"SWINumber").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.IsPublic).HasColumnName(@"IsPublic").HasColumnType("bit").IsRequired();
-            Property(x => x.CreatedById).HasColumnName(@"CreatedById").HasColumnType("int").IsRequired();
+            Property(x => x.CreatedBy).HasColumnName(@"CreatedBy").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.CreatedOn).HasColumnName(@"CreatedOn").HasColumnType("datetime2").IsRequired();
             Property(x => x.SWITypeId).HasColumnName(@"SWITypeId").HasColumnType("int").IsRequired();
 
             // Foreign keys
-            HasRequired(a => a.CreatedBy).WithMany(b => b.SWIMastersCreated).HasForeignKey(c => c.CreatedById).WillCascadeOnDelete(false); // FK_SWIMasters_CreatedBy_SWIMastersCreated
             HasRequired(a => a.SWIType).WithMany(b => b.SWIMasters).HasForeignKey(c => c.SWITypeId).WillCascadeOnDelete(false); // FK_SWIMasters_SWITypes
             InitializePartial();
         }

@@ -21,6 +21,7 @@ namespace RC.SWI.Entities
         public string Name { get; set; } // Name (length: 50)
         public string Description { get; set; } // Description (length: 255)
         public string SiteADSecurityGroup { get; set; } // SiteADSecurityGroup (length: 100)
+        public int? AppSecurityCompanyId { get; set; } // AppSecurityCompanyId
 
         // Reverse navigation
 
@@ -32,16 +33,11 @@ namespace RC.SWI.Entities
         /// Child SWIMasterSitePermissions where [SWIMasterSitePermissions].[SiteId] point to this entity (FK_SWIMasterSitePermissions_Sites)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<SWIMasterSitePermission> SWIMasterSitePermissions { get; set; } // SWIMasterSitePermissions.FK_SWIMasterSitePermissions_Sites
-        /// <summary>
-        /// Child Users where [Users].[DefaultSiteId] point to this entity (FK_Users_Sites)
-        /// </summary>
-        public virtual System.Collections.Generic.ICollection<User> Users { get; set; } // Users.FK_Users_Sites
 
         public Site()
         {
             AppConfigurations = new System.Collections.Generic.List<AppConfiguration>();
             SWIMasterSitePermissions = new System.Collections.Generic.List<SWIMasterSitePermission>();
-            Users = new System.Collections.Generic.List<User>();
             InitializePartial();
         }
 

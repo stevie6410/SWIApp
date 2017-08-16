@@ -108,12 +108,6 @@
     <Compile Include="AppSettingConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
-    <Compile Include="AuthToken.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AuthTokenConfiguration.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
     <Compile Include="Document.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
@@ -165,24 +159,6 @@
     <Compile Include="ISWIRepository.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
-    <Compile Include="Permission.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PermissionConfiguration.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Role.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RoleConfiguration.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RolePermission.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RolePermissionConfiguration.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
     <Compile Include="Site.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
@@ -227,18 +203,6 @@
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="SWITypeConfiguration.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserConfiguration.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserRole.cs">
-      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserRoleConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="__MigrationLog.cs">

@@ -21,10 +21,10 @@ namespace RC.SWI.Entities
         public int DocumentTypeId { get; set; } // DocumentTypeId
         public string Name { get; set; } // Name (length: 255)
         public System.DateTime CreatedOn { get; set; } // CreatedOn
-        public int CreatedById { get; set; } // CreatedById
+        public string CreatedBy { get; set; } // CreatedBy (length: 100)
         public string AppVersion { get; set; } // AppVersion (length: 10)
         public bool CheckedOut { get; set; } // CheckedOut
-        public int? CheckedOutById { get; set; } // CheckedOutById
+        public string CheckedOutBy { get; set; } // CheckedOutBy (length: 100)
         public System.DateTime? CheckedOutOn { get; set; } // CheckedOutOn
         public int? DocumentFileId { get; set; } // DocumentFileId
 
@@ -65,14 +65,6 @@ namespace RC.SWI.Entities
         /// Parent DocumentType pointed by [Documents].([DocumentTypeId]) (FK_Documents_DocumentTypes)
         /// </summary>
         public virtual DocumentType DocumentType { get; set; } // FK_Documents_DocumentTypes
-        /// <summary>
-        /// Parent User pointed by [Documents].([CheckedOutById]) (FK_Documents_CheckedOutBy_CheckedOutDocuments)
-        /// </summary>
-        public virtual User CheckedOutBy { get; set; } // FK_Documents_CheckedOutBy_CheckedOutDocuments
-        /// <summary>
-        /// Parent User pointed by [Documents].([CreatedById]) (FK_Documents_CreatedBy_CreatedDocuments)
-        /// </summary>
-        public virtual User CreatedBy { get; set; } // FK_Documents_CreatedBy_CreatedDocuments
 
         public Document()
         {

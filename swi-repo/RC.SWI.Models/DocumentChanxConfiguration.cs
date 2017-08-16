@@ -30,12 +30,11 @@ namespace RC.SWI.Entities
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.DocumentId).HasColumnName(@"DocumentId").HasColumnType("int").IsRequired();
             Property(x => x.ChangedOn).HasColumnName(@"ChangedOn").HasColumnType("datetime2").IsRequired();
-            Property(x => x.ChangedById).HasColumnName(@"ChangedById").HasColumnType("int").IsRequired();
+            Property(x => x.ChangedBy).HasColumnName(@"ChangedBy").HasColumnType("varchar").IsRequired().IsUnicode(false).HasMaxLength(100);
             Property(x => x.ChangeNotes).HasColumnName(@"ChangeNotes").HasColumnType("varchar").IsOptional().IsUnicode(false).HasMaxLength(255);
 
             // Foreign keys
             HasRequired(a => a.Document).WithMany(b => b.DocumentChanges).HasForeignKey(c => c.DocumentId).WillCascadeOnDelete(false); // FK_DocumentChanges_Documents
-            HasRequired(a => a.User).WithMany(b => b.DocumentChanges).HasForeignKey(c => c.ChangedById).WillCascadeOnDelete(false); // FK_DocumentChanges_Users
             InitializePartial();
         }
         partial void InitializePartial();

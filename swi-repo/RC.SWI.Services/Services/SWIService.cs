@@ -1,4 +1,5 @@
-﻿using RC.SWI.Entities;
+﻿using RC.AppSecurity.Services;
+using RC.SWI.Entities;
 using RC.SWI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,17 @@ namespace RC.SWI.Services.Services
     public class SWIService
     {
         private readonly SWIRepository db;
+        private readonly UserService userService;
+        private readonly CompanyService companyService;
+
         private DocumentService docService;
 
         public SWIService()
         {
             db = new SWIRepository();
             docService = new DocumentService();
+            userService = new UserService();
+            companyService = new CompanyService();
         }
 
         public async Task<List<SWIMasterVM>> GetMasters()
@@ -34,13 +40,21 @@ namespace RC.SWI.Services.Services
 
         public async Task<SWIMasterVM> CreateMaster(CreateSWIMasterVM createMaster)
         {
+            // Get the user details from the app security system
+            var user = await userService.GetUser(createMaster.username);
+            if (user == null) throw new Exception("User not found in the app security database. SWI Master cannot be created");
+
+            // Get the site details from the SWI repository based on the user
+            var site = await db.Sites.Where(s => s.AppSecurityCompanyId == user.Company.Id).FirstOrDefaultAsync();
+            if (site == null) throw new Exception("Could not find a site matching the users default company in the App Security system");
+
             //Create SWIMaster 
             var master = new SWIMaster();
             master.Id = Guid.NewGuid();
             master.SWIType = await db.SWITypes.FindAsync(createMaster.TypeId);
             master.Title = createMaster.Title;
             master.IsPublic = false;
-            master.CreatedBy = await db.Users.FindAsync(createMaster.UserId);
+            master.CreatedBy = user.Username;
             master.CreatedOn = DateTime.Now;
             db.SWIMasters.Add(master);
 
@@ -57,7 +71,7 @@ namespace RC.SWI.Services.Services
             //Create the default site permission for the SWIMaster based on the users default site
             var permission = new SWIMasterSitePermission();
             permission.Id = Guid.NewGuid();
-            permission.Site = master.CreatedBy.Site;
+            permission.Site =  site;
             permission.GrantedBy = master.CreatedBy;
             permission.GrantedOn = DateTime.Now;
             permission.IsOwner = true;
@@ -73,7 +87,7 @@ namespace RC.SWI.Services.Services
                 createDocument.AppVersion = createMaster.AppVersion;
                 createDocument.DocumentTypeId = (await db.DocumentTypes.Where(t => t.IsSWI == true).FirstOrDefaultAsync()).Id;
                 createDocument.Name = createMaster.Title;
-                createDocument.UserId = createMaster.UserId;
+                createDocument.Username = createMaster.username;
                 createDocument.File = Encoding.UTF8.GetBytes(createMaster.SWIFile);
 
                 //Request the new document from the document service
@@ -122,7 +136,7 @@ namespace RC.SWI.Services.Services
             return new SWIMasterVM(master);
         }
 
-        public async Task<SWIMasterVM> AttatchSWIFile(Guid swiRevisionId, string clientHash, byte[] swiFile)
+        public async Task<SWIMasterVM> AttatchSWIFile(Guid swiRevisionId, string clientHash, byte[] swiFile, string username)
         {
             //Get the SWIRevision
             var revision = await db.SWIRevisions.FindAsync(swiRevisionId);
@@ -136,7 +150,7 @@ namespace RC.SWI.Services.Services
                 createDoc.Name = revision.SWIMaster.Title;
                 createDoc.AppVersion = revision.AppVersion;
                 createDoc.DocumentTypeId = (await db.DocumentTypes.Where(dt => dt.IsSWI == true).FirstOrDefaultAsync()).Id;
-                createDoc.UserId = 1;
+                createDoc.Username = username;
                 createDoc.ClientHash = clientHash;
                 createDoc.File = swiFile;
 
