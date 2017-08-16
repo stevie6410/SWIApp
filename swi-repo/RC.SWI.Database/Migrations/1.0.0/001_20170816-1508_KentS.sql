@@ -1,4 +1,4 @@
-﻿-- <Migration ID="132037f5-6a5e-4b2d-b9ce-c462b784a3c1" />
+﻿-- <Migration ID="6fc38565-5a46-4f8e-bdf5-67dc9611b4cf" />
 GO
 
 PRINT N'Creating schemas'
@@ -16,7 +16,8 @@ CREATE TABLE [security].[Sites]
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [Name] [varchar] (50) NOT NULL,
 [Description] [varchar] (255) NULL,
-[SiteADSecurityGroup] [nvarchar] (100) NULL
+[SiteADSecurityGroup] [nvarchar] (100) NULL,
+[AppSecurityCompanyId] [int] NULL
 )
 GO
 PRINT N'Creating primary key [PK_Sites] on [security].[Sites]'
@@ -39,19 +40,6 @@ PRINT N'Creating primary key [PK_AppConfigurations] on [dbo].[AppConfigurations]
 GO
 ALTER TABLE [dbo].[AppConfigurations] ADD CONSTRAINT [PK_AppConfigurations] PRIMARY KEY CLUSTERED  ([Id])
 GO
-PRINT N'Creating [security].[Permissions]'
-GO
-CREATE TABLE [security].[Permissions]
-(
-[Id] [int] NOT NULL IDENTITY(1, 1),
-[Name] [varchar] (255) NOT NULL,
-[Description] [varchar] (255) NULL
-)
-GO
-PRINT N'Creating primary key [PK_Permissions] on [security].[Permissions]'
-GO
-ALTER TABLE [security].[Permissions] ADD CONSTRAINT [PK_Permissions] PRIMARY KEY CLUSTERED  ([Id])
-GO
 PRINT N'Creating [dbo].[ApprovalActions]'
 GO
 CREATE TABLE [dbo].[ApprovalActions]
@@ -73,7 +61,7 @@ CREATE TABLE [dbo].[ApprovalChanges]
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [ApprovalRequestId] [int] NULL,
 [ApprovalActionId] [int] NULL,
-[ChangedBy] [int] NOT NULL,
+[ChangedBy] [varchar] (100) NOT NULL,
 [ChangedOn] [datetime2] NOT NULL,
 [ChangeNotes] [varchar] (255) NULL
 )
@@ -88,10 +76,10 @@ CREATE TABLE [dbo].[ApprovalRequests]
 (
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [DocumentId] [int] NOT NULL,
-[RequestedById] [int] NOT NULL,
+[RequestedBy] [varchar] (100) NOT NULL,
 [RequestedOn] [datetime2] NOT NULL,
 [ApprovalStatusId] [int] NOT NULL,
-[AssignedApprover] [int] NULL,
+[AssignedApprover] [varchar] (100) NULL,
 [ApprovalGroupId] [int] NOT NULL,
 [ApprovalWorkflowId] [int] NULL
 )
@@ -120,28 +108,12 @@ CREATE TABLE [dbo].[ApprovalGroupUsers]
 (
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [ApprovalGroupId] [int] NOT NULL,
-[UserId] [int] NOT NULL
+[Username] [varchar] (100) NOT NULL
 )
 GO
 PRINT N'Creating primary key [PK_ApprovalGroupUsers] on [dbo].[ApprovalGroupUsers]'
 GO
 ALTER TABLE [dbo].[ApprovalGroupUsers] ADD CONSTRAINT [PK_ApprovalGroupUsers] PRIMARY KEY CLUSTERED  ([Id])
-GO
-PRINT N'Creating [security].[Users]'
-GO
-CREATE TABLE [security].[Users]
-(
-[Id] [int] NOT NULL IDENTITY(1, 1),
-[Username] [varchar] (50) NOT NULL,
-[FirstName] [varchar] (50) NOT NULL,
-[LastName] [varchar] (50) NOT NULL,
-[EmailAddress] [varchar] (100) NOT NULL,
-[DefaultSiteId] [int] NOT NULL
-)
-GO
-PRINT N'Creating primary key [PK_Users] on [security].[Users]'
-GO
-ALTER TABLE [security].[Users] ADD CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED  ([Id])
 GO
 PRINT N'Creating [dbo].[ApprovalStatus]'
 GO
@@ -184,10 +156,10 @@ CREATE TABLE [dbo].[Documents]
 [DocumentTypeId] [int] NOT NULL,
 [Name] [nvarchar] (255) NOT NULL,
 [CreatedOn] [datetime2] NOT NULL,
-[CreatedById] [int] NOT NULL,
+[CreatedBy] [varchar] (100) NOT NULL,
 [AppVersion] [varchar] (10) NULL,
 [CheckedOut] [bit] NOT NULL,
-[CheckedOutById] [int] NULL,
+[CheckedOutBy] [varchar] (100) NULL,
 [CheckedOutOn] [datetime2] NULL,
 [DocumentFileId] [int] NULL
 )
@@ -210,20 +182,6 @@ GO
 PRINT N'Creating primary key [PK_AppSettings] on [dbo].[AppSettings]'
 GO
 ALTER TABLE [dbo].[AppSettings] ADD CONSTRAINT [PK_AppSettings] PRIMARY KEY CLUSTERED  ([Id])
-GO
-PRINT N'Creating [security].[AuthTokens]'
-GO
-CREATE TABLE [security].[AuthTokens]
-(
-[Id] [uniqueidentifier] NOT NULL,
-[UserId] [int] NOT NULL,
-[IssuedOn] [datetime2] NOT NULL,
-[ExpiresOn] [datetime2] NOT NULL
-)
-GO
-PRINT N'Creating primary key [PK_AuthTokens] on [security].[AuthTokens]'
-GO
-ALTER TABLE [security].[AuthTokens] ADD CONSTRAINT [PK_AuthTokens] PRIMARY KEY CLUSTERED  ([Id])
 GO
 PRINT N'Creating [dbo].[DocumentFiles]'
 GO
@@ -248,7 +206,7 @@ CREATE TABLE [dbo].[DocumentChanges]
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [DocumentId] [int] NOT NULL,
 [ChangedOn] [datetime2] NOT NULL,
-[ChangedById] [int] NOT NULL,
+[ChangedBy] [varchar] (100) NOT NULL,
 [ChangeNotes] [varchar] (255) NULL
 )
 GO
@@ -294,7 +252,8 @@ CREATE TABLE [dbo].[HealthAndSafetyIcon]
 [Id] [int] NOT NULL IDENTITY(1, 1),
 [Name] [varchar] (255) NOT NULL,
 [Image] [varchar] (max) NULL,
-[AppConfigurationId] [int] NOT NULL
+[AppConfigurationId] [int] NOT NULL,
+[Caption] [nvarchar] (255) NULL
 )
 GO
 PRINT N'Creating primary key [PK_HealthAndSafetyIcon] on [dbo].[HealthAndSafetyIcon]'
@@ -329,32 +288,6 @@ PRINT N'Creating primary key [PK_ErpSystem] on [dbo].[ErpSystem]'
 GO
 ALTER TABLE [dbo].[ErpSystem] ADD CONSTRAINT [PK_ErpSystem] PRIMARY KEY CLUSTERED  ([Id])
 GO
-PRINT N'Creating [security].[RolePermissions]'
-GO
-CREATE TABLE [security].[RolePermissions]
-(
-[Id] [int] NOT NULL IDENTITY(1, 1),
-[RoleId] [int] NOT NULL,
-[PermissionId] [int] NOT NULL
-)
-GO
-PRINT N'Creating primary key [PK_RolePermissions] on [security].[RolePermissions]'
-GO
-ALTER TABLE [security].[RolePermissions] ADD CONSTRAINT [PK_RolePermissions] PRIMARY KEY CLUSTERED  ([Id])
-GO
-PRINT N'Creating [security].[Roles]'
-GO
-CREATE TABLE [security].[Roles]
-(
-[Id] [int] NOT NULL IDENTITY(1, 1),
-[Name] [varchar] (100) NOT NULL,
-[Description] [varchar] (255) NULL
-)
-GO
-PRINT N'Creating primary key [PK_Roles] on [security].[Roles]'
-GO
-ALTER TABLE [security].[Roles] ADD CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED  ([Id])
-GO
 PRINT N'Creating [swi].[SWIMasters]'
 GO
 CREATE TABLE [swi].[SWIMasters]
@@ -363,7 +296,7 @@ CREATE TABLE [swi].[SWIMasters]
 [Title] [varchar] (255) NOT NULL,
 [SWINumber] [int] NOT NULL IDENTITY(1, 1),
 [IsPublic] [bit] NOT NULL,
-[CreatedById] [int] NOT NULL,
+[CreatedBy] [varchar] (100) NOT NULL,
 [CreatedOn] [datetime2] NOT NULL,
 [SWITypeId] [int] NOT NULL
 )
@@ -409,7 +342,7 @@ CREATE TABLE [swi].[SWIMasterSitePermissions]
 [Id] [uniqueidentifier] NOT NULL,
 [SWIMasterId] [uniqueidentifier] NOT NULL,
 [SiteId] [int] NOT NULL,
-[GrantedById] [int] NOT NULL,
+[GrantedBy] [varchar] (100) NOT NULL,
 [GrantedOn] [datetime2] NOT NULL,
 [IsOwner] [bit] NOT NULL,
 [Notes] [varchar] (255) NULL,
@@ -440,19 +373,6 @@ PRINT N'Creating primary key [PK_SWIRevisions] on [swi].[SWIRevisions]'
 GO
 ALTER TABLE [swi].[SWIRevisions] ADD CONSTRAINT [PK_SWIRevisions] PRIMARY KEY CLUSTERED  ([Id])
 GO
-PRINT N'Creating [security].[UserRoles]'
-GO
-CREATE TABLE [security].[UserRoles]
-(
-[Id] [int] NOT NULL IDENTITY(1, 1),
-[UserId] [int] NOT NULL,
-[RoleId] [int] NULL
-)
-GO
-PRINT N'Creating primary key [PK_UserRoles] on [security].[UserRoles]'
-GO
-ALTER TABLE [security].[UserRoles] ADD CONSTRAINT [PK_UserRoles] PRIMARY KEY CLUSTERED  ([Id])
-GO
 PRINT N'Adding foreign keys to [dbo].[AppSettings]'
 GO
 ALTER TABLE [dbo].[AppSettings] ADD CONSTRAINT [FK_AppSettings_AppConfigurations] FOREIGN KEY ([AppConfigurationId]) REFERENCES [dbo].[AppConfigurations] ([Id])
@@ -475,15 +395,9 @@ ALTER TABLE [dbo].[ApprovalChanges] ADD CONSTRAINT [FK_ApprovalChanges_ApprovalA
 GO
 ALTER TABLE [dbo].[ApprovalChanges] ADD CONSTRAINT [FK_ApprovalChanges_ApprovalRequest_ApprovalChanges] FOREIGN KEY ([ApprovalRequestId]) REFERENCES [dbo].[ApprovalRequests] ([Id])
 GO
-PRINT N'Adding foreign keys to [dbo].[ApprovalActions]'
-GO
-ALTER TABLE [dbo].[ApprovalActions] ADD CONSTRAINT [FK_ApprovalActions_ApprovalActions_Permission] FOREIGN KEY ([PermissionId]) REFERENCES [security].[Permissions] ([Id])
-GO
 PRINT N'Adding foreign keys to [dbo].[ApprovalGroupUsers]'
 GO
 ALTER TABLE [dbo].[ApprovalGroupUsers] ADD CONSTRAINT [FK_ApprovalGroupUsers_ApprovalGroup_Users] FOREIGN KEY ([ApprovalGroupId]) REFERENCES [dbo].[ApprovalGroups] ([Id])
-GO
-ALTER TABLE [dbo].[ApprovalGroupUsers] ADD CONSTRAINT [FK_ApprovalGroupUsers_Users] FOREIGN KEY ([UserId]) REFERENCES [security].[Users] ([Id])
 GO
 PRINT N'Adding foreign keys to [dbo].[ApprovalRequests]'
 GO
@@ -491,11 +405,7 @@ ALTER TABLE [dbo].[ApprovalRequests] ADD CONSTRAINT [FK_ApprovalRequests_Approva
 GO
 ALTER TABLE [dbo].[ApprovalRequests] ADD CONSTRAINT [FK_ApprovalRequests_Documents] FOREIGN KEY ([DocumentId]) REFERENCES [dbo].[Documents] ([Id])
 GO
-ALTER TABLE [dbo].[ApprovalRequests] ADD CONSTRAINT [FK_ApprovalRequests_Users] FOREIGN KEY ([RequestedById]) REFERENCES [security].[Users] ([Id])
-GO
 ALTER TABLE [dbo].[ApprovalRequests] ADD CONSTRAINT [FK_ApprovalRequests_ApprovalStatus] FOREIGN KEY ([ApprovalStatusId]) REFERENCES [dbo].[ApprovalStatus] ([Id])
-GO
-ALTER TABLE [dbo].[ApprovalRequests] ADD CONSTRAINT [FK_ApprovalRequests_Users1] FOREIGN KEY ([AssignedApprover]) REFERENCES [security].[Users] ([Id])
 GO
 ALTER TABLE [dbo].[ApprovalRequests] ADD CONSTRAINT [FK_ApprovalRequests_ApprovalWorkflows] FOREIGN KEY ([ApprovalWorkflowId]) REFERENCES [dbo].[ApprovalWorkflows] ([Id])
 GO
@@ -503,17 +413,11 @@ PRINT N'Adding foreign keys to [dbo].[DocumentChanges]'
 GO
 ALTER TABLE [dbo].[DocumentChanges] ADD CONSTRAINT [FK_DocumentChanges_Documents] FOREIGN KEY ([DocumentId]) REFERENCES [dbo].[Documents] ([Id])
 GO
-ALTER TABLE [dbo].[DocumentChanges] ADD CONSTRAINT [FK_DocumentChanges_Users] FOREIGN KEY ([ChangedById]) REFERENCES [security].[Users] ([Id])
-GO
 PRINT N'Adding foreign keys to [dbo].[Documents]'
 GO
 ALTER TABLE [dbo].[Documents] ADD CONSTRAINT [FK_Docs_Files] FOREIGN KEY ([DocumentFileId]) REFERENCES [dbo].[DocumentFiles] ([Id])
 GO
 ALTER TABLE [dbo].[Documents] ADD CONSTRAINT [FK_Documents_DocumentTypes] FOREIGN KEY ([DocumentTypeId]) REFERENCES [dbo].[DocumentTypes] ([Id])
-GO
-ALTER TABLE [dbo].[Documents] ADD CONSTRAINT [FK_Documents_CreatedBy_CreatedDocuments] FOREIGN KEY ([CreatedById]) REFERENCES [security].[Users] ([Id])
-GO
-ALTER TABLE [dbo].[Documents] ADD CONSTRAINT [FK_Documents_CheckedOutBy_CheckedOutDocuments] FOREIGN KEY ([CheckedOutById]) REFERENCES [security].[Users] ([Id])
 GO
 PRINT N'Adding foreign keys to [dbo].[DocumentLinks]'
 GO
@@ -533,41 +437,17 @@ ALTER TABLE [swi].[SWIRevisions] ADD CONSTRAINT [FK_SWIRevisions_Documents] FORE
 GO
 ALTER TABLE [swi].[SWIRevisions] ADD CONSTRAINT [FK_SWIRevisions_SWIMasters] FOREIGN KEY ([MasterId]) REFERENCES [swi].[SWIMasters] ([Id])
 GO
-PRINT N'Adding foreign keys to [security].[AuthTokens]'
-GO
-ALTER TABLE [security].[AuthTokens] ADD CONSTRAINT [FK_AuthTokens_Users] FOREIGN KEY ([UserId]) REFERENCES [security].[Users] ([Id])
-GO
-PRINT N'Adding foreign keys to [security].[RolePermissions]'
-GO
-ALTER TABLE [security].[RolePermissions] ADD CONSTRAINT [FK_RolePermissions_Permissions] FOREIGN KEY ([PermissionId]) REFERENCES [security].[Permissions] ([Id])
-GO
-ALTER TABLE [security].[RolePermissions] ADD CONSTRAINT [FK_RolePermissions_Roles] FOREIGN KEY ([RoleId]) REFERENCES [security].[Roles] ([Id])
-GO
-PRINT N'Adding foreign keys to [security].[UserRoles]'
-GO
-ALTER TABLE [security].[UserRoles] ADD CONSTRAINT [FK_UserRoles_Roles] FOREIGN KEY ([RoleId]) REFERENCES [security].[Roles] ([Id])
-GO
-ALTER TABLE [security].[UserRoles] ADD CONSTRAINT [FK_UserRoles_Users] FOREIGN KEY ([UserId]) REFERENCES [security].[Users] ([Id])
-GO
 PRINT N'Adding foreign keys to [swi].[SWIMasterSitePermissions]'
 GO
 ALTER TABLE [swi].[SWIMasterSitePermissions] ADD CONSTRAINT [FK_SWIMasterSitePermissions_Sites] FOREIGN KEY ([SiteId]) REFERENCES [security].[Sites] ([Id])
 GO
-ALTER TABLE [swi].[SWIMasterSitePermissions] ADD CONSTRAINT [FK_SWIMasterSitePermissions_GrantedBy_SWIMasterSitePermissions] FOREIGN KEY ([GrantedById]) REFERENCES [security].[Users] ([Id])
-GO
 ALTER TABLE [swi].[SWIMasterSitePermissions] ADD CONSTRAINT [FK_SWIMasterSitePermissions_SWIMasters] FOREIGN KEY ([SWIMasterId]) REFERENCES [swi].[SWIMasters] ([Id])
-GO
-PRINT N'Adding foreign keys to [security].[Users]'
-GO
-ALTER TABLE [security].[Users] ADD CONSTRAINT [FK_Users_Sites] FOREIGN KEY ([DefaultSiteId]) REFERENCES [security].[Sites] ([Id])
-GO
-PRINT N'Adding foreign keys to [swi].[SWIMasters]'
-GO
-ALTER TABLE [swi].[SWIMasters] ADD CONSTRAINT [FK_SWIMasters_CreatedBy_SWIMastersCreated] FOREIGN KEY ([CreatedById]) REFERENCES [security].[Users] ([Id])
-GO
-ALTER TABLE [swi].[SWIMasters] ADD CONSTRAINT [FK_SWIMasters_SWITypes] FOREIGN KEY ([SWITypeId]) REFERENCES [swi].[SWITypes] ([Id])
 GO
 PRINT N'Adding foreign keys to [swi].[StandardTools]'
 GO
 ALTER TABLE [swi].[StandardTools] ADD CONSTRAINT [FK_StandardTools_SWIMasters] FOREIGN KEY ([SWIMasterId]) REFERENCES [swi].[SWIMasters] ([Id])
+GO
+PRINT N'Adding foreign keys to [swi].[SWIMasters]'
+GO
+ALTER TABLE [swi].[SWIMasters] ADD CONSTRAINT [FK_SWIMasters_SWITypes] FOREIGN KEY ([SWITypeId]) REFERENCES [swi].[SWITypes] ([Id])
 GO
