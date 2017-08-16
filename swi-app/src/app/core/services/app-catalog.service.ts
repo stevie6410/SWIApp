@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ErrorHandler } from "@angular/core";
 import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { SWIDBService } from "./swi-db.service";
@@ -7,6 +7,7 @@ import { EnvironmentConfiguration, Setting } from "app/core";
 import { ActivatedRoute } from "@angular/router";
 import { EnvironmentService } from "app/app/services/environment.service";
 import Dexie from "dexie";
+import { GlobalErrorHandler } from "app/app/services/error-handler.service";
 
 @Injectable()
 export class AppCatalogService {
@@ -14,13 +15,17 @@ export class AppCatalogService {
   appConfigTable: Dexie.Table<AppCatalog, number>;
   repoURL: string;
   appConfigMethod = "api/v1/appcatalog/";
+  errorHandler: GlobalErrorHandler;
+  friendlyError = "Error communicating with App Catalog";
 
   constructor(
     private http: Http,
     private db: SWIDBService,
     private route: ActivatedRoute,
-    private environment: EnvironmentService
+    private environment: EnvironmentService,
+    private globalErrorHandler: ErrorHandler
   ) {
+    this.errorHandler = globalErrorHandler as GlobalErrorHandler;
     this.appConfigTable = this.db.table("appConfig");
     this.repoURL = environment.env.repositoryURL;
   }
@@ -36,9 +41,12 @@ export class AppCatalogService {
       if (!appCatalog.version) { return true; }
       const result: boolean = await this.http
         .get(this.fullBaseURL + "checkversion/" + appCatalog.version)
-        .map(r => r.json()).toPromise();
+        .map(r => r.json())
+        .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyError + ' : Is Update Required'))
+        .toPromise();
       return !result;
     } catch (error) {
+      // this.errorHandler.handleError(error);
       console.warn("Could not connect to the repository to check the catalog for updates");
       return false;
     }
@@ -51,7 +59,10 @@ export class AppCatalogService {
 
     try {
       // First try and get the app config from the repository
-      const repoCatalog: AppCatalog = await this.http.get(this.fullBaseURL).map(r => r.json()).toPromise();
+      const repoCatalog: AppCatalog = await this.http.get(this.fullBaseURL)
+        .map(r => r.json())
+        .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyError + ' : Update Catalog'))
+        .toPromise();
       console.log("Updated the repo catalog to version", repoCatalog.version);
       if (repoCatalog) {
         await this.appConfigTable.clear();
@@ -59,6 +70,7 @@ export class AppCatalogService {
         return;
       }
     } catch (error) {
+      // this.errorHandler.handleError(error);
       // Repository Failed, fall back to the the local catalog
       console.warn("Fetching SWI Repository App Catalog failed. Falling back to local file");
       const localCatalog = await this.http.get("./assets/appConfig.json").map(r => r.json()).toPromise();
