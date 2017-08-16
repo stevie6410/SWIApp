@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
   async createDocument() {
 
     const createDoc = new RepoCreateDocumentPayload();
-    createDoc.userId = 1;
+    createDoc.username = "kents";
     createDoc.documentTypeId = 1;
     createDoc.name = "Test from the builder App";
     createDoc.appVersion = "0.7.1";

@@ -32,7 +32,7 @@ export class SyncRepoService {
           createMaster.appVersion = "0.7.0";
           createMaster.title = swi.title;
           createMaster.typeId = 1;
-          createMaster.userId = 1;
+          createMaster.username = "kents";
         }
         // Send the request to the repo
         const master = await this.repoDocs.createMaster(createMaster);
