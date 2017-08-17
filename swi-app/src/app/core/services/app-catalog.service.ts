@@ -8,6 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { EnvironmentService } from "app/app/services/environment.service";
 import Dexie from "dexie";
 import { GlobalErrorHandler } from "app/app/services/error-handler.service";
+import { defaultOptions } from "../helpers/http-helper";
 
 @Injectable()
 export class AppCatalogService {
@@ -40,7 +41,7 @@ export class AppCatalogService {
       if (!appCatalog) { return true; }
       if (!appCatalog.version) { return true; }
       const result: boolean = await this.http
-        .get(this.fullBaseURL + "checkversion/" + appCatalog.version)
+        .get(this.fullBaseURL + "checkversion/" + appCatalog.version, defaultOptions())
         .map(r => r.json())
         .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyError + ' : Is Update Required'))
         .toPromise();
@@ -59,7 +60,7 @@ export class AppCatalogService {
 
     try {
       // First try and get the app config from the repository
-      const repoCatalog: AppCatalog = await this.http.get(this.fullBaseURL)
+      const repoCatalog: AppCatalog = await this.http.get(this.fullBaseURL, defaultOptions())
         .map(r => r.json())
         .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyError + ' : Update Catalog'))
         .toPromise();
