@@ -51,7 +51,6 @@ namespace RC.SWI.Services
         public async Task<IDocumentVM> Get(int id)
         {
             var doc = await db.Documents
-                .Include(d => d.CreatedBy)
                 .Include(d => d.DocumentFile)
                 .Where(d => d.Id == id)
                 .SingleOrDefaultAsync();

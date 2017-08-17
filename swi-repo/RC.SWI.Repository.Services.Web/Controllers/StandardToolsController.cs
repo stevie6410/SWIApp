@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace RC.SWI.Repository.Services.Web.Controllers
 {
-    [RequiresPermission("CanCreateSWI")]
+    
     [RoutePrefix("api/v1/standardtools")]
     public class StandardToolsController : ApiController
     {
@@ -51,6 +51,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             return Ok(result);
         }
 
+        [RequiresPermission("CanCreateSWI")]
         [HttpPost]
         public async Task<IHttpActionResult> Create([FromBody] CreateStandardToolVM tool)
         {
@@ -59,6 +60,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             return Ok(result);
         }
 
+        [RequiresPermission("CanCreateSWI")]
         [HttpPut]
         public async Task<IHttpActionResult> Update([FromBody]StandardToolVM tool)
         {
@@ -67,6 +69,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             return Ok(result);
         }
 
+        [RequiresPermission("CanCreateSWI")]
         [HttpDelete]
         [Route("{id:int}")]
         public async Task<IHttpActionResult> Delete(int id)

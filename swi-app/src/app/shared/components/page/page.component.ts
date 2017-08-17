@@ -89,7 +89,7 @@ export class PageComponent implements OnInit {
   }
 
   login() {
-    const returnURL: string = this.route.snapshot.url.map(url => url.path).join('/');
+    const returnURL: string = this.location.path(true);
     this.authService.redirectToLogin(returnURL);
   }
 

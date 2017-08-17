@@ -54,7 +54,7 @@ export class RepoSite {
 
 export class RepoCreateDocumentPayload {
     name: string;
-    userId: number;
+    username: string;
     documentTypeId: number;
     appVersion: string;
     swiFile: string;
@@ -64,7 +64,7 @@ export class CreateSWIMaster {
     id: string;
     title: string;
     typeId: number;
-    userId: number;
+    username: string;
     appVersion: string;
     swiFile: string;
 }
@@ -84,7 +84,7 @@ export class SWIMaster {
 export class CreateSWIRevision {
     swiMasterId: number;
     appVersion: string;
-    userId: number;
+    username: string;
 }
 
 export class SWIRevision {
