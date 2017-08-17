@@ -83,12 +83,19 @@ export class CameraControlComponent implements OnInit, AfterViewInit {
 
   crop() {
     this.cropper.crop();
-    this.toggleCroppingMode();
+  }
+
+  onCropped(croppedImage: string) {
+    this.image = croppedImage;
+    this.isCaptureMode = false;
+    this.isCroppingMode = false;
+    this.isFileMode = false;
+    this.changeDetector.detectChanges();
   }
 
   // #####################################
 
-  setImage(image: string, crop: boolean) {
+  setImage(image: string) {
     this.image = image;
     this.isCaptureMode = false;
     this.isCroppingMode = true;
@@ -110,6 +117,8 @@ export class CameraControlComponent implements OnInit, AfterViewInit {
 
   toggleCroppingMode() {
     this.isCroppingMode = !this.isCroppingMode;
+    this.isFileMode = false;
+    this.isCaptureMode = false;
     this.changeDetector.detectChanges();
   }
 
