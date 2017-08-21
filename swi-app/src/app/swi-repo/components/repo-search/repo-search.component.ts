@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SWIMaster, RepoDocsService, SWIRevision, SWIHeader, SWIFileService, SWIImportService } from "app/core";
+import { SWIMaster, RepoDocsService, SWIRevision, SWIHeader, SWIFileService, SWIImportService, SWIMasterSearchCriteria } from "app/core";
 import { ToastsManager } from "ng2-toastr/ng2-toastr";
 
 @Component({
@@ -11,6 +11,7 @@ export class RepoSearchComponent implements OnInit {
 
   results: SWIMaster[] = [];
   selectedResult: SWIMaster = null;
+  searchCriteria = new SWIMasterSearchCriteria();
   loading = true;
   msg: string[] = [];
 
@@ -35,7 +36,7 @@ export class RepoSearchComponent implements OnInit {
   async search() {
     this.selectedResult = null;
     this.loading = true;
-    this.results = await this.repoStore.getMasters().toPromise();
+    this.results = await this.repoStore.searchMasters(this.searchCriteria).toPromise();
     this.loading = false;
   }
 

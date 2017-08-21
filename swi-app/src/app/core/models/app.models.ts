@@ -189,6 +189,11 @@ export class ToolingSearchCriteria {
   hasLinkedSWI: boolean;
 }
 
+export class SWIMasterSearchCriteria {
+  swiNumber: number;
+  title: string;
+}
+
 export class GUID {
   value: string;
   constructor() {
