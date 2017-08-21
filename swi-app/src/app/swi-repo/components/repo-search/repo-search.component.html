@@ -12,14 +12,14 @@
 
             <!--Search by Title-->
             <label for="repo-search-swino">SWI Number</label>
-            <input id="repo-search-swino" type="text" class="form-control">
+            <input id="repo-search-swino" type="text" class="form-control" [(ngModel)]="searchCriteria.swiNumber">
 
           </div>
           <div class="col">
 
             <!--Search by Title-->
             <label for="repo-search-title">Title</label>
-            <input id="repo-search-title" type="text" class="form-control">
+            <input id="repo-search-title" type="text" class="form-control" [(ngModel)]="searchCriteria.title">
 
           </div>
         </div>

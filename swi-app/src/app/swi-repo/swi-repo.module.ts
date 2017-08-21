@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from "@angular/forms";
 import { RepoSearchComponent } from './components/repo-search/repo-search.component';
 import { SharedModule } from "../shared/shared.module";
 import { MomentModule } from "angular2-moment";
@@ -9,7 +10,8 @@ import { SwiLookupControlComponent } from './components/swi-lookup-control/swi-l
   imports: [
     CommonModule,
     SharedModule,
-    MomentModule
+    MomentModule,
+    FormsModule
   ],
   exports: [
     RepoSearchComponent

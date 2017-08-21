@@ -17,7 +17,6 @@ export class AuthService {
   jwtHelper = new JwtHelper();
   _loggedInUser: AuthUser;
 
-
   constructor(
     private http: Http,
     private env: EnvironmentService,

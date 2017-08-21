@@ -38,6 +38,18 @@ namespace RC.SWI.Services.Services
             return new SWIMasterVM(await db.SWIMasters.FindAsync(Id));
         }
 
+        public async Task<List<SWIMasterVM>> SearchMasters(int swiNumber = 0, string title = "")
+        {
+            //Build the query based on optional params
+            var query = db.SWIMasters.AsQueryable();
+            if (swiNumber > 0) query = query.Where(m => m.SWINumber == swiNumber);
+            if (!string.IsNullOrEmpty(title)) query = query.Where(m => m.Title.Contains(title));
+
+            //Get the results
+            var results = await query.ToListAsync();
+            return results.Select(r => new SWIMasterVM(r)).ToList();
+        }
+
         public async Task<SWIMasterVM> CreateMaster(CreateSWIMasterVM createMaster)
         {
             // Get the user details from the app security system

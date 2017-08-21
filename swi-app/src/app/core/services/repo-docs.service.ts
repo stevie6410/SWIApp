@@ -1,5 +1,5 @@
 import { Injectable, ErrorHandler } from "@angular/core";
-import { Http, Response, Headers, RequestOptionsArgs, RequestOptions } from "@angular/http";
+import { Http, Response, Headers, RequestOptionsArgs, RequestOptions, URLSearchParams } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 import { Subject } from "rxjs/Subject";
 import {
@@ -13,7 +13,8 @@ import {
   CreateSWIRevision,
   SWIHeader,
   handleResponse,
-  defaultOptions
+  defaultOptions,
+  SWIMasterSearchCriteria
 } from "app/core";
 import { EnvironmentService } from "app/app/services/environment.service";
 import { ToastsManager } from "ng2-toastr/ng2-toastr";
@@ -113,6 +114,19 @@ export class RepoDocsService {
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
       .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyErrorMessage + ' : Attach SWI File'));
+  }
+
+  public searchMasters(searchParams: SWIMasterSearchCriteria): Observable<SWIMaster[]> {
+    const url: string = this.baseApiUrl + this.mastersMethod + 'search';
+    const params = new URLSearchParams();
+    if (searchParams.swiNumber > 0) { params.append("swiNumber", searchParams.swiNumber.toString()); }
+    if (searchParams.title) { params.append("title", searchParams.title); }
+    const options = defaultOptions();
+    options.params = params;
+    return this.http
+      .get(url, options)
+      .map(res => handleResponse(res))
+      .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyErrorMessage + ' : Search Masters'));
   }
 
   public getMasters(): Observable<SWIMaster[]> {

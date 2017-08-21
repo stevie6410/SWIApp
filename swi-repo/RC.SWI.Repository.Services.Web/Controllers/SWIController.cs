@@ -50,6 +50,15 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [ResponseType(typeof(List<SWIMasterVM>))]
+        [Route("master/search")]
+        public async Task<IHttpActionResult> SearchMasters([FromUri] int swiNumber = 0, [FromUri] string title = "")
+        {
+            var result = await swiService.SearchMasters(swiNumber, title);
+            return Ok(result);
+        }
+
         /// <summary>
         /// Creates a new SWI Master and Revision
         /// </summary>
@@ -57,6 +66,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         /// <returns>SWI Master</returns>
         [HttpPost]
         [Route("master")]
+        [RequiresPermission("CanEditSWI")]
         [ResponseType(typeof(SWIMasterVM))]
         public async Task<IHttpActionResult> CreateMaster(CreateSWIMasterVM createMaster)
         {
