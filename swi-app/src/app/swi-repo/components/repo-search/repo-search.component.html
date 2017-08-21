@@ -61,13 +61,16 @@
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-default" (click)="importLatest(result)"><i class="fa fa-arrow-down"></i> Import</button>
+              <button type="button" class="btn btn-primary" (click)="importLatest(result)">
+                <i class="fa fa-arrow-down" [ngClass]="{'fa-spinner fa-spin': isImporting(result.id)}"></i>
+                {{isImporting(result.id) ? 'Importing' : 'Import'}}
+              </button>
             </div>
 
           </div>
 
           <!--Dropdown properties-->
-          <div class="list-group-item revision-panel" *ngIf="result == selectedResult">
+          <!-- <div class="list-group-item revision-panel" *ngIf="result == selectedResult">
 
             <ul>
               <li *ngFor="let rev of result.swiRevisions">
@@ -79,8 +82,7 @@
                 <button type="button" (click)="importSWI(rev)">Import</button></li>
             </ul>
 
-            <!-- Some Revison details can go here -->
-          </div>
+          </div> -->
 
         </div>
       </div>

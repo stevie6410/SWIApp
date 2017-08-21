@@ -38,7 +38,7 @@
         <swi-card [title]='"Login to Repository"' *ngIf="!isLoggedIn">
           <div class="card-block">
 
-            <swi-login></swi-login>
+            <swi-login (loggedIn)="onLoggedIn()"></swi-login>
 
           </div>
         </swi-card>
@@ -130,9 +130,6 @@
             <swi-img [imageKey]="swi.coverImage" [border]="true" width="100%" class="cover-image"></swi-img>
           </div>
         </swi-card>
-
-
-
 
       </div>
     </div>

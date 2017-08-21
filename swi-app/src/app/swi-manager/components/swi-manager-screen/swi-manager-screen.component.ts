@@ -114,6 +114,10 @@ export class SwiManagerScreenComponent implements OnInit {
     }
   }
 
+  async onLoggedIn() {
+    await this.updateRepoData();
+  }
+
   navBack() {
     this.router.navigate(["browser"]);
   }

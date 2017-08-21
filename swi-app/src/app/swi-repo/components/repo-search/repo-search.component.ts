@@ -12,6 +12,7 @@ export class RepoSearchComponent implements OnInit {
   results: SWIMaster[] = [];
   selectedResult: SWIMaster = null;
   searchCriteria = new SWIMasterSearchCriteria();
+  importingSWIs: string[] = [];
   loading = false;
   msg: string[] = [];
 
@@ -44,9 +45,11 @@ export class RepoSearchComponent implements OnInit {
    * @param swiMaster
    */
   async importLatest(swiMaster: SWIMaster) {
+    this.importingSWIs.push(swiMaster.id);
     const maxRev = Math.max(...swiMaster.swiRevisions.map(r => r.revisionNumber));
     const swiRev = swiMaster.swiRevisions.find(r => r.revisionNumber === maxRev);
     await this.importSWI(swiRev);
+    this.importingSWIs = this.importingSWIs.filter(imp => imp !== swiMaster.id);
   }
 
   /**
@@ -66,4 +69,9 @@ export class RepoSearchComponent implements OnInit {
   notify(msg: string) {
     this.toast.success(msg, null, { maxShown: 2, newestOnTop: false, toastLife: 3000 });
   }
+
+  isImporting(swiMasterId: string): boolean {
+    return this.importingSWIs.includes(swiMasterId);
+  }
+
 }
