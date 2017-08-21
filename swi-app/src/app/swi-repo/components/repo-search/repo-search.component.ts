@@ -12,7 +12,7 @@ export class RepoSearchComponent implements OnInit {
   results: SWIMaster[] = [];
   selectedResult: SWIMaster = null;
   searchCriteria = new SWIMasterSearchCriteria();
-  loading = true;
+  loading = false;
   msg: string[] = [];
 
   constructor(
@@ -30,7 +30,6 @@ export class RepoSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.search();
   }
 
   async search() {
@@ -40,23 +39,31 @@ export class RepoSearchComponent implements OnInit {
     this.loading = false;
   }
 
-  async importSWI(swiRev: SWIRevision) {
-    this.notify("Downloading document");
-    const doc = await this.repoStore.getDocument(swiRev.document.id);
-    console.log("Got Document: ", doc);
-    console.log("Parsing SWI");
-    const swi: SWIHeader = JSON.parse(doc.file.data);
-    console.log("Got SWI: ", swi);
-
-    const importResult: boolean = await this.swiImportService.import(swi);
-    if (!importResult) {
-      console.log("Failed to import SWI");
-    } else {
-      console.log("Imported Succesfully");
-    }
+  /**
+   * Import the latest revision of a give SWI Master. Calls the ImportSWI function internally
+   * @param swiMaster
+   */
+  async importLatest(swiMaster: SWIMaster) {
+    const maxRev = Math.max(...swiMaster.swiRevisions.map(r => r.revisionNumber));
+    const swiRev = swiMaster.swiRevisions.find(r => r.revisionNumber === maxRev);
+    await this.importSWI(swiRev);
   }
 
-  notify(msg: string){
-    this.toast.success(msg, null, { maxShown: 5, newestOnTop: false, toastLife: 3000 });
+  /**
+   * Imports a given SWI revision onto the device
+   * @param swiRev
+   */
+  async importSWI(swiRev: SWIRevision) {
+    this.notify("Downloading document from repository");
+    const doc = await this.repoStore.getDocument(swiRev.document.id);
+    this.notify("Reading SWI");
+    const swi: SWIHeader = JSON.parse(doc.file.data);
+    this.notify("Importing SWI onto device");
+    const importResult: boolean = await this.swiImportService.import(swi);
+    if (importResult) { this.notify("Imported Succesfully"); }
+  }
+
+  notify(msg: string) {
+    this.toast.success(msg, null, { maxShown: 2, newestOnTop: false, toastLife: 3000 });
   }
 }

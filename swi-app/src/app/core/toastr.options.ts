@@ -5,7 +5,7 @@ export class ToastCustomOptions extends ToastOptions {
   animate = 'flyRight';
   dismiss = 'auto';
   showCloseButton = false;
-  maxShown = 5;
+  maxShown = 1;
   newestOnTop = false;
   enableHTML = true;
   positionClass = 'toast-bottom-full-width';

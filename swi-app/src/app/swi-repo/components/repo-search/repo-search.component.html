@@ -12,14 +12,14 @@
 
             <!--Search by Title-->
             <label for="repo-search-swino">SWI Number</label>
-            <input id="repo-search-swino" type="text" class="form-control" [(ngModel)]="searchCriteria.swiNumber">
+            <input id="repo-search-swino" type="text" class="form-control" [(ngModel)]="searchCriteria.swiNumber" (keyup.enter)="search()">
 
           </div>
           <div class="col">
 
             <!--Search by Title-->
             <label for="repo-search-title">Title</label>
-            <input id="repo-search-title" type="text" class="form-control" [(ngModel)]="searchCriteria.title">
+            <input id="repo-search-title" type="text" class="form-control" [(ngModel)]="searchCriteria.title" (keyup.enter)="search()">
 
           </div>
         </div>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-default" (click)="importSWI()"><i class="fa fa-arrow-down"></i> Import</button>
+              <button type="button" class="btn btn-default" (click)="importLatest(result)"><i class="fa fa-arrow-down"></i> Import</button>
             </div>
 
           </div>
