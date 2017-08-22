@@ -8,7 +8,7 @@ import {
   SWIFileService,
   ImageStoreService,
   showIndexedDbSize,
-  RepoCreateDocumentPayload,
+  CreateDocument,
   RepoDocumentPartLink,
   AuthService
 } from "app/core";
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
 
   async createDocument() {
 
-    const createDoc = new RepoCreateDocumentPayload();
+    const createDoc = new CreateDocument();
     createDoc.username = "kents";
     createDoc.documentTypeId = 1;
     createDoc.name = "Test from the builder App";

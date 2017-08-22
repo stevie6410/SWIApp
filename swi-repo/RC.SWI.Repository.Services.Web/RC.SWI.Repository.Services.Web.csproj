@@ -221,6 +221,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Attributes\AppSecurityAttribute.cs" />
+    <Compile Include="Attributes\TokenExtentionMethods.cs" />
     <Compile Include="Controllers\AppCatalogController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

@@ -6,7 +6,7 @@ import {
   ImageStoreService,
   RepoDocument,
   SimpleRepoDocument,
-  RepoCreateDocumentPayload,
+  CreateDocument,
   RepoDocumentPartLink,
   CreateSWIMaster,
   SWIMaster,
@@ -55,7 +55,7 @@ export class RepoDocsService {
       .toPromise();
   }
 
-  public createDocument(createDoc: RepoCreateDocumentPayload): Promise<RepoDocument> {
+  public createDocument(createDoc: CreateDocument): Promise<RepoDocument> {
     const url: string = this.baseApiUrl + this.documentsMethod;
     const body: string = JSON.stringify(createDoc);
     return this.http
@@ -105,13 +105,15 @@ export class RepoDocsService {
       .toPromise();
   }
 
-  public attatchSWIFile(masterId: string, revisionId: string, swi: SWIHeader): Observable<SWIMaster> {
-    console.log("Client Hash before the attach SWI call", swi.clientHash);
+  public attatchSWIFile(masterId: string, revisionId: string, swi: SWIHeader, message: string): Observable<SWIMaster> {
     const url = `${this.baseApiUrl}${this.mastersMethod}${masterId}\\revision\\${revisionId}\\attatchswi\\${swi.clientHash}`;
-    console.log("attachSWIFile URL: ", url);
     const body: string = JSON.stringify(swi);
+    const params = new URLSearchParams();
+    params.append('message', message ? message : "");
+    const options = defaultOptions();
+    options.params = params;
     return this.http
-      .post(url, body, defaultOptions())
+      .post(url, body, options)
       .map(res => handleResponse(res))
       .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyErrorMessage + ' : Attach SWI File'));
   }

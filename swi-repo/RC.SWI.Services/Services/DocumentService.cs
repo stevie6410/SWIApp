@@ -11,6 +11,7 @@ using RC.SWI.ViewModels.Interfaces;
 using RC.SWI.Common.ExtMethods;
 using RC.SWI.ViewModels.Mappings;
 using RC.SWI.ViewModels;
+using RC.AppSecurity.Services;
 
 namespace RC.SWI.Services
 {
@@ -21,23 +22,6 @@ namespace RC.SWI.Services
         public DocumentService()
         {
             db = new SWIRepository();
-        }
-
-        public async Task<IDocumentVM> Create(CreateDocumentVM docUpdate)
-        {
-            var doc = docUpdate.ToDocument();
-            db.Documents.Add(doc);
-            await db.SaveChangesAsync();
-
-            await AttatchFile(doc.Id, docUpdate.File, docUpdate.ClientHash);
-
-            //var resultDoc = await db.Documents.FindAsync(doc.Id);
-            return new DocumentVM(doc, true);
-        }
-
-        public Task<IDocumentVM> Update(IDocuemntUpdateVM doc)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<List<DocumentSimpleVM>> All()
@@ -58,12 +42,65 @@ namespace RC.SWI.Services
             return new DocumentVM(doc, true);
         }
 
-        public async Task<IDocumentVM> AttatchFile(int docId, byte[] file, string clientHash = null)
+        public async Task<IDocumentVM> Create(CreateDocumentVM docUpdate)
+        {
+            var doc = docUpdate.ToDocument();
+            db.Documents.Add(doc);
+            doc.DocumentChanges.Add(BuildDocumentChange(docUpdate.Username, "Create Document", docUpdate.Message));
+
+            await db.SaveChangesAsync();
+
+            await AttatchFile(doc.Id, docUpdate.File, docUpdate.Username, docUpdate.ClientHash, docUpdate.Message);
+            
+            return new DocumentVM(doc, true);
+        }
+
+        public Task<IDocumentVM> Update(IDocuemntUpdateVM doc)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IDocumentVM> CheckOut(int id, string username)
+        {
+            var doc = await db.Documents.FindAsync(id);
+            if (doc == null) throw new Exception("Document could not be found");
+            
+            doc.CheckedOut = true;
+            doc.CheckedOutBy = username;
+            doc.CheckedOutOn = DateTime.UtcNow;
+
+            // Create a document change
+            doc.DocumentChanges.Add(BuildDocumentChange(username, "Checked Out"));
+
+            await db.SaveChangesAsync();
+
+            return new DocumentVM(doc);
+        }
+
+        public async Task<IDocumentVM> CheckIn(int id, string username, string message = "")
+        {
+            var doc = await db.Documents.FindAsync(id);
+            if (doc == null) throw new Exception("Document could not be found");
+            
+            doc.CheckedOut = false;
+            doc.CheckedOutBy = null;
+            doc.CheckedOutOn = null;
+
+            // Create a document change
+            doc.DocumentChanges.Add(BuildDocumentChange(username, "Checked In", message));
+
+            await db.SaveChangesAsync();
+
+            return new DocumentVM(doc);
+        }
+
+        public async Task<IDocumentVM> AttatchFile(int docId, byte[] file, string username, string clientHash = null, string notes = "")
         {
             //Get the document from the db
             var doc = await db.Documents.FindAsync(docId);
             if (doc != null)
             {
+                // Build the document file
                 DocumentFile docFile;
                 docFile = (doc.DocumentFile == null) ? new DocumentFile() : doc.DocumentFile;
                 docFile.Data = file.Compress();
@@ -71,8 +108,12 @@ namespace RC.SWI.Services
                 docFile.Hash = docFile.Data.ToFileHash();
                 docFile.ClientHash = clientHash;
                 docFile.Timestamp = DateTime.Now;
-
+                // Attach the document file to the document
                 doc.DocumentFile = docFile;
+
+                // Create a document change
+                doc.DocumentChanges.Add(BuildDocumentChange(username, "Attach File", notes));
+                
                 await db.SaveChangesAsync();
 
                 return new DocumentVM(doc);
@@ -88,7 +129,7 @@ namespace RC.SWI.Services
             throw new NotImplementedException();
         }
 
-        public async Task<DocumentPartLinkVM> LinkToPart(int docId, DocumentPartLinkVM partLink)
+        public async Task<DocumentPartLinkVM> LinkToPart(int docId, DocumentPartLinkVM partLink, string username)
         {
             //Get the document from the database
             var doc = await db.Documents.FindAsync(docId);
@@ -105,6 +146,10 @@ namespace RC.SWI.Services
             newPartLink.Revision = partLink.Revision;
             if (partLink.ErpSystemId.HasValue) newPartLink.ErpSystemId = partLink.ErpSystemId;
 
+            // Create document change record
+            var message = string.Format("Linked to part {0} at revision {1}", newPartLink.PartNumber, newPartLink.Revision);
+            doc.DocumentChanges.Add(BuildDocumentChange(username, "Link To part", message));
+
             //Attach the new part link to the document
             doc.DocumentPartLinks.Add(newPartLink);
 
@@ -115,5 +160,14 @@ namespace RC.SWI.Services
             return new DocumentPartLinkVM(newPartLink);
         }
 
+        private DocumentChanx BuildDocumentChange(string username, string operation, string message = "")
+        {
+            var change = new DocumentChanx();
+            change.ChangedOn = DateTime.UtcNow;
+            change.ChangedBy = username;
+            change.ChangeOperation = operation;
+            change.ChangeNotes = message;
+            return change;
+        }
     }
 }

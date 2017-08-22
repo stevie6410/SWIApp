@@ -16,7 +16,7 @@ export class SyncRepoService {
     private env: EnvironmentService
   ) { }
 
-  public async syncSWI(swi: SWIHeader, revId: string, createMaster: CreateSWIMaster = null): Promise<SWIHeader> {
+  public async syncSWI(swi: SWIHeader, revId: string, message: string, createMaster: CreateSWIMaster = null): Promise<SWIHeader> {
 
     try {
       // Embed the SWI Images into the SWI
@@ -28,17 +28,17 @@ export class SyncRepoService {
 
       // Check to see if the SWI is already attached to an SWIMaster from the repo
       if (!swi.swiMaster) {
-        return await this.createNewSWI(swi, revId, createMaster);
+        return await this.createNewSWI(swi, revId, createMaster, message);
       }
 
       // Check to see if the recordered master still exists in the DB
       const master = await this.repoDocs.getMaster(swi.swiMaster.id).toPromise();
       if (master == null) {
-        return await this.createNewSWI(swi, revId, createMaster);
+        return await this.createNewSWI(swi, revId, createMaster, message);
       }
 
       // Update the SWI
-      return await this.updateSWI(swi, revId, master);
+      return await this.updateSWI(swi, revId, master, message);
 
     } catch (error) {
       console.log("Error while syncing", error);
@@ -47,7 +47,7 @@ export class SyncRepoService {
 
   }
 
-  private async createNewSWI(swi: SWIHeader, revId: string, createMaster: CreateSWIMaster = null): Promise<SWIHeader> {
+  private async createNewSWI(swi: SWIHeader, revId: string, createMaster: CreateSWIMaster, message: string): Promise<SWIHeader> {
     // Setup the new SWIMaster and attach it to the SWI
     if (!createMaster) {
       createMaster = new CreateSWIMaster();
@@ -67,12 +67,12 @@ export class SyncRepoService {
       swi = await this.setRepoFieldsOnHeader(swi, master, master.swiRevisions[0].id);
       console.log("SWI header before upload", swi);
       // Save the file to the newley created SWI
-      await this.repoDocs.attatchSWIFile(master.id, revId, swi).toPromise();
+      await this.repoDocs.attatchSWIFile(master.id, revId, swi, message).toPromise();
     }
     return swi;
   }
 
-  private async updateSWI(swi: SWIHeader, revId: string, master: SWIMaster = null) {
+  private async updateSWI(swi: SWIHeader, revId: string, master: SWIMaster, message: string) {
     // Get the revision
     const revision = master.swiRevisions.find(rev => rev.id === revId);
     // Validate that we have the revision and that the revision has a linked document
@@ -80,7 +80,7 @@ export class SyncRepoService {
     // Set the SWIHeader with updated repo
     swi = await this.setRepoFieldsOnHeader(swi, master, revId);
     // Upload the SWI file to the document
-    const result: SWIMaster = await this.repoDocs.attatchSWIFile(master.id, revision.id, swi).toPromise();
+    const result: SWIMaster = await this.repoDocs.attatchSWIFile(master.id, revision.id, swi, message).toPromise();
     return swi;
   }
 

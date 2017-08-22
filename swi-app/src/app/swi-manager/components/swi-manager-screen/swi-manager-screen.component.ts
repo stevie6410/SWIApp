@@ -37,6 +37,7 @@ export class SwiManagerScreenComponent implements OnInit {
   clientHash: string;
   repoHash: string;
   requiresUpgrade = false;
+  syncMessage: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,14 +48,14 @@ export class SwiManagerScreenComponent implements OnInit {
     private syncRepoService: SyncRepoService,
     private upgradeService: SwiUpgradeService,
     private environment: EnvironmentService,
-    private authService: AuthService
+    public authService: AuthService
   ) {
     this.swi = this.route.snapshot.data["swi"];
     this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
     this.updateRepoData();
     this.route.params.subscribe((params) => {
       // Detected a change to the params so reload the swiData
-      if (params.id != this.swi.id) {
+      if (params.id !== this.swi.id) {
         this.swi = this.route.snapshot.data["swi"];
         this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
         this.updateRepoData();
@@ -70,7 +71,7 @@ export class SwiManagerScreenComponent implements OnInit {
   }
 
   updateDocumentSyncStatus() {
-    if (this.isLoggedIn && this.activeRevision) {
+    if (this.activeRevision) {
       this.clientHash = this.swi.clientHash;
       this.repoHash = this.activeRevision.document.clientHash;
       this.clientTimestamp = new Date(this.swi.updatedOn).getTime();
@@ -85,32 +86,30 @@ export class SwiManagerScreenComponent implements OnInit {
   }
 
   async updateRepoData() {
-    if (this.isLoggedIn) {
+    this.loadingRepo = true;
+    // Reset Repo flags
+    this.swiMaster = null;
+    this.loadingRepoError = null;
 
-      this.loadingRepo = true;
-      // Reset Repo flags
-      this.swiMaster = null;
-      this.loadingRepoError = null;
-
-      if (!this.swi.swiMaster) {
-        console.log("No SWI Master linked");
-        this.loadingRepo = false;
-        this.loadingRepoError = "No SWI Master linked";
-        return;
-      }
-      try {
-        // Get the data SWIMaster from the repository (retry up to 3 times)
-        this.swiMaster = await this.repoDocs.getMaster(this.swi.swiMaster.id).toPromise();
-        console.log("Fetched new SWI Master", this.swiMaster);
-        console.log("SWI", this.swi);
-        this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest == true)[0];
-        this.updateDocumentSyncStatus();
-      } catch (error) {
-        this.loadingRepoError = "Could not connect to the repository";
-        console.log("Could not connect to repository");
-      }
+    if (!this.swi.swiMaster) {
+      console.log("No SWI Master linked");
       this.loadingRepo = false;
+      this.loadingRepoError = "Not in the SWI Repository";
+      return;
     }
+    try {
+      // Get the data SWIMaster from the repository (retry up to 3 times)
+      this.swiMaster = await this.repoDocs.getMaster(this.swi.swiMaster.id).toPromise();
+      console.log("Fetched new SWI Master", this.swiMaster);
+      console.log("SWI", this.swi);
+      this.activeRevision = this.swiMaster.swiRevisions.filter(rev => rev.isLatest === true)[0];
+      this.updateDocumentSyncStatus();
+    } catch (error) {
+      this.loadingRepoError = "Could not connect to the repository";
+      console.log("Could not connect to repository");
+    }
+    this.loadingRepo = false;
+
   }
 
   async onLoggedIn() {
@@ -124,7 +123,7 @@ export class SwiManagerScreenComponent implements OnInit {
   editSWI() {
     // First set the revison we are editing.
     if (this.swiMaster) {
-      this.swi.swiRevisionId = this.swiMaster.swiRevisions.filter(r => r.released == false)[0].id;
+      this.swi.swiRevisionId = this.swiMaster.swiRevisions.filter(r => r.released === false)[0].id;
       console.log(this.swi.swiRevisionId);
     }
     this.router.navigate(["builder", this.swi.id]);
@@ -159,7 +158,7 @@ export class SwiManagerScreenComponent implements OnInit {
       this.isSyncing = true;
       const activeRevId = (this.activeRevision) ? this.activeRevision.id : null;
       try {
-        this.swi = await this.syncRepoService.syncSWI(this.swi, activeRevId);
+        this.swi = await this.syncRepoService.syncSWI(this.swi, activeRevId, this.syncMessage);
       } catch (error) {
         console.log("Error while syncing", error);
         this.loadingRepoError = error;

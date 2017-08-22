@@ -52,12 +52,13 @@ export class RepoSite {
   description: string;
 }
 
-export class RepoCreateDocumentPayload {
+export class CreateDocument {
   name: string;
   username: string;
   documentTypeId: number;
   appVersion: string;
   swiFile: string;
+  message: string;
 }
 
 export class CreateSWIMaster {

@@ -49,8 +49,10 @@
 
               <div class="properties-container">
                 <span class="property full-width"><h6 class="mt-0 mb-1">{{result.title}}</h6></span>
+                <span class="property lock-property"><i class="fa fa-lock"></i></span>
                 <span class="property min-width-150">{{result.latestRevision.modifiedOn | amCalendar}}</span>
                 <span class="property"><span class="badge badge-default type-prop">{{result.type}}</span></span>
+                <span class="property"><span class="badge badge-default type-prop">SWI Rev: {{result.latestRevision.revisionNumber}}</span></span>
               </div>
 
             </div>

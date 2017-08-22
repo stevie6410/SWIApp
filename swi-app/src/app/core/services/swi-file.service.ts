@@ -82,7 +82,7 @@ export class SWIFileService {
   getFileHash(swi: SWIHeader): string {
     const swiCopy: SWIHeader = JSON.parse(JSON.stringify(swi));
     swiCopy.swiImages = [];
-    console.log("SWICopy", swiCopy);
+    // console.log("SWICopy", swiCopy);
     return MD5(JSON.stringify(swiCopy)).toString();
   }
 }

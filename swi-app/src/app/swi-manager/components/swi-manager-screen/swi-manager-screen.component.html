@@ -30,63 +30,46 @@
           </div>
         </swi-card>
 
-        <swi-card [title]='"Login to Repository"' *ngIf="!isLoggedIn">
+        <swi-card [title]='"Login to Repository"' *ngIf="!isLoggedIn && (isOutOfSync || loadingRepoError)">
           <div class="card-block">
-
             <swi-login (loggedIn)="onLoggedIn()"></swi-login>
-
           </div>
         </swi-card>
 
-        <swi-card [title]="'SWI Repository Status'" *ngIf="isLoggedIn">
+        <swi-card [title]="'SWI Repository'" *ngIf="isLoggedIn && (isOutOfSync || loadingRepoError)">
           <div class='card-block'>
-
             <div *ngIf="isOutOfSync">
-              <div class="alert alert-warning alert-zero-margin" *ngIf="isOutOfSync">
-                <i class="fa fa-warning"></i> Out of sync with the Repository
-              </div>
+              <p><strong>Logged In User: {{this.authService?.loggedInUser?.fullName}}</strong></p>
+              <textarea class="form-control" rows="3" [(ngModel)]="syncMessage" placeholder="Brief comment on what has changed since the last sync"
+                style="margin-top: 0px; margin-bottom: 0px; height: 72px;"></textarea>
               <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="!isSyncing"
                 (click)="this.syncRepo()"><i class="fa fa-refresh"></i> Sync with Repository</button>
               <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
-            </div>
-
-
-            <div *ngIf="!isOutOfSync && !this.loadingRepoError">
-              <div class="alert alert-success alert-zero-margin">
-                <i class="fa fa-check"></i> In sync with the Repository
-              </div>
             </div>
 
             <div *ngIf="loadingRepoError">
-              <div class="alert alert-danger alert-zero-margin">
-                <i class="fa fa-warning"></i> Not Linked to Repository
-              </div>
-              <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="!isSyncing"
-                (click)="this.syncRepo()"><i class="fa fa-refresh"></i> Sync with Repository</button>
+              <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary" *ngIf="!isSyncing" (click)="this.syncRepo()"><i class="fa fa-plus"></i> Create SWI in Repository</button>
               <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
             </div>
 
           </div>
+
         </swi-card>
 
-        <swi-card [title]="'SWI Master Properties'" *ngIf="isLoggedIn">
-
+        <swi-card [title]="'SWI Properties'">
           <div class='card-block' *ngIf="!loadingRepo && !loadingRepoError">
+
+            <!-- Repo Document Sync Status Alerts  -->
+            <div class="alert alert-warning alert-zero-margin" *ngIf="isOutOfSync"><i class="fa fa-warning"></i> Out of sync with the Repository</div>
+            <div class="alert alert-success alert-zero-margin" *ngIf="!isOutOfSync && !this.loadingRepoError"><i class="fa fa-check"></i> In sync with the Repository</div>
+            <div class="alert alert-danger alert-zero-margin" *ngIf="loadingRepoError"><i class="fa fa-warning"></i> Not Linked to Repository</div>
+
+            <!-- Repo Document Property Labels -->
             <div class="property-badge-list">
               <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
               <span class="badge badge-default">{{swiMaster?.type}}</span>
             </div>
           </div>
-
-          <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
-            <h6 *ngIf="loadingRepo">
-              <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
-            </h6>
-            <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
-          </div>
-        </swi-card>
-
-        <swi-card [title]="'SWI Revision Properties'" *ngIf="isLoggedIn">
           <table class="table table-sm card-table" *ngIf="swiMaster">
             <thead>
               <tr>
@@ -105,6 +88,7 @@
               </tr>
             </tbody>
           </table>
+
           <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
             <h6 *ngIf="loadingRepo">
               <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
@@ -118,7 +102,6 @@
       <div class="col-md-4">
 
         <swi-card [title]="'SWI Overview'">
-
           <div class="card-block">
             <swi-img [imageKey]="swi.coverImage" [border]="true" width="100%" class="cover-image"></swi-img>
           </div>

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RC.SWI.Repository.Services.Web.Attributes;
+using RC.SWI.Repository.Services.Web.ExtMethods;
 using RC.SWI.Services;
 using RC.SWI.ViewModels;
 using System;
@@ -71,12 +72,12 @@ namespace RC.SWI.Repository.Services.Web.Controllers
 
         [HttpPost]
         [Route("{id:int}/attatchfile")]
-        public async Task<IHttpActionResult> AttatchFile(int id)
+        public async Task<IHttpActionResult> AttatchFile(int id, [FromUri] string message)
         {
             using (StreamReader sr = new StreamReader(await Request.Content.ReadAsStreamAsync(), Encoding.UTF8))
             {
                 var fileBinary = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync());
-                var result = await docService.AttatchFile(id, fileBinary);
+                var result = await docService.AttatchFile(id, fileBinary, Request.GetUsername(), null, message);
                 return Ok(result);
             }
         }
@@ -90,8 +91,8 @@ namespace RC.SWI.Repository.Services.Web.Controllers
                 if (partLink == null)
                     return BadRequest("Part link request is invalid");
 
-                var result = await this.docService.LinkToPart(id, partLink);
-                
+                var result = await this.docService.LinkToPart(id, partLink, Request.GetUsername());
+
                 return Ok(result);
             }
             catch (Exception ex)
