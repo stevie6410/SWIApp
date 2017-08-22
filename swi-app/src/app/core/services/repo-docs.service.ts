@@ -14,7 +14,9 @@ import {
   SWIHeader,
   handleResponse,
   defaultOptions,
-  SWIMasterSearchCriteria
+  SWIMasterSearchCriteria,
+  CheckInRequest,
+  CheckOutRequest
 } from "app/core";
 import { EnvironmentService } from "app/app/services/environment.service";
 import { ToastsManager } from "ng2-toastr/ng2-toastr";
@@ -72,6 +74,26 @@ export class RepoDocsService {
       .post(url, body, defaultOptions())
       .map(res => handleResponse(res))
       .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyErrorMessage + ' : Attach File'))
+      .toPromise();
+  }
+
+  public checkIn(request: CheckInRequest): Promise<RepoDocument> {
+    const url: string = this.baseApiUrl + this.documentsMethod + request.docId.toString() + "/checkin";
+    const body = JSON.stringify(request);
+    return this.http
+      .post(url, body, defaultOptions())
+      .map(res => handleResponse(res))
+      .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyErrorMessage + ' : Check In'))
+      .toPromise();
+  }
+
+  public checkOut(request: CheckOutRequest): Promise<RepoDocument> {
+    const url: string = this.baseApiUrl + this.documentsMethod + request.docId.toString() + "/checkout";
+    const body = JSON.stringify(request);
+    return this.http
+      .post(url, body, defaultOptions())
+      .map(res => handleResponse(res))
+      .catch((err, caught) => this.errorHandler.handleHttpError(err, this.friendlyErrorMessage + ' : Check Out'))
       .toPromise();
   }
 

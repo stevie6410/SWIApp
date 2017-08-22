@@ -24,6 +24,7 @@ namespace RC.SWI.ViewModels
         public DateTime Timestamp { get; set; }
         public int FileSize { get; set; }
         public List<DocumentPartLinkVM> DocumentPartLinks { get; set; }
+        public List<DocumentChangeVM> DocumentChanges { get; set; }
         
         public DocumentVM(Document doc, bool includeFile = false)
         {
@@ -34,9 +35,10 @@ namespace RC.SWI.ViewModels
                 CreatedOn = doc.CreatedOn;
                 CreatedBy = doc.CreatedBy;
                 CheckedOut = doc.CheckedOut;
-                CheckedOutBy = doc.CreatedBy;
+                CheckedOutBy = doc.CheckedOutBy;
                 CheckedOutOn = doc.CheckedOutOn;
                 DocumentPartLinks = doc.DocumentPartLinks.Select(pl => new DocumentPartLinkVM(pl)).ToList();
+                DocumentChanges = doc.DocumentChanges.Select(dc => new DocumentChangeVM(dc)).ToList();
 
                 if (doc.DocumentFile != null)
                 {

@@ -1,18 +1,13 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using RC.SWI.Repository.Services.Web.Attributes;
+﻿using RC.SWI.Repository.Services.Web.Attributes;
 using RC.SWI.Repository.Services.Web.ExtMethods;
 using RC.SWI.Services;
 using RC.SWI.ViewModels;
+using RC.SWI.ViewModels.ViewModels;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Hosting;
 using System.Web.Http;
 
 namespace RC.SWI.Repository.Services.Web.Controllers
@@ -53,7 +48,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Post([FromBody] CreateDocumentVM document)
+        public async Task<IHttpActionResult> Create([FromBody] CreateDocumentVM document)
         {
             try
             {
@@ -68,6 +63,24 @@ namespace RC.SWI.Repository.Services.Web.Controllers
                 Debug.WriteLine(ex);
                 throw;
             }
+        }
+
+        [HttpPost]
+        [Route("{id:int}/checkout")]
+        public async Task<IHttpActionResult> CheckOut(int id)
+        {
+            var result = await docService.CheckOut(id, Request.GetUsername());
+            if (result == null) return BadRequest("Could not be checked out");
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("{id:int}/checkin")]
+        public async Task<IHttpActionResult> CheckIn([FromBody] CheckInRequest request)
+        {
+            var result = await docService.CheckIn(request, Request.GetUsername());
+            if (result == null) return BadRequest("Could not be checked in");
+            return Ok(result);
         }
 
         [HttpPost]

@@ -12,6 +12,7 @@ using RC.SWI.Common.ExtMethods;
 using RC.SWI.ViewModels.Mappings;
 using RC.SWI.ViewModels;
 using RC.AppSecurity.Services;
+using RC.SWI.ViewModels.ViewModels;
 
 namespace RC.SWI.Services
 {
@@ -51,7 +52,9 @@ namespace RC.SWI.Services
             await db.SaveChangesAsync();
 
             await AttatchFile(doc.Id, docUpdate.File, docUpdate.Username, docUpdate.ClientHash, docUpdate.Message);
-            
+
+            await CheckOut(doc.Id, docUpdate.Username);
+
             return new DocumentVM(doc, true);
         }
 
@@ -64,7 +67,7 @@ namespace RC.SWI.Services
         {
             var doc = await db.Documents.FindAsync(id);
             if (doc == null) throw new Exception("Document could not be found");
-            
+
             doc.CheckedOut = true;
             doc.CheckedOutBy = username;
             doc.CheckedOutOn = DateTime.UtcNow;
@@ -77,24 +80,24 @@ namespace RC.SWI.Services
             return new DocumentVM(doc);
         }
 
-        public async Task<IDocumentVM> CheckIn(int id, string username, string message = "")
+        public async Task<IDocumentVM> CheckIn(CheckInRequest request, string username)
         {
-            var doc = await db.Documents.FindAsync(id);
+            var doc = await db.Documents.FindAsync(request.DocId);
             if (doc == null) throw new Exception("Document could not be found");
-            
+
             doc.CheckedOut = false;
             doc.CheckedOutBy = null;
             doc.CheckedOutOn = null;
 
             // Create a document change
-            doc.DocumentChanges.Add(BuildDocumentChange(username, "Checked In", message));
+            doc.DocumentChanges.Add(BuildDocumentChange(username, "Checked In", request.Message));
 
             await db.SaveChangesAsync();
 
             return new DocumentVM(doc);
         }
 
-        public async Task<IDocumentVM> AttatchFile(int docId, byte[] file, string username, string clientHash = null, string notes = "")
+        public async Task<IDocumentVM> AttatchFile(int docId, byte[] file, string username, string clientHash = null, string notes = null)
         {
             //Get the document from the db
             var doc = await db.Documents.FindAsync(docId);
@@ -113,7 +116,7 @@ namespace RC.SWI.Services
 
                 // Create a document change
                 doc.DocumentChanges.Add(BuildDocumentChange(username, "Attach File", notes));
-                
+
                 await db.SaveChangesAsync();
 
                 return new DocumentVM(doc);
@@ -160,7 +163,7 @@ namespace RC.SWI.Services
             return new DocumentPartLinkVM(newPartLink);
         }
 
-        private DocumentChanx BuildDocumentChange(string username, string operation, string message = "")
+        private DocumentChanx BuildDocumentChange(string username, string operation, string message = null)
         {
             var change = new DocumentChanx();
             change.ChangedOn = DateTime.UtcNow;

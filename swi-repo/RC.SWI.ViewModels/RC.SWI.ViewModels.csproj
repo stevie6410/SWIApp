@@ -21,7 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>XmlDocument.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -47,12 +48,14 @@
     <Compile Include="Mappings\DocumentUpdateMapping.cs" />
     <Compile Include="Mappings\SWIMasterMapping.cs" />
     <Compile Include="ViewModels\AppCatalogVM.cs" />
+    <Compile Include="ViewModels\CheckInRequest.cs" />
     <Compile Include="ViewModels\CreateStandardToolVM.cs" />
     <Compile Include="ViewModels\CreateSWIMasterVM.cs" />
     <Compile Include="ViewModels\CreateSWIRevisionVM.cs" />
     <Compile Include="ViewModels\CreateDocumentVM.cs" />
     <Compile Include="Interfaces\IDocumentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DocumentChangeVM.cs" />
     <Compile Include="ViewModels\DocumentPartLinkVM.cs" />
     <Compile Include="ViewModels\DocumentSimpleVM.cs" />
     <Compile Include="ViewModels\DocumentVM.cs" />
@@ -84,7 +87,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)XmlDocument.xml" "$(ProjectDir)..\RC.SWI.Repository.Services.Web\App_Data\ViewModels.xml"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
