@@ -10,6 +10,7 @@ import { SWIDeleteButtonDirective } from "./directives/swi-delete.directive";
 import { SWICreateMasterButton } from "./directives/swi-create-master.directive";
 import { MomentModule } from "angular2-moment";
 import { SWIUpgradeDirective } from "./directives/swi-upgrade.directive";
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { SWIUpgradeDirective } from "./directives/swi-upgrade.directive";
     SharedModule,
     RouterModule,
     FormsModule,
-    MomentModule
+    MomentModule,
+    TabsModule.forRoot()
   ],
   exports: [
     SwiManagerScreenComponent,

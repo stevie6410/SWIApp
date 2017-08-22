@@ -100,30 +100,9 @@ namespace RC.SWI.Services.Services
             permission.CanRead = true;
             master.SWIMasterSitePermissions.Add(permission);
 
-            IDocumentVM doc = null;
-            if (createMaster.SWIFile != null)
-            {
-                // Setup the create document reuest
-                var createDocument = new CreateDocumentVM();
-                createDocument.AppVersion = createMaster.AppVersion;
-                createDocument.DocumentTypeId = (await db.DocumentTypes.Where(t => t.IsSWI == true).FirstOrDefaultAsync()).Id;
-                createDocument.Name = createMaster.Title;
-                createDocument.Username = createMaster.username;
-                createDocument.File = Encoding.UTF8.GetBytes(createMaster.SWIFile);
-
-                // Request the new document from the document service
-                doc = await docService.Create(createDocument);
-                // Attach the new document to the SWI Revision
-                rev.Document = await db.Documents.FindAsync(doc.Id);
-            }
-
             // Save Changes to the database
             await db.SaveChangesAsync();
-
-            // Automatically checkout the newly created document if it exists
-            if(doc != null)
-                await docService.CheckOut(doc.Id, createMaster.username);
-            
+           
             // Get a fresh copy of the master from the datasbe to return 
             var finalResult = await GetMaster(master.Id);
 

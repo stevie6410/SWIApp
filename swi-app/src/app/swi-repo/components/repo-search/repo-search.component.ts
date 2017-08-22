@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SWIMaster, RepoDocsService, SWIRevision, SWIHeader, SWIFileService, SWIImportService, SWIMasterSearchCriteria } from "app/core";
+import { SWIMaster, RepoDocsService, SWIRevision, SWIHeader, SWIFileService, SWIImportService, SWIMasterSearchCriteria, CheckOutRequest } from "app/core";
 import { ToastsManager } from "ng2-toastr/ng2-toastr";
 
 @Component({
@@ -70,7 +70,15 @@ export class RepoSearchComponent implements OnInit {
     this.notify("Importing SWI onto device");
     const importResult: boolean = await this.swiImportService.import(swi);
     await this.updateLocalKeys();
+    this.checkOut(swiRev);
     if (importResult) { this.notify("Imported Succesfully"); }
+    this.search();
+  }
+
+  async checkOut(swiRev: SWIRevision) {
+    const request = new CheckOutRequest();
+    request.docId = swiRev.document.id;
+    await this.repoStore.checkOut(request);
   }
 
   notify(msg: string) {

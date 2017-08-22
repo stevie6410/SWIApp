@@ -12,7 +12,8 @@ import {
   RepoDocsService,
   SyncRepoService,
   SwiUpgradeService,
-  AuthService
+  AuthService,
+  CheckInRequest
 } from "app/core";
 
 @Component({
@@ -38,6 +39,7 @@ export class SwiManagerScreenComponent implements OnInit {
   repoHash: string;
   requiresUpgrade = false;
   syncMessage: string;
+  checkInMessage: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,7 +50,9 @@ export class SwiManagerScreenComponent implements OnInit {
     private syncRepoService: SyncRepoService,
     private upgradeService: SwiUpgradeService,
     private environment: EnvironmentService,
-    public authService: AuthService
+    public authService: AuthService,
+    private toast: ToastsManager,
+    private modal: Modal
   ) {
     this.swi = this.route.snapshot.data["swi"];
     this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
@@ -166,6 +170,44 @@ export class SwiManagerScreenComponent implements OnInit {
       console.log("SWI after sync", this.swi);
       this.isSyncing = false;
       this.updateRepoData();
+    }
+  }
+
+  async checkIn() {
+    if (this.isLoggedIn) {
+
+      this.modal.confirm()
+        .size('lg')
+        .isBlocking(true)
+        .showClose(false)
+        .keyboard(27)
+        .titleHtml('<h5>Check In SWI</h5>')
+        .body(`Are you sure you want to check in the SWI and remove from the device?`)
+        .okBtn('Check In and Remove From Device')
+        .okBtnClass('btn btn-primary')
+        .cancelBtn('Cancel')
+        .cancelBtnClass('btn btn-secondary')
+        .open()
+        .then(dialogRef => dialogRef.result)
+        .then(result => {
+          this.isSyncing = true;
+          // Build th check in request
+          const request = new CheckInRequest();
+          request.docId = this.swiMaster.latestRevision.document.id;
+          request.message = this.checkInMessage;
+          try {
+            this.repoDocs.checkIn(request).then(doc => {
+              this.toast.success("Checked in succesfully");
+              this.router.navigate(['browser']);
+              this.swiFileService.deleteSWI(this.swi.id).then(data => {
+                this.toast.success("Checked into Repository and Deleted");
+              });
+            });
+          } catch (error) {
+            this.loadingRepoError = error;
+          }
+        })
+        .catch(err => console.log('Canceled'));
     }
   }
 }

@@ -18,7 +18,7 @@
         display: flex;
         flex-wrap: wrap;
         button{
-            height: 100px;
+            height: 75px;
             width: 180px;
             margin: 5px;
         }
@@ -27,3 +27,14 @@
     table {
       margin-bottom: 0;
     }
+
+    .swi-tabs{
+      .nav-tabs .nav-link {
+          font-size: 15px !important;
+          padding: 20px !important;
+      }
+    }
+
+  .cover-image{
+    max-width: 300px;
+  }

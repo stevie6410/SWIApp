@@ -12,6 +12,15 @@ export class RepoDocument {
   timestamp: Date;
   fileSize: number;
   documentPartLinks: RepoDocumentPartLink[];
+  documentChanges: DocumentChange[];
+}
+
+export class DocumentChange {
+  documentId: number;
+  changedBy: string;
+  changedOn: Date;
+  changeOperation: string;
+  changeNotes: string;
 }
 
 export class RepoFile {
@@ -143,4 +152,13 @@ export class CreateStandardTool {
   hasCarePoint: boolean;
   carePoint: string;
   swiMasterId: string;
+}
+
+export class CheckInRequest {
+  docId: number;
+  message: string;
+}
+
+export class CheckOutRequest {
+  docId: number;
 }
