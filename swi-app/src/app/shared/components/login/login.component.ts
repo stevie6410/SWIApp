@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { AuthService } from "app/core";
 import { BrandImage } from "assets/image-placeholder";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
+  @Output() loggedIn = new EventEmitter<void>();
   username: string;
   password: string;
   errorMessage: string;
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
       token => {
         const returnURL = this.route.snapshot.queryParams['returnURL'];
         console.log("Return URL: ", returnURL);
+        this.loggedIn.emit();
         if (returnURL) { this.router.navigateByUrl(returnURL); }
         this.loading = false;
       },

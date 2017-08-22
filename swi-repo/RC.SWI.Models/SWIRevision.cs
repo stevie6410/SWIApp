@@ -25,6 +25,7 @@ namespace RC.SWI.Entities
         public System.DateTime CreatedOn { get; set; } // CreatedOn
         public System.DateTime ModifiedOn { get; set; } // ModifiedOn
         public int? DocumentId { get; set; } // DocumentId
+        public string SwiFileId { get; set; } // SwiFileId (length: 255)
 
         // Foreign keys
 

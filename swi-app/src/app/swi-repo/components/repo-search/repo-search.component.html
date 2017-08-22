@@ -12,14 +12,14 @@
 
             <!--Search by Title-->
             <label for="repo-search-swino">SWI Number</label>
-            <input id="repo-search-swino" type="text" class="form-control" [(ngModel)]="searchCriteria.swiNumber">
+            <input id="repo-search-swino" type="text" class="form-control" [(ngModel)]="searchCriteria.swiNumber" (keyup.enter)="search()">
 
           </div>
           <div class="col">
 
             <!--Search by Title-->
             <label for="repo-search-title">Title</label>
-            <input id="repo-search-title" type="text" class="form-control" [(ngModel)]="searchCriteria.title">
+            <input id="repo-search-title" type="text" class="form-control" [(ngModel)]="searchCriteria.title" (keyup.enter)="search()">
 
           </div>
         </div>
@@ -45,41 +45,24 @@
           <!--Main List Item-->
           <div class="list-group-item media search-result" [ngClass]="{'selected-result': result == selectedResult}" (click)="selectedResult = result">
             <h5><span class="badge badge-pill badge-primary">SWI-{{result.swiNumber}}</span></h5>
-            <swi-img class="d-flex mr-3 thumb-img" [imageKey]="'a'" [thumbnail]="true" [border]="true"></swi-img>
             <div class="media-body">
 
               <div class="properties-container">
                 <span class="property full-width"><h6 class="mt-0 mb-1">{{result.title}}</h6></span>
+                <span class="property lock-property"><i class="fa fa-lock"></i></span>
+                <span class="property min-width-150">{{result.latestRevision.modifiedOn | amCalendar}}</span>
                 <span class="property"><span class="badge badge-default type-prop">{{result.type}}</span></span>
-                <span class="property">{{result.createdOn | amCalendar}}</span>
-                <span class="property">
-
-              </span>
+                <span class="property"><span class="badge badge-default type-prop">SWI Rev: {{result.latestRevision.revisionNumber}}</span></span>
               </div>
 
-              <!--{{stage.description}}-->
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-default" (click)="importSWI()"><i class="fa fa-arrow-down"></i> Import</button>
+              <button type="button" class="btn btn-primary" *ngIf="!isImporting(result.id) && !isImported(result.latestRevision.swiFileId)" (click)="importLatestRevision(result)"> <i class="fa fa-arrow-down"></i> Import</button>
+              <button type="button" class="btn btn-warning" *ngIf="isImporting(result.id)"> <i class="fa fa-spinner fa-spin"></i> Importing</button>
+              <button type="button" class="btn btn-success" *ngIf="isImported(result.latestRevision.swiFileId)" disabled> <i class="fa fa-check"></i> Imported</button>
             </div>
 
-          </div>
-
-          <!--Dropdown properties-->
-          <div class="list-group-item revision-panel" *ngIf="result == selectedResult">
-
-            <ul>
-              <li *ngFor="let rev of result.swiRevisions">
-                <ul>
-                  <li>Revision: {{rev.revisionNumber}}</li>
-                  <li>Hash: {{rev.document.hash}}</li>
-                  <li>Client Hash: {{rev.document.clientHash}}</li>
-                </ul>
-                <button type="button" (click)="importSWI(rev)">Import</button></li>
-            </ul>
-
-            <!-- Some Revison details can go here -->
           </div>
 
         </div>

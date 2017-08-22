@@ -1,6 +1,7 @@
 ﻿using RC.AppSecurity.Services;
 using RC.SWI.Entities;
 using RC.SWI.ViewModels;
+using RC.SWI.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,7 +36,9 @@ namespace RC.SWI.Services.Services
 
         public async Task<SWIMasterVM> GetMaster(Guid Id)
         {
-            return new SWIMasterVM(await db.SWIMasters.FindAsync(Id));
+            var swiMaster = await db.SWIMasters.FindAsync(Id);
+            if (swiMaster == null) return null;
+            return new SWIMasterVM(swiMaster);
         }
 
         public async Task<List<SWIMasterVM>> SearchMasters(int swiNumber = 0, string title = "")
@@ -60,41 +63,43 @@ namespace RC.SWI.Services.Services
             var site = await db.Sites.Where(s => s.AppSecurityCompanyId == user.Company.Id).FirstOrDefaultAsync();
             if (site == null) throw new Exception("Could not find a site matching the users default company in the App Security system");
 
-            //Create SWIMaster 
+            // Create SWIMaster 
             var master = new SWIMaster();
             master.Id = Guid.NewGuid();
             master.SWIType = await db.SWITypes.FindAsync(createMaster.TypeId);
             master.Title = createMaster.Title;
             master.IsPublic = false;
             master.CreatedBy = user.Username;
-            master.CreatedOn = DateTime.Now;
+            master.CreatedOn = DateTime.UtcNow;
             db.SWIMasters.Add(master);
 
-            //Create SWIRevision and attach it to the SWIMaster
+            // Create SWIRevision and attach it to the SWIMaster
             var rev = new SWIRevision();
             rev.Id = Guid.NewGuid();
             rev.RevisionNumber = 1;
             rev.Released = false;
             rev.AppVersion = createMaster.AppVersion;
-            rev.CreatedOn = DateTime.Now;
-            rev.ModifiedOn = DateTime.Now;
+            rev.CreatedOn = DateTime.UtcNow;
+            rev.ModifiedOn = DateTime.UtcNow;
+            rev.SwiFileId = createMaster.SWIFileId;
             master.SWIRevisions.Add(rev);
 
-            //Create the default site permission for the SWIMaster based on the users default site
+            // Create the default site permission for the SWIMaster based on the users default site
             var permission = new SWIMasterSitePermission();
             permission.Id = Guid.NewGuid();
             permission.Site =  site;
             permission.GrantedBy = master.CreatedBy;
-            permission.GrantedOn = DateTime.Now;
+            permission.GrantedOn = DateTime.UtcNow;
             permission.IsOwner = true;
             permission.CanManage = true;
             permission.CanAuthor = true;
             permission.CanRead = true;
             master.SWIMasterSitePermissions.Add(permission);
 
+            IDocumentVM doc = null;
             if (createMaster.SWIFile != null)
             {
-                //Setup the create document reuest
+                // Setup the create document reuest
                 var createDocument = new CreateDocumentVM();
                 createDocument.AppVersion = createMaster.AppVersion;
                 createDocument.DocumentTypeId = (await db.DocumentTypes.Where(t => t.IsSWI == true).FirstOrDefaultAsync()).Id;
@@ -102,53 +107,59 @@ namespace RC.SWI.Services.Services
                 createDocument.Username = createMaster.username;
                 createDocument.File = Encoding.UTF8.GetBytes(createMaster.SWIFile);
 
-                //Request the new document from the document service
-                var doc = await docService.Create(createDocument);
-                //Attach the new document to the SWI Revision
+                // Request the new document from the document service
+                doc = await docService.Create(createDocument);
+                // Attach the new document to the SWI Revision
                 rev.Document = await db.Documents.FindAsync(doc.Id);
             }
 
-            //Save Changes to the database
+            // Save Changes to the database
             await db.SaveChangesAsync();
 
+            // Automatically checkout the newly created document if it exists
+            if(doc != null)
+                await docService.CheckOut(doc.Id, createMaster.username);
+            
+            // Get a fresh copy of the master from the datasbe to return 
             var finalResult = await GetMaster(master.Id);
 
-            //Returnt the SWIMaster View Model to the client
+            // Return the SWIMaster View Model to the client
             return finalResult;
         }
 
         public async Task<SWIMasterVM> UpRev(CreateSWIRevisionVM createRev)
         {
-            //Get SWIMaster from database
+            // Get SWIMaster from database
             var master = await db.SWIMasters.FindAsync(createRev.SWIMasterId);
             if (master == null)
                 throw new Exception("Invalid SWI Master");
 
-            //Check to see if the last revision is released
+            // Check to see if the last revision is released
             var lastRev = master.SWIRevisions.Where(rv => rv.RevisionNumber == master.SWIRevisions.Max(r => r.RevisionNumber)).FirstOrDefault();
             if (lastRev != null && lastRev.Released == false)
                 throw new Exception("Cannot create a new revision until the current revision has been released");
 
-            //Create new SWIRevision and attach to SWIMaster
+            // Create new SWIRevision and attach to SWIMaster
             var rev = new SWIRevision();
             rev.Id = Guid.NewGuid();
             rev.AppVersion = createRev.AppVersion;
             rev.RevisionNumber = master.SWIRevisions.Max(r => r.RevisionNumber) + 1;
-            rev.CreatedOn = DateTime.Now;
-            rev.ModifiedOn = DateTime.Now;
+            rev.CreatedOn = DateTime.UtcNow;
+            rev.ModifiedOn = DateTime.UtcNow;
+            rev.SwiFileId = createRev.SwiFileId;
             rev.Released = false;
 
-            //Set the new SWIRevision on the SWIMaster
+            // Set the new SWIRevision on the SWIMaster
             master.SWIRevisions.Add(rev);
 
-            //Save Changes
+            // Save Changes
             await db.SaveChangesAsync();
 
-            //Return the SWIMaster View Model to the client
+            // Return the SWIMaster View Model to the client
             return new SWIMasterVM(master);
         }
 
-        public async Task<SWIMasterVM> AttatchSWIFile(Guid swiRevisionId, string clientHash, byte[] swiFile, string username)
+        public async Task<SWIMasterVM> AttatchSWIFile(Guid swiRevisionId, string clientHash, byte[] swiFile, string username, string message)
         {
             //Get the SWIRevision
             var revision = await db.SWIRevisions.FindAsync(swiRevisionId);
@@ -175,9 +186,9 @@ namespace RC.SWI.Services.Services
             {
                 //There is already a document. Just update it using the document service function
                 //Encode the file as UTF-8 byte array
-                await docService.AttatchFile(revision.Document.Id, swiFile, clientHash);
+                await docService.AttatchFile(revision.Document.Id, swiFile, username, clientHash, message);
             }
-            revision.ModifiedOn = DateTime.Now;
+            revision.ModifiedOn = DateTime.UtcNow;
             await db.SaveChangesAsync();
             //Return the latest version of the SWIMaster
             return new SWIMasterVM(await db.SWIMasters.FindAsync(revision.SWIMaster.Id));

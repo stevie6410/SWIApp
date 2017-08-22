@@ -22,6 +22,7 @@ namespace RC.SWI.Entities
         public System.DateTime ChangedOn { get; set; } // ChangedOn
         public string ChangedBy { get; set; } // ChangedBy (length: 100)
         public string ChangeNotes { get; set; } // ChangeNotes (length: 255)
+        public string ChangeOperation { get; set; } // ChangeOperation (length: 255)
 
         // Foreign keys
 

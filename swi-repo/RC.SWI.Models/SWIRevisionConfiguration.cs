@@ -35,6 +35,7 @@ namespace RC.SWI.Entities
             Property(x => x.CreatedOn).HasColumnName(@"CreatedOn").HasColumnType("datetime2").IsRequired();
             Property(x => x.ModifiedOn).HasColumnName(@"ModifiedOn").HasColumnType("datetime2").IsRequired();
             Property(x => x.DocumentId).HasColumnName(@"DocumentId").HasColumnType("int").IsOptional();
+            Property(x => x.SwiFileId).HasColumnName(@"SwiFileId").HasColumnType("nvarchar").IsOptional().HasMaxLength(255);
 
             // Foreign keys
             HasOptional(a => a.Document).WithMany(b => b.SWIRevisions).HasForeignKey(c => c.DocumentId).WillCascadeOnDelete(false); // FK_SWIRevisions_Documents

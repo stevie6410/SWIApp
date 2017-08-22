@@ -6,7 +6,6 @@ import { SwiBrowserScreenComponent } from './components/swi-browser-screen/swi-b
 import { SharedModule } from "../shared/shared.module";
 import { ToastModule } from "ng2-toastr";
 import { MomentModule } from "angular2-moment";
-import { ProgressbarModule } from "ngx-bootstrap";
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { ProgressbarModule } from "ngx-bootstrap";
     RouterModule,
     MomentModule,
     FormsModule,
-    ProgressbarModule
   ],
   exports: [
     SwiBrowserScreenComponent

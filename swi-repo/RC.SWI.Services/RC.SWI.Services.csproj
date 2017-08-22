@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\AppCatalogService.cs" />
-    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Interfaces\IDocumentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

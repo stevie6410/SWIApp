@@ -1,4 +1,5 @@
 ﻿using RC.SWI.Repository.Services.Web.Attributes;
+using RC.SWI.Repository.Services.Web.ExtMethods;
 using RC.SWI.Services.Services;
 using RC.SWI.ViewModels;
 using System;
@@ -11,7 +12,6 @@ using System.Web.Http.Description;
 
 namespace RC.SWI.Repository.Services.Web.Controllers
 {
-    [RequiresPermission("CanCreateSWI")]
     [RoutePrefix("api/v1/swi")]
     public class SWIController : ApiController
     {
@@ -45,8 +45,8 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         public async Task<IHttpActionResult> GetMaster(Guid Id)
         {
             var result = await swiService.GetMaster(Id);
-            if (result == null)
-                return BadRequest("Could not find SWI");
+            //if (result == null)
+            //    return BadRequest("Could not find SWI");
             return Ok(result);
         }
 
@@ -66,8 +66,8 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         /// <returns>SWI Master</returns>
         [HttpPost]
         [Route("master")]
-        [RequiresPermission("CanEditSWI")]
         [ResponseType(typeof(SWIMasterVM))]
+        [RequiresPermission("CanCreateSWI")]
         public async Task<IHttpActionResult> CreateMaster(CreateSWIMasterVM createMaster)
         {
             var result = await swiService.CreateMaster(createMaster);
@@ -80,6 +80,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [HttpPost]
         [Route("master/{id:Guid}/revision")]
         [ResponseType(typeof(SWIMasterVM))]
+        [RequiresPermission("CanCreateSWI")]
         public async Task<IHttpActionResult> UpRev(Guid id, [FromBody] CreateSWIRevisionVM createRevision)
         {
             createRevision.SWIMasterId = id;
@@ -93,12 +94,13 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [HttpPost]
         [Route("master/{id:Guid}/revision/{revId:Guid}/attatchswi/{clientHash}")]
         [ResponseType(typeof(SWIMasterVM))]
-        public async Task<IHttpActionResult> AttatchSWIFile(Guid id, Guid revId, string clientHash)
+        [RequiresPermission("CanCreateSWI")]
+        public async Task<IHttpActionResult> AttatchSWIFile(Guid id, Guid revId, string clientHash, [FromUri] string message)
         {
             using (StreamReader sr = new StreamReader(await Request.Content.ReadAsStreamAsync(), Encoding.UTF8))
             {
                 var fileBinary = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync());
-                var result = await swiService.AttatchSWIFile(revId, clientHash, fileBinary, "kents");
+                var result = await swiService.AttatchSWIFile(revId, clientHash, fileBinary, Request.GetUsername(), message);
                 return Ok(result);
             }
         }

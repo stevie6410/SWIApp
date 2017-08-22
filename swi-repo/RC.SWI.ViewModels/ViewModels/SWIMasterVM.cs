@@ -16,6 +16,7 @@ namespace RC.SWI.ViewModels
         public string Type { get; set; }
         public List<SWIRevisionVM> SWIRevisions { get; set; }
         public List<SWIMasterSitePermissionVM> SitePermissions { get; set; }
+        public SWIRevisionVM LatestRevision { get { return SWIRevisions.OrderByDescending(r => r.RevisionNumber).Take(1).ToList().FirstOrDefault(); } }
 
         public SWIMasterVM(SWIMaster master, bool includeFile = false)
         {

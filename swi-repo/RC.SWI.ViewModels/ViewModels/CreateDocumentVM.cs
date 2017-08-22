@@ -10,5 +10,6 @@ namespace RC.SWI.ViewModels
         public string AppVersion { get; set; }
         public string ClientHash { get; set; }
         public byte[] File { get; set; }
+        public string Message { get; set; }
     }
 }

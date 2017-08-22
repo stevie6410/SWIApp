@@ -14,20 +14,22 @@ namespace RC.SWI.ViewModels
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
         public DocumentVM Document { get; set; }
+        public string SwiFileId { get; set; }
 
         public SWIRevisionVM(SWIRevision revision, bool includeFile = false)
         {
-            if(revision != null)
+            if (revision != null)
             {
 
-            Id = revision.Id;
-            RevisionNumber = revision.RevisionNumber;
-            Released = revision.Released;
-            AppVersion = revision.AppVersion;
-            CreatedOn = revision.CreatedOn;
-            ModifiedOn = revision.ModifiedOn;
-            Document = new DocumentVM(revision.Document, includeFile);
-            IsLatest = revision.SWIMaster.SWIRevisions.Where(rev => rev.RevisionNumber > revision.RevisionNumber).Any() == false;
+                Id = revision.Id;
+                RevisionNumber = revision.RevisionNumber;
+                Released = revision.Released;
+                AppVersion = revision.AppVersion;
+                CreatedOn = revision.CreatedOn;
+                ModifiedOn = revision.ModifiedOn;
+                SwiFileId = revision.SwiFileId;
+                Document = new DocumentVM(revision.Document, includeFile);
+                IsLatest = revision.SWIMaster.SWIRevisions.Where(rev => rev.RevisionNumber > revision.RevisionNumber).Any() == false;
             }
         }
     }
