@@ -5,6 +5,7 @@ import { RepoSearchComponent } from './components/repo-search/repo-search.compon
 import { SharedModule } from "../shared/shared.module";
 import { MomentModule } from "angular2-moment";
 import { SwiLookupControlComponent } from './components/swi-lookup-control/swi-lookup-control.component';
+import { RoundPipe } from "./pipes/round.pipe";
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { SwiLookupControlComponent } from './components/swi-lookup-control/swi-l
   ],
   declarations: [
     RepoSearchComponent,
-    SwiLookupControlComponent
+    SwiLookupControlComponent,
+    RoundPipe
   ]
 })
 export class SwiRepoModule { }

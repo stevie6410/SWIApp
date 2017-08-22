@@ -30,7 +30,7 @@ import {
 } from "./index";
 
 @NgModule({
-  declarations: [],
+  declarations: [ ],
   imports: [
     ModalModule.forRoot(),
     BootstrapModalModule,

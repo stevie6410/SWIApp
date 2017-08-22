@@ -38,11 +38,46 @@
         </h5>
       </div>
 
+
+      <table class="table card-table table-hover">
+        <thead>
+          <tr>
+            <th>SWI #</th>
+            <th>Title</th>
+            <th>SWI Revision</th>
+            <th>Modified On</th>
+            <th>Category</th>
+            <th>Size</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results">
+            <td>
+              <h5><span class="badge badge-pill badge-primary">SWI-{{result.swiNumber}}</span></h5>
+            </td>
+            <td class="swi-title"><strong>{{result.title}}</strong></td>
+            <td>{{result.latestRevision.revisionNumber}}</td>
+            <td>{{result.latestRevision.modifiedOn | amCalendar}}</td>
+            <td><span class="badge badge-default">{{result.type}}</span></td>
+            <td><span class="badge badge-warning">{{result.latestRevision.document.fileSize * 0.000001 | round}} Mb</span></td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary import-btn" *ngIf="!isImporting(result.id) && !isImported(result.latestRevision.swiFileId)"
+                  (click)="importLatestRevision(result)"> <i class="fa fa-arrow-down"></i> Import</button>
+                <button type="button" class="btn btn-warning" *ngIf="isImporting(result.id)"> <i class="fa fa-spinner fa-spin"></i> Importing</button>
+                <button type="button" class="btn btn-success" *ngIf="isImported(result.latestRevision.swiFileId)" disabled> <i class="fa fa-check"></i> Imported</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
       <!--Search Results List-->
       <div class="list-unstyled list-group list-group-flush card-list" *ngIf="!loading">
-        <div *ngFor="let result of results">
+        <!-- <div *ngFor="let result of results">
 
-          <!--Main List Item-->
           <div class="list-group-item media search-result" [ngClass]="{'selected-result': result == selectedResult}" (click)="selectedResult = result">
             <h5><span class="badge badge-pill badge-primary">SWI-{{result.swiNumber}}</span></h5>
             <div class="media-body">
@@ -53,19 +88,21 @@
                 <span class="property min-width-150">{{result.latestRevision.modifiedOn | amCalendar}}</span>
                 <span class="property"><span class="badge badge-default type-prop">{{result.type}}</span></span>
                 <span class="property"><span class="badge badge-default type-prop">SWI Rev: {{result.latestRevision.revisionNumber}}</span></span>
+                <span class="property"><span class="badge badge-warning type-prop">{{result.latestRevision.document.fileSize * 0.000001 | round}} Mb</span></span>
               </div>
 
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-primary" *ngIf="!isImporting(result.id) && !isImported(result.latestRevision.swiFileId)" (click)="importLatestRevision(result)"> <i class="fa fa-arrow-down"></i> Import</button>
+              <button type="button" class="btn btn-primary" *ngIf="!isImporting(result.id) && !isImported(result.latestRevision.swiFileId)"
+                (click)="importLatestRevision(result)"> <i class="fa fa-arrow-down"></i> Import</button>
               <button type="button" class="btn btn-warning" *ngIf="isImporting(result.id)"> <i class="fa fa-spinner fa-spin"></i> Importing</button>
               <button type="button" class="btn btn-success" *ngIf="isImported(result.latestRevision.swiFileId)" disabled> <i class="fa fa-check"></i> Imported</button>
             </div>
 
           </div>
 
-        </div>
+        </div> -->
       </div>
     </swi-card>
 
