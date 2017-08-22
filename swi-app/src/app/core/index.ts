@@ -39,5 +39,7 @@ export * from "./helpers/swi-helper"
 export * from "./guards/auth.guard";
 export * from "./guards/permission.guard";
 
+// Pipes
+
 // Module
 export * from "./core.module"

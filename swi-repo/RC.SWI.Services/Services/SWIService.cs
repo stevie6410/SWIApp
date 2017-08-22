@@ -63,6 +63,10 @@ namespace RC.SWI.Services.Services
             var site = await db.Sites.Where(s => s.AppSecurityCompanyId == user.Company.Id).FirstOrDefaultAsync();
             if (site == null) throw new Exception("Could not find a site matching the users default company in the App Security system");
 
+            //Check that the title does not already exist
+            var hasMatchingTitle = await db.SWIMasters.Where(m => m.Title == createMaster.Title).AnyAsync();
+            if (hasMatchingTitle) throw new Exception("An SWI already has this title in the repository");
+
             // Create SWIMaster 
             var master = new SWIMaster();
             master.Id = Guid.NewGuid();
