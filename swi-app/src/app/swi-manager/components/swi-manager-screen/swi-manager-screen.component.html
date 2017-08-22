@@ -41,21 +41,23 @@
           <tab heading="Summary">
 
             <!-- <swi-card [title]="'Summary'"> -->
-            <div class='card-block' *ngIf="!loadingRepo && !loadingRepoError">
+            <div class='card-block' *ngIf="!loadingRepo">
 
-              <!-- Repo Document Property Labels -->
-              <div class="property-badge-list">
-                <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
-                <span class="badge badge-primary">{{swiMaster?.type}}</span>
-                <span class="badge badge-primary">Current SWI Revision: {{swiMaster?.latestRevision?.revisionNumber}}</span>
+              <div *ngIf="!loadingRepoError">
+                <!-- Repo Document Property Labels -->
+                <div class="property-badge-list">
+                  <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
+                  <span class="badge badge-primary">{{swiMaster?.type}}</span>
+                  <span class="badge badge-primary">Current SWI Revision: {{swiMaster?.latestRevision?.revisionNumber}}</span>
+                </div>
+
+                <br>
+
+                <!-- Repo Document Sync Status Alerts  -->
+                <!-- <div class="alert alert-warning alert-zero-margin" *ngIf="isOutOfSync"><i class="fa fa-warning"></i> Out of sync with the Repository</div>
+                <div class="alert alert-success alert-zero-margin" *ngIf="!isOutOfSync && !this.loadingRepoError"><i class="fa fa-check"></i> In Sync with the Repository - Can be Checked In</div>
+                <div class="alert alert-danger alert-zero-margin" *ngIf="loadingRepoError"><i class="fa fa-warning"></i> Not Linked to Repository</div> -->
               </div>
-
-              <br>
-
-              <!-- Repo Document Sync Status Alerts  -->
-              <div class="alert alert-warning alert-zero-margin" *ngIf="isOutOfSync"><i class="fa fa-warning"></i> Out of sync with the Repository</div>
-              <div class="alert alert-success alert-zero-margin" *ngIf="!isOutOfSync && !this.loadingRepoError"><i class="fa fa-check"></i> In Sync with the Repository - Can be Checked In</div>
-              <div class="alert alert-danger alert-zero-margin" *ngIf="loadingRepoError"><i class="fa fa-warning"></i> Not Linked to Repository</div>
 
               <div *ngIf="isLoggedIn">
                 <div *ngIf="isOutOfSync">
@@ -85,12 +87,12 @@
 
             </div>
 
-            <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
+            <!-- <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
               <h6 *ngIf="loadingRepo">
                 <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
               </h6>
               <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
-            </div>
+            </div> -->
             <!-- </swi-card> -->
 
           </tab>
