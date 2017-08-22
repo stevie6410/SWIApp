@@ -14,13 +14,14 @@
       <div class="col">
         <div class="card-gallery flex-container">
           <div class="card" *ngFor="let swi of localSWIs" (click)="openSWI(swi)">
+            <span class="badge card-badge badge-primary swi-number-badge" *ngIf="swi?.swiMaster?.swiNumber"> <i class="fa fa-document"></i>  SWI-{{swi?.swiMaster?.swiNumber}}</span>
             <swi-img class="card-img-top" [imageKey]="swi.coverImage"></swi-img>
             <div class="card-block">
               <span class="card-title">{{swi.title}}</span>
               <div class="badge-container">
-                <span class="badge badge-primary card-badge">{{swi?.category}}</span>
                 <span class="badge card-badge" [ngClass]="{'badge-success': environment.isCurrentVersion(swi.appVersion), 'badge-warning': !environment.isCurrentVersion(swi.appVersion)}"
                   *ngIf="swi.appVersion"> <i class="fa fa-info-circle"></i>  v{{swi?.appVersion}}</span>
+                <span class="badge badge-primary card-badge">{{swi?.category}}</span>
                 <span class="badge card-badge badge-warning" *ngIf="upgradeRequired(swi)"> <i class="fa fa-warning"></i>  Upgrade Required</span>
               </div>
             </div>

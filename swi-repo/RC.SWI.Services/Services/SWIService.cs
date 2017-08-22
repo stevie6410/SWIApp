@@ -35,7 +35,9 @@ namespace RC.SWI.Services.Services
 
         public async Task<SWIMasterVM> GetMaster(Guid Id)
         {
-            return new SWIMasterVM(await db.SWIMasters.FindAsync(Id));
+            var swiMaster = await db.SWIMasters.FindAsync(Id);
+            if (swiMaster == null) return null;
+            return new SWIMasterVM(swiMaster);
         }
 
         public async Task<List<SWIMasterVM>> SearchMasters(int swiNumber = 0, string title = "")
@@ -67,7 +69,7 @@ namespace RC.SWI.Services.Services
             master.Title = createMaster.Title;
             master.IsPublic = false;
             master.CreatedBy = user.Username;
-            master.CreatedOn = DateTime.Now;
+            master.CreatedOn = DateTime.UtcNow;
             db.SWIMasters.Add(master);
 
             //Create SWIRevision and attach it to the SWIMaster
@@ -76,8 +78,9 @@ namespace RC.SWI.Services.Services
             rev.RevisionNumber = 1;
             rev.Released = false;
             rev.AppVersion = createMaster.AppVersion;
-            rev.CreatedOn = DateTime.Now;
-            rev.ModifiedOn = DateTime.Now;
+            rev.CreatedOn = DateTime.UtcNow;
+            rev.ModifiedOn = DateTime.UtcNow;
+            rev.SwiFileId = createMaster.SWIFileId;
             master.SWIRevisions.Add(rev);
 
             //Create the default site permission for the SWIMaster based on the users default site
@@ -85,7 +88,7 @@ namespace RC.SWI.Services.Services
             permission.Id = Guid.NewGuid();
             permission.Site =  site;
             permission.GrantedBy = master.CreatedBy;
-            permission.GrantedOn = DateTime.Now;
+            permission.GrantedOn = DateTime.UtcNow;
             permission.IsOwner = true;
             permission.CanManage = true;
             permission.CanAuthor = true;
@@ -134,8 +137,9 @@ namespace RC.SWI.Services.Services
             rev.Id = Guid.NewGuid();
             rev.AppVersion = createRev.AppVersion;
             rev.RevisionNumber = master.SWIRevisions.Max(r => r.RevisionNumber) + 1;
-            rev.CreatedOn = DateTime.Now;
-            rev.ModifiedOn = DateTime.Now;
+            rev.CreatedOn = DateTime.UtcNow;
+            rev.ModifiedOn = DateTime.UtcNow;
+            rev.SwiFileId = createRev.SwiFileId;
             rev.Released = false;
 
             //Set the new SWIRevision on the SWIMaster
@@ -177,7 +181,7 @@ namespace RC.SWI.Services.Services
                 //Encode the file as UTF-8 byte array
                 await docService.AttatchFile(revision.Document.Id, swiFile, clientHash);
             }
-            revision.ModifiedOn = DateTime.Now;
+            revision.ModifiedOn = DateTime.UtcNow;
             await db.SaveChangesAsync();
             //Return the latest version of the SWIMaster
             return new SWIMasterVM(await db.SWIMasters.FindAsync(revision.SWIMaster.Id));

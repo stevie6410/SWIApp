@@ -45,8 +45,8 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         public async Task<IHttpActionResult> GetMaster(Guid Id)
         {
             var result = await swiService.GetMaster(Id);
-            if (result == null)
-                return BadRequest("Could not find SWI");
+            //if (result == null)
+            //    return BadRequest("Could not find SWI");
             return Ok(result);
         }
 
@@ -66,7 +66,6 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         /// <returns>SWI Master</returns>
         [HttpPost]
         [Route("master")]
-        [RequiresPermission("CanEditSWI")]
         [ResponseType(typeof(SWIMasterVM))]
         public async Task<IHttpActionResult> CreateMaster(CreateSWIMasterVM createMaster)
         {

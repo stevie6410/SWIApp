@@ -39,5 +39,10 @@
             SWI file converted to a string. Typically generated using JSON.stringify(swi)
             </summary>
         </member>
+        <member name="P:RC.SWI.ViewModels.CreateSWIMasterVM.SWIFileId">
+            <summary>
+            SWI file's ID so that it can be compared to the app catalog before importing
+            </summary>
+        </member>
     </members>
 </doc>

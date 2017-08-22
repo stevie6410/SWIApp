@@ -15,6 +15,7 @@ export class RepoSearchComponent implements OnInit {
   importingSWIs: string[] = [];
   loading = false;
   msg: string[] = [];
+  localSWIKeys: string[] = [];
 
   constructor(
     private repoStore: RepoDocsService,
@@ -30,7 +31,12 @@ export class RepoSearchComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.updateLocalKeys();
+  }
+
+  async updateLocalKeys() {
+    this.localSWIKeys = await this.swiService.getAllKeys();
   }
 
   async search() {
@@ -44,7 +50,7 @@ export class RepoSearchComponent implements OnInit {
    * Import the latest revision of a give SWI Master. Calls the ImportSWI function internally
    * @param swiMaster
    */
-  async importLatest(swiMaster: SWIMaster) {
+  async importLatestRevision(swiMaster: SWIMaster) {
     this.importingSWIs.push(swiMaster.id);
     const maxRev = Math.max(...swiMaster.swiRevisions.map(r => r.revisionNumber));
     const swiRev = swiMaster.swiRevisions.find(r => r.revisionNumber === maxRev);
@@ -63,6 +69,7 @@ export class RepoSearchComponent implements OnInit {
     const swi: SWIHeader = JSON.parse(doc.file.data);
     this.notify("Importing SWI onto device");
     const importResult: boolean = await this.swiImportService.import(swi);
+    await this.updateLocalKeys();
     if (importResult) { this.notify("Imported Succesfully"); }
   }
 
@@ -74,4 +81,9 @@ export class RepoSearchComponent implements OnInit {
     return this.importingSWIs.includes(swiMasterId);
   }
 
+  isImported(swiMasterId: string): boolean {
+    // console.log("swiMasterId", swiMasterId);
+    // console.log("localSWIs", this.localSWIKeys);
+    return this.localSWIKeys.includes(swiMasterId);
+  }
 }

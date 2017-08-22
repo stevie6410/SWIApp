@@ -28,6 +28,12 @@ export class SWIFileService {
     return this.table.toArray();
   }
 
+  async getAllKeys(): Promise<string[]> {
+    const keys = [];
+    await this.table.toCollection().keys(key => key.forEach(k => keys.push(k.toString())));
+    return keys;
+  }
+
   async import(swi: SWIHeader): Promise<SWIHeader> {
     try {
       if (!swi.appVersion) { swi.appVersion = "0.1.0"; }

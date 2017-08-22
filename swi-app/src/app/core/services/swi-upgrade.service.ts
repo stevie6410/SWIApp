@@ -32,20 +32,20 @@ export class SwiUpgradeService {
   }
 
   private taskComplete(swi: SWIHeader, upgrade: UpgradePath): SWIHeader {
-    //If the upgrade version is greater than the current version then bump version    
-    if (semver.gt(upgrade.versionTo, swi.appVersion)) swi.appVersion = upgrade.versionTo;
-    //Add the task to the swi upgrade history
+    // If the upgrade version is greater than the current version then bump version
+    if (semver.gt(upgrade.versionTo, swi.appVersion)) { swi.appVersion = upgrade.versionTo; }
+    // Add the task to the swi upgrade history
     swi.upgradeTasks.push(upgrade.upgradeTask);
     return swi;
   }
 
   private getUpgradePaths(swi: SWIHeader): UpgradePath[] {
-    if (!swi.appVersion) swi.appVersion = "0.0.1";
-    if (!swi.upgradeTasks) swi.upgradeTasks = [];
+    if (!swi.appVersion) { swi.appVersion = "0.0.1"; }
+    if (!swi.upgradeTasks) { swi.upgradeTasks = []; }
     return this.upgradePaths
-      .filter(u => semver.lte(swi.appVersion, u.affectedVersionsTo))      //Get tasks which apply to our version
-      .filter(u => !swi.upgradeTasks.includes(u.upgradeTask))             //Remove any tasks already applied
-      .sort((a, b) => (semver.lte(a.versionTo, b.versionTo)) ? -1 : 1);   //Sort in order of version
+      .filter(u => semver.lte(swi.appVersion, u.affectedVersionsTo))      // Get tasks which apply to our version
+      .filter(u => !swi.upgradeTasks.includes(u.upgradeTask))             // Remove any tasks already applied
+      .sort((a, b) => (semver.lte(a.versionTo, b.versionTo)) ? -1 : 1);   // Sort in order of version
   }
 
   // #############################################################
@@ -54,10 +54,10 @@ export class SwiUpgradeService {
 
   private migrateStagesToGroups(swi: SWIHeader): SWIHeader {
     console.log("Migrating Stages to Group");
-    let newGroup = new SWIStageGroup("Default Group");
+    const newGroup = new SWIStageGroup("Default Group");
     newGroup.stages = JSON.parse(JSON.stringify(swi.swiStages));
     newGroup.tools = JSON.parse(JSON.stringify(swi.swiTools));
-    if (!swi.stageGroups) swi.stageGroups = [];
+    if (!swi.stageGroups) { swi.stageGroups = []; }
     swi.stageGroups.push(newGroup);
     swi.swiStages = null;
     swi.swiTools = null;
@@ -68,7 +68,7 @@ export class SwiUpgradeService {
     console.log("Upgrade Task: Addidng Ids to Stages");
     swi.stageGroups.forEach(group => {
       group.stages.forEach(stage => {
-        if (!stage.id) stage.id = new GUID().value;
+        if (!stage.id) { stage.id = new GUID().value; }
       });
     });
     return swi;
@@ -76,13 +76,13 @@ export class SwiUpgradeService {
 
   private addMissingUpgradeTasksArray(swi: SWIHeader): SWIHeader {
     console.log("Upgrade Task: Add Missing Upgrade Tasks Array");
-    if (!swi.upgradeTasks) swi.upgradeTasks = [];
+    if (!swi.upgradeTasks) { swi.upgradeTasks = []; }
     return swi;
   }
 
   private fixInvalidAppVersion(swi: SWIHeader): SWIHeader {
     console.log("Upgrade Task: Add Missing App Version");
-    if (!semver.valid(swi.appVersion)) swi.appVersion = "0.0.1";
+    if (!semver.valid(swi.appVersion)) { swi.appVersion = "0.0.1"; }
     return swi;
   }
 }

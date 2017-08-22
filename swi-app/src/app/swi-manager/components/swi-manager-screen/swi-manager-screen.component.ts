@@ -70,13 +70,12 @@ export class SwiManagerScreenComponent implements OnInit {
   }
 
   updateDocumentSyncStatus() {
-    if (this.isLoggedIn) {
-
+    if (this.isLoggedIn && this.activeRevision) {
       this.clientHash = this.swi.clientHash;
       this.repoHash = this.activeRevision.document.clientHash;
       this.clientTimestamp = new Date(this.swi.updatedOn).getTime();
       this.repoTimestamp = new Date(this.activeRevision.document.timestamp).getTime();
-      this.isOutOfSync = (this.clientHash != this.repoHash);
+      this.isOutOfSync = (this.clientHash !== this.repoHash);
       if (this.isOutOfSync) {
         // Check to see if the repo or client is ahead
         this.syncLatest = (this.clientTimestamp > this.repoTimestamp) ? "Client" : "Repository";
@@ -147,6 +146,8 @@ export class SwiManagerScreenComponent implements OnInit {
 
   upgradeComplete() {
     this.requiresUpgrade = this.upgradeService.upgradeRequired(this.swi);
+    this.updateRepoData();
+    this.updateDocumentSyncStatus();
   }
 
   recalculateClientHash() {

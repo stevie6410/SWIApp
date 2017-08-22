@@ -39,5 +39,9 @@ namespace RC.SWI.ViewModels
         /// SWI file converted to a string. Typically generated using JSON.stringify(swi)
         /// </summary>
         public string SWIFile { get; set; }
+        /// <summary>
+        /// SWI file's ID so that it can be compared to the app catalog before importing
+        /// </summary>
+        public string SWIFileId { get; set; }
     }
 }
