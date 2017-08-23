@@ -117,3 +117,22 @@ input{
 p-dropdown{
     width: 100%;
 }
+
+.nav-tabs .nav-link {
+  font-size: 15px !important;
+  padding: 10px !important;
+  border: 1px solid #bbb;
+  min-width: 200px;
+  text-align: center;
+}
+
+.tab-content > .tab-pane {
+  border: 1px solid #ececec;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #ddd #ddd #fff;
+  font-weight: 700;
+}

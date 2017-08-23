@@ -16,14 +16,14 @@
 
             <div class="btn-container" data-toggle="buttons">
 
-              <button type="button" (click)="viewSWI()" class="btn btn-lg btn-success"><i class="fa fa-desktop"></i> View</button>
-              <button type="button" (click)="editSWI()" class="btn btn-lg btn-warning" *ngIf="!this.requiresUpgrade"><i class="fa fa-cubes"></i> Edit</button>
-              <button type="button" swiUpgrade (completed)="upgradeComplete()" [swi]="swi" class="btn btn-lg btn-warning" *ngIf="this.requiresUpgrade"><i class="fa fa-arrow-up"></i> Upgrade</button>
+              <button type="button" (click)="viewSWI()" class="btn btn-success"><i class="fa fa-desktop"></i> View</button>
+              <button type="button" (click)="editSWI()" class="btn btn-warning" *ngIf="!this.requiresUpgrade"><i class="fa fa-cubes"></i> Edit</button>
+              <button type="button" swiUpgrade (completed)="upgradeComplete()" [swi]="swi" class="btn btn-warning" *ngIf="this.requiresUpgrade"><i class="fa fa-arrow-up"></i> Upgrade</button>
               <button type="button" swiDuplicateButton [swi]="swi" (started)="duplicatingStatus(true)" (completed)="duplicatingStatus(false)"
-                class="btn btn-lg btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
-              <button type="button" class="btn btn-lg btn-primary" swiExportButton (exportStarted)="exportingStatus(true)" (exportCompelte)="exportingStatus(false)"
+                class="btn btn-primary"><i class="fa fa-copy"></i> Duplicate</button>
+              <button type="button" class="btn btn-primary" swiExportButton (exportStarted)="exportingStatus(true)" (exportCompelte)="exportingStatus(false)"
                 [swi]="this.swi"><i class="fa fa-arrow-down"></i> Export</button>
-              <button type="button" swiDeleteButton [swi]="swi" class="btn btn-lg btn-danger"><i class="fa fa-trash"></i> Delete</button>
+              <button type="button" swiDeleteButton [swi]="swi" class="btn  btn-danger"><i class="fa fa-trash"></i> Delete</button>
 
             </div>
 
@@ -40,15 +40,14 @@
 
           <tab heading="Summary">
 
-            <!-- <swi-card [title]="'Summary'"> -->
             <div class='card-block' *ngIf="!loadingRepo">
 
               <div *ngIf="!loadingRepoError">
                 <!-- Repo Document Property Labels -->
                 <div class="property-badge-list">
-                  <span class="badge badge-primary">SWI-{{swiMaster?.swiNumber}}</span>
-                  <span class="badge badge-primary">{{swiMaster?.type}}</span>
-                  <span class="badge badge-primary">Current SWI Revision: {{swiMaster?.latestRevision?.revisionNumber}}</span>
+                  <span class="badge badge-info">SWI-{{swiMaster?.swiNumber}}</span>
+                  <span class="badge badge-info">{{swiMaster?.type}}</span>
+                  <span class="badge badge-info">Current SWI Revision: {{swiMaster?.latestRevision?.revisionNumber}}</span>
                 </div>
 
                 <br>
@@ -71,14 +70,15 @@
                 </div> -->
 
                 <div *ngIf="loadingRepoError">
-                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary" *ngIf="!isSyncing" (click)="this.syncRepo()"><i class="fa fa-plus"></i> Create SWI in Repository</button>
-                  <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
+                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-success" *ngIf="!isSyncing" (click)="this.syncRepo()"><i class="fa fa-plus"></i> Add to Repository</button>
+                  <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-success btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Adding to Respository</button>
                 </div>
 
                 <div *ngIf="!loadingRepoError">
                   <p><strong>Logged In User: {{this.authService?.loggedInUser?.fullName}}</strong></p>
                   <textarea class="form-control" rows="3" [(ngModel)]="checkInMessage" placeholder="Brief comment on what has changed" style="margin-top: 0px; margin-bottom: 0px; height: 72px;"></textarea>
-                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-warning btn-zero-margin" (click)="checkIn()" *ngIf="!isSyncing"><i class="fa fa-arrow-up"></i> Check In To Repository</button>
+                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-warning btn-zero-margin" (click)="checkIn()"
+                    *ngIf="!isSyncing"><i class="fa fa-arrow-up"></i> Check In To Repository</button>
                   <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-warning btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Checking Into Repository</button>
                 </div>
 

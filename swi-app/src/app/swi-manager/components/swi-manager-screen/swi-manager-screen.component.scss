@@ -11,7 +11,7 @@
     }
 
     .property-badge-list{
-        font-size: 25px;
+        font-size: 18px;
     }
 
     .btn-container{
@@ -19,8 +19,9 @@
         flex-wrap: wrap;
         button{
             height: 75px;
-            width: 180px;
+            width: 144px;
             margin: 5px;
+            font-size: 19px;
         }
     }
 
@@ -28,13 +29,8 @@
       margin-bottom: 0;
     }
 
-    .swi-tabs{
-      .nav-tabs .nav-link {
-          font-size: 15px !important;
-          padding: 20px !important;
-      }
-    }
 
   .cover-image{
     max-width: 300px;
   }
+
