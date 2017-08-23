@@ -60,7 +60,7 @@
               </div>
 
               <div *ngIf="isLoggedIn">
-                <div *ngIf="isOutOfSync">
+                <!-- <div *ngIf="isOutOfSync">
                   <br>
                   <p><strong>Logged In User: {{this.authService?.loggedInUser?.fullName}}</strong></p>
                   <textarea class="form-control" rows="3" [(ngModel)]="syncMessage" placeholder="Brief comment on what has changed since the last sync"
@@ -68,19 +68,18 @@
                   <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="!isSyncing"
                     (click)="this.syncRepo()"><i class="fa fa-refresh"></i> Sync with Repository</button>
                   <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
-                </div>
+                </div> -->
 
                 <div *ngIf="loadingRepoError">
                   <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary" *ngIf="!isSyncing" (click)="this.syncRepo()"><i class="fa fa-plus"></i> Create SWI in Repository</button>
                   <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
                 </div>
 
-                <div *ngIf="!isOutOfSync && !loadingRepoError">
+                <div *ngIf="!loadingRepoError">
                   <p><strong>Logged In User: {{this.authService?.loggedInUser?.fullName}}</strong></p>
                   <textarea class="form-control" rows="3" [(ngModel)]="checkInMessage" placeholder="Brief comment on what has changed" style="margin-top: 0px; margin-bottom: 0px; height: 72px;"></textarea>
-                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" (click)="checkIn()"
-                    *ngIf="!isSyncing"><i class="fa fa-arrow-up"></i> Check In To Repository</button>
-                  <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Checking Into Repository</button>
+                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-warning btn-zero-margin" (click)="checkIn()" *ngIf="!isSyncing"><i class="fa fa-arrow-up"></i> Check In To Repository</button>
+                  <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-warning btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Checking Into Repository</button>
                 </div>
 
               </div>
