@@ -175,7 +175,6 @@ export class SwiManagerScreenComponent implements OnInit {
 
   async checkIn() {
     if (this.isLoggedIn) {
-
       this.modal.confirm()
         .size('lg')
         .isBlocking(true)
@@ -184,30 +183,44 @@ export class SwiManagerScreenComponent implements OnInit {
         .titleHtml('<h5>Check In SWI</h5>')
         .body(`Are you sure you want to check in the SWI and remove from the device?`)
         .okBtn('Check In and Remove From Device')
-        .okBtnClass('btn btn-primary')
+        .okBtnClass('btn btn-warning')
         .cancelBtn('Cancel')
         .cancelBtnClass('btn btn-secondary')
         .open()
         .then(dialogRef => dialogRef.result)
         .then(result => {
-          this.isSyncing = true;
-          // Build th check in request
-          const request = new CheckInRequest();
-          request.docId = this.swiMaster.latestRevision.document.id;
-          request.message = this.checkInMessage;
-          try {
-            this.repoDocs.checkIn(request).then(doc => {
-              this.toast.success("Checked in succesfully");
-              this.router.navigate(['browser']);
-              this.swiFileService.deleteSWI(this.swi.id).then(data => {
-                this.toast.success("Checked into Repository and Deleted");
-              });
-            });
-          } catch (error) {
-            this.loadingRepoError = error;
-          }
+          this.processCheckin()
+            .then(res => console.log("Checked In"))
+            .catch(err => console.log("Error Checking In"));
         })
         .catch(err => console.log('Canceled'));
+    }
+  }
+
+  async processCheckin() {
+    try {
+
+      // Sync the SWI with the Repository
+      if (this.isOutOfSync) { await this.syncRepo(); }
+      this.isSyncing = true;
+
+      // Update the repo data
+      await this.updateRepoData();
+      this.updateDocumentSyncStatus();
+
+      // Check in the document
+      await this.repoDocs.checkIn({
+        docId: this.swiMaster.latestRevision.document.id,
+        message: this.checkInMessage
+      });
+      // Delete the SWI from local storage
+      await this.swiFileService.deleteSWI(this.swi.id);
+      this.isSyncing = false;
+      // Navigate back to the home screen
+      this.router.navigate(['browser']);
+      this.toast.success("Checked into Respository Succesfully");
+    } catch (error) {
+      console.log(error);
     }
   }
 }
