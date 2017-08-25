@@ -84,6 +84,7 @@
     <Compile Include="Services\DocumentService.cs" />
     <Compile Include="Interfaces\IDocumentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DocumentWatcherService.cs" />
     <Compile Include="Services\StandardToolingService.cs" />
     <Compile Include="Services\SWIService.cs" />
   </ItemGroup>

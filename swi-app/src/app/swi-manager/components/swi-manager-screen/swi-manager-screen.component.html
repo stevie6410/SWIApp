@@ -37,11 +37,8 @@
         </swi-card>
 
         <tabset class="swi-tabs">
-
           <tab heading="Summary">
-
             <div class='card-block' *ngIf="!loadingRepo">
-
               <div *ngIf="!loadingRepoError">
                 <!-- Repo Document Property Labels -->
                 <div class="property-badge-list">
@@ -49,26 +46,10 @@
                   <span class="badge badge-info">{{swiMaster?.type}}</span>
                   <span class="badge badge-info">Current SWI Revision: {{swiMaster?.latestRevision?.revisionNumber}}</span>
                 </div>
-
                 <br>
-
-                <!-- Repo Document Sync Status Alerts  -->
-                <!-- <div class="alert alert-warning alert-zero-margin" *ngIf="isOutOfSync"><i class="fa fa-warning"></i> Out of sync with the Repository</div>
-                <div class="alert alert-success alert-zero-margin" *ngIf="!isOutOfSync && !this.loadingRepoError"><i class="fa fa-check"></i> In Sync with the Repository - Can be Checked In</div>
-                <div class="alert alert-danger alert-zero-margin" *ngIf="loadingRepoError"><i class="fa fa-warning"></i> Not Linked to Repository</div> -->
               </div>
 
               <div *ngIf="isLoggedIn">
-                <!-- <div *ngIf="isOutOfSync">
-                  <br>
-                  <p><strong>Logged In User: {{this.authService?.loggedInUser?.fullName}}</strong></p>
-                  <textarea class="form-control" rows="3" [(ngModel)]="syncMessage" placeholder="Brief comment on what has changed since the last sync"
-                    style="margin-top: 0px; margin-bottom: 0px; height: 72px;"></textarea>
-                  <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="!isSyncing"
-                    (click)="this.syncRepo()"><i class="fa fa-refresh"></i> Sync with Repository</button>
-                  <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-primary btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Syncing</button>
-                </div> -->
-
                 <div *ngIf="loadingRepoError">
                   <button type="button" [disabled]="loadingRepo" class="btn btn-lg btn-block btn-success" *ngIf="!isSyncing" (click)="this.syncRepo()"><i class="fa fa-plus"></i> Add to Repository</button>
                   <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-success btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Adding to Respository</button>
@@ -81,23 +62,12 @@
                     *ngIf="!isSyncing"><i class="fa fa-arrow-up"></i> Check In To Repository</button>
                   <button type="button" [disabled]="true" class="btn btn-lg btn-block btn-warning btn-zero-margin" *ngIf="isSyncing"><i class="fa fa-refresh fa-spin" [ngClass]="{'fa-spin': 'isSyncing'}"></i> Checking Into Repository</button>
                 </div>
-
               </div>
-
             </div>
-
-            <!-- <div class='card-block' *ngIf="loadingRepo || loadingRepoError">
-              <h6 *ngIf="loadingRepo">
-                <span class="fa fa-spinner fa-spin"></span> Loading Repo data...
-              </h6>
-              <h6 *ngIf="loadingRepoError">{{loadingRepoError}}</h6>
-            </div> -->
-            <!-- </swi-card> -->
 
           </tab>
 
           <tab heading="Revisions">
-            <!-- <swi-card [title]="'Revisions'" *ngIf="!loadingRepoError"> -->
             <table class="table table-sm table-striped table-hover card-table" *ngIf="swiMaster && !loadingRepoError">
               <thead>
                 <tr>
@@ -116,12 +86,9 @@
                 </tr>
               </tbody>
             </table>
-            <!-- </swi-card> -->
           </tab>
 
           <tab heading="Document Changes">
-
-            <!-- <swi-card [title]="'Document Changes'" *ngIf="!loadingRepoError"> -->
             <table class="table table-sm table-striped table-hover card-table" *ngIf="swiMaster && !loadingRepoError">
               <thead>
                 <tr>
@@ -133,30 +100,26 @@
               </thead>
               <tbody>
                 <tr *ngFor="let c of swiMaster?.latestRevision?.document?.documentChanges">
-                  <td>{{c.changedOn | amCalendar}}</td>
+                  <td>{{c.changedOn | amLocale:'en-GB' | amDateFormat:'MMMM Do YYYY, h:mm:ss a' }}</td>
+                  <td>{{c.changedOn}}</td>
                   <td>{{c.changedBy}}</td>
                   <td>{{(c.changeOperation == 'Attach File') ? 'Sync' : c.changeOperation}}</td>
                   <td><strong>{{c.changeNotes}} </strong></td>
                 </tr>
               </tbody>
             </table>
-            <!-- </swi-card> -->
           </tab>
-
         </tabset>
-
       </div>
 
       <div class="col-md-4">
-
         <swi-card [title]="'SWI Overview'">
           <div class="card-block">
             <swi-img [imageKey]="swi.coverImage" [border]="true" width="100%" class="cover-image"></swi-img>
           </div>
         </swi-card>
-
-
       </div>
+
     </div>
   </div>
 </app-page>

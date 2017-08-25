@@ -51,6 +51,10 @@ namespace RC.SWI.Entities
         /// </summary>
         public virtual System.Collections.Generic.ICollection<DocumentPartLink> DocumentPartLinks { get; set; } // DocumentPartLinks.FK_PartLinks_Docs
         /// <summary>
+        /// Child DocumentWatchers where [DocumentWatchers].[DocumentId] point to this entity (FK_DocumentWatchers_Documents)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<DocumentWatcher> DocumentWatchers { get; set; } // DocumentWatchers.FK_DocumentWatchers_Documents
+        /// <summary>
         /// Child SWIRevisions where [SWIRevisions].[DocumentId] point to this entity (FK_SWIRevisions_Documents)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<SWIRevision> SWIRevisions { get; set; } // SWIRevisions.FK_SWIRevisions_Documents
@@ -73,6 +77,7 @@ namespace RC.SWI.Entities
             DocumentAd = new System.Collections.Generic.List<DocumentLink>();
             DocumentB = new System.Collections.Generic.List<DocumentLink>();
             DocumentPartLinks = new System.Collections.Generic.List<DocumentPartLink>();
+            DocumentWatchers = new System.Collections.Generic.List<DocumentWatcher>();
             SWIRevisions = new System.Collections.Generic.List<SWIRevision>();
             InitializePartial();
         }

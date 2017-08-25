@@ -144,6 +144,12 @@
     <Compile Include="DocumentTypeConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
+    <Compile Include="DocumentWatcher.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentWatcherConfiguration.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
     <Compile Include="ErpSystem.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
@@ -157,6 +163,12 @@
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="ISWIRepository.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification.cs">
+      <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationConfiguration.cs">
       <DependentUpon>SWIRepositoryBuilder.tt</DependentUpon>
     </Compile>
     <Compile Include="Site.cs">
@@ -233,9 +245,7 @@
       <LastGenOutput>SWIRepositoryBuilder.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

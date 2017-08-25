@@ -33,8 +33,10 @@ namespace RC.SWI.Entities
         System.Data.Entity.DbSet<DocumentLink> DocumentLinks { get; set; } // DocumentLinks
         System.Data.Entity.DbSet<DocumentPartLink> DocumentPartLinks { get; set; } // DocumentPartLinks
         System.Data.Entity.DbSet<DocumentType> DocumentTypes { get; set; } // DocumentTypes
+        System.Data.Entity.DbSet<DocumentWatcher> DocumentWatchers { get; set; } // DocumentWatchers
         System.Data.Entity.DbSet<ErpSystem> ErpSystems { get; set; } // ErpSystem
         System.Data.Entity.DbSet<HealthAndSafetyIcon> HealthAndSafetyIcons { get; set; } // HealthAndSafetyIcon
+        System.Data.Entity.DbSet<Notification> Notifications { get; set; } // Notifications
         System.Data.Entity.DbSet<Site> Sites { get; set; } // Sites
         System.Data.Entity.DbSet<StandardTool> StandardTools { get; set; } // StandardTools
         System.Data.Entity.DbSet<SWIMaster> SWIMasters { get; set; } // SWIMasters

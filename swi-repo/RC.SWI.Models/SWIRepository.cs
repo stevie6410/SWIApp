@@ -34,8 +34,10 @@ namespace RC.SWI.Entities
         public System.Data.Entity.DbSet<DocumentLink> DocumentLinks { get; set; } // DocumentLinks
         public System.Data.Entity.DbSet<DocumentPartLink> DocumentPartLinks { get; set; } // DocumentPartLinks
         public System.Data.Entity.DbSet<DocumentType> DocumentTypes { get; set; } // DocumentTypes
+        public System.Data.Entity.DbSet<DocumentWatcher> DocumentWatchers { get; set; } // DocumentWatchers
         public System.Data.Entity.DbSet<ErpSystem> ErpSystems { get; set; } // ErpSystem
         public System.Data.Entity.DbSet<HealthAndSafetyIcon> HealthAndSafetyIcons { get; set; } // HealthAndSafetyIcon
+        public System.Data.Entity.DbSet<Notification> Notifications { get; set; } // Notifications
         public System.Data.Entity.DbSet<Site> Sites { get; set; } // Sites
         public System.Data.Entity.DbSet<StandardTool> StandardTools { get; set; } // StandardTools
         public System.Data.Entity.DbSet<SWIMaster> SWIMasters { get; set; } // SWIMasters
@@ -113,8 +115,10 @@ namespace RC.SWI.Entities
             modelBuilder.Configurations.Add(new DocumentLinkConfiguration());
             modelBuilder.Configurations.Add(new DocumentPartLinkConfiguration());
             modelBuilder.Configurations.Add(new DocumentTypeConfiguration());
+            modelBuilder.Configurations.Add(new DocumentWatcherConfiguration());
             modelBuilder.Configurations.Add(new ErpSystemConfiguration());
             modelBuilder.Configurations.Add(new HealthAndSafetyIconConfiguration());
+            modelBuilder.Configurations.Add(new NotificationConfiguration());
             modelBuilder.Configurations.Add(new SiteConfiguration());
             modelBuilder.Configurations.Add(new StandardToolConfiguration());
             modelBuilder.Configurations.Add(new SWIMasterConfiguration());
@@ -144,8 +148,10 @@ namespace RC.SWI.Entities
             modelBuilder.Configurations.Add(new DocumentLinkConfiguration(schema));
             modelBuilder.Configurations.Add(new DocumentPartLinkConfiguration(schema));
             modelBuilder.Configurations.Add(new DocumentTypeConfiguration(schema));
+            modelBuilder.Configurations.Add(new DocumentWatcherConfiguration(schema));
             modelBuilder.Configurations.Add(new ErpSystemConfiguration(schema));
             modelBuilder.Configurations.Add(new HealthAndSafetyIconConfiguration(schema));
+            modelBuilder.Configurations.Add(new NotificationConfiguration(schema));
             modelBuilder.Configurations.Add(new SiteConfiguration(schema));
             modelBuilder.Configurations.Add(new StandardToolConfiguration(schema));
             modelBuilder.Configurations.Add(new SWIMasterConfiguration(schema));
