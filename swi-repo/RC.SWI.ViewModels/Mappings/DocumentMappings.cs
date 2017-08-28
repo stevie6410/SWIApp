@@ -1,16 +1,12 @@
-﻿using RC.SWI.Common.ExtMethods;
-using RC.SWI.Entities;
+﻿using RC.SWI.Entities;
 using RC.SWI.ViewModels.Interfaces;
 using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RC.SWI.ViewModels.Mappings
 {
     public static class DocumentMappings
     {
-        public static Document ToDocument(this IDocuemntUpdateVM docUpdate)
+        public static Document ToDocument(this IDocuemntUpdateVm docUpdate)
         {
             var doc = new Document();
             doc.Name = docUpdate.Name;

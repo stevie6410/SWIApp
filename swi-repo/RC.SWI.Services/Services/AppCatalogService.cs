@@ -1,45 +1,42 @@
-﻿using RC.SWI.Entities;
-using RC.SWI.ViewModels;
-using RC.SWI.ViewModels.ViewModels;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using RC.SWI.Entities;
+using RC.SWI.Services.Interfaces;
+using RC.SWI.Common.DTO;
 
-namespace RC.SWI.Services.Services
+namespace RC.SWI.Services
 {
-    public class AppCatalogService
+    public abstract class AppCatalogService : IAppCatalogService
     {
-        private readonly SWIRepository db;
+        private readonly SWIRepository _db;
 
-        public AppCatalogService()
+        protected AppCatalogService()
         {
-            db = new SWIRepository();
+            _db = new SWIRepository();
         }
 
-        public async Task<AppCatalogVM> Get()
+        public async Task<AppCatalogDTO> Get()
         {
-            var appConfig = db.AppConfigurations.Where(x => x.IsGlobal == true).FirstOrDefault();
-            if(appConfig == null)
+            var appConfig = _db.AppConfigurations.FirstOrDefault(x => x.IsGlobal);
+            if (appConfig == null) return null;
+            var catalog = new AppCatalogDTO
             {
-                return null;
-            }
-
-
-            var catalog = new AppCatalogVM();
-            catalog.Id = appConfig.Id;
-            catalog.RepositoryUrl = appConfig.AppSettings.Where(p => p.Name == "RepositoryURL").FirstOrDefault().Value;
-            catalog.HSIcons = appConfig.HealthAndSafetyIcons.Select(hs => new HSIconVM(hs)).ToList();
-            catalog.Sites = (await db.Sites.ToListAsync()).Select(s => new SiteVM(s)).ToList();
-            catalog.Categories = (await db.SWITypes.ToListAsync()).Select(t => new SWITypeVM(t)).ToList();
-            catalog.Version = appConfig.Version;
-            catalog.Settings = (await db.AppSettings.ToListAsync()).Select(s => new SettingVM(s)).ToList();
+                Id = appConfig.Id,
+                RepositoryUrl = appConfig.AppSettings.FirstOrDefault(p => p.Name == "RepositoryURL")?.Value,
+                HSIcons = appConfig.HealthAndSafetyIcons.Select(hs => new HSIconDTO(hs)).ToList(),
+                Sites = (await _db.Sites.ToListAsync()).Select(s => new SiteDTO(s)).ToList(),
+                Categories = (await _db.SWITypes.ToListAsync()).Select(t => new SWITypeDTO(t)).ToList(),
+                Version = appConfig.Version,
+                Settings = (await _db.AppSettings.ToListAsync()).Select(s => new SettingDTO(s)).ToList()
+            };
             return catalog;
         }
 
         public async Task<bool> CheckVersion(int currentVersion)
         {
-            var appConfig = await db.AppConfigurations.Where(a => a.IsGlobal == true).FirstAsync();
-            return (appConfig.Version == currentVersion);    
+            var appConfig = await _db.AppConfigurations.Where(a => a.IsGlobal).FirstAsync();
+            return appConfig.Version == currentVersion;
         }
     }
 }

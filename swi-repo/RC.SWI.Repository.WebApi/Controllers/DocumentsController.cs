@@ -1,33 +1,34 @@
-﻿using RC.SWI.Repository.WebApi.Helpers;
-using RC.SWI.Repository.WebAPI.Filters;
-using RC.SWI.Services;
-using RC.SWI.ViewModels;
-using RC.SWI.ViewModels.ViewModels;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using RC.SWI.Repository.WebApi.Helpers;
+using RC.SWI.Repository.WebAPI.Filters;
+using RC.SWI.Services;
+using RC.SWI.Services.Interfaces;
+using RC.SWI.ViewModels;
+using RC.SWI.ViewModels.ViewModels;
 
-namespace RC.SWI.Repository.Services.Web.Controllers
+namespace RC.SWI.Repository.WebApi.Controllers
 {
     [RoutePrefix("api/v1/documents")]
     [RequiresPermission("CanCreateSWI")]
     public class DocumentsController : ApiController
     {
-        private readonly DocumentService docService;
+        private readonly IDocumentService _docService;
 
-        public DocumentsController()
+        public DocumentsController(IDocumentService docService)
         {
             //Call the concrete class for now. Need to wire up DI eventually
-            docService = new DocumentService();
+            _docService = docService;
         }
 
         [HttpGet]
         public async Task<IHttpActionResult> Get()
         {
-            var result = await docService.All();
+            var result = await _docService.All();
             if (result == null)
                 return NotFound();
             return Ok(result);
@@ -37,7 +38,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("{id:int}")]
         public async Task<IHttpActionResult> Get(int id)
         {
-            var result = await docService.Get(id);
+            var result = await _docService.Get(id);
 
             if (result == null)
             {
@@ -52,7 +53,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         {
             try
             {
-                var result = await docService.Create(document);
+                var result = await _docService.Create(document);
                 if (result == null)
                     return BadRequest("Could not create document");
 
@@ -69,7 +70,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("{id:int}/checkout")]
         public async Task<IHttpActionResult> CheckOut(int id)
         {
-            var result = await docService.CheckOut(id, Request.GetUsername());
+            var result = await _docService.CheckOut(id, Request.GetUsername());
             if (result == null) return BadRequest("Could not be checked out");
             return Ok(result);
         }
@@ -78,7 +79,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("{id:int}/checkin")]
         public async Task<IHttpActionResult> CheckIn([FromBody] CheckInRequest request)
         {
-            var result = await docService.CheckIn(request, Request.GetUsername());
+            var result = await _docService.CheckIn(request, Request.GetUsername());
             if (result == null) return BadRequest("Could not be checked in");
             return Ok(result);
         }
@@ -90,7 +91,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
             using (StreamReader sr = new StreamReader(await Request.Content.ReadAsStreamAsync(), Encoding.UTF8))
             {
                 var fileBinary = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync());
-                var result = await docService.AttatchFile(id, fileBinary, Request.GetUsername(), null, message);
+                var result = await _docService.AttatchFile(id, fileBinary, Request.GetUsername(), null, message);
                 return Ok(result);
             }
         }
@@ -104,7 +105,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
                 if (partLink == null)
                     return BadRequest("Part link request is invalid");
 
-                var result = await this.docService.LinkToPart(id, partLink, Request.GetUsername());
+                var result = await this._docService.LinkToPart(id, partLink, Request.GetUsername());
 
                 return Ok(result);
             }

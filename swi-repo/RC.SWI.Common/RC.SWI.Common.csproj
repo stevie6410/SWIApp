@@ -41,8 +41,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AppCatalogDTO.cs" />
+    <Compile Include="DTO\CheckInRequestDTO.cs" />
+    <Compile Include="DTO\CreateDocumentDTO.cs" />
+    <Compile Include="DTO\CreateDocumentWatcherRequestDTO.cs" />
+    <Compile Include="DTO\CreateStandardToolDTO.cs" />
+    <Compile Include="DTO\DocumentUpdateDTO.cs" />
+    <Compile Include="ExtMethods\DocumentExtMethods.cs" />
+    <Compile Include="ExtMethods\StandardToolExtMethods.cs" />
+    <Compile Include="DTO\CreateSWIMasterDTO.cs" />
+    <Compile Include="DTO\CreateSWIRevisionDTO.cs" />
+    <Compile Include="DTO\DocumentChangeDTO.cs" />
+    <Compile Include="DTO\DocumentPartLinkDTO.cs" />
+    <Compile Include="DTO\DocumentSimpleDTO.cs" />
+    <Compile Include="DTO\DocumentDTO.cs" />
+    <Compile Include="DTO\DocumentWatcherDTO.cs" />
+    <Compile Include="DTO\FileDTO.cs" />
+    <Compile Include="DTO\HSIconDTO.cs" />
+    <Compile Include="DTO\NotificationRequestDTO.cs" />
+    <Compile Include="DTO\NotificationDTO.cs" />
+    <Compile Include="DTO\SettingDTO.cs" />
+    <Compile Include="DTO\SiteDTO.cs" />
+    <Compile Include="DTO\StandardToolDTO.cs" />
+    <Compile Include="DTO\SWIMasterSitePermissionDTO.cs" />
+    <Compile Include="DTO\SWIMasterDTO.cs" />
+    <Compile Include="DTO\SWIRevisionDTO.cs" />
+    <Compile Include="DTO\SWITypeDTO.cs" />
     <Compile Include="ExtMethods\ExtentionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RC.SWI.Models\RC.SWI.Entities.csproj">
+      <Project>{1F7D08DD-E468-4681-BB60-9973E41184E0}</Project>
+      <Name>RC.SWI.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

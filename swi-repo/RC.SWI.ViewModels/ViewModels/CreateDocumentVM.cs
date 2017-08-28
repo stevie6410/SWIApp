@@ -2,7 +2,7 @@
 
 namespace RC.SWI.ViewModels
 {
-    public class CreateDocumentVM : IDocuemntUpdateVM
+    public class CreateDocumentVM : IDocuemntUpdateVm
     {
         public string Name { get; set; }
         public string Username { get; set; }

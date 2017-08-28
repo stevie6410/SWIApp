@@ -7,13 +7,13 @@ namespace RC.SWI.ViewModels
 {
     public class SWIMasterVM
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public int SWINumber { get; set; }
-        public bool IsPublic { get; set; }
+        public Guid Id { get; }
+        public string Title { get; }
+        public int SWINumber { get; }
+        public bool IsPublic { get; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-        public string Type { get; set; }
+        public string Type { get; }
         public List<SWIRevisionVM> SWIRevisions { get; set; }
         public List<SWIMasterSitePermissionVM> SitePermissions { get; set; }
         public SWIRevisionVM LatestRevision { get { return SWIRevisions.OrderByDescending(r => r.RevisionNumber).Take(1).ToList().FirstOrDefault(); } }

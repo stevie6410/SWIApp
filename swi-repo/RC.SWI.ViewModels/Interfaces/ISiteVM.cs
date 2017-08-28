@@ -1,6 +1,6 @@
 ﻿namespace RC.SWI.ViewModels.Interfaces
 {
-    public interface ISiteVM
+    public interface ISiteVm
     {
         string Description { get; set; }
         int Id { get; set; }

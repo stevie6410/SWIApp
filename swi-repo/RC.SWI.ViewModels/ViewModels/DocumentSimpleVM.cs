@@ -1,10 +1,5 @@
 ﻿using RC.SWI.Entities;
-using RC.SWI.ViewModels.Interfaces;
-using RC.SWI.ViewModels.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RC.SWI.ViewModels
 {

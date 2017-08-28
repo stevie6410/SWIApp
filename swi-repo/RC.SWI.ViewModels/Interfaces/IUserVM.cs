@@ -1,14 +1,12 @@
-﻿using RC.SWI.ViewModels.Interfaces;
-
-namespace RC.SWI.ViewModels
+﻿namespace RC.SWI.ViewModels.Interfaces
 {
-    public interface IUserVM
+    public interface IUserVm
     {
         string FirstName { get; set; }
         string FullName { get; }
         int Id { get; set; }
         string LastName { get; set; }
-        ISiteVM DefaultSite { get; set; }
+        ISiteVm DefaultSite { get; set; }
         string Username { get; set; }
     }
 }

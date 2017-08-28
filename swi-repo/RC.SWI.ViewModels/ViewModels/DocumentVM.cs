@@ -9,7 +9,7 @@ using System.Text;
 
 namespace RC.SWI.ViewModels
 {
-    public class DocumentVM: IDocumentVM
+    public class DocumentVM: IDocumentVm
     {
         public int Id { get; set; }
         public string Name { get; set; }

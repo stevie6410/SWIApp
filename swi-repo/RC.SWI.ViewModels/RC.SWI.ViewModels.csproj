@@ -62,8 +62,12 @@
     <Compile Include="Interfaces\IDocuemntUpdateVM.cs" />
     <Compile Include="Interfaces\ISiteVM.cs" />
     <Compile Include="Interfaces\IUserVM.cs" />
+    <Compile Include="ViewModels\CreateDocumentWatcherRequest.cs" />
+    <Compile Include="ViewModels\DocumentWatcherVM.cs" />
     <Compile Include="ViewModels\FileVM.cs" />
     <Compile Include="ViewModels\HSIconVM.cs" />
+    <Compile Include="ViewModels\IAppCatalogVM.cs" />
+    <Compile Include="ViewModels\NotificationRequest.cs" />
     <Compile Include="ViewModels\NotificationVM.cs" />
     <Compile Include="ViewModels\SettingVM.cs" />
     <Compile Include="ViewModels\SiteVM.cs" />

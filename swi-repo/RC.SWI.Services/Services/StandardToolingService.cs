@@ -1,111 +1,89 @@
-﻿using RC.SWI.Entities;
-using RC.SWI.ViewModels;
-using RC.SWI.ViewModels.ViewModels;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using RC.SWI.Common.DTO;
+using RC.SWI.Entities;
+using RC.SWI.Services.Interfaces;
 
-namespace RC.SWI.Services.Services
+namespace RC.SWI.Services
 {
-    public class StandardToolingService
+    public class StandardToolingService : IStandardToolingService
     {
-        private readonly SWIRepository db;
+        private readonly SWIRepository _db;
 
         public StandardToolingService()
         {
-            db = new SWIRepository();
+            _db = new SWIRepository();
         }
 
-        public async Task<IList<StandardToolVM>> Get()
-        {
-            var result = await db.StandardTools.ToListAsync();
-            if (result == null) return null;
-            return result.Select(t => new StandardToolVM(t)).ToList();
-        }
+        public async Task<IList<StandardToolDTO>> Get() => (await _db.StandardTools.ToListAsync()).Select(t => new StandardToolDTO(t)).ToList();
 
-        public async Task<StandardToolVM> Get(int id)
-        {
-            var result = await db.StandardTools.FindAsync(id);
-            if (result == null) return null;
-            return new StandardToolVM(result);
-        }
+        public async Task<StandardToolDTO> Get(int id) => new StandardToolDTO(await _db.StandardTools.FindAsync(id));
 
-        public async Task<IList<StandardToolVM>> Search(string term = "", string toolNumber = "", string hasCarePoint = "", string hasLinkedSWI = "")
+        public async Task<IList<StandardToolDTO>> Search(string term = "", string toolNumber = "", string hasCarePoint = "", string hasLinkedSwi = "")
         {
-            try
+            var query = _db.StandardTools.AsQueryable();
+
+            if (term != string.Empty) query = query.Where(t => t.Name.Contains(term));
+
+            if (toolNumber != string.Empty)
             {
-                var query = db.StandardTools.AsQueryable();
-
-                if (term != string.Empty)
-                    query = query.Where(t => t.Name.Contains(term));
-
-                if (toolNumber != string.Empty)
-                {
-                    int number = int.Parse(toolNumber);
-                    query = query.Where(t => t.Id == number);
-                }
-
-                if (hasCarePoint != string.Empty)
-                {
-                    bool carePoint = bool.Parse(hasCarePoint);
-                    query = query.Where(t => t.HasCarePoint == carePoint);
-                }
-
-                if (hasLinkedSWI != string.Empty)
-                {
-                    bool linkedSWI = bool.Parse(hasLinkedSWI);
-                    query = query.Where(t => (t.SWIMaster != null) == linkedSWI);
-                }
-
-                var queryResults = await query.ToListAsync();
-                var results = queryResults.Select(r => new StandardToolVM(r)).ToList();
-                return results;                
+                var number = int.Parse(toolNumber);
+                query = query.Where(t => t.Id == number);
             }
-            catch (Exception)
+
+            if (hasCarePoint != string.Empty)
             {
-
-                throw;
+                var carePoint = bool.Parse(hasCarePoint);
+                query = query.Where(t => t.HasCarePoint == carePoint);
             }
+
+            if (hasLinkedSwi != string.Empty)
+            {
+                var linkedSwi = bool.Parse(hasLinkedSwi);
+                query = query.Where(t => t.SWIMaster != null == linkedSwi);
+            }
+
+            var queryResults = await query.ToListAsync();
+            var results = queryResults.Select(r => new StandardToolDTO(r)).ToList();
+            return results;
         }
 
-        public async Task<StandardToolVM> Create(CreateStandardToolVM tool)
+        public async Task<StandardToolDTO> Create(CreateStandardToolDTO tool)
         {
             try
             {
                 //Map the CreateToolVM to Standard Entity Model
                 var standardTool = tool.ToStandardTool();
-                var result = db.StandardTools.Add(standardTool);
+                var result = _db.StandardTools.Add(standardTool);
 
                 //Set the SWIMaster manualy based on the Id
-                var master = await db.SWIMasters.FindAsync(result.SWIMasterId);
+                var master = await _db.SWIMasters.FindAsync(result.SWIMasterId);
                 if (master != null) result.SWIMaster = master;
-                await db.SaveChangesAsync();
-                return new StandardToolVM(result);
+                await _db.SaveChangesAsync();
+                return new StandardToolDTO(result);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Debug.WriteLine(ex);
                 return null;
             }
         }
 
-        public async Task<StandardToolVM> Update(StandardToolVM toolVM)
+        public async Task<StandardToolDTO> Update(StandardToolDTO toolVm)
         {
             try
             {
-                var tool = toolVM.ToStandardTool();
-                var entity = db.Entry(tool);
+                var tool = toolVm.ToStandardTool();
+                var entity = _db.Entry(tool);
                 entity.State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
                 //Refetch the record to maintain relationships in the return object
-                var result = await db.StandardTools.Include(t => t.SWIMaster).Where(t => t.Id == entity.Entity.Id).FirstOrDefaultAsync();
-                return new StandardToolVM(result);
+                var result = await _db.StandardTools.Include(t => t.SWIMaster).Where(t => t.Id == entity.Entity.Id)
+                    .FirstOrDefaultAsync();
+                return new StandardToolDTO(result);
             }
             catch (Exception ex)
             {
@@ -118,9 +96,9 @@ namespace RC.SWI.Services.Services
         {
             try
             {
-                var tool = await db.StandardTools.FindAsync(id);
-                db.StandardTools.Remove(tool);
-                await db.SaveChangesAsync();
+                var tool = await _db.StandardTools.FindAsync(id);
+                if (tool != null) _db.StandardTools.Remove(tool);
+                await _db.SaveChangesAsync();
                 return true;
             }
             catch (Exception)

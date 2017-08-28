@@ -1,24 +1,25 @@
-﻿using RC.SWI.Services.Services;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
+using RC.SWI.Services;
+using RC.SWI.Services.Interfaces;
 
-namespace RC.SWI.Repository.Services.Web.Controllers
+namespace RC.SWI.Repository.WebApi.Controllers
 {
     [RoutePrefix("api/v1/appcatalog")]
     public class AppCatalogController : ApiController
     {
-        private readonly AppCatalogService appCatalog;
+        private readonly IAppCatalogService _appCatalog;
 
-        public AppCatalogController()
+        public AppCatalogController(IAppCatalogService appCatalogService)
         {
-            appCatalog = new AppCatalogService();
+            _appCatalog = appCatalogService;
         }
 
         [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> GetAppCatalog()
         {
-            var result = await appCatalog.Get();
+            var result = await _appCatalog.Get();
             if (result == null)
                 return BadRequest("Could not get app catalog");
 
@@ -29,7 +30,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("checkversion/{currentVersion:int}")]
         public async Task<IHttpActionResult> CheckVersion(int currentVersion)
         {
-            var result = await appCatalog.CheckVersion(currentVersion);
+            var result = await _appCatalog.CheckVersion(currentVersion);
             return Ok(result);
         }
 

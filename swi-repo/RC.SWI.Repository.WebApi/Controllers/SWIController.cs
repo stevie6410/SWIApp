@@ -1,25 +1,26 @@
-﻿using RC.SWI.Repository.WebApi.Helpers;
-using RC.SWI.Repository.WebAPI.Filters;
-using RC.SWI.Services.Services;
-using RC.SWI.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using RC.SWI.Repository.WebApi.Helpers;
+using RC.SWI.Repository.WebAPI.Filters;
+using RC.SWI.Services;
+using RC.SWI.Services.Interfaces;
+using RC.SWI.ViewModels;
 
-namespace RC.SWI.Repository.Services.Web.Controllers
+namespace RC.SWI.Repository.WebApi.Controllers
 {
     [RoutePrefix("api/v1/swi")]
-    public class SWIController : ApiController
+    public class SwiController : ApiController
     {
-        private readonly SWIService swiService;
+        private readonly ISwiService _swiService;
         
-        public SWIController()
+        public SwiController(ISwiService swiService)
         {
-            swiService = new SWIService();
+            _swiService = swiService;
         }
 
         /// <summary>
@@ -30,7 +31,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("master")]
         public async Task<IHttpActionResult> GetMasters()
         {
-            var result = await swiService.GetMasters();
+            var result = await _swiService.GetMasters();
             //throw new Exception("Steve Test Exception");
             return Ok(result);
         }
@@ -38,13 +39,13 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         /// <summary>
         /// Gets a single SWI Master record from the repository
         /// </summary>
-        /// <param name="Id">The SWI Master ID</param>
+        /// <param name="id">The SWI Master ID</param>
         [HttpGet]
         [ResponseType(typeof(SWIMasterVM))]
         [Route("master/{id:Guid}")]
-        public async Task<IHttpActionResult> GetMaster(Guid Id)
+        public async Task<IHttpActionResult> GetMaster(Guid id)
         {
-            var result = await swiService.GetMaster(Id);
+            var result = await _swiService.GetMaster(id);
             //if (result == null)
             //    return BadRequest("Could not find SWI");
             return Ok(result);
@@ -55,7 +56,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("master/search")]
         public async Task<IHttpActionResult> SearchMasters([FromUri] int swiNumber = 0, [FromUri] string title = "")
         {
-            var result = await swiService.SearchMasters(swiNumber, title);
+            var result = await _swiService.SearchMasters(swiNumber, title);
             return Ok(result);
         }
 
@@ -70,7 +71,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [RequiresPermission("CanCreateSWI")]
         public async Task<IHttpActionResult> CreateMaster(CreateSWIMasterVM createMaster)
         {
-            var result = await swiService.CreateMaster(createMaster);
+            var result = await _swiService.CreateMaster(createMaster);
             if (result == null)
                 return BadRequest("Master could not be created");
 
@@ -84,7 +85,7 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         public async Task<IHttpActionResult> UpRev(Guid id, [FromBody] CreateSWIRevisionVM createRevision)
         {
             createRevision.SWIMasterId = id;
-            var result = await swiService.UpRev(createRevision);
+            var result = await _swiService.UpRev(createRevision);
             if (result == null)
                 return BadRequest("Could not up rev");
 
@@ -95,12 +96,12 @@ namespace RC.SWI.Repository.Services.Web.Controllers
         [Route("master/{id:Guid}/revision/{revId:Guid}/attatchswi/{clientHash}")]
         [ResponseType(typeof(SWIMasterVM))]
         [RequiresPermission("CanCreateSWI")]
-        public async Task<IHttpActionResult> AttatchSWIFile(Guid id, Guid revId, string clientHash, [FromUri] string message)
+        public async Task<IHttpActionResult> AttatchSwiFile(Guid id, Guid revId, string clientHash, [FromUri] string message)
         {
             using (StreamReader sr = new StreamReader(await Request.Content.ReadAsStreamAsync(), Encoding.UTF8))
             {
                 var fileBinary = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync());
-                var result = await swiService.AttatchSWIFile(revId, clientHash, fileBinary, Request.GetUsername(), message);
+                var result = await _swiService.AttatchSwiFile(revId, clientHash, fileBinary, Request.GetUsername(), message);
                 return Ok(result);
             }
         }

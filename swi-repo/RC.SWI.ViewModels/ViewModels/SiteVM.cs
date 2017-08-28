@@ -3,7 +3,7 @@ using RC.SWI.ViewModels.Interfaces;
 
 namespace RC.SWI.ViewModels
 {
-    public class SiteVM : ISiteVM
+    public class SiteVM : ISiteVm
     {
         public int Id { get; set; }
         public string Name { get; set; }

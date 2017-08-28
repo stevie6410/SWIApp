@@ -1,11 +1,11 @@
 ﻿namespace RC.SWI.ViewModels.Interfaces
 {
-    public interface IDocuemntUpdateVM
+    public interface IDocuemntUpdateVm
     {
-        string AppVersion { get; set; }
-        int DocumentTypeId { get; set; }
-        string Name { get; set; }
+        string AppVersion { get; }
+        int DocumentTypeId { get; }
+        string Name { get; }
         byte[] File { get; set; }
-        string Username { get; set; }
+        string Username { get; }
     }
 }

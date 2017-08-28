@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace RC.SWI.Entities
@@ -24,9 +21,7 @@ namespace RC.SWI.Entities
                 {
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        string message = string.Format("{0}:{1}",
-                            validationErrors.Entry.Entity.ToString(),
-                            validationError.ErrorMessage);
+                        var message = $"{validationErrors.Entry.Entity.ToString()}:{validationError.ErrorMessage}";
                         raise = new InvalidOperationException(message, raise);
                     }
                 }
@@ -35,7 +30,7 @@ namespace RC.SWI.Entities
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw ex;
+                throw;
             }
         }
     }
